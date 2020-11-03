@@ -80,7 +80,7 @@ h2{font-weight:normal;}
 .user span{display:inline-block;padding-right:10px; background:url(../images/user.png) no-repeat 15px 10px; line-height:30px; font-size:14px;color:#fff; padding-left:20px; padding-left:35px;}
 .user i a{display:inline-block;margin-right:15px;font-style:normal;line-height:30px; font-size:14px;color:#fff;}
 
-/*left.html*/
+/*left.jsp*/
 .lefttop{background:url(../images/lefttop.gif) repeat-x;height:40px;color:#fff;font-size:14px;line-height:40px;}
 .lefttop a{color:#fff;}
 .lefttop span{margin-left:8px; margin-top:10px;margin-right:8px; background:url(../images/leftico.png) no-repeat; width:20px; height:21px;float:left;}
