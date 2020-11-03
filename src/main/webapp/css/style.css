@@ -71,7 +71,7 @@ h2{font-weight:normal;}
 
 
 
-/*top.jsp*/
+/*top.html*/
 .header{height:88px;}
 .topleft{height:88px;background:url(../images/topleft.jpg) no-repeat;float:left; width:320px;}
 .topleft img{margin-top:12px; margin-left:10px;}
@@ -80,7 +80,7 @@ h2{font-weight:normal;}
 .user span{display:inline-block;padding-right:10px; background:url(../images/user.png) no-repeat 15px 10px; line-height:30px; font-size:14px;color:#fff; padding-left:20px; padding-left:35px;}
 .user i a{display:inline-block;margin-right:15px;font-style:normal;line-height:30px; font-size:14px;color:#fff;}
 
-/*left.jsp*/
+/*left.html*/
 .lefttop{background:url(../images/lefttop.gif) repeat-x;height:40px;color:#fff;font-size:14px;line-height:40px;}
 .lefttop a{color:#fff;}
 .lefttop span{margin-left:8px; margin-top:10px;margin-right:8px; background:url(../images/leftico.png) no-repeat; width:20px; height:21px;float:left;}
@@ -368,7 +368,7 @@ margin-left: 20px; margin-top: 6px;}
 /*tech*/
 .tech{background:url(../images/jszc.png) no-repeat 70px 50px; height:250px;}
 .tech dl{padding-left:200px; padding-top:65px;}
-.tech dl dt{display:block; width:135px; height:37px; color:#fff;font-size:24px; background:#EB5409; line-height:37px; text-align:center;border-radius:3px;behavior:url(js/pie.htc);margin-bottom:20px; }
+.tech dl dt{display:block; width:135px; height:37px; color:#fff;font-size:24px; background: #eb5409; line-height:37px; text-align:center;border-radius:3px;behavior:url(js/pie.htc);margin-bottom:20px; }
 .tech dl dd{font-size:14px; display:block; height:30px;}
 .tech dl dd b{font-size:14px;}
 
