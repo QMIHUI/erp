@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -17,9 +19,9 @@
 <body>
 <div class="place"> <span>位置：</span>
   <ul class="placeul">
-    <li><a href="userList.html">系统管理</a></li>
-    <li><a href="userList.html">用户管理</a></li>
-    <li><a href="#">修改</a></li>
+    <li><a href="userList.jsp">系统管理</a></li>
+    <li><a href="userList.jsp">用户管理</a></li>
+    <li><a href="#">添加</a></li>
   </ul>
 </div>
 <div class="formbody">
@@ -27,17 +29,17 @@
   <ul class="forminfo">
     <li>
       <label>员工编号</label>
-      <input name="" type="text" value="9527" class="dfinput" />
+      <input name="" type="text" class="dfinput"/>
       <i>必填，不能超过30个字符</i>
     </li>
     <li>
       <label>员工姓名</label>
-      <input name="" type="text" value="唐寅" class="dfinput" />
+      <input name="" type="text" class="dfinput" />
       <i>必填，不能超过30个字符</i>
     </li>
     <li>
       <label>密码</label>
-      <input name="" type="password" value="123456" class="dfinput" />
+      <input name="" type="password" class="dfinput" />
       <i>必填，不能超过30个字符</i>
     </li>
     <li>
@@ -60,7 +62,8 @@
     <li>
       <label>所属部门</label>
       <select name="" class="dfselect">
-        <option value="" selected="selected">研发</option>
+        <option>请选择部门</option>
+        <option value="">研发</option>
         <option value="">销售</option>
         <option value="">财务</option>
       </select>
@@ -72,13 +75,6 @@
         <option value="">高级工程师</option>
         <option value="">中级工程师</option>
         <option value="">初级工程师</option>
-      </select>
-    </li>
-    <li>
-      <label>状态</label>
-      <select name="" class="dfselect">
-        <option value="" selected="selected">在职</option>
-        <option value="">离职</option>
       </select>
     </li>
     <li>

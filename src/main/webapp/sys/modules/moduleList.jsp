@@ -1,8 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>部门管理</title>
+<title>模块管理</title>
 <link href="../../css/style.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="../../js/jquery.js"></script>
 <script type="text/javascript">
@@ -19,42 +21,27 @@ function tipClose() {
 <body>
 <div class="place"> <span>位置：</span>
   <ul class="placeul">
-    <li><a href="../users/userList.html">系统管理</a></li>
-    <li><a href="#">部门管理</a></li>
+    <li><a href="../users/userList.jsp">系统管理</a></li>
+    <li><a href="#">模块管理</a></li>
   </ul>
 </div>
 <div class="rightinfo">
   <form action="" method="post">
     <ul class="tools">
-      <li> <label>部门名称:</label>
+      <li> <label>模块名称:</label>
         <input type="text" />
       </li>
-      <li> 所属区域：
-        <select>
-          <option>请选择省份</option>
-          <option>北京</option>
-          <option>江苏</option>
-          <option>天津</option>
-        </select>
-        <select>
-          <option>请选择城市</option>
-          <option>北京</option>
-          <option>南京</option>
-          <option>天津</option>
-        </select>
-      </li>
-
 
       <li class="subBut" onclick=""><img src="../../images/t06.png" />查询</li>
-      <li class="subBut" onclick="window.location.href='deptAdd.html'"><img src="../../images/t01.png" />添加</li>
+      <li class="subBut" onclick="window.location.href='moduleAdd.html'"><img src="../../images/t01.png" />添加</li>
     </ul>
     <table class="tablelist">
       <thead>
         <tr>
           <th>序号</th>
-          <th>部门编号</th>
-          <th>部门名称</th>
-          <th>所属地区</th>
+          <th>模块名称</th>
+          <th>父模块</th>
+          <th>URL</th>
           <th>状态</th>
           <th>操作</th>
         </tr>
@@ -62,35 +49,46 @@ function tipClose() {
       <tbody>
         <tr>
           <td>1</td>
-          <td>001</td>
-          <td>研发部</td>
-          <td>深圳</td>
+          <td>系统管理</td>
+          <td>无</td>
+          <td>#</td>
           <td>正常</td>
           <td>
-            <a href="deptUpdate.html" class="tablelink">修改</a>
-            <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('是否确认注销此条信息？')">注销</a>
+            <a href="moduleUpdate.jsp" class="tablelink">修改</a>
+            <a href="javascript:void(0);" class="tablelink" onclick="tipOpen('是否确禁用此模块？')">禁用</a>
           </td>
         </tr>
         <tr>
           <td>2</td>
-          <td>002</td>
-          <td>销售部</td>
-          <td>深圳</td>
-          <td>不正常</td>
+          <td>用户管理</td>
+          <td>系统管理</td>
+          <td>sys/users/userList.html</td>
+          <td>正常</td>
           <td>
-            <a href="deptUpdate.html" class="tablelink">修改</a>
-            <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('是否确认恢复此条信息？')">恢复</a>
+            <a href="moduleUpdate.jsp" class="tablelink">修改</a>
+            <a href="javascript:void(0);" class="tablelink" onclick="tipOpen('是否确禁用此模块？')">禁用</a>
           </td>
         </tr>
         <tr>
           <td>3</td>
-          <td>003</td>
-          <td>财务部</td>
-          <td>深圳</td>
+          <td>部门管理</td>
+          <td>系统管理</td>
+          <td>sys/dept/deptList.html</td>
           <td>正常</td>
           <td>
-            <a href="deptUpdate.html" class="tablelink">修改</a>
-            <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('是否确认注销此条信息？')">注销</a>
+            <a href="moduleUpdate.jsp" class="tablelink">修改</a>
+            <a href="javascript:void(0);" class="tablelink" onclick="tipOpen('是否确禁用此模块？')">禁用</a>
+          </td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>测试管理</td>
+          <td>无</td>
+          <td>#</td>
+          <td>禁用</td>
+          <td>
+            <a href="moduleUpdate.jsp" class="tablelink">修改</a>
+            <a href="javascript:void(0);" class="tablelink" onclick="tipOpen('是否确启用此模块？')">启用</a>
           </td>
         </tr>
       </tbody>

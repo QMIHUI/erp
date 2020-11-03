@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -37,8 +39,8 @@
 <body>
     <div class="place"> <span>位置：</span>
         <ul class="placeul">
-            <li><a href="../users/userList.html">系统管理</a></li>
-            <li><a href="positionList.html">职位管理</a></li>
+            <li><a href="../users/userList.jsp">系统管理</a></li>
+            <li><a href="positionList.jsp">职位管理</a></li>
             <li><a href="#">赋权</a></li>
         </ul>
     </div>
@@ -52,15 +54,15 @@
                 <ul class="hidden">
                     <li>
                         <input type="checkbox" onclick=""/>
-                        <a href="../modules/moduleView.html">用户管理</a>
+                        <a href="../modules/moduleView.jsp">用户管理</a>
                     </li>
                     <li>
                         <input type="checkbox" onclick=""/>
-                        <a href="../modules/moduleView.html">日志管理</a>
+                        <a href="../modules/moduleView.jsp">日志管理</a>
                     </li>
                     <li>
                         <input type="checkbox" onclick=""/>
-                        <a href="../modules/moduleView.html">模块管理</a>
+                        <a href="../modules/moduleView.jsp">模块管理</a>
                     </li>
                 </ul>
             </li>
@@ -72,15 +74,15 @@
                 <ul class="hidden">
                     <li>
                         <input type="checkbox" onclick=""/>
-                        <a href="../modules/moduleView.html">客户管理</a>
+                        <a href="../modules/moduleView.jsp">客户管理</a>
                     </li>
                     <li>
                         <input type="checkbox" onclick=""/>
-                        <a href="../modules/moduleView.html">订购单审核</a>
+                        <a href="../modules/moduleView.jsp">订购单审核</a>
                     </li>
                     <li>
                         <input type="checkbox" onclick=""/>
-                        <a href="../modules/moduleView.html">订购单管理</a>
+                        <a href="../modules/moduleView.jsp">订购单管理</a>
                     </li>
                 </ul>
             </li>
@@ -92,15 +94,15 @@
                 <ul class="hidden">
                     <li>
                         <input type="checkbox" onclick=""/>
-                        <a href="../modules/moduleView.html">仓库管理</a>
+                        <a href="../modules/moduleView.jsp">仓库管理</a>
                     </li>
                     <li>
                         <input type="checkbox" onclick=""/>
-                        <a href="../modules/moduleView.html">出库管理</a>
+                        <a href="../modules/moduleView.jsp">出库管理</a>
                     </li>
                     <li>
                         <input type="checkbox" onclick=""/>
-                        <a href="../modules/moduleView.html">入库管理</a>
+                        <a href="../modules/moduleView.jsp">入库管理</a>
                     </li>
                 </ul>
             </li>

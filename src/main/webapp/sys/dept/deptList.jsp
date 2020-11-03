@@ -1,8 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>无标题文</title>
+<title>部门管理</title>
 <link href="../../css/style.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="../../js/jquery.js"></script>
 <script type="text/javascript">
@@ -19,15 +21,14 @@ function tipClose() {
 <body>
 <div class="place"> <span>位置：</span>
   <ul class="placeul">
-    <li>仓库管理</li>
-    <li>仓库浏览</li>
-    <li>基本内容</li>
+    <li><a href="../users/userList.jsp">系统管理</a></li>
+    <li><a href="#">部门管理</a></li>
   </ul>
 </div>
 <div class="rightinfo">
   <form action="" method="post">
     <ul class="tools">
-      <li>仓库名称:
+      <li> <label>部门名称:</label>
         <input type="text" />
       </li>
       <li> 所属区域：
@@ -44,73 +45,54 @@ function tipClose() {
           <option>天津</option>
         </select>
       </li>
-      <li class="subBut" onclick="window.location.href='storageList.html'"><img src="../../images/t06.png" />查询</li>
+
+
+      <li class="subBut" onclick=""><img src="../../images/t06.png" />查询</li>
+      <li class="subBut" onclick="window.location.href='deptAdd.html'"><img src="../../images/t01.png" />添加</li>
     </ul>
     <table class="tablelist">
       <thead>
         <tr>
           <th>序号</th>
-          <th>仓库名称</th>
-          <th>负责人</th>
-          <th>联系电话</th>
-          <th>所属区域</th>
+          <th>部门编号</th>
+          <th>部门名称</th>
+          <th>所属地区</th>
           <th>状态</th>
-          <th>创建时间</th>
-          <th>创建人</th>
           <th>操作</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>1</td>
-          <td>南京21号仓库</td>
-          <td>朱元璋</td>
-          <td>17370899727</td>
-          <td>江苏南京</td>
-          <td>可用</td>
-          <td>2013-09-09 15:05:05</td>
-          <td>马云</td>
+          <td>001</td>
+          <td>研发部</td>
+          <td>深圳</td>
+          <td>正常</td>
           <td>
-          	<a href="storageView.html" class="tablelink">查看详情</a>
+            <a href="deptUpdate.jsp" class="tablelink">修改</a>
+            <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('是否确认注销此条信息？')">注销</a>
           </td>
         </tr>
         <tr>
           <td>2</td>
-          <td>武汉71号仓库</td>
-          <td>周瑜</td>
-          <td>17370899727</td>
-          <td>湖北武汉</td>
-          <td>不可用</td>
-          <td>2013-09-09 15:05:05</td>
-          <td>马化腾</td>
+          <td>002</td>
+          <td>销售部</td>
+          <td>深圳</td>
+          <td>不正常</td>
           <td>
-          	<a href="storageView.html" class="tablelink">查看详情</a>
+            <a href="deptUpdate.jsp" class="tablelink">修改</a>
+            <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('是否确认恢复此条信息？')">恢复</a>
           </td>
         </tr>
         <tr>
           <td>3</td>
-          <td>南京21号仓库</td>
-          <td>朱元璋</td>
-          <td>17370899727</td>
-          <td>江苏南京</td>
-          <td>可用</td>
-          <td>2013-09-09 15:05:05</td>
-          <td>马云</td>
+          <td>003</td>
+          <td>财务部</td>
+          <td>深圳</td>
+          <td>正常</td>
           <td>
-          	<a href="storageView.html" class="tablelink">查看详情</a>
-          </td>
-        </tr>
-        <tr>
-          <td>4</td>
-          <td>武汉71号仓库</td>
-          <td>周瑜</td>
-          <td>17370899727</td>
-          <td>湖北武汉</td>
-          <td>不可用</td>
-          <td>2013-09-09 15:05:05</td>
-          <td>马化腾</td>
-          <td>
-          	<a href="storageView.html" class="tablelink">查看详情</a>
+            <a href="deptUpdate.jsp" class="tablelink">修改</a>
+            <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('是否确认注销此条信息？')">注销</a>
           </td>
         </tr>
       </tbody>

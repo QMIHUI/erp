@@ -1,8 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>模块管理</title>
+<title>无标题文本</title>
 <link href="../../css/style.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="../../js/jquery.js"></script>
 <script type="text/javascript">
@@ -19,27 +21,39 @@ function tipClose() {
 <body>
 <div class="place"> <span>位置：</span>
   <ul class="placeul">
-    <li><a href="../users/userList.html">系统管理</a></li>
-    <li><a href="#">模块管理</a></li>
+    <li>仓库管理</li>
+    <li>入库管理</li>
+    <li>基本内容</li>
   </ul>
 </div>
 <div class="rightinfo">
   <form action="" method="post">
     <ul class="tools">
-      <li> <label>模块名称:</label>
+      <li>仓库名称:
         <input type="text" />
       </li>
-
-      <li class="subBut" onclick=""><img src="../../images/t06.png" />查询</li>
-      <li class="subBut" onclick="window.location.href='moduleAdd.html'"><img src="../../images/t01.png" />添加</li>
+      <li>采购单编号:
+        <input type="text" />
+      </li>
+      <li>状态:
+        <select>
+        	<option>请选择</option>
+            <option value="1">未入库</option>
+            <option value="2">已入库</option>
+        </select>
+      </li>
+      <li class="subBut" onclick="window.location.href='stockList.html'"><img src="../../images/t06.png" />查询</li>
+      <li class="subBut" onclick="window.location.href='stockAdd.html'"><img src="../../images/t01.png" />添加入库</li>
     </ul>
     <table class="tablelist">
       <thead>
         <tr>
           <th>序号</th>
-          <th>模块名称</th>
-          <th>父模块</th>
-          <th>URL</th>
+          <th>采购单编号</th>
+          <th>金额</th>
+          <th>仓库名称</th>
+          <th>入库时间</th>
+          <th>入库人</th>
           <th>状态</th>
           <th>操作</th>
         </tr>
@@ -47,46 +61,28 @@ function tipClose() {
       <tbody>
         <tr>
           <td>1</td>
-          <td>系统管理</td>
-          <td>无</td>
-          <td>#</td>
-          <td>正常</td>
+          <td>DJ201701270001</td>
+          <td>￥9,876,582</td>
+          <td>南京21号仓库</td>
+          <td>2013-09-09 15:05:05</td>
+          <td>朱元璋</td>
+          <td>未入库</td>
           <td>
-            <a href="moduleUpdate.html" class="tablelink">修改</a>
-            <a href="javascript:void(0);" class="tablelink" onclick="tipOpen('是否确禁用此模块？')">禁用</a>
+          	<a href="stockView.jsp" class="tablelink">查看详情</a>
+            <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('确定此采购单入库吗？')">入库</a>
           </td>
         </tr>
         <tr>
           <td>2</td>
-          <td>用户管理</td>
-          <td>系统管理</td>
-          <td>sys/users/userList.html</td>
-          <td>正常</td>
+          <td>DJ201701270002</td>
+          <td>￥9,876,582</td>
+          <td>武汉71号仓库</td>
+          <td>2013-09-09 15:05:05</td>
+          <td>周瑜</td>
+          <td>已入库</td>
           <td>
-            <a href="moduleUpdate.html" class="tablelink">修改</a>
-            <a href="javascript:void(0);" class="tablelink" onclick="tipOpen('是否确禁用此模块？')">禁用</a>
-          </td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>部门管理</td>
-          <td>系统管理</td>
-          <td>sys/dept/deptList.html</td>
-          <td>正常</td>
-          <td>
-            <a href="moduleUpdate.html" class="tablelink">修改</a>
-            <a href="javascript:void(0);" class="tablelink" onclick="tipOpen('是否确禁用此模块？')">禁用</a>
-          </td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>测试管理</td>
-          <td>无</td>
-          <td>#</td>
-          <td>禁用</td>
-          <td>
-            <a href="moduleUpdate.html" class="tablelink">修改</a>
-            <a href="javascript:void(0);" class="tablelink" onclick="tipOpen('是否确启用此模块？')">启用</a>
+          	<a href="stockView.jsp" class="tablelink">查看详情</a>
+            <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('确定取消此采购单入库吗？')">取消入库</a>
           </td>
         </tr>
       </tbody>

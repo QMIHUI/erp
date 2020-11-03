@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -11,7 +13,7 @@
   <ul class="placeul">
     <li>仓库管理</li>
     <li>仓库管理</li>
-    <li>修改仓库</li>
+    <li>添加仓库</li>
   </ul>
 </div>
 <div class="formbody">
@@ -19,12 +21,12 @@
   <ul class="forminfo">
     <li>
       <label>仓库名称</label>
-      <input name="" type="text" value="南京21号仓库" class="dfinput" />
+      <input name="" type="text" class="dfinput" />
       <i>必填，不能超过30个字符</i>
     </li>
     <li>
       <label>仓库地址</label>
-      <input name="" type="text" value="江苏南京苏铺路180号泸州花园7栋3单元1801室" class="dfinput" />
+      <input name="" type="text" class="dfinput" />
       <i>必填，不能超过300个字符</i>
     </li>
     <li>
@@ -32,14 +34,14 @@
       <select class="dfselect">
           <option>请选择</option>
           <option>北京</option>
-          <option selected="selected">江苏</option>
+          <option>江苏</option>
           <option>天津</option>
       </select>
       省
       <select class="dfselect">
           <option>请选择</option>
           <option>北京</option>
-          <option selected="selected">南京</option>
+          <option>南京</option>
           <option>天津</option>
       </select>
       市
@@ -49,7 +51,7 @@
       <label>负责人</label>
       <select class="dfselect">
           <option>请选择</option>
-          <option selected="selected">周仓</option>
+          <option>周仓</option>
           <option>廖化</option>
           <option>张昭</option>
       </select>
@@ -57,12 +59,12 @@
     </li>
     <li>
       <label>联系方式</label>
-      <input name="" type="text" value="17370899727" class="dfinput" />
+      <input name="" type="text" class="dfinput" />
        <i>必填，不能超过30个字符</i>
     </li>
     <li>
       <label>描述</label>
-      <textarea class="textinput">天下第一仓</textarea>
+      <textarea class="textinput"></textarea>
       <i>可选</i>
     </li>
     <li>
@@ -87,7 +89,7 @@
       <label>&nbsp;</label>
       <input name="" type="button" class="btn" value="确定"/>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <input name="" type="button" class="btn" value="返回" onclick="window.location.href='storageList.html'"/>
+      <input name="" type="button" class="btn" value="返回" onclick="window.location.href='storageList.jsp'"/>
     </li>
   </ul>
 </div>

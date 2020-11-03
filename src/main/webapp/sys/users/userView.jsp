@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -10,8 +12,8 @@
 <body>
 <div class="place"> <span>位置：</span>
   <ul class="placeul">
-    <li><a href="userList.html">系统管理</a></li>
-    <li><a href="userList.html">用户管理</a></li>
+    <li><a href="userList.jsp">系统管理</a></li>
+    <li><a href="userList.jsp">用户管理</a></li>
     <li><a href="#">员工详细信息</a></li>
   </ul>
 </div>

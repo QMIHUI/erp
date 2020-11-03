@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -10,9 +12,9 @@
 <body>
 <div class="place"> <span>位置：</span>
   <ul class="placeul">
-    <li><a href="../users/userList.html">系统管理</a></li>
-    <li><a href="moduleList.html">模块管理</a></li>
-    <li><a href="#">修改</a></li>
+    <li><a href="../users/userList.jsp">系统管理</a></li>
+    <li><a href="moduleList.jsp">模块管理</a></li>
+    <li><a href="#">添加</a></li>
   </ul>
 </div>
 <div class="formbody">
@@ -20,12 +22,13 @@
   <ul class="forminfo">
     <li>
       <label>模块名称</label>
-      <input name="" type="text" value="用户管理" class="dfinput"/>
+      <input name="" type="text" class="dfinput"/>
       <i>必填，不能超过30个字符</i>
     </li>
     <li>
       <label>父模块</label>
       <select name="" class="dfselect">
+        <option value="">请选择父模块</option>
         <option value="" selected="selected">系统管理</option>
         <option value="">营销管理</option>
         <option value="">采购管理</option>
@@ -33,7 +36,7 @@
     </li>
     <li>
       <label>URL</label>
-      <input name="" type="text" value="sys/users/userList.html" class="dfinput"/>
+      <input name="" type="text" class="dfinput"/>
       <i>必填，不能超过30个字符</i>
     </li>
     <li>

@@ -1,11 +1,12 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>日志管理</title>
+<title>职位管理</title>
 <link href="../../css/style.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="../../js/jquery.js"></script>
-<script type="text/javascript" src="../../laydate/laydate.js"></script>
 <script type="text/javascript">
 function tipOpen(content) {
 	$(".tipright p").text(content);
@@ -20,87 +21,69 @@ function tipClose() {
 <body>
 <div class="place"> <span>位置：</span>
   <ul class="placeul">
-    <li><a href="../users/userList.html">系统管理</a></li>
-    <li><a href="#">日志管理</a></li>
+    <li><a href="../users/userList.jsp">系统管理</a></li>
+    <li><a href="#">职位管理</a></li>
   </ul>
 </div>
 <div class="rightinfo">
   <form action="" method="post">
     <ul class="tools">
-      <li> <label>员工编号:</label>
+      <li> <label>职位名称:</label>
         <input type="text" />
       </li>
-      <li> <label>员工姓名:</label>
-        <input type="text" />
-      </li>
-      <li> <label>日志内容：</label>
-        <input type="text" />
-      </li>
-      <li> <label>操作模块：</label>
-        <input type="text" />
-      </li>
-      <li> <label>记录时间:</label>
-        <input type="text" class="laydate-icon" id="logStartTime"/>
-        <label>-</label>
-        <input type="text" class="laydate-icon" id="logEndTime"/>
+      <li> <label>所属部门：</label>
+        <select name="">
+          <option>请选择部门</option>
+          <option value="">研发</option>
+          <option value="">销售</option>
+          <option value="">财务</option>
+        </select>
       </li>
       <li class="subBut" onclick=""><img src="../../images/t06.png" />查询</li>
+      <li class="subBut" onclick="window.location.href='positionAdd.html'"><img src="../../images/t01.png" />添加</li>
     </ul>
     <table class="tablelist">
       <thead>
         <tr>
           <th>序号</th>
-          <th>员工编号</th>
-          <th>员工姓名</th>
-          <th>操作模块</th>
-          <th>日志内容</th>
-          <th>记录时间</th>
+          <th>职位</th>
+          <th>所属部门</th>
+          <th>状态</th>
           <th>操作</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>1</td>
-          <td>9527</td>
-          <td>唐寅</td>
-          <td>用户管理</td>
-          <td>进行了添加用户xxx的操作</td>
-          <td>2016-11-20 15:05:29</td>
+          <td>经理</td>
+          <td>研发部</td>
+          <td>正常</td>
           <td>
-            <a href="logView.html" class="tablelink">查看日志信息</a>
+            <a href="positionUpdate.jsp" class="tablelink">修改</a>
+            <a href="positionGrant.jsp" class="tablelink">赋权</a>
+            <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('是否确认注销此条信息？')">注销</a>
           </td>
         </tr>
         <tr>
           <td>2</td>
-          <td>9527</td>
-          <td>唐寅</td>
-          <td>用户管理</td>
-          <td>进行了添加用户xxx的操作</td>
-          <td>2016-11-20 15:05:29</td>
+          <td>副经理</td>
+          <td>研发部</td>
+          <td>已撤销</td>
           <td>
-            <a href="logView.html" class="tablelink">查看日志信息</a>
+            <a href="positionUpdate.jsp" class="tablelink">修改</a>
+            <a href="positionGrant.jsp" class="tablelink">赋权</a>
+            <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('是否确认恢复此条信息？')">恢复</a>
           </td>
         </tr>
         <tr>
           <td>3</td>
-          <td>9527</td>
-          <td>唐寅</td>
-          <td>用户管理</td>
-          <td>进行了添加用户xxx的操作</td>
-          <td>2016-11-20 15:05:29</td>
+          <td>高级工程师</td>
+          <td>研发部</td>
+          <td>正常</td>
           <td>
-            <a href="logView.html" class="tablelink">查看日志信息</a>
-          </td>
-        </tr>
-        <tr>
-          <td>4</td>
-          <td>9527</td>
-          <td>唐寅</td>
-          <td>用户管理</td>
-          <td>进行了添加用户xxx的操作</td>
-          <td>2016-11-20 15:05:29</td>
-          <td>
-            <a href="logView.html" class="tablelink">查看日志信息</a>
+            <a href="positionUpdate.jsp" class="tablelink">修改</a>
+            <a href="positionGrant.jsp" class="tablelink">赋权</a>
+            <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('是否确认注销此条信息？')">注销</a>
           </td>
         </tr>
       </tbody>
@@ -137,32 +120,6 @@ function tipClose() {
 </div>
 <script type="text/javascript">
 	$('.tablelist tbody tr:odd').addClass('odd');
-
-    var start = {
-      elem: '#logStartTime',
-      format: 'YYYY-MM-DD hh:mm:ss',
-      max: '2099-06-16', //最大日期
-      istime: true,
-      istoday: false,
-      choose: function(datas){
-        end.min = datas; //开始日选好后，重置结束日的最小日期
-        end.start = datas; //将结束日的初始值设定为开始日
-      }
-    };
-
-    var end = {
-      elem: '#logEndTime',
-      format: 'YYYY-MM-DD hh:mm:ss',
-      max: '2099-06-16',
-      istime: true,
-      istoday: false,
-      choose: function(datas){
-        start.max = datas; //结束日选好后，充值开始日的最大日期
-      }
-    };
-    laydate.skin('molv');//切换皮肤，请查看skins下面皮肤库
-    laydate(start);
-    laydate(end);
 </script>
 </body>
 </html>

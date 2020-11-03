@@ -67,11 +67,11 @@ $(function(){
         <dd>
         	<div class="title">仓库管理</div>
             <ul class="menuson">
-                <li><cite></cite><a href="storage/storage/storageList.html" target="rightFrame">仓库管理</a><i></i></li>
-                <li><cite></cite><a href="storage/storageBrowse/storageBrowse.html" target="rightFrame">仓库浏览</a><i></i></li>
-                <li><cite></cite><a href="storage/delivery/deliveryList.html" target="rightFrame">出库管理</a><i></i></li>
-                <li><cite></cite><a href="storage/stock/stockList.html" target="rightFrame">入库管理</a><i></i></li>
-                <li><cite></cite><a href="storage/inventory/inventoryList.html" target="rightFrame">库存管理</a><i></i></li>
+                <li><cite></cite><a href="storage/storage/storageList.jsp" target="rightFrame">仓库管理</a><i></i></li>
+                <li><cite></cite><a href="storage/storageBrowse/storageBrowse.jsp" target="rightFrame">仓库浏览</a><i></i></li>
+                <li><cite></cite><a href="storage/delivery/deliveryList.jsp" target="rightFrame">出库管理</a><i></i></li>
+                <li><cite></cite><a href="storage/stock/stockList.jsp" target="rightFrame">入库管理</a><i></i></li>
+                <li><cite></cite><a href="storage/inventory/inventoryList.jsp" target="rightFrame">库存管理</a><i></i></li>
             </ul>    
         </dd>  
         
@@ -100,12 +100,12 @@ $(function(){
         <dd>
             <div class="title">系统管理</div>
             <ul class="menuson">
-                <li><cite></cite><a href="sys/users/userList.html" target="rightFrame">用户管理</a><i></i></li>
-                <li><cite></cite><a href="sys/dept/deptList.html" target="rightFrame">部门管理</a><i></i></li>
-                <li><cite></cite><a href="sys/dept/positionList.html" target="rightFrame">职位管理</a><i></i></li>
-                <li><cite></cite><a href="sys/modules/moduleList.html" target="rightFrame">模块管理</a><i></i></li>
-                <li><cite></cite><a href="sys/logs/logList.html" target="rightFrame">日志管理</a><i></i></li>
-                <li><cite></cite><a href="sys/area/areaList.html" target="rightFrame">区域管理</a><i></i></li>
+                <li><cite></cite><a href="sys/users/userList.jsp" target="rightFrame">用户管理</a><i></i></li>
+                <li><cite></cite><a href="sys/dept/deptList.jsp" target="rightFrame">部门管理</a><i></i></li>
+                <li><cite></cite><a href="sys/dept/positionList.jsp" target="rightFrame">职位管理</a><i></i></li>
+                <li><cite></cite><a href="sys/modules/moduleList.jsp" target="rightFrame">模块管理</a><i></i></li>
+                <li><cite></cite><a href="sys/logs/logList.jsp" target="rightFrame">日志管理</a><i></i></li>
+                <li><cite></cite><a href="sys/area/areaList.jsp" target="rightFrame">区域管理</a><i></i></li>
             </ul>
         </dd>     
     

@@ -1,8 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>无标题文</title>
+<title>无标题文本</title>
 <link href="../../css/style.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="../../js/jquery.js"></script>
 <script type="text/javascript">
@@ -20,7 +22,7 @@ function tipClose() {
 <div class="place"> <span>位置：</span>
   <ul class="placeul">
     <li>仓库管理</li>
-    <li>仓库管理</li>
+    <li>出库管理</li>
     <li>基本内容</li>
   </ul>
 </div>
@@ -30,94 +32,100 @@ function tipClose() {
       <li>仓库名称:
         <input type="text" />
       </li>
-      <li> 所属区域：
+      <li>订单编号:
+        <input type="text" />
+      </li>
+      <li>状态:
         <select>
-          <option>请选择省份</option>
-          <option>北京</option>
-          <option>江苏</option>
-          <option>天津</option>
-        </select>
-        <select>
-          <option>请选择城市</option>
-          <option>北京</option>
-          <option>南京</option>
-          <option>天津</option>
+        	<option>请选择</option>
+            <option value="1">未发货</option>
+            <option value="2">已发货</option>
+            <option value="3">已回款</option>
+            <option value="4">取消订单</option>
+            <option value="5">已退货</option>
         </select>
       </li>
-      <li class="subBut" onclick="window.location.href='storageList.html'"><img src="../../images/t06.png" />查询</li>
-      <li class="subBut" onclick="window.location.href='storageAdd.html'"><img src="../../images/t01.png" />添加</li>
+      <li class="subBut" onclick="window.location.href='deliveryList.html'"><img src="../../images/t06.png" />查询</li>
+      <li class="subBut" onclick="window.location.href='deliveryAdd.html'"><img src="../../images/t01.png" />添加出库</li>
     </ul>
     <table class="tablelist">
       <thead>
         <tr>
           <th>序号</th>
+          <th>订单编号</th>
+          <th>金额</th>
           <th>仓库名称</th>
-          <th>负责人</th>
-          <th>联系电话</th>
-          <th>所属区域</th>
+          <th>出库时间</th>
+          <th>出库人</th>
           <th>状态</th>
-          <th>创建时间</th>
-          <th>创建人</th>
           <th>操作</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>1</td>
+          <td>DJ201701270001</td>
+          <td>￥9,876,582</td>
           <td>南京21号仓库</td>
-          <td>朱元璋</td>
-          <td>17370899727</td>
-          <td>江苏南京</td>
-          <td>可用</td>
           <td>2013-09-09 15:05:05</td>
-          <td>马云</td>
+          <td>朱元璋</td>
+          <td>未发货</td>
           <td>
-          	<a href="storageView.html" class="tablelink">查看详情</a>
-            <a href="storageUpdate.html" class="tablelink">修改</a>
-            <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('是否确认注销此条信息？')">注销</a>
+          	<a href="deliveryView.jsp" class="tablelink">查看详情</a>
+            <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('确定此订单发货吗？')">发货</a>
+            <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('确定取消此订单吗？')">取消订单</a>
           </td>
         </tr>
         <tr>
           <td>2</td>
+          <td>DJ201701270002</td>
+          <td>￥9,876,582</td>
           <td>武汉71号仓库</td>
-          <td>周瑜</td>
-          <td>17370899727</td>
-          <td>湖北武汉</td>
-          <td>不可用</td>
           <td>2013-09-09 15:05:05</td>
-          <td>马化腾</td>
+          <td>周瑜</td>
+          <td>已发货</td>
           <td>
-          	<a href="storageView.html" class="tablelink">查看详情</a>
-            <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('是否确认恢复此条信息？')">恢复</a>
+          	<a href="deliveryView.jsp" class="tablelink">查看详情</a>
+            <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('确定取消此订单吗？')">取消订单</a>
+            <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('确定收到此订单回款吗？')">确认回款</a>
           </td>
         </tr>
         <tr>
           <td>3</td>
+          <td>DJ201701270003</td>
+          <td>￥9,876,582</td>
           <td>南京21号仓库</td>
-          <td>朱元璋</td>
-          <td>17370899727</td>
-          <td>江苏南京</td>
-          <td>可用</td>
           <td>2013-09-09 15:05:05</td>
-          <td>马云</td>
+          <td>朱元璋</td>
+          <td>已回款</td>
           <td>
-          	<a href="storageView.html" class="tablelink">查看详情</a>
-            <a href="storageUpdate.html" class="tablelink">修改</a>
-            <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('是否确认注销此条信息？')">注销</a>
+          	<a href="deliveryView.jsp" class="tablelink">查看详情</a>
+            <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('确定取消此订单吗？')">取消订单</a>
           </td>
         </tr>
         <tr>
           <td>4</td>
+          <td>DJ201701270004</td>
+          <td>￥9,876,582</td>
           <td>武汉71号仓库</td>
-          <td>周瑜</td>
-          <td>17370899727</td>
-          <td>湖北武汉</td>
-          <td>不可用</td>
           <td>2013-09-09 15:05:05</td>
-          <td>马化腾</td>
+          <td>周瑜</td>
+          <td>取消订单</td>
           <td>
-          	<a href="storageView.html" class="tablelink">查看详情</a>
-            <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('是否确认恢复此条信息？')">恢复</a>
+          	<a href="deliveryView.jsp" class="tablelink">查看详情</a>
+            <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('确定收到此订单的退货吗？')">确认已退货</a>
+          </td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>DJ201701270005</td>
+          <td>￥9,876,582</td>
+          <td>南京21号仓库</td>
+          <td>2013-09-09 15:05:05</td>
+          <td>朱元璋</td>
+          <td>已退货</td>
+          <td>
+          	<a href="deliveryView.jsp" class="tablelink">查看详情</a>
           </td>
         </tr>
       </tbody>
