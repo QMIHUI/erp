@@ -2,23 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dao.UsersDao">
   <resultMap id="BaseResultMap" type="com.bean.Users">
-    <id column="u_id" jdbcType="INTEGER" property="uId" />
-    <result column="uname" jdbcType="VARCHAR" property="uname" />
-    <result column="upassword" jdbcType="VARCHAR" property="upassword" />
-    <result column="utelephone" jdbcType="VARCHAR" property="utelephone" />
-    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
-    <result column="job_id" jdbcType="INTEGER" property="jobId" />
-    <result column="sex" jdbcType="VARCHAR" property="sex" />
-    <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="hiredate" jdbcType="DATE" property="hiredate" />
-    <result column="leavedate" jdbcType="DATE" property="leavedate" />
-    <result column="birthday" jdbcType="DATE" property="birthday" />
+    <id column="u_id"  property="uId" />
+    <result column="uname"  property="uname" />
+    <result column="upassword"  property="upassword" />
+    <result column="utelephone"  property="utelephone" />
+    <result column="dept_id"  property="deptId" />
+    <result column="job_id"  property="jobId" />
+    <result column="sex"  property="sex" />
+    <result column="status"  property="status" />
+    <result column="hiredate"  property="hiredate" />
+    <result column="leavedate"  property="leavedate" />
+    <result column="birthday" property="birthday" />
   </resultMap>
   <sql id="Base_Column_List">
     u_id, uname, upassword, utelephone, dept_id, job_id, sex, `status`, hiredate, leavedate, 
     birthday
   </sql>
-  <select id="login" resultType="com.bean.Users">
+  <select id="login" resultMap="BaseResultMap">
     select * from users where uname=#{uname} and upassword=#{upassword}
   </select>
 

@@ -1,7 +1,6 @@
 package com.bean;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * users
@@ -24,11 +23,11 @@ public class Users implements Serializable {
 
     private Integer status;
 
-    private Date hiredate;
+    private String hiredate;
 
-    private Date leavedate;
+    private String leavedate;
 
-    private Date birthday;
+    private String birthday;
 
     private static final long serialVersionUID = 1L;
 
@@ -96,28 +95,36 @@ public class Users implements Serializable {
         this.status = status;
     }
 
-    public Date getHiredate() {
+    public String getHiredate() {
         return hiredate;
     }
 
-    public void setHiredate(Date hiredate) {
+    public void setHiredate(String hiredate) {
         this.hiredate = hiredate;
     }
 
-    public Date getLeavedate() {
+    public String getLeavedate() {
         return leavedate;
     }
 
-    public void setLeavedate(Date leavedate) {
+    public void setLeavedate(String leavedate) {
         this.leavedate = leavedate;
     }
 
-    public Date getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
+    }
+
+    public Users() {
+    }
+
+    public Users(String uname, String upassword) {
+        this.uname = uname;
+        this.upassword = upassword;
     }
 
     @Override

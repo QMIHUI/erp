@@ -36,10 +36,10 @@ pageEncoding="UTF-8"%>
             <div class="loginbox loginbox1">
                 <ul>
                     <li>
-                        <input name="uname" type="text" class="loginuser" value="admin" <%--onclick="JavaScript:this.value=''"--%>/>
+                        <input name="uname" type="text" class="loginuser" placeholder="admin" <%--onclick="JavaScript:this.value=''"--%>/>
                     </li>
                     <li>
-                        <input name="upassword" type="text" class="loginpwd" value="密码" <%--onclick="JavaScript:this.value=''"--%>/>
+                        <input name="upassword" type="password" class="loginpwd" placeholder="密码" <%--onclick="JavaScript:this.value=''"--%>/>
                     </li>
                     <%--<li class="yzm">
                         <span>
