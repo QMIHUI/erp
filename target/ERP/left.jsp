@@ -56,10 +56,10 @@ $(function(){
         <dd>
             <div class="title">营销管理</div>
             <ul class="menuson">
-                <li><cite></cite><a href="market/customer/customerList.html" target="rightFrame">客户管理</a><i></i></li>
-                <li><cite></cite><a href="market/customerBrowse/customerBrowse.html" target="rightFrame">客户浏览</a><i></i></li>
-                <li><cite></cite><a href="market/order/orderList.html" target="rightFrame">订购单管理</a><i></i></li>
-                <li><cite></cite><a href="market/orderExamine/orderExamineList.html" target="rightFrame">订购单审核</a><i></i></li>
+                <li><cite></cite><a href="market/customer/customerList.jsp" target="rightFrame">客户管理</a><i></i></li>
+                <li><cite></cite><a href="market/customerBrowse/customerBrowse.jsp" target="rightFrame">客户浏览</a><i></i></li>
+                <li><cite></cite><a href="market/order/orderList.jsp" target="rightFrame">订购单管理</a><i></i></li>
+                <li><cite></cite><a href="market/orderExamine/orderExamineList.jsp" target="rightFrame">订购单审核</a><i></i></li>
             </ul>     
         </dd> 
         
@@ -79,22 +79,22 @@ $(function(){
         <dd>
             <div class="title">采购管理</div>
             <ul class="menuson">
-                <li><cite></cite><a href="purchase/purchase/purchaseList.html" target="rightFrame">采购单管理</a><i></i></li>
-                <li><cite></cite><a href="purchase/purchaseExamine/purchaseExamineList.html" target="rightFrame">采购单审核</a><i></i></li>
-                <li><cite></cite><a href="purchase/brand/brandList.html" target="rightFrame">品牌管理</a><i></i></li>
-                <li><cite></cite><a href="purchase/productType/productTypeList.html" target="rightFrame">商品类型管理</a><i></i></li>
-                <li><cite></cite><a href="purchase/product/productList.html" target="rightFrame">商品管理</a><i></i></li>
-                <li><cite></cite><a href="purchase/manufacturer/manufacturerList.html" target="rightFrame">厂商管理</a><i></i></li>
+                <li><cite></cite><a href="purchase/purchase/purchaseList.jsp" target="rightFrame">采购单管理</a><i></i></li>
+                <li><cite></cite><a href="purchase/purchaseExamine/purchaseExamineList.jsp" target="rightFrame">采购单审核</a><i></i></li>
+                <li><cite></cite><a href="purchase/brand/brandList.jsp" target="rightFrame">品牌管理</a><i></i></li>
+                <li><cite></cite><a href="purchase/productType/productTypeList.jsp" target="rightFrame">商品类型管理</a><i></i></li>
+                <li><cite></cite><a href="purchase/product/productList.jsp" target="rightFrame">商品管理</a><i></i></li>
+                <li><cite></cite><a href="purchase/manufacturer/manufacturerList.jsp" target="rightFrame">厂商管理</a><i></i></li>
             </ul>
         </dd>   
         
         <dd>
             <div class="title">数据统计</div>
             <ul class="menuson">
-                <li><cite></cite><a href="statis/sales/salesStatis.html" target="rightFrame">客户销量统计</a><i></i></li>
-                <li><cite></cite><a href="statis/purchase/purchaseStatis.html" target="rightFrame">厂商采购统计</a><i></i></li>
-                <li><cite></cite><a href="statis/delivery/deliveryStatis.html" target="rightFrame">出库统计</a><i></i></li>
-                <li><cite></cite><a href="statis/stock/stockStatis.html" target="rightFrame">入库统计</a><i></i></li>
+                <li><cite></cite><a href="statis/sales/salesStatis.jsp" target="rightFrame">客户销量统计</a><i></i></li>
+                <li><cite></cite><a href="statis/purchase/purchaseStatis.jsp" target="rightFrame">厂商采购统计</a><i></i></li>
+                <li><cite></cite><a href="statis/delivery/deliveryStatis.jsp" target="rightFrame">出库统计</a><i></i></li>
+                <li><cite></cite><a href="statis/stock/stockStatis.jsp" target="rightFrame">入库统计</a><i></i></li>
             </ul>
         </dd>    
         <dd>

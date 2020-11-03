@@ -26,7 +26,7 @@ pageEncoding="UTF-8"%>
     </li>
     <li>
       <label>客户姓名</label>
-      <cite><a href="../../market/customer/customerView.html" title="点击查看客户详细信息" class="tablelink">王金平</a></cite>
+      <cite><a href="../../market/customer/customerView.jsp" title="点击查看客户详细信息" class="tablelink">王金平</a></cite>
     </li>
     <li>
       <label>联系电话</label>

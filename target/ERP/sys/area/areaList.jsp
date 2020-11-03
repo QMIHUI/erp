@@ -26,7 +26,7 @@ pageEncoding="UTF-8"%>
       <li> 市:
         <input type="text" />
       </li>
-      <li class="subBut" onclick="window.location.href='brandList.html'"><img src="../../images/t06.png" />查询</li>
+      <li class="subBut" onclick="window.location.href='brandList.jsp'"><img src="../../images/t06.png" />查询</li>
     </ul>
     <table class="tablelist">
       <thead>

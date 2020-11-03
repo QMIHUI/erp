@@ -23,7 +23,7 @@ pageEncoding="UTF-8"%>
       <label>订单编号</label>
       <input name="" type="text" class="dfinput" />
       &nbsp;&nbsp;
-      <a href="../../market/order/orderView.html" title="点击查看客户详细信息" class="tablelink">详情</a>
+      <a href="../../market/order/orderView.jsp" title="点击查看客户详细信息" class="tablelink">详情</a>
       <i>必须是审核通过的订单</i>
     </li>
     <li>
