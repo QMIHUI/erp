@@ -12,60 +12,71 @@ pageEncoding="UTF-8"%>
 <body>
 <div class="place"> <span>位置：</span>
   <ul class="placeul">
-    <li>采购管理</li>
-    <li>品牌管理</li>
+    <li>数据统计</li>
+    <li>入库统计</li>
     <li>基本内容</li>
   </ul>
 </div>
 <div class="rightinfo">
   <form action="" method="post">
     <ul class="tools">
-      <li> 省:
+      <li> 所属区域：
+        <select>
+          <option>请选择省份</option>
+          <option>北京</option>
+          <option>江苏</option>
+          <option>天津</option>
+        </select>
+        <select>
+          <option>请选择城市</option>
+          <option>北京</option>
+          <option>南京</option>
+          <option>天津</option>
+        </select>
+      </li>
+      <li> 仓库名称:
         <input type="text" />
       </li>
-      <li> 市:
-        <input type="text" />
+      <li> 时间:
+        <input type="text" />-<input type="text" />
       </li>
-      <li class="subBut" onclick="window.location.href='brandList.jsp'"><img src="../../images/t06.png" />查询</li>
+
+      <li class="subBut" onclick="window.location.href='stockStatis.html'"><img src="../../images/t06.png" />查询</li>
     </ul>
     <table class="tablelist">
       <thead>
         <tr>
           <th>序号</th>
-          <th>省编号</th>
-          <th>省名称</th>
-          <th>市编号</th>
-          <th>市名称</th>
+          <th>仓库名称</th>
+          <th>负责人</th>
+          <th>所属区域</th>
+          <th>入库数量</th>
+          <th>金额</th>
+          <th>入库明细</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>1</td>
-          <td>110000</td>
-          <td>北京市</td>
-          <td>110100</td>
-          <td>市辖区</td>
+          <td>南京21号仓库</td>
+          <td>朱元璋</td>
+          <td>江苏南京</td>
+          <td>5</td>
+          <td>￥9,876,582</td>
+          <td>
+          	<a href="stockView.jsp" class="tablelink">查看详情</a>
+          </td>
         </tr>
         <tr>
           <td>2</td>
-          <td>110000</td>
-          <td>北京市</td>
-          <td>110200</td>
-          <td>县</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>130000</td>
-          <td>河北省</td>
-          <td>130100</td>
-          <td>石家庄市</td>
-        </tr>
-        <tr>
-          <td>4</td>
-          <td>130000</td>
-          <td>河北省</td>
-          <td>130200</td>
-          <td>唐山市</td>
+          <td>武汉71号仓库</td>
+          <td>柳传志</td>
+          <td>湖北武汉</td>
+          <td>8</td>
+          <td>￥9,876,582</td>
+          <td>
+          	<a href="stockView.jsp" class="tablelink">查看详情</a>
+          </td>
         </tr>
       </tbody>
     </table>

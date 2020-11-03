@@ -12,25 +12,17 @@ pageEncoding="UTF-8"%>
 <body>
 <div class="place"> <span>位置：</span>
   <ul class="placeul">
-    <li>营销管理</li>
-    <li>订购单管理</li>
-    <li>订购单详情</li>
+    <li>采购管理</li>
+    <li>采购单管理</li>
+    <li>采购单详情</li>
   </ul>
 </div>
 <div class="formbody">
-  <div class="formtitle"><span>订购单信息</span></div>
+  <div class="formtitle"><span>采购单信息</span></div>
   <ul class="forminfo">
     <li>
-      <label>订单编号</label>
-      <cite>DJ201711180001</cite>
-    </li>
-    <li>
-      <label>客户姓名</label>
-      <cite><a href="../../market/customer/customerView.jsp" title="点击查看客户详细信息" class="tablelink">王金平</a></cite>
-    </li>
-    <li>
-      <label>联系电话</label>
-      <cite>17370899727</cite>
+      <label>采购单编号</label>
+      <cite>CG201711180001</cite>
     </li>
     <li>
       <label>订购时间</label>
@@ -60,22 +52,6 @@ pageEncoding="UTF-8"%>
       <label>审核时间</label>
       <cite>2017-01-30 12:05:05</cite>
     </li>
-    <li>
-      <label>出货仓库</label>
-      <cite><a href="../storage/storageView.jsp" title="点击查看客户详细信息" class="tablelink">南京21号仓库</a></cite>
-    </li>
-    <li>
-      <label>出库时间</label>
-      <cite>2013-09-09 15:05:05</cite>
-    </li>
-    <li>
-      <label>出库人</label>
-      <cite>朱元璋</cite>
-    </li>
-    <li>
-      <label>出库状态</label>
-      <cite>已回款</cite>
-    </li>
   </ul>
   <table class="tablelist">
       <thead>
@@ -84,6 +60,7 @@ pageEncoding="UTF-8"%>
           <th>品牌</th>
           <th>类型</th>
           <th>型号</th>
+          <th>厂商</th>
           <th>数量</th>
           <th>单位</th>
           <th>单价</th>
@@ -96,6 +73,7 @@ pageEncoding="UTF-8"%>
           <td>联想</td>
           <td>笔记本电脑</td>
           <td>T470</td>
+          <td>北京联想科技股份有限公司</td>
           <td>10</td>
           <td>台</td>
           <td>9998</td>
@@ -106,6 +84,7 @@ pageEncoding="UTF-8"%>
           <td>联想</td>
           <td>笔记本电脑</td>
           <td>X260</td>
+          <td>北京联想科技股份有限公司</td>
           <td>5</td>
           <td>台</td>
           <td>5500</td>

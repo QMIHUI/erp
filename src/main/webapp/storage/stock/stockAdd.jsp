@@ -23,7 +23,7 @@ pageEncoding="UTF-8"%>
       <label>采购单编号</label>
       <input name="" type="text" class="dfinput" />
       &nbsp;&nbsp;
-      <a href="../../purchase/purchase/purchaseView.html" title="点击查看采购单详细信息" class="tablelink">详情</a>
+      <a href="../../purchase/purchase/purchaseView.jsp" title="点击查看采购单详细信息" class="tablelink">详情</a>
       <i>必须是审核通过的采购单</i>
     </li>
     <li>

@@ -4,68 +4,75 @@ pageEncoding="UTF-8"%>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>无标题文档</title>
+<title>客户管理</title>
 <link href="../../css/style.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="../../js/jquery.js"></script>
-</head>
 
 <body>
 <div class="place"> <span>位置：</span>
   <ul class="placeul">
-    <li>采购管理</li>
-    <li>品牌管理</li>
+    <li>营销管理</li>
+    <li>订购单审核管理</li>
     <li>基本内容</li>
   </ul>
 </div>
 <div class="rightinfo">
   <form action="" method="post">
     <ul class="tools">
-      <li> 省:
+      <li> 订单编号:
         <input type="text" />
       </li>
-      <li> 市:
+      <li> 客户姓名:
         <input type="text" />
       </li>
-      <li class="subBut" onclick="window.location.href='brandList.jsp'"><img src="../../images/t06.png" />查询</li>
+      <li> 订购时间:
+        <input type="text" />-<input type="text" />
+      </li>
+      <li> 金额:
+        <input type="text" class="stinput" />-<input type="text" class="stinput" />
+      </li>
+      <li class="subBut" onclick="window.location.href='orderList.jsp'"><img src="../../images/t06.png" />查询</li>
     </ul>
     <table class="tablelist">
       <thead>
         <tr>
           <th>序号</th>
-          <th>省编号</th>
-          <th>省名称</th>
-          <th>市编号</th>
-          <th>市名称</th>
+          <th>订单编号</th>
+          <th>客户姓名</th>
+          <th>联系电话</th>
+          <th>订购时间</th>
+          <th>金额</th>
+          <th>操作人</th>
+          <th>审核状态</th>
+          <th>操作</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>1</td>
-          <td>110000</td>
-          <td>北京市</td>
-          <td>110100</td>
-          <td>市辖区</td>
+          <td>DJ201701270001</td>
+          <td>王金平</td>
+          <td>17370899727</td>
+          <td>2017-01-25 15:05:05</td>
+          <td>￥9,876,582</td>
+          <td>关羽</td>
+          <td>审核中</td>
+          <td>
+            <a href="orderExamine.jsp" class="tablelink">审核</a>
+          </td>
         </tr>
         <tr>
           <td>2</td>
-          <td>110000</td>
-          <td>北京市</td>
-          <td>110200</td>
-          <td>县</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>130000</td>
-          <td>河北省</td>
-          <td>130100</td>
-          <td>石家庄市</td>
-        </tr>
-        <tr>
-          <td>4</td>
-          <td>130000</td>
-          <td>河北省</td>
-          <td>130200</td>
-          <td>唐山市</td>
+          <td>DJ201701270002</td>
+          <td>张永祥</td>
+          <td>17370899727</td>
+          <td>2017-01-25 15:05:05</td>
+          <td>￥9,876,582</td>
+          <td>关羽</td>
+          <td>审核中</td>
+          <td>
+            <a href="orderExamine.jsp" class="tablelink">审核</a>
+          </td>
         </tr>
       </tbody>
     </table>

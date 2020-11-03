@@ -13,12 +13,12 @@ pageEncoding="UTF-8"%>
 <div class="place"> <span>位置：</span>
   <ul class="placeul">
     <li>营销管理</li>
-    <li>订购单管理</li>
-    <li>订购单详情</li>
+    <li>订购单审核管理</li>
+    <li>审核</li>
   </ul>
 </div>
 <div class="formbody">
-  <div class="formtitle"><span>订购单信息</span></div>
+  <div class="formtitle"><span>订购单审核</span></div>
   <ul class="forminfo">
     <li>
       <label>订单编号</label>
@@ -26,7 +26,7 @@ pageEncoding="UTF-8"%>
     </li>
     <li>
       <label>客户姓名</label>
-      <cite><a href="../../market/customer/customerView.jsp" title="点击查看客户详细信息" class="tablelink">王金平</a></cite>
+      <cite><a href="../customer/customerView.jsp" title="点击查看客户详细信息" class="tablelink">王金平</a></cite>
     </li>
     <li>
       <label>联系电话</label>
@@ -43,38 +43,6 @@ pageEncoding="UTF-8"%>
     <li>
       <label>操作人</label>
       <cite>关羽</cite>
-    </li>
-    <li>
-      <label>审核状态</label>
-      <cite>已审核通过</cite>
-    </li>
-    <li>
-      <label>审核意见</label>
-      <cite>做的很详细，同意通过</cite>
-    </li>
-    <li>
-      <label>审核人</label>
-      <cite>曹操</cite>
-    </li>
-    <li>
-      <label>审核时间</label>
-      <cite>2017-01-30 12:05:05</cite>
-    </li>
-    <li>
-      <label>出货仓库</label>
-      <cite><a href="../storage/storageView.jsp" title="点击查看客户详细信息" class="tablelink">南京21号仓库</a></cite>
-    </li>
-    <li>
-      <label>出库时间</label>
-      <cite>2013-09-09 15:05:05</cite>
-    </li>
-    <li>
-      <label>出库人</label>
-      <cite>朱元璋</cite>
-    </li>
-    <li>
-      <label>出库状态</label>
-      <cite>已回款</cite>
     </li>
   </ul>
   <table class="tablelist">
@@ -113,10 +81,26 @@ pageEncoding="UTF-8"%>
         </tr>
       </tbody>
   </table>
-  <div style="margin-top:20px; margin-left:20px;">
-  <input name="" type="button" class="btn" value="返回" onclick="window.history.go(-1);"/>
-  </div>
-</div>
+  <ul class="forminfo">
+    <li>
+      <label>审核意见</label>
+      <textarea class="textinput"></textarea>
+    </li>
+    <li>
+      <label>审核状态</label>
+      <select class="dfselect">
+          <option>请选择</option>
+          <option value="3">通过</option>
+          <option value="4">不通过</option>
+      </select>
+    </li>
+    <li>
+      <label>&nbsp;</label>
+      <input name="" type="button" class="btn" value="审核"/>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <input name="" type="button" class="btn" value="返回" onclick="window.location.href='customerList.jsp'"/>
+    </li>
+  </ul>
 <script type="text/javascript">
 	$('.tablelist tbody tr:odd').addClass('odd');
 </script>

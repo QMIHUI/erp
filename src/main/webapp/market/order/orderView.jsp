@@ -26,7 +26,7 @@ pageEncoding="UTF-8"%>
     </li>
     <li>
       <label>客户姓名</label>
-      <cite><a href="../../market/customer/customerView.jsp" title="点击查看客户详细信息" class="tablelink">王金平</a></cite>
+      <cite><a href="../customer/customerView.jsp" title="点击查看客户详细信息" class="tablelink">王金平</a></cite>
     </li>
     <li>
       <label>联系电话</label>
@@ -59,22 +59,6 @@ pageEncoding="UTF-8"%>
     <li>
       <label>审核时间</label>
       <cite>2017-01-30 12:05:05</cite>
-    </li>
-    <li>
-      <label>出货仓库</label>
-      <cite><a href="../storage/storageView.jsp" title="点击查看客户详细信息" class="tablelink">南京21号仓库</a></cite>
-    </li>
-    <li>
-      <label>出库时间</label>
-      <cite>2013-09-09 15:05:05</cite>
-    </li>
-    <li>
-      <label>出库人</label>
-      <cite>朱元璋</cite>
-    </li>
-    <li>
-      <label>出库状态</label>
-      <cite>已回款</cite>
     </li>
   </ul>
   <table class="tablelist">

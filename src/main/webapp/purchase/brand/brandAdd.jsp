@@ -11,45 +11,42 @@ pageEncoding="UTF-8"%>
 <body>
 <div class="place"> <span>位置：</span>
   <ul class="placeul">
-    <li>仓库管理</li>
-    <li>出库管理</li>
-    <li>添加出库</li>
+    <li>采购管理</li>
+    <li>品牌管理</li>
+    <li>添加</li>
   </ul>
 </div>
 <div class="formbody">
-  <div class="formtitle"><span>出库信息</span></div>
+  <div class="formtitle"><span>品牌信息</span></div>
   <ul class="forminfo">
     <li>
-      <label>订单编号</label>
+      <label>品牌名称</label>
       <input name="" type="text" class="dfinput" />
-      &nbsp;&nbsp;
-      <a href="../../market/order/orderView.jsp" title="点击查看客户详细信息" class="tablelink">详情</a>
-      <i>必须是审核通过的订单</i>
+      <i>必填，不能超过50个字符</i>
     </li>
     <li>
-      <label>仓库</label>
+      <label>状态</label>
       <select class="dfselect">
-          <option>请选择</option>
-          <option>南京21号仓库</option>
-          <option>武汉71号仓库</option>
-          <option>天津83号仓库</option>
-      </select>
+          <option value="1">可用</option>
+          <option value="0">不可用</option>
+        </select>
       <i>必选</i>
     </li>
     <li>
-      <label>出库时间</label>
-      <input name="" type="text" class="dfinput" />
-      <i>必填</i>
-    </li>
-    <li>
-      <label>出库人</label>
+      <label>创建人</label>
       <input name="" type="text" value="马云" readonly="readonly" class="roinput" />
       <i>不能编辑</i>
+    </li>
+    <li>
+      <label>创建时间</label>
+      <input name="" type="text" value="2017-11-18 15:36:10" readonly="readonly" class="roinput" />
+      <i>不能编辑</i>
+    </li>
     <li>
       <label>&nbsp;</label>
       <input name="" type="button" class="btn" value="确定"/>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <input name="" type="button" class="btn" value="返回" onclick="window.location.href='deliveryList.jsp'"/>
+      <input name="" type="button" class="btn" value="返回" onclick="window.location.href='brandList.html'"/>
     </li>
   </ul>
 </div>
