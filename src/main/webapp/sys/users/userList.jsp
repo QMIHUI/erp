@@ -51,7 +51,7 @@ function tipClose() {
         </select>
       </li>
       <li class="subBut" onclick=""><img src="${pageContext.request.contextPath }/images/t06.png" />查询</li>
-      <li class="subBut" onclick="window.location.href='userAdd.jsp'"><img src="${pageContext.request.contextPath }/images/t01.png" />添加</li>
+      <li class="subBut" onclick="window.location.href='sys/users/userAdd.jsp'"><img src="${pageContext.request.contextPath }/images/t01.png" />添加</li>
     </ul>
     <table class="tablelist">
       <thead>
