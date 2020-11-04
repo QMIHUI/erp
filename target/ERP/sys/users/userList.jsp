@@ -50,8 +50,8 @@ function tipClose() {
           <option value="0">离职</option>
         </select>
       </li>
-      <li class="subBut" onclick=""><img src="${pageContext.request.contextPath }/images/t06.png" />查询</li>
-      <li class="subBut" onclick="window.location.href='userAdd.jsp'"><img src="${pageContext.request.contextPath }/images/t01.png" />添加</li>
+      <li class="subBut" onclick=""><img src="../../images/t06.png" />查询</li>
+      <li class="subBut" onclick="window.location.href='userAdd.html'"><img src="../../images/t01.png" />添加</li>
     </ul>
     <table class="tablelist">
       <thead>
@@ -71,35 +71,49 @@ function tipClose() {
       <tbody>
         <c:forEach items="${listUsers}" var="user">
           <tr>
-            <td>${user.uId}</td>
+            <td>${user.uid}</td>
             <td>${user.uname}</td>
             <td>${user.utelephone}</td>
             <td>${user.dept.deptName}</td>
             <td>${user.job.jobName}</td>
             <td>${user.sex}</td>
             <c:if test="${user.status==1}">
-              <td>在职</td>
+              <td>正常</td>
             </c:if>
-            <c:if test="${user.status==2}">
-              <td>离职</td>
-            </c:if>
-            <td>${user.hiredate}</td>
-            <td>${user.leavedate}</td>
-            <td>
-               <a href="userUpdate.jsp" class="tablelink">修改</a>
-               <a href="javascript:void(0);" class="tablelink" onclick="tipOpen('您确定此员工离职吗？')">离职</a>
-            </td>
           </tr>
         </c:forEach>
+        <tr>
+          <td>1</td>
+          <td>9527</td>
+          <td>唐寅</td>
+          <td>17370899727</td>
+          <td>研发部</td>
+          <td>经理</td>
+          <td>男</td>
+          <td>28</td>
+          <td>在职</td>
+          <td>2013-09-09 15:05:05</td>
+          <td></td>
+          <td>
+            <a href="userUpdate.jsp" class="tablelink">修改</a>
+            <a href="javascript:void(0);" class="tablelink" onclick="tipOpen('您确定此员工离职吗？')">离职</a>
+          </td>
+        </tr>
+
       </tbody>
     </table>
     <div class="pagin">
-      <div class="message">共<i class="blue">${countUsers}</i>条记录，当前显示第&nbsp;<i class="blue">${pageIndex}&nbsp;</i>页</div>
+      <div class="message">共<i class="blue">1256</i>条记录，当前显示第&nbsp;<i class="blue">2&nbsp;</i>页</div>
       <ul class="paginList">
-        <li class="paginItem"><a href="${pageContext.request.contextPath }/queryAllUser.do?pageIndex=1">首页</a></li>
-        <li class="paginItem"><a href="${pageContext.request.contextPath }/queryAllUser.do?pageIndex=${pageIndex-1}">上页</a></li>
-        <li class="paginItem"><a href="${pageContext.request.contextPath }/queryAllUser.do?pageIndex=${pageIndex+1}">下页</a></li>
-        <li class="paginItem"><a href="${pageContext.request.contextPath }/queryAllUser.do?pageIndex=${row}">末页</a></li>
+        <li class="paginItem"><a href="javascript:;"><span class="pagepre"></span></a></li>
+        <li class="paginItem"><a href="javascript:;">1</a></li>
+        <li class="paginItem current"><a href="javascript:;">2</a></li>
+        <li class="paginItem"><a href="javascript:;">3</a></li>
+        <li class="paginItem"><a href="javascript:;">4</a></li>
+        <li class="paginItem"><a href="javascript:;">5</a></li>
+        <li class="paginItem more"><a href="javascript:;">...</a></li>
+        <li class="paginItem"><a href="javascript:;">10</a></li>
+        <li class="paginItem"><a href="javascript:;"><span class="pagenxt"></span></a></li>
       </ul>
     </div>
   </form>
