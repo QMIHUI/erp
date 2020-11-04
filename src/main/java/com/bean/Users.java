@@ -29,6 +29,25 @@ public class Users implements Serializable {
 
     private String birthday;
 
+    private Dept dept;
+    private Job job;
+
+    public Dept getDept() {
+        return dept;
+    }
+
+    public void setDept(Dept dept) {
+        this.dept = dept;
+    }
+
+    public Job getJob() {
+        return job;
+    }
+
+    public void setJob(Job job) {
+        this.job = job;
+    }
+
     private static final long serialVersionUID = 1L;
 
     public Integer getuId() {

@@ -21,6 +21,37 @@
   <select id="login" resultMap="BaseResultMap">
     select * from users where uname=#{uname} and upassword=#{upassword}
   </select>
+  <resultMap id="getAll" type="com.bean.Users">
+    <id column="u_id"  property="uId" />
+    <result column="uname"  property="uname" />
+    <result column="upassword"  property="upassword" />
+    <result column="utelephone"  property="utelephone" />
+    <result column="dept_id"  property="deptId" />
+    <result column="job_id"  property="jobId" />
+    <result column="sex"  property="sex" />
+    <result column="status"  property="status" />
+    <result column="hiredate"  property="hiredate" />
+    <result column="leavedate"  property="leavedate" />
+    <result column="birthday" property="birthday" />
+    <association property="dept" javaType="Dept">
+      <id column="dept_id"  property="deptId" />
+      <result column="dept_name"  property="deptName" />
+      <result column="dept_state"  property="deptState" />
+    </association>
+    <association property="job" javaType="Job">
+      <id column="job_id"  property="jobId" />
+      <result column="job_name"  property="jobName" />
+      <result column="job_state"  property="jobState" />
+      <result column="job_dept_id"  property="jobDeptId" />
+    </association>
+  </resultMap>
+  <select id="getAllUsersByPage" resultMap="getAll">
+    SELECT * FROM users LEFT JOIN dept ON users.dept_id=dept.dept_id
+    LEFT JOIN job ON users.job_id=job.job_id limit #{page},#{size}
+  </select>
+  <select id="countUsers" resultType="java.lang.Integer">
+    select count(*) from users
+  </select>
 
 
 </mapper>

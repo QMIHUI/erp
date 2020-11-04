@@ -116,8 +116,65 @@ $(function(){
             </dd>
         </dl>
     </c:if>
-    
+    <c:if test="${user.deptId==3}">
+        <dl class="leftmenu">
+            <dd>
+                <div class="title">采购管理</div>
+                <ul class="menuson">
+                    <li><cite></cite><a href="purchase/purchase/purchaseList.jsp" target="rightFrame">采购单管理</a><i></i></li>
+                    <li><cite></cite><a href="purchase/purchaseExamine/purchaseExamineList.jsp" target="rightFrame">采购单审核</a><i></i></li>
+                    <li><cite></cite><a href="purchase/brand/brandList.jsp" target="rightFrame">品牌管理</a><i></i></li>
+                    <li><cite></cite><a href="purchase/productType/productTypeList.jsp" target="rightFrame">商品类型管理</a><i></i></li>
+                    <li><cite></cite><a href="purchase/product/productList.jsp" target="rightFrame">商品管理</a><i></i></li>
+                    <li><cite></cite><a href="purchase/manufacturer/manufacturerList.jsp" target="rightFrame">厂商管理</a><i></i></li>
+                </ul>
+            </dd>
+        </dl>
+    </c:if>
 
-    
+    <c:if test="${user.deptId==4}">
+        <dl class="leftmenu">
+            <dd>
+                <div class="title">仓库管理</div>
+                <ul class="menuson">
+                    <li><cite></cite><a href="storage/storage/storageList.jsp" target="rightFrame">仓库管理</a><i></i></li>
+                    <li><cite></cite><a href="storage/storageBrowse/storageBrowse.jsp" target="rightFrame">仓库浏览</a><i></i></li>
+                    <li><cite></cite><a href="storage/delivery/deliveryList.jsp" target="rightFrame">出库管理</a><i></i></li>
+                    <li><cite></cite><a href="storage/stock/stockList.jsp" target="rightFrame">入库管理</a><i></i></li>
+                    <li><cite></cite><a href="storage/inventory/inventoryList.jsp" target="rightFrame">库存管理</a><i></i></li>
+                </ul>
+            </dd>
+            <dd>
+                <div class="title">数据统计</div>
+                <ul class="menuson">
+                    <li><cite></cite><a href="statis/sales/salesStatis.jsp" target="rightFrame">客户销量统计</a><i></i></li>
+                    <li><cite></cite><a href="statis/purchase/purchaseStatis.jsp" target="rightFrame">厂商采购统计</a><i></i></li>
+                    <li><cite></cite><a href="statis/delivery/deliveryStatis.jsp" target="rightFrame">出库统计</a><i></i></li>
+                    <li><cite></cite><a href="statis/stock/stockStatis.jsp" target="rightFrame">入库统计</a><i></i></li>
+                </ul>
+            </dd>
+        </dl>
+    </c:if>
+
+    <c:if test="${user.deptId==5}">
+        <dl class="leftmenu">
+            <dd>
+                <div class="title">系统管理</div>
+                <ul class="menuson">
+                    <li>
+                        <cite></cite>
+                        <%--<a href="sys/users/userList.jsp" target="rightFrame">用户管理</a>--%>
+                        <a href="queryAllUser.do" target="rightFrame">用户管理</a>
+                        <i></i>
+                    </li>
+                    <li><cite></cite><a href="sys/dept/deptList.jsp" target="rightFrame">部门管理</a><i></i></li>
+                    <li><cite></cite><a href="sys/dept/positionList.jsp" target="rightFrame">职位管理</a><i></i></li>
+                    <li><cite></cite><a href="sys/modules/moduleList.jsp" target="rightFrame">模块管理</a><i></i></li>
+                    <li><cite></cite><a href="sys/logs/logList.jsp" target="rightFrame">日志管理</a><i></i></li>
+                    <li><cite></cite><a href="sys/area/areaList.jsp" target="rightFrame">区域管理</a><i></i></li>
+                </ul>
+            </dd>
+        </dl>
+    </c:if>
 </body>
 </html>

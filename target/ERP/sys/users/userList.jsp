@@ -5,8 +5,8 @@ pageEncoding="UTF-8"%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>用户管理</title>
-<link href="../../css/style.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="../../js/jquery.js"></script>
+<link href="${pageContext.request.contextPath }/css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.js"></script>
 <script type="text/javascript">
 function tipOpen(content) {
 	$(".tipright p").text(content);

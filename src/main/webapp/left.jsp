@@ -116,7 +116,6 @@ $(function(){
             </dd>
         </dl>
     </c:if>
-
     <c:if test="${user.deptId==3}">
         <dl class="leftmenu">
             <dd>
@@ -162,7 +161,12 @@ $(function(){
             <dd>
                 <div class="title">系统管理</div>
                 <ul class="menuson">
-                    <li><cite></cite><a href="sys/users/userList.jsp" target="rightFrame">用户管理</a><i></i></li>
+                    <li>
+                        <cite></cite>
+                        <%--<a href="sys/users/userList.jsp" target="rightFrame">用户管理</a>--%>
+                        <a href="queryAllUser.do" target="rightFrame">用户管理</a>
+                        <i></i>
+                    </li>
                     <li><cite></cite><a href="sys/dept/deptList.jsp" target="rightFrame">部门管理</a><i></i></li>
                     <li><cite></cite><a href="sys/dept/positionList.jsp" target="rightFrame">职位管理</a><i></i></li>
                     <li><cite></cite><a href="sys/modules/moduleList.jsp" target="rightFrame">模块管理</a><i></i></li>
@@ -172,10 +176,5 @@ $(function(){
             </dd>
         </dl>
     </c:if>
-
-
-    
-
-    
 </body>
 </html>
