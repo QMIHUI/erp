@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.FirmDao">
+  <resultMap id="firm" type="com.bean.Firm">
+    <id property="firmId" column="FIRM_ID"/>
+    <result property="firmName" column="FIRM_NAME"/>
+    <result property="firmTel" column="FIRM_TEL"/>
+    <result property="firmAddress" column="FIRM_ADDRESS"/>
+    <result property="firmContent" column="FIRM_CONTENT"/>
+    <result property="createTime" column="CREATE_TIME"/>
+    <result property="status" column="STATUS"/>
+    <result property="firmFounder" column="FIRM_FOUNDER"/>
+    <association property="city" select="com.dao.CityDao.getCityById" column="FIRM_CITY"/>
+
+
+    <association property="user" select="com.dao.UsersDao." column="CREATE_ID"/>
+
+
+   </resultMap>
+  <select id="getAllFrims" resultMap="firm">
+    select * from c_firm
+  </select>
+</mapper>
