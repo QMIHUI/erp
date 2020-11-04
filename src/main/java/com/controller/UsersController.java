@@ -72,7 +72,7 @@ public class UsersController {
     }
 
     public String addUser(){
-
+        System.out.println("执行增加用户");
         return "";
     }
 
