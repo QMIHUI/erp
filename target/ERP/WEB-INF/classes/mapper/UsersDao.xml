@@ -45,8 +45,12 @@
       <result column="job_dept_id"  property="jobDeptId" />
     </association>
   </resultMap>
-  <select id="getAllUsers" resultMap="getAll">
-    SELECT * FROM users LEFT JOIN dept ON users.dept_id=dept.dept_id LEFT JOIN job ON users.job_id=job.job_id
+  <select id="getAllUsersByPage" resultMap="getAll">
+    SELECT * FROM users LEFT JOIN dept ON users.dept_id=dept.dept_id
+    LEFT JOIN job ON users.job_id=job.job_id limit #{page},#{size}
+  </select>
+  <select id="countUsers" resultType="java.lang.Integer">
+    select count(*) from users
   </select>
 
 
