@@ -5,7 +5,7 @@
     <id property="id" column="ID"/>
     <result property="cName" column="C_NAME" />
     <result property="cNumber" column="C_NUMBER"/>
-    <association property="province" select="com.dao.ProvinceDao.getProvinceById"/>
+    <association property="province" select="com.dao.ProvinceDao.getProvinceById" column="P_ID"/>
   </resultMap>
 
   <select id="getCityById" resultMap="city">
