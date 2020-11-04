@@ -5,9 +5,9 @@ pageEncoding="UTF-8"%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>ERP仓储管理系统</title>
-<link href="css/style.css" rel="stylesheet" type="text/css" />
-<script language="JavaScript" src="js/jquery.js"></script>
-<script src="js/cloud.js" type="text/javascript"></script>
+<link href="${pageContext.request.contextPath }/css/style.css" rel="stylesheet" type="text/css" />
+<script language="JavaScript" src="${pageContext.request.contextPath }/js/jquery.js"></script>
+<script src="${pageContext.request.contextPath }/js/cloud.js" type="text/javascript"></script>
 
 <script language="javascript">
 	$(function(){
@@ -20,7 +20,7 @@ pageEncoding="UTF-8"%>
 
 </head>
 
-<body style="background-color:#df7611; background-image:url(images/light.png); background-repeat:no-repeat; background-position:center top; overflow:hidden;">
+<body style="background-color:#df7611; background-image:url(${pageContext.request.contextPath }/images/light.png); background-repeat:no-repeat; background-position:center top; overflow:hidden;">
 
     <div id="mainBody">
       <div id="cloud1" class="cloud"></div>

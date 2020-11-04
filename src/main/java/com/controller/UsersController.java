@@ -1,10 +1,6 @@
 package com.controller;
 
-import com.bean.Dept;
-import com.bean.Job;
 import com.bean.Users;
-import com.dao.DeptDao;
-import com.dao.JobDao;
 import com.dao.UsersDao;
 import com.util.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +20,10 @@ import java.util.List;
 public class UsersController {
     @Autowired
     private UsersDao usersDao;
-    @Autowired
+  /*  @Autowired
     private DeptDao deptDao;
     @Autowired
-    private JobDao jobDao;
+    private JobDao jobDao;*/
 
     //登录
     @RequestMapping(value = "login.do",method = RequestMethod.POST)
@@ -72,10 +68,10 @@ public class UsersController {
         pager.setSize(size);
         pager.setTotal(countUsers);
         List<Users> listUsers = usersDao.getAllUsersByPage(pager);
-        List<Dept> listDept = deptDao.getAllDept();
+       /* List<Dept> listDept = deptDao.getAllDept();
         List<Job> listJob = jobDao.getAllJob();
         request.getSession().setAttribute("listDept",listDept);
-        request.getSession().setAttribute("listJob",listJob);
+        request.getSession().setAttribute("listJob",listJob);*/
         request.getSession().setAttribute("row",row);
         request.getSession().setAttribute("pageIndex",pageIndex);
         request.getSession().setAttribute("countUsers",countUsers);

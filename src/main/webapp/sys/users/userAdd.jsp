@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -58,9 +59,12 @@ pageEncoding="UTF-8"%>
         <label>所属部门</label>
         <select name="deptId" class="dfselect">
           <option>请选择部门</option>
-          <option value="">研发</option>
+          <c:forEach items="${listDept}" var="ld">
+            <option value="${ld.deptId}">${ld.deptName}</option>
+          </c:forEach>
+          <%--<option value="">研发</option>
           <option value="">销售</option>
-          <option value="">财务</option>
+          <option value="">财务</option>--%>
         </select>
       </li>
       <li>
