@@ -42,25 +42,31 @@ public class UsersController {
 
     @RequestMapping(value = "queryAllUser.do",method = RequestMethod.GET)
     public String queryAllUser(HttpServletRequest request){
+        int countUsers = usersDao.countUsers();
+        System.out.println(countUsers);
+        int size = 5;
+        int row = countUsers % size == 0 ? (countUsers / size) : (countUsers / size + 1);
+        System.out.println(row);
         System.out.println("执行查询所有用户");
         String currentIndex= request.getParameter("pageIndex");
         //第一次访问(当前页码=1)
         int pageIndex = 1;
-        int size = 5;
         if(currentIndex!=null) {
-            System.out.println("111");
             pageIndex=Integer.parseInt(currentIndex);
         }
-        int countUsers = usersDao.countUsers();
-        System.out.println(countUsers);
+        if(currentIndex==null || Integer.parseInt(currentIndex) <= 0){
+            pageIndex = 1;
+        }else if(Integer.parseInt(currentIndex) >= row){
+            pageIndex=Integer.parseInt(currentIndex);
+        }
         Pager<Users> pager = new Pager<>();
         pager.setPage((pageIndex-1)*size);
         pager.setSize(size);
         pager.setTotal(countUsers);
         List<Users> listUsers = usersDao.getAllUsersByPage(pager);
-        int row = countUsers % size == 0 ? (countUsers / size) : (countUsers / size + 1);
-        System.out.println(row);
+
         request.getSession().setAttribute("row",row);
+        request.getSession().setAttribute("pageIndex",pageIndex);
         request.getSession().setAttribute("countUsers",countUsers);
         request.getSession().setAttribute("listUsers",listUsers);
         return "sys/users/userList";

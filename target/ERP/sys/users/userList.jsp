@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -49,20 +50,18 @@ function tipClose() {
           <option value="0">离职</option>
         </select>
       </li>
-      <li class="subBut" onclick=""><img src="../../images/t06.png" />查询</li>
-      <li class="subBut" onclick="window.location.href='userAdd.html'"><img src="../../images/t01.png" />添加</li>
+      <li class="subBut" onclick=""><img src="${pageContext.request.contextPath }/images/t06.png" />查询</li>
+      <li class="subBut" onclick="window.location.href='userAdd.jsp'"><img src="${pageContext.request.contextPath }/images/t01.png" />添加</li>
     </ul>
     <table class="tablelist">
       <thead>
         <tr>
-          <th>序号</th>
           <th>员工编号</th>
           <th>员工姓名</th>
           <th>联系电话</th>
           <th>所属部门</th>
           <th>职位</th>
           <th>性别</th>
-          <th>年龄</th>
           <th>状态</th>
           <th>入职时间</th>
           <th>离职时间</th>
@@ -70,86 +69,37 @@ function tipClose() {
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>1</td>
-          <td>9527</td>
-          <td>唐寅</td>
-          <td>17370899727</td>
-          <td>研发部</td>
-          <td>经理</td>
-          <td>男</td>
-          <td>28</td>
-          <td>在职</td>
-          <td>2013-09-09 15:05:05</td>
-          <td></td>
-          <td>
-            <a href="userUpdate.jsp" class="tablelink">修改</a>
-            <a href="javascript:void(0);" class="tablelink" onclick="tipOpen('您确定此员工离职吗？')">离职</a>
-          </td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>9528</td>
-          <td>唐寅</td>
-          <td>17370899727</td>
-          <td>研发部</td>
-          <td>高级工程师</td>
-          <td>男</td>
-          <td>28</td>
-          <td>在职</td>
-          <td>2013-09-09 15:05:05</td>
-          <td>2013-09-09 15:05:05</td>
-          <td>
-            <a href="userUpdate.jsp" class="tablelink">修改</a>
-          </td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>9529</td>
-          <td>唐寅</td>
-          <td>17370899727</td>
-          <td>研发部</td>
-          <td>初级工程师</td>
-          <td>男</td>
-          <td>28</td>
-          <td>在职</td>
-          <td>2013-09-09 15:05:05</td>
-          <td></td>
-          <td>
-            <a href="userUpdate.jsp" class="tablelink">修改</a>
-            <a href="javascript:void(0);" class="tablelink" onclick="tipOpen('您确定此员工离职吗？')">离职</a>
-          </td>
-        </tr>
-        <tr>
-          <td>4</td>
-          <td>9530</td>
-          <td>唐寅</td>
-          <td>17370899727</td>
-          <td>研发部</td>
-          <td>初级工程师</td>
-          <td>男</td>
-          <td>28</td>
-          <td>在职</td>
-          <td>2013-09-09 15:05:05</td>
-          <td></td>
-          <td>
-            <a href="userUpdate.jsp" class="tablelink">修改</a>
-          </td>
-        </tr>
+        <c:forEach items="${listUsers}" var="user">
+          <tr>
+            <td>${user.uId}</td>
+            <td>${user.uname}</td>
+            <td>${user.utelephone}</td>
+            <td>${user.dept.deptName}</td>
+            <td>${user.job.jobName}</td>
+            <td>${user.sex}</td>
+            <c:if test="${user.status==1}">
+              <td>在职</td>
+            </c:if>
+            <c:if test="${user.status==2}">
+              <td>离职</td>
+            </c:if>
+            <td>${user.hiredate}</td>
+            <td>${user.leavedate}</td>
+            <td>
+               <a href="userUpdate.jsp" class="tablelink">修改</a>
+               <a href="javascript:void(0);" class="tablelink" onclick="tipOpen('您确定此员工离职吗？')">离职</a>
+            </td>
+          </tr>
+        </c:forEach>
       </tbody>
     </table>
     <div class="pagin">
-      <div class="message">共<i class="blue">1256</i>条记录，当前显示第&nbsp;<i class="blue">2&nbsp;</i>页</div>
+      <div class="message">共<i class="blue">${countUsers}</i>条记录，当前显示第&nbsp;<i class="blue">${pageIndex}&nbsp;</i>页</div>
       <ul class="paginList">
-        <li class="paginItem"><a href="javascript:;"><span class="pagepre"></span></a></li>
-        <li class="paginItem"><a href="javascript:;">1</a></li>
-        <li class="paginItem current"><a href="javascript:;">2</a></li>
-        <li class="paginItem"><a href="javascript:;">3</a></li>
-        <li class="paginItem"><a href="javascript:;">4</a></li>
-        <li class="paginItem"><a href="javascript:;">5</a></li>
-        <li class="paginItem more"><a href="javascript:;">...</a></li>
-        <li class="paginItem"><a href="javascript:;">10</a></li>
-        <li class="paginItem"><a href="javascript:;"><span class="pagenxt"></span></a></li>
+        <li class="paginItem"><a href="${pageContext.request.contextPath }/queryAllUser.do?pageIndex=1">首页</a></li>
+        <li class="paginItem"><a href="${pageContext.request.contextPath }/queryAllUser.do?pageIndex=${pageIndex-1}">上页</a></li>
+        <li class="paginItem"><a href="${pageContext.request.contextPath }/queryAllUser.do?pageIndex=${pageIndex+1}">下页</a></li>
+        <li class="paginItem"><a href="${pageContext.request.contextPath }/queryAllUser.do?pageIndex=${row}">末页</a></li>
       </ul>
     </div>
   </form>
