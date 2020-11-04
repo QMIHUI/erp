@@ -57,7 +57,7 @@ public class UsersController {
         if(currentIndex==null || Integer.parseInt(currentIndex) <= 0){
             pageIndex = 1;
         }else if(Integer.parseInt(currentIndex) >= row){
-            pageIndex=Integer.parseInt(currentIndex);
+            pageIndex=row;
         }
         Pager<Users> pager = new Pager<>();
         pager.setPage((pageIndex-1)*size);
