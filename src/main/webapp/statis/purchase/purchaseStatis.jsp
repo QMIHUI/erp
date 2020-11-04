@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -56,50 +57,21 @@ pageEncoding="UTF-8"%>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>1</td>
-          <td>阿里巴巴</td>
-          <td>马云</td>
-          <td>江苏南京</td>
-          <td>5</td>
-          <td>￥9,876,582</td>
-          <td>
-          	<a href="purchaseView.jsp" class="tablelink">查看详情</a>
-          </td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>联想科技</td>
-          <td>柳传志</td>
-          <td>江苏南京</td>
-          <td>8</td>
-          <td>￥9,876,582</td>
-          <td>
-          	<a href="purchaseView.jsp" class="tablelink">查看详情</a>
-          </td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>腾讯公司</td>
-          <td>马化腾</td>
-          <td>江苏南京</td>
-          <td>5</td>
-          <td>￥9,876,582</td>
-          <td>
-          	<a href="purchaseView.jsp" class="tablelink">查看详情</a>
-          </td>
-        </tr>
-        <tr>
-          <td>4</td>
-          <td>搜狐新闻</td>
-          <td>张朝阳</td>
-          <td>江苏南京</td>
-          <td>8</td>
-          <td>￥9,876,582</td>
-          <td>
-          	<a href="purchaseView.jsp" class="tablelink">查看详情</a>
-          </td>
-        </tr>
+          <c:forEach items="${firmList}" var="firm">
+              <tr>
+                  <td>${firm.firmId}</td>
+                  <td>${firm.firmName}</td>
+                  <td>${firm.firmFounder}</td>
+                  <td>${firm.city.province.pName}${firm.city.cName}</td>
+                  <td>5</td>
+                  <td>￥9,876,582</td>
+                  <td>
+                      <a href="purchaseView.jsp" class="tablelink">查看详情</a>
+                  </td>
+              </tr>
+          </c:forEach>
+
+
       </tbody>
     </table>
     <div class="pagin">
