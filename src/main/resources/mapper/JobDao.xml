@@ -10,6 +10,9 @@
   <sql id="Base_Column_List">
     job_id, job_name, job_state, job_dept_id
   </sql>
+  <select id="getAllJob" resultMap="BaseResultMap">
+    select * from job
+  </select>
 
 
 </mapper>
