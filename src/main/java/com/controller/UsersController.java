@@ -64,12 +64,16 @@ public class UsersController {
         pager.setSize(size);
         pager.setTotal(countUsers);
         List<Users> listUsers = usersDao.getAllUsersByPage(pager);
-
         request.getSession().setAttribute("row",row);
         request.getSession().setAttribute("pageIndex",pageIndex);
         request.getSession().setAttribute("countUsers",countUsers);
         request.getSession().setAttribute("listUsers",listUsers);
         return "sys/users/userList";
+    }
+
+    public String addUser(){
+
+        return "";
     }
 
 
