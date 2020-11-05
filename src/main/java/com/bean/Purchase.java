@@ -10,9 +10,9 @@ import java.util.Date;
 public class Purchase implements Serializable {
     private String purchaseId;
 
-    private Integer creatId;
+    private Users buyer;
 
-    private Integer checkId;
+    private Firm checker;
 
     private Date purchaseTime;
 
@@ -20,7 +20,7 @@ public class Purchase implements Serializable {
 
     private String checkOpinion;
 
-    private Integer warehuoseid;
+    private Warehouse warehuose;
 
     private Integer cgState;
 
@@ -33,6 +33,18 @@ public class Purchase implements Serializable {
     public Purchase() {
     }
 
+    public Purchase(String purchaseId, Users buyer, Firm checker, Date purchaseTime, Date checkTime, String checkOpinion, Warehouse warehuose, Integer cgState, Double totalMoney, Integer checkStatus) {
+        this.purchaseId = purchaseId;
+        this.buyer = buyer;
+        this.checker = checker;
+        this.purchaseTime = purchaseTime;
+        this.checkTime = checkTime;
+        this.checkOpinion = checkOpinion;
+        this.warehuose = warehuose;
+        this.cgState = cgState;
+        this.totalMoney = totalMoney;
+        this.checkStatus = checkStatus;
+    }
 
     public String getPurchaseId() {
         return purchaseId;
@@ -42,20 +54,20 @@ public class Purchase implements Serializable {
         this.purchaseId = purchaseId;
     }
 
-    public Integer getCreatId() {
-        return creatId;
+    public Users getBuyer() {
+        return buyer;
     }
 
-    public void setCreatId(Integer creatId) {
-        this.creatId = creatId;
+    public void setBuyer(Users buyer) {
+        this.buyer = buyer;
     }
 
-    public Integer getCheckId() {
-        return checkId;
+    public Firm getChecker() {
+        return checker;
     }
 
-    public void setCheckId(Integer checkId) {
-        this.checkId = checkId;
+    public void setChecker(Firm checker) {
+        this.checker = checker;
     }
 
     public Date getPurchaseTime() {
@@ -82,12 +94,12 @@ public class Purchase implements Serializable {
         this.checkOpinion = checkOpinion;
     }
 
-    public Integer getWarehuoseid() {
-        return warehuoseid;
+    public Warehouse getWarehuose() {
+        return warehuose;
     }
 
-    public void setWarehuoseid(Integer warehuoseid) {
-        this.warehuoseid = warehuoseid;
+    public void setWarehuose(Warehouse warehuose) {
+        this.warehuose = warehuose;
     }
 
     public Integer getCgState() {

@@ -2,6 +2,7 @@ package com.bean;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * c_firm
@@ -57,6 +58,11 @@ public class Firm implements Serializable {
      * 厂商负责人名字
      */
     private String firmFounder;
+    /**
+     * 采购单集合
+     */
+    private List<Purchase> purchaseList;
+
 
     private static final long serialVersionUID = 1L;
 
@@ -74,6 +80,20 @@ public class Firm implements Serializable {
         this.user = user;
         this.status = status;
         this.firmFounder = firmFounder;
+    }
+
+    public Firm(Integer firmId, String firmName, String firmTel, String firmAddress, String firmContent, City city, Date createTime, Users user, Integer status, String firmFounder, List<Purchase> purchaseList) {
+        this.firmId = firmId;
+        this.firmName = firmName;
+        this.firmTel = firmTel;
+        this.firmAddress = firmAddress;
+        this.firmContent = firmContent;
+        this.city = city;
+        this.createTime = createTime;
+        this.user = user;
+        this.status = status;
+        this.firmFounder = firmFounder;
+        this.purchaseList = purchaseList;
     }
 
     public Integer getFirmId() {
@@ -154,5 +174,13 @@ public class Firm implements Serializable {
 
     public void setFirmFounder(String firmFounder) {
         this.firmFounder = firmFounder;
+    }
+
+    public List<Purchase> getPurchaseList() {
+        return purchaseList;
+    }
+
+    public void setPurchaseList(List<Purchase> purchaseList) {
+        this.purchaseList = purchaseList;
     }
 }

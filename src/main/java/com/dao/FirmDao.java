@@ -8,4 +8,7 @@ public interface FirmDao {
     //获取所有供应商
     public List<Firm> getAllFrims();
 
+    //获取单个供应商(不含采购单)
+    public Firm getFirmById(int id);
+
 }

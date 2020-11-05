@@ -14,10 +14,29 @@
 
 
     <association property="user" select="com.dao.UsersDao." column="CREATE_ID"/>
-
-
+    <association property="purchaseList" select="com.dao.PurchaseDao.getPurchaseById" column="FIRM_ID"/>
    </resultMap>
   <select id="getAllFrims" resultMap="firm">
-    select * from c_firm
+    select firm_id, firm_name, firm_tel, firm_address, firm_content, firm_city, create_time, create_id, status, firm_founder from c_firm
+  </select>
+
+  <!--获取单个厂商，不含采购单-->
+  <resultMap id="frimWithoutPurchase" type="com.bean.Firm">
+    <id property="firmId" column="FIRM_ID"/>
+    <result property="firmName" column="FIRM_NAME"/>
+    <result property="firmTel" column="FIRM_TEL"/>
+    <result property="firmAddress" column="FIRM_ADDRESS"/>
+    <result property="firmContent" column="FIRM_CONTENT"/>
+    <result property="createTime" column="CREATE_TIME"/>
+    <result property="status" column="STATUS"/>
+    <result property="firmFounder" column="FIRM_FOUNDER"/>
+    <association property="city" select="com.dao.CityDao.getCityById" column="FIRM_CITY"/>
+
+
+    <association property="user" select="com.dao.UsersDao." column="CREATE_ID"/>
+  </resultMap>
+
+  <select id="getFirmById" resultMap="frimWithoutPurchase">
+    select firm_id, firm_name, firm_tel, firm_address, firm_content, firm_city, create_time, create_id, status, firm_founder from c_firm where FIRM_ID=#{id}
   </select>
 </mapper>

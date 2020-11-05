@@ -1,147 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dao.PurchaseDao">
-  <resultMap id="BaseResultMap" type="com.bean.Purchase">
-    <id column="purchase_id" jdbcType="VARCHAR" property="purchaseId" />
-    <result column="creat_id" jdbcType="INTEGER" property="creatId" />
-    <result column="check_id" jdbcType="INTEGER" property="checkId" />
-    <result column="purchase_time" jdbcType="DATE" property="purchaseTime" />
-    <result column="check_time" jdbcType="DATE" property="checkTime" />
-    <result column="check_opinion" jdbcType="VARCHAR" property="checkOpinion" />
-    <result column="warehuoseId" jdbcType="INTEGER" property="warehuoseid" />
-    <result column="cg_state" jdbcType="INTEGER" property="cgState" />
-    <result column="total_money" jdbcType="DOUBLE" property="totalMoney" />
-    <result column="check_status" jdbcType="INTEGER" property="checkStatus" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    purchase_id, creat_id, check_id, purchase_time, check_time, check_opinion, warehuoseId, 
-    cg_state, total_money, check_status
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from c_purchase
-    where purchase_id = #{purchaseId,jdbcType=VARCHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from c_purchase
-    where purchase_id = #{purchaseId,jdbcType=VARCHAR}
-  </delete>
-  <insert id="insert" keyColumn="purchase_id" keyProperty="purchaseId" parameterType="com.bean.Purchase" useGeneratedKeys="true">
-    insert into c_purchase (creat_id, check_id, purchase_time, 
-      check_time, check_opinion, warehuoseId, 
-      cg_state, total_money, check_status
-      )
-    values (#{creatId,jdbcType=INTEGER}, #{checkId,jdbcType=INTEGER}, #{purchaseTime,jdbcType=DATE}, 
-      #{checkTime,jdbcType=DATE}, #{checkOpinion,jdbcType=VARCHAR}, #{warehuoseid,jdbcType=INTEGER}, 
-      #{cgState,jdbcType=INTEGER}, #{totalMoney,jdbcType=DOUBLE}, #{checkStatus,jdbcType=INTEGER}
-      )
-  </insert>
-  <insert id="insertSelective" keyColumn="purchase_id" keyProperty="purchaseId" parameterType="com.bean.Purchase" useGeneratedKeys="true">
-    insert into c_purchase
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="creatId != null">
-        creat_id,
-      </if>
-      <if test="checkId != null">
-        check_id,
-      </if>
-      <if test="purchaseTime != null">
-        purchase_time,
-      </if>
-      <if test="checkTime != null">
-        check_time,
-      </if>
-      <if test="checkOpinion != null">
-        check_opinion,
-      </if>
-      <if test="warehuoseid != null">
-        warehuoseId,
-      </if>
-      <if test="cgState != null">
-        cg_state,
-      </if>
-      <if test="totalMoney != null">
-        total_money,
-      </if>
-      <if test="checkStatus != null">
-        check_status,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="creatId != null">
-        #{creatId,jdbcType=INTEGER},
-      </if>
-      <if test="checkId != null">
-        #{checkId,jdbcType=INTEGER},
-      </if>
-      <if test="purchaseTime != null">
-        #{purchaseTime,jdbcType=DATE},
-      </if>
-      <if test="checkTime != null">
-        #{checkTime,jdbcType=DATE},
-      </if>
-      <if test="checkOpinion != null">
-        #{checkOpinion,jdbcType=VARCHAR},
-      </if>
-      <if test="warehuoseid != null">
-        #{warehuoseid,jdbcType=INTEGER},
-      </if>
-      <if test="cgState != null">
-        #{cgState,jdbcType=INTEGER},
-      </if>
-      <if test="totalMoney != null">
-        #{totalMoney,jdbcType=DOUBLE},
-      </if>
-      <if test="checkStatus != null">
-        #{checkStatus,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.bean.Purchase">
-    update c_purchase
-    <set>
-      <if test="creatId != null">
-        creat_id = #{creatId,jdbcType=INTEGER},
-      </if>
-      <if test="checkId != null">
-        check_id = #{checkId,jdbcType=INTEGER},
-      </if>
-      <if test="purchaseTime != null">
-        purchase_time = #{purchaseTime,jdbcType=DATE},
-      </if>
-      <if test="checkTime != null">
-        check_time = #{checkTime,jdbcType=DATE},
-      </if>
-      <if test="checkOpinion != null">
-        check_opinion = #{checkOpinion,jdbcType=VARCHAR},
-      </if>
-      <if test="warehuoseid != null">
-        warehuoseId = #{warehuoseid,jdbcType=INTEGER},
-      </if>
-      <if test="cgState != null">
-        cg_state = #{cgState,jdbcType=INTEGER},
-      </if>
-      <if test="totalMoney != null">
-        total_money = #{totalMoney,jdbcType=DOUBLE},
-      </if>
-      <if test="checkStatus != null">
-        check_status = #{checkStatus,jdbcType=INTEGER},
-      </if>
-    </set>
-    where purchase_id = #{purchaseId,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.bean.Purchase">
-    update c_purchase
-    set creat_id = #{creatId,jdbcType=INTEGER},
-      check_id = #{checkId,jdbcType=INTEGER},
-      purchase_time = #{purchaseTime,jdbcType=DATE},
-      check_time = #{checkTime,jdbcType=DATE},
-      check_opinion = #{checkOpinion,jdbcType=VARCHAR},
-      warehuoseId = #{warehuoseid,jdbcType=INTEGER},
-      cg_state = #{cgState,jdbcType=INTEGER},
-      total_money = #{totalMoney,jdbcType=DOUBLE},
-      check_status = #{checkStatus,jdbcType=INTEGER}
-    where purchase_id = #{purchaseId,jdbcType=VARCHAR}
-  </update>
+    <resultMap id="purchase" type="com.bean.Purchase">
+      <id property="purchaseId" column="purchase_id"/>
+      <result property="purchaseTime" column="purchase_time"/>
+      <result property="checkTime" column="check_time"/>
+      <result property="checkOpinion" column="check_opinion"/>
+      <result property="cgState" column="cg_state"/>
+      <result property="totalMoney" column="total_money"/>
+      <result property="checkStatus" column="check_status"/>
+      <association property="checker" select="com.dao.FirmDao.getFirmById" column="check_id"/>
+      <association property="warehuose" select="com.dao.WarehouseDao.getWarehouseById" column="warehuoseId"/>
+
+      <association property="buyer" select="com.dao.UsersDao." column="creat_id" />
+
+    </resultMap>
+    <select id="getPurchaseById" resultMap="purchase">
+      select purchase_id, creat_id, check_id, purchase_time, check_time, check_opinion, warehuoseId, cg_state, total_money, check_status from c_purchase where purchase_id=#{id}
+    </select>
+
 </mapper>
