@@ -2,6 +2,8 @@ package com.dao;
 
 import com.bean.Purchase;
 
+import java.util.List;
+
 public interface PurchaseDao {
-    public Purchase getPurchaseById(int id);
+    public List<Purchase> getPurchaseByCheckId(int id);
 }

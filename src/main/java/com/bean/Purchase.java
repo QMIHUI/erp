@@ -2,6 +2,7 @@ package com.bean;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * c_purchase
@@ -28,6 +29,8 @@ public class Purchase implements Serializable {
 
     private Integer checkStatus;
 
+    private List<Details> detailsList;
+
     private static final long serialVersionUID = 1L;
 
     public Purchase() {
@@ -44,6 +47,20 @@ public class Purchase implements Serializable {
         this.cgState = cgState;
         this.totalMoney = totalMoney;
         this.checkStatus = checkStatus;
+    }
+
+    public Purchase(String purchaseId, Users buyer, Firm checker, Date purchaseTime, Date checkTime, String checkOpinion, Warehouse warehuose, Integer cgState, Double totalMoney, Integer checkStatus, List<Details> detailsList) {
+        this.purchaseId = purchaseId;
+        this.buyer = buyer;
+        this.checker = checker;
+        this.purchaseTime = purchaseTime;
+        this.checkTime = checkTime;
+        this.checkOpinion = checkOpinion;
+        this.warehuose = warehuose;
+        this.cgState = cgState;
+        this.totalMoney = totalMoney;
+        this.checkStatus = checkStatus;
+        this.detailsList = detailsList;
     }
 
     public String getPurchaseId() {
@@ -124,5 +141,13 @@ public class Purchase implements Serializable {
 
     public void setCheckStatus(Integer checkStatus) {
         this.checkStatus = checkStatus;
+    }
+
+    public List<Details> getDetailsList() {
+        return detailsList;
+    }
+
+    public void setDetailsList(List<Details> detailsList) {
+        this.detailsList = detailsList;
     }
 }
