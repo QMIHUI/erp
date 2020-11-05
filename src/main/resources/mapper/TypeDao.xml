@@ -6,8 +6,10 @@
     <result column="TYPE_NAME" jdbcType="VARCHAR" property="typeName" />
     <result column="TYPE_STATUS" jdbcType="INTEGER" property="typeStatus" />
     <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="CREATE_ID" jdbcType="INTEGER" property="createId" />
-    <result column="BRAND_ID" jdbcType="INTEGER" property="brandId" />
+    <association property="brand" select="com.dao.BrandDao.getBrandById" column="BRAND_ID"/>
+
+    <association property="creater" select="com.dao.UsersDao." column="CREATE_ID"/>
+
   </resultMap>
 
     <select id="getTypeById" resultMap="type">
