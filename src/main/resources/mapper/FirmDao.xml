@@ -14,7 +14,7 @@
 
 
     <association property="user" select="com.dao.UsersDao." column="CREATE_ID"/>
-    <association property="purchaseList" select="com.dao.PurchaseDao.getPurchaseById" column="FIRM_ID"/>
+    <association property="purchaseList" select="com.dao.PurchaseDao.getPurchaseByCheckId" column="FIRM_ID"/>
    </resultMap>
   <select id="getAllFrims" resultMap="firm">
     select firm_id, firm_name, firm_tel, firm_address, firm_content, firm_city, create_time, create_id, status, firm_founder from c_firm

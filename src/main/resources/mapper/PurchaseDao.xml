@@ -15,8 +15,8 @@
       <association property="buyer" select="com.dao.UsersDao." column="creat_id" />
 
     </resultMap>
-    <select id="getPurchaseById" resultMap="purchase">
-      select purchase_id, creat_id, check_id, purchase_time, check_time, check_opinion, warehuoseId, cg_state, total_money, check_status from c_purchase where purchase_id=#{id}
+    <select id="getPurchaseByCheckId" resultMap="purchase">
+      select purchase_id, creat_id, check_id, purchase_time, check_time, check_opinion, warehuoseId, cg_state, total_money, check_status from c_purchase where check_id=#{id}
     </select>
 
 </mapper>
