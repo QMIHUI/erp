@@ -30,11 +30,17 @@ function tipClose() {
   <form action="" method="post">
     <ul class="tools">
       <li> <label>部门名称:</label>
-        <input type="text" />
+        <input type="text" name="dname" />
       </li>
-      <li class="subBut" onclick=""><img src="${pageContext.request.contextPath }/images/t06.png" />查询</li>
+      <li>
+        <input	value="查 询" type="submit" id="searchbutton" class="subBut">
+      </li>
+      <%--<li class="subBut" onclick="window.location.href='getDeptByName.do'">
+        <img src="${pageContext.request.contextPath }/images/t06.png" />查询
+      </li>--%>
       <li class="subBut" onclick="window.location.href='sys/dept/deptAdd.jsp'"><img src="${pageContext.request.contextPath }/images/t01.png" />添加</li>
     </ul>
+  </form>
     <table class="tablelist">
       <thead>
         <tr>
@@ -53,10 +59,10 @@ function tipClose() {
             <td>
               <a href="${pageContext.request.contextPath }/getOneDept.do?did=${ldp.deptId}" class="tablelink">修改</a>
               <c:if test="${ldp.deptState=='正常'}">
-               <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('是否确认注销此条信息？')">注销</a>
+               <a href="${pageContext.request.contextPath }/forbiddenDept.do?did=${ldp.deptId}" class="tablelink" onclick="tipOpen('是否确认注销此条信息？')">注销</a>
               </c:if>
               <c:if test="${ldp.deptState=='注销'}">
-                <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('是否确认注销此条信息？')">恢复</a>
+                <a href="${pageContext.request.contextPath }/recoverDept.do?did=${ldp.deptId}" class="tablelink" onclick="tipOpen('是否确认恢复此条信息？')">恢复</a>
               </c:if>
             </td>
           </tr>
@@ -72,7 +78,7 @@ function tipClose() {
         <li class="paginItem"><a href="${pageContext.request.contextPath }/queryAllDept.do?pageIndex=${rowDept}">末页</a></li>
       </ul>
     </div>
-  </form>
+
   <!-- 提示框 -->
   <div id="tip" class="tip">
     <div class="tiptop"><span>提示信息</span><a onclick="tipClose()"></a></div>

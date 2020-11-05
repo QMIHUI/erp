@@ -90,6 +90,40 @@ public class DeptController {
         }
     }
 
+    @RequestMapping(value = "forbiddenDept.do",method = RequestMethod.GET)
+    public String forbiddenDept(HttpServletRequest request){
+        System.out.println("注销部门");
+        int did = Integer.parseInt(request.getParameter("did"));
+        int num = deptDao.forbiddenDept(did);
+        if(num > 0){
+            return "forward:queryAllDept.do";
+        }else{
+            return "forward:queryAllDept.do";
+        }
+    }
+
+    @RequestMapping(value = "recoverDept.do",method = RequestMethod.GET)
+    public String recoverDept(HttpServletRequest request){
+        System.out.println("恢复部门");
+        int did = Integer.parseInt(request.getParameter("did"));
+        int num = deptDao.recoverDept(did);
+        if(num > 0){
+            return "forward:queryAllDept.do";
+        }else{
+            return "forward:queryAllDept.do";
+        }
+    }
+
+    @RequestMapping(value = "getDeptByName.do",method = RequestMethod.GET)
+    public String getDeptByName(){
+        System.out.println("111");
+        return "";
+    }
+
+
+
+
+
 
 
 

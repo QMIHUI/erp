@@ -19,6 +19,12 @@ public interface DeptDao {
     public Dept getOneDept(int did);
     //修改部门
     public int updateDept(Dept dept);
+    //注销部门
+    public int forbiddenDept(int did);
+    //恢复部门
+    public int recoverDept(int did);
+    //模糊查询
+    public List<Dept> getDeptByName(Pager<Dept> pager,String deptName);
 
 
 

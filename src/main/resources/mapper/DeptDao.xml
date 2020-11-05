@@ -15,6 +15,12 @@
   <update id="updateDept">
     update dept set dept_name=#{deptName} where dept_id=#{deptId}
   </update>
+  <update id="forbiddenDept">
+    update dept set dept_state="注销" where dept_id=#{deptId}
+  </update>
+  <update id="recoverDept">
+    update dept set dept_state="正常" where dept_id=#{deptId}
+  </update>
   <select id="getAllDept" resultMap="BaseResultMap">
     select * from dept
    </select>
@@ -26,6 +32,15 @@
   </select>
   <select id="getOneDept" resultMap="BaseResultMap">
     select * from dept where dept_id=#{deptId}
+  </select>
+  <select id="getDeptByName" resultMap="BaseResultMap">
+    select * from dept
+    <where>
+      <if test="deptName!=null and deptName!='' ">
+        and dept_name like '%${deptName}%'
+      </if>
+    </where>
+    limit #{page},#{size}
   </select>
 
 
