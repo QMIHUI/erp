@@ -48,4 +48,16 @@ public class Dept implements Serializable {
                 ", deptState='" + deptState + '\'' +
                 '}';
     }
+
+    public Dept() {
+    }
+
+    public Dept(String deptName) {
+        this.deptName = deptName;
+    }
+
+    public Dept(Integer deptId, String deptName) {
+        this.deptId = deptId;
+        this.deptName = deptName;
+    }
 }

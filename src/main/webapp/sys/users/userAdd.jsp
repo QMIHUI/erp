@@ -17,32 +17,40 @@ pageEncoding="UTF-8"%>
   }
 </style>
   <script type="text/javascript">
-    $(function () {
+    $(function(){
+      $("#deptId").change(function(){
+        $.ajax({
+          url:"deptJob/test.do",
+          type:"get",
+          success:function(result){
+            console.log(result);
+          }
+        });
+      });
+    });
 
-
-      function getDept() {
+   /* function getDept() {
         alert("111");
         var deptId = $("#deptId").val();
+        alert(deptId);
         var deptName=$("#deptId option:checked").text();
         $("#jobId").html("&lt;option>==请选择==&lt;/option>");
 
         $.ajax({
-          url:"getJobByDeptId",
+          url:"getJobByDeptId.do",
           type:"get",
-          async : false,
-          data:{"deptId":deptId},
+          cache:false,
+          contentType: 'application/json',
+          data:JSON.stringify({"deptId":deptId}),
           success:function(data){
-            if(data!=null){
+            /!*if(data!=null){
               $.each(data.list, function(index, job) {
-                $("#employee").append("&lt;option value='"+msg[i].employeeId+"'>"+msg[i].employeeName+"</option>");
-              });
-
-            }
+                $("#jobId").append("&lt;option value='"+job[index].jobId+"'>"+job[index].jobName+"</option>");
+              });*!/
+           /!* }*!/
           }
         });
-
-      }
-    })
+      }*/
       /*$.ajax({
         url: "getAllDept.do",
         data: {},
@@ -99,14 +107,11 @@ pageEncoding="UTF-8"%>
       </li>
       <li>
         <label>所属部门</label>
-        <select name="deptId" id="deptId" class="dfselect" onchange="getDept()">
+        <select name="deptId" id="deptId" class="dfselect">
             <option value="0">请选择部门</option>
-          <c:forEach items="${listDept}" var="ld">
-            <option value="${ld.deptId}">${ld.deptName}</option>
-          </c:forEach>
-          <%--<option value="">研发</option>
-          <option value="">销售</option>
-          <option value="">财务</option>--%>
+            <c:forEach items="${listDept}" var="ld">
+              <option value="${ld.deptId}">${ld.deptName}</option>
+            </c:forEach>
         </select>
       </li>
       <li>

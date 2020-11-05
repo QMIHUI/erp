@@ -167,7 +167,11 @@ $(function(){
                         <a href="queryAllUser.do" target="rightFrame">用户管理</a>
                         <i></i>
                     </li>
-                    <li><cite></cite><a href="sys/dept/deptList.jsp" target="rightFrame">部门管理</a><i></i></li>
+                    <li>
+                        <cite></cite>
+                        <a href="queryAllDept.do" target="rightFrame">部门管理</a>
+                        <i></i>
+                    </li>
                     <li><cite></cite><a href="sys/dept/positionList.jsp" target="rightFrame">职位管理</a><i></i></li>
                     <li><cite></cite><a href="sys/modules/moduleList.jsp" target="rightFrame">模块管理</a><i></i></li>
                     <li><cite></cite><a href="sys/logs/logList.jsp" target="rightFrame">日志管理</a><i></i></li>
