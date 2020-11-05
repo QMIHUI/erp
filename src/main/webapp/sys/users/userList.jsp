@@ -86,7 +86,7 @@ function tipClose() {
             <td>${user.hiredate}</td>
             <td>${user.leavedate}</td>
             <td>
-               <a href="sys/users/userUpdate.jsp" class="tablelink">修改</a>
+               <a href="${pageContext.request.contextPath }/selectOneUser.do?uid=${user.uId}" class="tablelink">修改</a>
                <a href="javascript:void(0);" class="tablelink" onclick="tipOpen('您确定此员工离职吗？')">离职</a>
             </td>
           </tr>

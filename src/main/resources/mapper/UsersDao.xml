@@ -52,6 +52,9 @@
   <select id="countUsers" resultType="java.lang.Integer">
     select count(*) from users
   </select>
+  <select id="getOneUser" resultMap="getAll">
+    select * from users where u_id=#{uId}
+  </select>
 
 
 </mapper>

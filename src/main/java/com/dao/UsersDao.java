@@ -12,6 +12,9 @@ public interface UsersDao {
     public List<Users> getAllUsersByPage(Pager<Users> pager);
     //查询用户个数
     public int countUsers();
+    //根据id查找用户
+    public Users getOneUser(int uid);
+
 
 
 }

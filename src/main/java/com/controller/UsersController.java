@@ -91,6 +91,16 @@ public class UsersController {
         return "";
     }
 
+    @RequestMapping(value = "selectOneUser.do",method = RequestMethod.GET)
+    public String selectOne(HttpServletRequest request){
+        System.out.println("执行查找单个！！！");
+        int uid =Integer.parseInt(request.getParameter("uid"));
+        System.out.println(uid);
+        Users user = usersDao.getOneUser(uid);
+        request.getSession().setAttribute("user",user);
+        return "sys/users/userUpdate";
+    }
+
 
 
 

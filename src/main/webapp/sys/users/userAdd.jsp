@@ -16,9 +16,34 @@ pageEncoding="UTF-8"%>
     line-height: 32px;
   }
 </style>
- <%-- <script type="text/javascript">
+  <script type="text/javascript">
     $(function () {
-      $.ajax({
+
+
+      function getDept() {
+        alert("111");
+        var deptId = $("#deptId").val();
+        var deptName=$("#deptId option:checked").text();
+        $("#jobId").html("&lt;option>==请选择==&lt;/option>");
+
+        $.ajax({
+          url:"getJobByDeptId",
+          type:"get",
+          async : false,
+          data:{"deptId":deptId},
+          success:function(data){
+            if(data!=null){
+              $.each(data.list, function(index, job) {
+                $("#employee").append("&lt;option value='"+msg[i].employeeId+"'>"+msg[i].employeeName+"</option>");
+              });
+
+            }
+          }
+        });
+
+      }
+    })
+      /*$.ajax({
         url: "getAllDept.do",
         data: {},
         type: "get",
@@ -30,9 +55,8 @@ pageEncoding="UTF-8"%>
             )
           })
         }
-      })
-    })
-  </script>--%>
+      })*/
+  </script>
 </head>
 
 <body>
@@ -75,11 +99,11 @@ pageEncoding="UTF-8"%>
       </li>
       <li>
         <label>所属部门</label>
-        <select name="deptId" id="deptId" class="dfselect">
+        <select name="deptId" id="deptId" class="dfselect" onchange="getDept()">
             <option value="0">请选择部门</option>
-          <%--<c:forEach items="${listDept}" var="ld">
+          <c:forEach items="${listDept}" var="ld">
             <option value="${ld.deptId}">${ld.deptName}</option>
-          </c:forEach>--%>
+          </c:forEach>
           <%--<option value="">研发</option>
           <option value="">销售</option>
           <option value="">财务</option>--%>
