@@ -58,9 +58,9 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${firmList}" var="firm">
+            <c:forEach items="${firmList}" var="firm" varStatus="index">
                 <tr>
-                    <td>${firm.firmId}</td>
+                    <td>${index.index+1}</td>
                     <td>${firm.firmName}</td>
                     <td>${firm.firmFounder}</td>
                     <td>${firm.city.province.pName}${firm.city.cName}</td>
@@ -70,9 +70,9 @@
                         <c:set var="sum" value="${sum+purchase.totalMoney}"/>
                     </c:forEach>
                         <fmt:parseNumber var="i"  type="number" value="${sum}" />
-                    <td>￥<c:out value="i"/> </td>
+                    <td>￥<c:out value="${i}"/> </td>
                     <td>
-                        <a href="getFirmById.do?id=${firm.firmId}" class="tablelink">查看详情</a>
+                        <a href="${pageContext.request.contextPath}/getFirmById.do?id=${firm.firmId}" class="tablelink">查看详情</a>
                     </td>
                 </tr>
             </c:forEach>

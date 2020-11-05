@@ -29,9 +29,7 @@
     <result property="status" column="STATUS"/>
     <result property="firmFounder" column="FIRM_FOUNDER"/>
     <association property="city" select="com.dao.CityDao.getCityById" column="FIRM_CITY"/>
-
-
-    <association property="user" select="com.dao.UsersDao." column="CREATE_ID"/>
+    <association property="user" select="com.dao.UsersDao.getOneUser" column="CREATE_ID"/>
   </resultMap>
 
   <select id="getFirmById" resultMap="frimWithoutPurchase">

@@ -9,7 +9,7 @@
       <result property="cgState" column="cg_state"/>
       <result property="totalMoney" column="total_money"/>
       <result property="checkStatus" column="check_status"/>
-      <association property="checker" select="com.dao.FirmDao.getFirmById" column="check_id"/>
+      <association property="checker" select="com.dao.UsersDao.getOneUser" column="check_id"/>
       <association property="warehuose" select="com.dao.WarehouseDao.getWarehouseById" column="warehuoseId"/>
       <association property="detailsList" select="com.dao.DetailsDao.getDetailsByPurchaseId" column="purchase_id"/>
       <association property="buyer" select="com.dao.UsersDao.getOneUser" column="creat_id" />

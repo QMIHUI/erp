@@ -7,7 +7,6 @@
     <result column="BRAND_STATUS" jdbcType="INTEGER" property="brandStatus" />
     <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
     <association property="creater" select="com.dao.UsersDao.getOneUser" column="CREATE_ID"/>
-
   </resultMap>
   <select id="getBrandById" resultMap="brand">
     select brand_id, brand_name, brand_status, create_time, create_id from c_brand where BRAND_ID=#{id}

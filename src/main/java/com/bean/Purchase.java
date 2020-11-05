@@ -13,7 +13,7 @@ public class Purchase implements Serializable {
 
     private Users buyer;
 
-    private Firm checker;
+    private Users checker;
 
     private Date purchaseTime;
 
@@ -36,7 +36,7 @@ public class Purchase implements Serializable {
     public Purchase() {
     }
 
-    public Purchase(String purchaseId, Users buyer, Firm checker, Date purchaseTime, Date checkTime, String checkOpinion, Warehouse warehuose, Integer cgState, Double totalMoney, Integer checkStatus) {
+    public Purchase(String purchaseId, Users buyer, Users checker, Date purchaseTime, Date checkTime, String checkOpinion, Warehouse warehuose, Integer cgState, Double totalMoney, Integer checkStatus) {
         this.purchaseId = purchaseId;
         this.buyer = buyer;
         this.checker = checker;
@@ -49,7 +49,7 @@ public class Purchase implements Serializable {
         this.checkStatus = checkStatus;
     }
 
-    public Purchase(String purchaseId, Users buyer, Firm checker, Date purchaseTime, Date checkTime, String checkOpinion, Warehouse warehuose, Integer cgState, Double totalMoney, Integer checkStatus, List<Details> detailsList) {
+    public Purchase(String purchaseId, Users buyer, Users checker, Date purchaseTime, Date checkTime, String checkOpinion, Warehouse warehuose, Integer cgState, Double totalMoney, Integer checkStatus, List<Details> detailsList) {
         this.purchaseId = purchaseId;
         this.buyer = buyer;
         this.checker = checker;
@@ -79,11 +79,11 @@ public class Purchase implements Serializable {
         this.buyer = buyer;
     }
 
-    public Firm getChecker() {
+    public Users getChecker() {
         return checker;
     }
 
-    public void setChecker(Firm checker) {
+    public void setChecker(Users checker) {
         this.checker = checker;
     }
 

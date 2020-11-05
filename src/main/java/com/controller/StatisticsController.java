@@ -34,6 +34,8 @@ public class StatisticsController {
         int FirmId=Integer.parseInt(request.getParameter("id"));
         List<Purchase> purchaseList=purchaseDao.getPurchaseByCheckId(FirmId);
         session.setAttribute("purchaseList",purchaseList);
+        String firmName=firmDao.getFirmById(FirmId).getFirmName();
+        session.setAttribute("firmName",firmName);
         return "redirect:statis/purchase/purchaseView.jsp";
     }
     @RequestMapping(value = "getDetails.do",method = RequestMethod.GET)

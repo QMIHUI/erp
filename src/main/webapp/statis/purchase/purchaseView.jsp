@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix='fmt' uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -36,15 +37,15 @@
             <tbody>
                 <c:forEach items="${purchaseList}" var="purchase" varStatus="index">
                     <tr>
-                        <td>${index}</td>
-                        <td>${purchaseId.checker.firmName}</td>
+                        <td>${index.index+1}</td>
+                        <td>${firmName}</td>
                         <td>${purchase.purchaseId}</td>
                         <td>${purchase.detailsList.size()}</td>
                         <td>￥${purchase.totalMoney}</td>
-                        <td>${purchase.purchaseTime}</td>
-                        <td>${purchase.buyer}</td>
+                        <td><fmt:formatDate value="${purchase.purchaseTime}" pattern="yyyy-MM-dd hh:MM:ss"/></td>
+                        <td>${purchase.buyer.uname}</td>
                         <td>
-                            <a href="getDetails.do?purchaseId=${purchase.purchaseId}" class="tablelink">查看详情</a>
+                            <a href="${pageContext.request.contextPath}/getDetails.do?purchaseId=${purchase.purchaseId}" class="tablelink">查看详情</a>
                         </td>
                     </tr>
                 </c:forEach>

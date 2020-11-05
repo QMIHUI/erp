@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -23,19 +24,19 @@
     <ul class="forminfo">
         <li>
             <label>采购单编号</label>
-            <cite>${purchase.purchaseId}CG201711180001</cite>
+            <cite>${purchase.purchaseId}</cite>
         </li>
         <li>
             <label>订购时间</label>
-            <cite>${purchase.purchaseTime}2017-11-18 15:36:10</cite>
+            <cite><fmt:formatDate value="${purchase.purchaseTime}" pattern="yyyy-MM-dd hh:MM:ss"/></cite>
         </li>
         <li>
             <label>总金额</label>
-            <cite>￥${purchase.totalMoney}9,876,582</cite>
+            <cite>￥${purchase.totalMoney}</cite>
         </li>
         <li>
             <label>操作人</label>
-            <cite>${purchase.buyer.uname}关羽</cite>
+            <cite>${purchase.buyer.uname}</cite>
         </li>
         <li>
             <label>审核状态</label>
@@ -55,15 +56,15 @@
         </li>
         <li>
             <label>审核意见</label>
-            <cite>${purchase.totalMoney}做的很详细，同意通过</cite>
+            <cite>${purchase.checkOpinion}</cite>
         </li>
         <li>
             <label>审核人</label>
-            <cite>${purchase.checkOpinion}曹操</cite>
+            <cite>${purchase.checker.uname}</cite>
         </li>
         <li>
             <label>审核时间</label>
-            <cite>${purchase.checkTime}2017-01-30 12:05:05</cite>
+            <cite><fmt:formatDate value="${purchase.checkTime}" pattern="yyyy-MM-dd hh:MM:ss"/></cite>
         </li>
     </ul>
     <table class="tablelist">
@@ -83,7 +84,7 @@
         <tbody>
             <c:forEach items="${purchase.detailsList}" var="details" varStatus="index">
                 <tr>
-                    <td>${index}</td>
+                    <td>${index.index+1}</td>
                     <td>${details.product.type.brand.brandName}</td>
                     <td>${details.product.type.typeName}</td>
                     <td>${details.product.productModel}</td>
