@@ -39,12 +39,12 @@
                         <td>${index}</td>
                         <td>${purchaseId.checker.firmName}</td>
                         <td>${purchase.purchaseId}</td>
-                        <td>${purchase.}</td>
-                        <td>￥76,582</td>
-                        <td>2017-01-25 15:05:05</td>
-                        <td>马云</td>
+                        <td>${purchase.detailsList.size()}</td>
+                        <td>￥${purchase.totalMoney}</td>
+                        <td>${purchase.purchaseTime}</td>
+                        <td>${purchase.buyer}</td>
                         <td>
-                            <a href="../../purchase/purchase/purchaseView.jsp" class="tablelink">查看详情</a>
+                            <a href="getDetails.do?purchaseId=${purchase.purchaseId}" class="tablelink">查看详情</a>
                         </td>
                     </tr>
                 </c:forEach>

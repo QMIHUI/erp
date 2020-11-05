@@ -12,11 +12,15 @@
       <association property="checker" select="com.dao.FirmDao.getFirmById" column="check_id"/>
       <association property="warehuose" select="com.dao.WarehouseDao.getWarehouseById" column="warehuoseId"/>
       <association property="detailsList" select="com.dao.DetailsDao.getDetailsByPurchaseId" column="purchase_id"/>
-      <association property="buyer" select="com.dao.UsersDao." column="creat_id" />
-
+      <association property="buyer" select="com.dao.UsersDao.getOneUser" column="creat_id" />
     </resultMap>
+    <!--根据厂商id查找采购单集合-->
     <select id="getPurchaseByCheckId" resultMap="purchase">
       select purchase_id, creat_id, check_id, purchase_time, check_time, check_opinion, warehuoseId, cg_state, total_money, check_status from c_purchase where check_id=#{id}
+    </select>
+    <!--根据订单号查找采购单-->
+    <select id="getPurchaseById" resultMap="purchase">
+        select purchase_id, creat_id, check_id, purchase_time, check_time, check_opinion, warehuoseId, cg_state, total_money, check_status from c_purchase where purchase_id=#{id}
     </select>
 
 </mapper>

@@ -11,9 +11,8 @@
     <result column="CREATION_TIME" jdbcType="TIMESTAMP" property="creationTime" />
     <association property="province" select="" column="PROVINCE_ID"/>
     <association property="city" select="" column="CITY_ID"/>
-
-    <association property="principal" select="com.dao.UsersDao." column="USRE_ID"/>
-    <association property="creater" select="com.dao.UsersDao." column="USERS_ID"/>
+    <association property="principal" select="com.dao.UsersDao.getOneUser" column="USRE_ID"/>
+    <association property="creater" select="com.dao.UsersDao.getOneUser" column="USERS_ID"/>
   </resultMap>
 
     <select id="getWarehouseById" resultMap="Warehouse">

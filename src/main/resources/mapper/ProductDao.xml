@@ -10,8 +10,7 @@
     <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
     <association property="type" select="com.dao.TypeDao." column="TYPE_ID"/>
     <association property="firm" select="com.dao.FirmDao.frimWithoutPurchase" column="FIRM_ID"/>
-
-    <association property="creater" select="com.dao.UsersDao." column="CREATE_ID"/>
+    <association property="creater" select="com.dao.UsersDao.getOneUser" column="CREATE_ID"/>
 
   </resultMap>
   <select id="getProductById" resultMap="product">

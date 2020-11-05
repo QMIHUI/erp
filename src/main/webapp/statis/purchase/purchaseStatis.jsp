@@ -72,7 +72,7 @@
                         <fmt:parseNumber var="i"  type="number" value="${sum}" />
                     <td>￥<c:out value="i"/> </td>
                     <td>
-                        <a href="getFirmById?id=${firm.firmId}.do" class="tablelink">查看详情</a>
+                        <a href="getFirmById.do?id=${firm.firmId}" class="tablelink">查看详情</a>
                     </td>
                 </tr>
             </c:forEach>

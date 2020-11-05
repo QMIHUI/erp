@@ -36,4 +36,11 @@ public class StatisticsController {
         session.setAttribute("purchaseList",purchaseList);
         return "redirect:statis/purchase/purchaseView.jsp";
     }
+    @RequestMapping(value = "getDetails.do",method = RequestMethod.GET)
+    public String getDetails(HttpServletRequest request,HttpSession session){
+        String purchaseId=request.getParameter("purchaseId");
+        Purchase purchase=purchaseDao.getPurchaseById(purchaseId);
+        session.setAttribute("purchase",purchase);
+        return "redirect:statis/purchase/details.jsp";
+    }
 }
