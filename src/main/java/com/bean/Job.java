@@ -15,6 +15,16 @@ public class Job implements Serializable {
 
     private Integer jobDeptId;
 
+    private Dept dept;
+
+    public Dept getDept() {
+        return dept;
+    }
+
+    public void setDept(Dept dept) {
+        this.dept = dept;
+    }
+
     private static final long serialVersionUID = 1L;
 
     public Integer getJobId() {

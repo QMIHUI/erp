@@ -8,6 +8,7 @@ pageEncoding="UTF-8"%>
 <title>无标题文档</title>
 <link href="${pageContext.request.contextPath }/css/style.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="${pageContext.request.contextPath }/laydate/laydate.js"></script>
+  <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-1.8.3.min.js"></script>
 <style type="text/css">
   #birthday{
     padding-right: 0;
@@ -15,6 +16,23 @@ pageEncoding="UTF-8"%>
     line-height: 32px;
   }
 </style>
+ <%-- <script type="text/javascript">
+    $(function () {
+      $.ajax({
+        url: "getAllDept.do",
+        data: {},
+        type: "get",
+        contentType: 'application/json',
+        success:function (data) {
+          $(data).each(function (index) {
+            $("#deptId").append(
+                    '&lt;option value="'+data[index].deptId+'">'+data[index].deptName+'</option>'
+            )
+          })
+        }
+      })
+    })
+  </script>--%>
 </head>
 
 <body>
@@ -25,7 +43,7 @@ pageEncoding="UTF-8"%>
     <li><a href="#">添加</a></li>
   </ul>
 </div>
-<form action="" method="get">
+<form action="${pageContext.request.contextPath }/addUser.do" method="get">
   <div class="formbody">
     <div class="formtitle"><span>员工信息</span></div>
     <ul class="forminfo">
@@ -53,15 +71,15 @@ pageEncoding="UTF-8"%>
       </li>
       <li>
         <label>出生年月</label>
-        <input type="date" name="birthday" class="dfinput laydate-icon" id="birthday" value="2014-6-25">
+        <input name="birthday" class="dfinput laydate-icon" id="birthday" />
       </li>
       <li>
         <label>所属部门</label>
-        <select name="deptId" class="dfselect">
-          <option>请选择部门</option>
-          <c:forEach items="${listDept}" var="ld">
+        <select name="deptId" id="deptId" class="dfselect">
+            <option value="0">请选择部门</option>
+          <%--<c:forEach items="${listDept}" var="ld">
             <option value="${ld.deptId}">${ld.deptName}</option>
-          </c:forEach>
+          </c:forEach>--%>
           <%--<option value="">研发</option>
           <option value="">销售</option>
           <option value="">财务</option>--%>
@@ -69,11 +87,15 @@ pageEncoding="UTF-8"%>
       </li>
       <li>
         <label>职位</label>
-        <select name="jobId" class="dfselect">
-          <option value="" selected="selected">经理</option>
+        <select name="jobId" id="jobId" class="dfselect">
+            <option value="0">请选择职位</option>
+          <%--<c:forEach items="${listJob}" var="lj">
+            <option value="${lj.jobId}">${lj.jobName}</option>
+          </c:forEach>--%>
+          <%--<option value="" selected="selected">经理</option>
           <option value="">高级工程师</option>
           <option value="">中级工程师</option>
-          <option value="">初级工程师</option>
+          <option value="">初级工程师</option>--%>
         </select>
       </li>
       <li>
