@@ -56,5 +56,90 @@ public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    public Product() {
+    }
 
+    public Product(Integer productId, String productModel, double productPrice, Integer productStatus, String productUnit, Date createTime, Users creater, Type type, Firm firm) {
+        this.productId = productId;
+        this.productModel = productModel;
+        this.productPrice = productPrice;
+        this.productStatus = productStatus;
+        this.productUnit = productUnit;
+        this.createTime = createTime;
+        this.creater = creater;
+        this.type = type;
+        this.firm = firm;
+    }
+
+    public Integer getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Integer productId) {
+        this.productId = productId;
+    }
+
+    public String getProductModel() {
+        return productModel;
+    }
+
+    public void setProductModel(String productModel) {
+        this.productModel = productModel;
+    }
+
+    public double getProductPrice() {
+        return productPrice;
+    }
+
+    public void setProductPrice(double productPrice) {
+        this.productPrice = productPrice;
+    }
+
+    public Integer getProductStatus() {
+        return productStatus;
+    }
+
+    public void setProductStatus(Integer productStatus) {
+        this.productStatus = productStatus;
+    }
+
+    public String getProductUnit() {
+        return productUnit;
+    }
+
+    public void setProductUnit(String productUnit) {
+        this.productUnit = productUnit;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Users getCreater() {
+        return creater;
+    }
+
+    public void setCreater(Users creater) {
+        this.creater = creater;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public Firm getFirm() {
+        return firm;
+    }
+
+    public void setFirm(Firm firm) {
+        this.firm = firm;
+    }
 }

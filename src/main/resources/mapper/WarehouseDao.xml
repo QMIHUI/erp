@@ -3,21 +3,20 @@
 <mapper namespace="com.dao.WarehouseDao">
   <resultMap id="Warehouse" type="com.bean.Warehouse">
     <id column="ID" jdbcType="INTEGER" property="id" />
-    <result column="C_NAME" jdbcType="VARCHAR" property="cName" />
+    <result column="NAME" jdbcType="VARCHAR" property="cName" />
     <result column="C_ADDRESS" jdbcType="VARCHAR" property="cAddress" />
     <result column="PHONE" jdbcType="VARCHAR" property="phone" />
     <result column="DETAILS" jdbcType="VARCHAR" property="details" />
     <result column="STATE" jdbcType="INTEGER" property="state" />
     <result column="CREATION_TIME" jdbcType="TIMESTAMP" property="creationTime" />
-    <association property="province" select="" column="PROVINCE_ID"/>
-    <association property="city" select="" column="CITY_ID"/>
-
-    <association property="principal" select="com.dao.UsersDao." column="USRE_ID"/>
-    <association property="creater" select="com.dao.UsersDao." column="USERS_ID"/>
+    <association property="province" select="com.dao.ProvinceDao.getProvinceById" column="PROVINCE_ID"/>
+    <association property="city" select="com.dao.CityDao.getCityById" column="CITY_ID"/>
+    <association property="principal" select="com.dao.UsersDao.getOneUser" column="USRE_ID"/>
+    <association property="creater" select="com.dao.UsersDao.getOneUser" column="USERS_ID"/>
   </resultMap>
 
     <select id="getWarehouseById" resultMap="Warehouse">
-      select id, c_name, c_address, province_id, usre_id, phone, details, state, users_id, creation_time, city_id  from warehouse where ID=#{id}
+      select id, name, c_address, province_id, usre_id, phone, details, state, users_id, creation_time, city_id  from warehouse where ID=#{id}
     </select>
 
 </mapper>

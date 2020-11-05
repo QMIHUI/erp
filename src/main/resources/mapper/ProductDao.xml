@@ -8,10 +8,9 @@
     <result column="PRODUCT_STATUS" jdbcType="INTEGER" property="productStatus" />
     <result column="PRODUCT_UNIT" jdbcType="VARCHAR" property="productUnit" />
     <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
-    <association property="type" select="com.dao.TypeDao." column="TYPE_ID"/>
-    <association property="firm" select="com.dao.FirmDao.frimWithoutPurchase" column="FIRM_ID"/>
-
-    <association property="creater" select="com.dao.UsersDao." column="CREATE_ID"/>
+    <association property="type" select="com.dao.TypeDao.getTypeById" column="TYPE_ID"/>
+    <association property="firm" select="com.dao.FirmDao.getFirmById" column="FIRM_ID"/>
+    <association property="creater" select="com.dao.UsersDao.getOneUser" column="CREATE_ID"/>
 
   </resultMap>
   <select id="getProductById" resultMap="product">

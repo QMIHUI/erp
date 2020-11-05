@@ -7,9 +7,7 @@
     <result column="TYPE_STATUS" jdbcType="INTEGER" property="typeStatus" />
     <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
     <association property="brand" select="com.dao.BrandDao.getBrandById" column="BRAND_ID"/>
-
-    <association property="creater" select="com.dao.UsersDao." column="CREATE_ID"/>
-
+    <association property="creater" select="com.dao.UsersDao.getOneUser" column="CREATE_ID"/>
   </resultMap>
 
     <select id="getTypeById" resultMap="type">
