@@ -8,4 +8,6 @@ public interface JobDao {
     //查询所有职位
     public List<Job> getAllJob();
 
+    public List<Job> getJobByDid(int did);
+
 }

@@ -13,6 +13,7 @@ public class Dept implements Serializable {
 
     private String deptState;
 
+
     private static final long serialVersionUID = 1L;
 
     public Integer getDeptId() {
