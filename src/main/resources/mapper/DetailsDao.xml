@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.DetailsDao">
+  <resultMap id="BaseResultMap" type="com.bean.Details">
+    <id column="DETAILS_ID" jdbcType="INTEGER" property="detailsId" />
+    <result column="PURCHASE_ID" jdbcType="VARCHAR" property="purchaseId" />
+    <result column="COUNT" jdbcType="INTEGER" property="count" />
+    <result column="PRODUCT_ID" jdbcType="INTEGER" property="productId" />
+    <result column="PURCHASE_PRICE" jdbcType="DECIMAL" property="purchasePrice" />
+    <result column="TOTAL_MONEY" jdbcType="DECIMAL" property="totalMoney" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    DETAILS_ID, PURCHASE_ID, `COUNT`, PRODUCT_ID, PURCHASE_PRICE, TOTAL_MONEY
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from c_details
+    where DETAILS_ID = #{detailsId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from c_details
+    where DETAILS_ID = #{detailsId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="DETAILS_ID" keyProperty="detailsId" parameterType="com.bean.Details" useGeneratedKeys="true">
+    insert into c_details (PURCHASE_ID, `COUNT`, PRODUCT_ID, 
+      PURCHASE_PRICE, TOTAL_MONEY)
+    values (#{purchaseId,jdbcType=VARCHAR}, #{count,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER}, 
+      #{purchasePrice,jdbcType=DECIMAL}, #{totalMoney,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" keyColumn="DETAILS_ID" keyProperty="detailsId" parameterType="com.bean.Details" useGeneratedKeys="true">
+    insert into c_details
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="purchaseId != null">
+        PURCHASE_ID,
+      </if>
+      <if test="count != null">
+        `COUNT`,
+      </if>
+      <if test="productId != null">
+        PRODUCT_ID,
+      </if>
+      <if test="purchasePrice != null">
+        PURCHASE_PRICE,
+      </if>
+      <if test="totalMoney != null">
+        TOTAL_MONEY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="purchaseId != null">
+        #{purchaseId,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null">
+        #{count,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="purchasePrice != null">
+        #{purchasePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="totalMoney != null">
+        #{totalMoney,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bean.Details">
+    update c_details
+    <set>
+      <if test="purchaseId != null">
+        PURCHASE_ID = #{purchaseId,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null">
+        `COUNT` = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null">
+        PRODUCT_ID = #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="purchasePrice != null">
+        PURCHASE_PRICE = #{purchasePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="totalMoney != null">
+        TOTAL_MONEY = #{totalMoney,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where DETAILS_ID = #{detailsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bean.Details">
+    update c_details
+    set PURCHASE_ID = #{purchaseId,jdbcType=VARCHAR},
+      `COUNT` = #{count,jdbcType=INTEGER},
+      PRODUCT_ID = #{productId,jdbcType=INTEGER},
+      PURCHASE_PRICE = #{purchasePrice,jdbcType=DECIMAL},
+      TOTAL_MONEY = #{totalMoney,jdbcType=DECIMAL}
+    where DETAILS_ID = #{detailsId,jdbcType=INTEGER}
+  </update>
+</mapper>
