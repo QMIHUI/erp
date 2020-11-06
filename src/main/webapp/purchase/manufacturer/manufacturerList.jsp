@@ -10,8 +10,12 @@
     <link href="../../css/style.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="../../js/jquery.js"></script>
     <script type="text/javascript">
-        function tipOpen(content) {
+        function tipOpen(content,id) {
             $(".tipright p").text(content);
+            $("input[name='delete']").bind("click",function () {
+                alert(id);
+                window.location.href="${pageContext.request.contextPath}/delFirm.do?id="+id;
+            })
             $("#tip").fadeIn(200);
         }
         function tipClose() {
@@ -92,9 +96,9 @@
                         <td><fmt:formatDate value="${firm.createTime}" pattern="yyyy-MM-dd hh:MM:ss"/></td>
                         <td>${firm.user.uname}</td>
                         <td>
-                            <a href="manufacturerView.jsp" class="tablelink">查看详情</a>
+                            <a href="${pageContext.request.contextPath}/getFirmDetails.do?id=${firm.firmId}" class="tablelink">查看详情</a>
                             <a href="manufacturerUpdate.jsp" class="tablelink">修改</a>
-                            <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('是否确认注销此条信息？')">注销</a>
+                            <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('是否确认注销此条信息？',${firm.firmId})">注销</a>
                         </td>
                     </tr>
                 </c:forEach>
@@ -124,7 +128,7 @@
                 <cite>如果是请点击确定按钮 ，否则请点取消。</cite> </div>
         </div>
         <div class="tipbtn">
-            <input name="" type="button"  class="sure" value="确定" onclick="tipClose()" />
+            <input name="delete" type="button"  class="sure" value="确定" />
             &nbsp;
             <input name="" type="button"  class="cancel" value="取消" onclick="tipClose()" />
         </div>
