@@ -11,4 +11,7 @@ public interface FirmDao {
     //获取单个供应商(不含采购单)
     public Firm getFirmById(int id);
 
+    //根据id删除供应商
+    public int delFirm(int id);
+
 }
