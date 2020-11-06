@@ -9,9 +9,39 @@
   <sql id="Base_Column_List">
     dept_id, dept_name, dept_state
   </sql>
+  <insert id="addDept">
+    insert into dept (dept_name) values(#{deptName})
+  </insert>
+  <update id="updateDept">
+    update dept set dept_name=#{deptName} where dept_id=#{deptId}
+  </update>
+  <update id="forbiddenDept">
+    update dept set dept_state="注销" where dept_id=#{deptId}
+  </update>
+  <update id="recoverDept">
+    update dept set dept_state="正常" where dept_id=#{deptId}
+  </update>
   <select id="getAllDept" resultMap="BaseResultMap">
     select * from dept
    </select>
+  <select id="getDeptByPager" resultMap="BaseResultMap">
+    select * from dept limit #{page},#{size}
+  </select>
+  <select id="countDept" resultType="java.lang.Integer">
+    select count(*) from dept
+  </select>
+  <select id="getOneDept" resultMap="BaseResultMap">
+    select * from dept where dept_id=#{deptId}
+  </select>
+  <select id="getDeptByName" resultMap="BaseResultMap">
+    select * from dept
+    <where>
+      <if test="deptName!=null and deptName!='' ">
+        and dept_name like '%${deptName}%'
+      </if>
+    </where>
+    limit #{page},#{size}
+  </select>
 
 
 </mapper>

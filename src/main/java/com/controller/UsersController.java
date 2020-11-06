@@ -85,6 +85,13 @@ public class UsersController {
         return "sys/users/userList";
     }
 
+    /*@RequestMapping(value="getJobByDeptId.do",method = RequestMethod.GET)
+    public String GetEmployeeByDepartmentId(@RequestBody int deptId){
+        System.out.println("执行根据部门id查找job");
+        List<Job> listJob=jobDao.getJobByDid(deptId);
+        return listJob.toString();
+    }*/
+
     @RequestMapping(value = "addUser.do",method = RequestMethod.GET)
     public String addUser(){
         System.out.println("执行增加用户");
