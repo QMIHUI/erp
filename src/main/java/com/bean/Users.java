@@ -10,6 +10,7 @@ public class Users implements Serializable {
     private Integer uId;
 
     private String uname;
+    private String names;
 
     private String upassword;
 
@@ -136,6 +137,14 @@ public class Users implements Serializable {
 
     public void setBirthday(String birthday) {
         this.birthday = birthday;
+    }
+
+    public String getNames() {
+        return names;
+    }
+
+    public void setNames(String names) {
+        this.names = names;
     }
 
     public Users() {

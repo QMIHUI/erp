@@ -62,7 +62,7 @@
                 </select>
             </li>
             <li class="subBut" onclick="window.location.href='manufacturerList.html'"><img src="../../images/t06.png" />查询</li>
-            <li class="subBut" onclick="window.location.href='manufacturerAdd.jsp'"><img src="../../images/t01.png" />添加</li>
+            <li class="subBut" onclick="window.location.href='${pageContext.request.contextPath}/goToAddFirm.do'"><img src="../../images/t01.png" />添加</li>
         </ul>
         <table class="tablelist">
             <thead>

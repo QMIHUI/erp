@@ -8,5 +8,9 @@
   <select id="getProvinceById" parameterType="java.lang.Integer" resultMap="province">
     select id, p_name from province where ID = #{id}
   </select>
+  <!--获取所有省-->
+  <select id="getAllProvinces" resultMap="province">
+    select id, p_name from province order by ID;
+  </select>
 
 </mapper>
