@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author HUI
@@ -100,6 +102,43 @@ public class JobController {
         }
     }
 
+    @RequestMapping(value = "cancelJob.do",method = RequestMethod.GET)
+    public String cancelJob(HttpServletRequest request){
+        System.out.println("注销职位！！！");
+        int jid = Integer.parseInt(request.getParameter("jid"));
+        int num = jobDao.cancelJob(jid);
+        if(num>0){
+            return "forward:queryAllJob.do";
+        }else{
+            return "forward:queryAllJob.do";
+        }
+    }
+
+    @RequestMapping(value = "recoverJob.do",method = RequestMethod.GET)
+    public String recoverJob(HttpServletRequest request){
+        System.out.println("恢复职位！！！");
+        int jid = Integer.parseInt(request.getParameter("jid"));
+        int num = jobDao.recoverJob(jid);
+        if(num>0){
+            return "forward:queryAllJob.do";
+        }else{
+            return "forward:queryAllJob.do";
+        }
+    }
+
+    @RequestMapping(value = "getJobByCon.do",method = RequestMethod.GET)
+    public String getJobByCon(HttpServletRequest request){
+        System.out.println("根据条件查询职位");
+        String jobName = request.getParameter("jobName");
+        int deptId = Integer.parseInt(request.getParameter("deptId"));
+        System.out.println(jobName+"///"+deptId);
+        Map<String,Object> map = new HashMap<>();
+        map.put("jobName",jobName);
+        map.put("jobDeptId",deptId);
+        int countJobByCon = jobDao.countJobByCon(map);
+        System.out.println(countJobByCon);
+        return "";
+    }
 
 
 

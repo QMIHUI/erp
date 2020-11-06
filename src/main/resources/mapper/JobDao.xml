@@ -19,6 +19,14 @@
   <update id="updateJob">
     update job set job_name=#{jobName},job_dept_id=#{jobDeptId} where job_id=#{jobId}
   </update>
+  <!-- 注销职位 -->
+  <update id="cancelJob">
+    update job set job_state='注销' where job_id=#{jobId}
+  </update>
+  <!-- 恢复职位 -->
+  <update id="recoverJob">
+    update job set job_state='正常' where job_id=#{jobId}
+  </update>
 
   <resultMap id="AllMap" type="com.bean.Job">
     <id column="job_id" jdbcType="INTEGER" property="jobId" />
@@ -60,6 +68,29 @@
   </select>
   <select id="getOneJob" resultMap="getJobByDid">
     SELECT * FROM job LEFT JOIN dept ON job.job_dept_id = dept.dept_id WHERE job.job_id=#{jobId}
+  </select>
+  <select id="getJobByCon" resultMap="AllMap">
+    SELECT * FROM job LEFT JOIN dept ON job.job_dept_id = dept.dept_id
+    <where>
+      <if test="jobName!=null and jobName!='' ">
+        and job_name like '%${jobName}%'
+      </if>
+      <if test="jobDeptId!='' ">
+        and job_dept_id=#{jobDeptId}
+      </if>
+    </where>
+    limit #{page},#{size}
+  </select>
+  <select id="countJobByCon" resultType="java.lang.Integer">
+    SELECT count(*) FROM job LEFT JOIN dept ON job.job_dept_id = dept.dept_id
+    <where>
+      <if test="jobName!=null and jobName!='' ">
+        and job_name like '%${jobName}%'
+      </if>
+      <if test="jobDeptId!='' ">
+        and job_dept_id=#{jobDeptId}
+      </if>
+    </where>
   </select>
 
 

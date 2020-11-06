@@ -9,27 +9,26 @@ pageEncoding="UTF-8"%>
 <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.js"></script>
 <script type="text/javascript">
-function tipOpen(content) {
-	$(".tipright p").text(content);
-	$("#tip").fadeIn(200);
-	/*if(content==true){
-	  alert("111");
-    }*/
-}
-function tipClose() {
-	$("#tip").fadeOut(200);
-}
-function confirmd() {
-  var msg = "确定删除该条数据？";
-  if (confirm(msg)==true){
-    alert("111");
-    var jid = document.getElementById("jid").val;
-    alert(jid);
-    return true;
-  }else{
-    return false;
+  function tipOpen(content,id) {
+      $(".tipright p").text(content);
+      $("input[name='cancel']").bind("click",function () {
+        window.location.href="${pageContext.request.contextPath}/cancelJob.do?jid="+id;
+      })
+      $("#tip").fadeIn(200);
   }
-}
+  function tipOpen01(content,id) {
+    $(".tipright01 p").text(content);
+    $(".tipright01 p").text(content).css("font-weight","bold");
+    $(".tipright01 p").text(content).css("font-size","14px");
+    $("input[name='recover']").bind("click",function () {
+      window.location.href="${pageContext.request.contextPath}/recoverJob.do?jid="+id;
+    })
+    $("#tip01").fadeIn(200);
+  }
+  function tipClose() {
+      $("#tip").fadeOut(200);
+      $("#tip01").fadeOut(200);
+  }
 </script>
 </head>
 
@@ -41,10 +40,10 @@ function confirmd() {
   </ul>
 </div>
 <div class="rightinfo">
-  <form action="" method="post">
+  <form action="${pageContext.request.contextPath}/getJobByCon.do" method="get">
     <ul class="tools">
       <li> <label>职位名称:</label>
-        <input type="text" />
+        <input type="text" name="jobName" />
       </li>
       <li> <label>所属部门：</label>
         <select name="deptId">
@@ -55,7 +54,7 @@ function confirmd() {
         </select>
       </li>
       <li style="width: 100px;height: 35px;margin-top: -10px">
-        <input	value="查 询" type="submit" id="searchbutton" class="subBut">
+        <input value="查 询" type="submit" id="searchbutton" class="subBut">
       </li>
       <%--<li class="subBut" onclick=""><img src="../../images/t06.png" />查询</li>--%>
       <li class="subBut" onclick="window.location.href='${pageContext.request.contextPath}/sys/dept/positionAdd.jsp'"><img src="${pageContext.request.contextPath}/images/t01.png" />添加</li>
@@ -82,11 +81,10 @@ function confirmd() {
             <a href="${pageContext.request.contextPath}/getOneJob.do?jid=${lj.jobId}" class="tablelink">修改</a>
             <%--<a href="positionGrant.jsp" class="tablelink">赋权</a>--%>
             <c:if test="${lj.jobState=='正常'}">
-              <%--<a href="javascript:void(0)?jid=${lj.jobId}" class="tablelink" onclick="tipOpen('是否确认注销此条信息？')">注销</a>--%>
-              <a href="javascript:void(0)?jid=${lj.jobId}"  class="tablelink" onclick="return confirmd()">注销</a>
+              <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('是否确认注销这个职位？',${lj.jobId})">注销</a>
             </c:if>
             <c:if test="${lj.jobState=='注销'}">
-              <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('是否确认注销此条信息？')">恢复</a>
+              <a href="javascript:void(0)" class="tablelink" onclick="tipOpen01('是否确认恢复这个职位？',${lj.jobId})">恢复</a>
             </c:if>
           </td>
 
@@ -112,7 +110,21 @@ function confirmd() {
         <cite>如果是请点击确定按钮 ，否则请点取消。</cite> </div>
     </div>
     <div class="tipbtn">
-      <input name="" type="button"  class="sure" value="确定" onclick="tipClose()" />
+      <input name="cancel" type="button"  class="sure" value="确定" />
+      <input name="" type="button"  class="cancel" value="取消" onclick="tipClose()" />
+    </div>
+  </div>
+
+  <!-- 提示框 -->
+  <div id="tip01" class="tip">
+    <div class="tiptop"><span>提示信息</span><a onclick="tipClose()"></a></div>
+    <div class="tipinfo"> <span><img src="${pageContext.request.contextPath }/images/ticon.png" /></span>
+      <div class="tipright01">
+        <p></p>
+        <cite>如果是请点击确定按钮 ，否则请点取消。</cite> </div>
+    </div>
+    <div class="tipbtn">
+      <input name="recover" type="button"  class="sure" value="确定" />
       <input name="" type="button"  class="cancel" value="取消" onclick="tipClose()" />
     </div>
   </div>
