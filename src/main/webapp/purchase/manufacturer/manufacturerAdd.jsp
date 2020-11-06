@@ -50,7 +50,9 @@
             </select>
             省
             <select class="dfselect" name="city">
-                <option>请选择</option>
+                <option value="1">抚州</option>
+                <option value="2">南昌</option>
+                <option value="3">九江</option>
             </select>
             市
             <script type="text/javascript">
@@ -65,7 +67,6 @@
                             $.each(result,function (key,value) {
                                 $("select[name='city']").append("<option value='"+value.id+"'>"+value.cName+"</option>")
                             })
-
                         }
                     })
                 })
