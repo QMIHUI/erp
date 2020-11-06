@@ -13,7 +13,6 @@
         function tipOpen(content,id) {
             $(".tipright p").text(content);
             $("input[name='delete']").bind("click",function () {
-                alert(id);
                 window.location.href="${pageContext.request.contextPath}/delFirm.do?id="+id;
             })
             $("#tip").fadeIn(200);
