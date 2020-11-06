@@ -19,7 +19,7 @@ public class BuyController {
     @Autowired
     public FirmDao firmDao;
 
-    @RequestMapping(value = "getAllFirms.do",method = RequestMethod.GET)
+    @RequestMapping(value = "getAllFirm.do",method = RequestMethod.GET)
     public String getAllFirms(HttpSession session){
         List<Firm> firmList=firmDao.getAllFrims();
         session.setAttribute("firmList",firmList);
