@@ -136,8 +136,36 @@ public class JobController {
         map.put("jobName",jobName);
         map.put("jobDeptId",deptId);
         int countJobByCon = jobDao.countJobByCon(map);
-        System.out.println(countJobByCon);
-        return "";
+        System.out.println("总个数："+countJobByCon);
+        int size = 5;
+        int rowJobByCon = countJobByCon % size == 0 ? (countJobByCon / size) : (countJobByCon / size + 1);
+        System.out.println(rowJobByCon);
+        String currentIndex= request.getParameter("pageIndex");
+        //第一次访问(当前页码=1)
+        int pageIndex = 1;
+        if(currentIndex!=null) {
+            pageIndex=Integer.parseInt(currentIndex);
+        }
+        if(currentIndex==null || Integer.parseInt(currentIndex) <= 0){
+            pageIndex = 1;
+        }else if(Integer.parseInt(currentIndex) >= rowJobByCon){
+            pageIndex=rowJobByCon;
+        }
+        Pager<Job> pager = new Pager<>();
+        pager.setPage((pageIndex-1)*size);
+        pager.setSize(size);
+        pager.setTotal(countJobByCon);
+        pager.setJobName(jobName);
+        pager.setJobDeptId(deptId);
+        List<Job> listJobByCon = jobDao.getJobByCon(pager);
+        request.getSession().setAttribute("listJobByCon",listJobByCon);
+        listJobByCon.forEach((e)-> System.out.println(e));
+        request.getSession().setAttribute("pageIndex",pageIndex);
+        request.getSession().setAttribute("rowJobByCon",rowJobByCon);
+        request.getSession().setAttribute("countJobByCon",countJobByCon);
+        request.getSession().setAttribute("jobName",jobName);
+        request.getSession().setAttribute("deptId",deptId);
+        return "sys/dept/positionListByCon";
     }
 
 
