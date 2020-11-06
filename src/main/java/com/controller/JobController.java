@@ -25,7 +25,7 @@ public class JobController {
     private DeptDao deptDao;
 
     @RequestMapping(value = "queryAllJob",method = RequestMethod.GET)
-    public String getAllJob(HttpServletRequest request){
+    public String queryAllJob(HttpServletRequest request){
         System.out.println("执行查询所有职位！！！");
         int countJob = jobDao.countJob();
         System.out.println(countJob);
@@ -56,6 +56,51 @@ public class JobController {
         request.getSession().setAttribute("rowJob",rowJob);
         return "sys/dept/positionList";
     }
+
+    @RequestMapping(value = "addJob.do",method = RequestMethod.GET)
+    public String addJob(HttpServletRequest request){
+        System.out.println("执行添加职位！！！");
+        String jobName = request.getParameter("jobName");
+        int deptId = Integer.parseInt(request.getParameter("deptId"));
+        Job job = new Job(jobName,deptId);
+        System.out.println(jobName);
+        System.out.println(deptId);
+        int num = jobDao.addJob(job);
+        System.out.println(num);
+        if(num>0){
+            return "forward:queryAllJob.do";
+        }else{
+            return "redirect:sys/dept/positionAdd.jsp";
+        }
+    }
+
+    @RequestMapping(value = "getOneJob.do",method = RequestMethod.GET)
+    public String getOneJob(HttpServletRequest request){
+        System.out.println("根据职位id查找职位");
+        int jid = Integer.parseInt(request.getParameter("jid"));
+        System.out.println(jid);
+        Job job = jobDao.getOneJob(jid);
+        request.getSession().setAttribute("job",job);
+        return "sys/dept/positionUpdate";
+    }
+
+    @RequestMapping(value = "updateJob.do",method = RequestMethod.GET)
+    public String updateJob(HttpServletRequest request){
+        System.out.println("执行修改职位！！！");
+        int jobId = Integer.parseInt(request.getParameter("jobId"));
+        String jobName = request.getParameter("jobName");
+        int deptId = Integer.parseInt(request.getParameter("deptId"));
+        Job job = new Job(jobId,jobName,deptId);
+        int num = jobDao.updateJob(job);
+        System.out.println(num);
+        if(num>0){
+            return "forward:queryAllJob.do";
+        }else{
+            return "redirect:sys/dept/positionUpdate.jsp";
+        }
+    }
+
+
 
 
 }

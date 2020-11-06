@@ -69,4 +69,18 @@ public class Job implements Serializable {
                 ", jobDeptId=" + jobDeptId +
                 '}';
     }
+
+    public Job() {
+    }
+
+    public Job(String jobName, Integer jobDeptId) {
+        this.jobName = jobName;
+        this.jobDeptId = jobDeptId;
+    }
+
+    public Job(Integer jobId, String jobName, Integer jobDeptId) {
+        this.jobId = jobId;
+        this.jobName = jobName;
+        this.jobDeptId = jobDeptId;
+    }
 }
