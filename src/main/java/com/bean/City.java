@@ -70,4 +70,14 @@ public class City implements Serializable {
     public void setcNumber(String cNumber) {
         this.cNumber = cNumber;
     }
+
+    @Override
+    public String toString() {
+        return "City{" +
+                "id=" + id +
+                ", province=" + province +
+                ", cName='" + cName + '\'' +
+                ", cNumber='" + cNumber + '\'' +
+                '}';
+    }
 }
