@@ -11,6 +11,15 @@
   <sql id="Base_Column_List">
     job_id, job_name, job_state, job_dept_id
   </sql>
+  <!-- 增加职位 -->
+  <insert id="addJob">
+    insert into job (job_name,job_dept_id) values (#{jobName},#{jobDeptId})
+  </insert>
+  <!-- 修改职位信息 -->
+  <update id="updateJob">
+    update job set job_name=#{jobName},job_dept_id=#{jobDeptId} where job_id=#{jobId}
+  </update>
+
   <resultMap id="AllMap" type="com.bean.Job">
     <id column="job_id" jdbcType="INTEGER" property="jobId" />
     <result column="job_name" jdbcType="VARCHAR" property="jobName" />
@@ -22,6 +31,7 @@
       <result column="dept_state" jdbcType="VARCHAR" property="deptState" />
     </association>
   </resultMap>
+  <!-- 查询所有并分页显示 -->
   <select id="getAllJob" resultMap="AllMap">
     select * from job LEFT JOIN dept ON job.job_dept_id = dept.dept_id limit #{page},#{size}
   </select>
@@ -36,14 +46,20 @@
       <result column="dept_state" jdbcType="VARCHAR" property="deptState" />
     </association>
   </resultMap>
+  <!-- 根据部门id查找job -->
   <select id="getJobByDid" resultMap="getJobByDid">
     SELECT * FROM job LEFT JOIN dept ON job.job_dept_id = dept.dept_id WHERE dept.dept_id=#{dept_id}
   </select>
+  <!-- 计算职位个数 -->
   <select id="countJob" resultType="java.lang.Integer">
     select count(*) from job
   </select>
+  <!-- 查询所有职位 -->
   <select id="getAllJob01" resultMap="BaseResultMap">
     select * from job
+  </select>
+  <select id="getOneJob" resultMap="getJobByDid">
+    SELECT * FROM job LEFT JOIN dept ON job.job_dept_id = dept.dept_id WHERE job.job_id=#{jobId}
   </select>
 
 

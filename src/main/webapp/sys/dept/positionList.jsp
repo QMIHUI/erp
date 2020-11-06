@@ -12,9 +12,23 @@ pageEncoding="UTF-8"%>
 function tipOpen(content) {
 	$(".tipright p").text(content);
 	$("#tip").fadeIn(200);
+	/*if(content==true){
+	  alert("111");
+    }*/
 }
 function tipClose() {
 	$("#tip").fadeOut(200);
+}
+function confirmd() {
+  var msg = "确定删除该条数据？";
+  if (confirm(msg)==true){
+    alert("111");
+    var jid = document.getElementById("jid").val;
+    alert(jid);
+    return true;
+  }else{
+    return false;
+  }
 }
 </script>
 </head>
@@ -38,9 +52,6 @@ function tipClose() {
           <c:forEach items="${listDept}" var="ld">
             <option value="${ld.deptId}">${ld.deptName}</option>
           </c:forEach>
-          <%--<option value="">研发</option>
-          <option value="">销售</option>
-          <option value="">财务</option>--%>
         </select>
       </li>
       <li style="width: 100px;height: 35px;margin-top: -10px">
@@ -68,10 +79,17 @@ function tipClose() {
           <td>${lj.dept.deptName}</td>
           <td>${lj.jobState}</td>
           <td>
-            <a href="positionUpdate.jsp" class="tablelink">修改</a>
-            <a href="positionGrant.jsp" class="tablelink">赋权</a>
-            <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('是否确认注销此条信息？')">注销</a>
+            <a href="${pageContext.request.contextPath}/getOneJob.do?jid=${lj.jobId}" class="tablelink">修改</a>
+            <%--<a href="positionGrant.jsp" class="tablelink">赋权</a>--%>
+            <c:if test="${lj.jobState=='正常'}">
+              <%--<a href="javascript:void(0)?jid=${lj.jobId}" class="tablelink" onclick="tipOpen('是否确认注销此条信息？')">注销</a>--%>
+              <a href="javascript:void(0)?jid=${lj.jobId}"  class="tablelink" onclick="return confirmd()">注销</a>
+            </c:if>
+            <c:if test="${lj.jobState=='注销'}">
+              <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('是否确认注销此条信息？')">恢复</a>
+            </c:if>
           </td>
+
         </tr>
       </c:forEach>
       </tbody>
@@ -88,14 +106,13 @@ function tipClose() {
   <!-- 提示框 -->
   <div id="tip" class="tip">
     <div class="tiptop"><span>提示信息</span><a onclick="tipClose()"></a></div>
-    <div class="tipinfo"> <span><img src="../../images/ticon.png" /></span>
+    <div class="tipinfo"> <span><img src="${pageContext.request.contextPath }/images/ticon.png" /></span>
       <div class="tipright">
         <p></p>
         <cite>如果是请点击确定按钮 ，否则请点取消。</cite> </div>
     </div>
     <div class="tipbtn">
       <input name="" type="button"  class="sure" value="确定" onclick="tipClose()" />
-      &nbsp;
       <input name="" type="button"  class="cancel" value="取消" onclick="tipClose()" />
     </div>
   </div>
