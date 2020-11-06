@@ -115,9 +115,38 @@ public class DeptController {
     }
 
     @RequestMapping(value = "getDeptByName.do",method = RequestMethod.GET)
-    public String getDeptByName(){
+    public String getDeptByName(HttpServletRequest request){
         System.out.println("111");
-        return "";
+        String dname = request.getParameter("dname");
+        System.out.println(dname);
+        request.getSession().setAttribute("dname",dname);
+        int countDeptName = deptDao.countDeptByName(dname);
+        System.out.println(countDeptName);
+        int size = 5;
+        int rowDeptByName = countDeptName % size == 0 ? (countDeptName / size) : (countDeptName / size + 1);
+        System.out.println(rowDeptByName);
+        String currentIndex= request.getParameter("pageIndex");
+        //第一次访问(当前页码=1)
+        int pageIndex = 1;
+        if(currentIndex!=null) {
+            pageIndex=Integer.parseInt(currentIndex);
+        }
+        if(currentIndex==null || Integer.parseInt(currentIndex) <= 0){
+            pageIndex = 1;
+        }else if(Integer.parseInt(currentIndex) >= rowDeptByName){
+            pageIndex=rowDeptByName;
+        }
+        Pager<Dept> pager = new Pager<>();
+        pager.setPage((pageIndex-1)*size);
+        pager.setSize(size);
+        pager.setTotal(countDeptName);
+        pager.setDeptName(dname);
+        List<Dept> listDeptPagerByName = deptDao.getDeptByName(pager);
+        request.getSession().setAttribute("listDeptPagerByName",listDeptPagerByName);
+        request.getSession().setAttribute("countDeptName",countDeptName);
+        request.getSession().setAttribute("rowDeptByName",rowDeptByName);
+        request.getSession().setAttribute("pageIndex",pageIndex);
+        return "sys/dept/deptListByName";
     }
 
 

@@ -42,6 +42,14 @@
     </where>
     limit #{page},#{size}
   </select>
+  <select id="countDeptByName" resultType="java.lang.Integer">
+    select count(*) from dept
+    <where>
+      <if test="deptName!=null and deptName!='' ">
+        and dept_name like '%${deptName}%'
+      </if>
+    </where>
+  </select>
 
 
 </mapper>

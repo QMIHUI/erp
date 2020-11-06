@@ -3,6 +3,7 @@ package com.dao;
 import com.bean.Dept;
 import com.bean.Job;
 import com.util.Pager;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -24,7 +25,9 @@ public interface DeptDao {
     //恢复部门
     public int recoverDept(int did);
     //模糊查询
-    public List<Dept> getDeptByName(Pager<Dept> pager,String deptName);
+    public List<Dept> getDeptByName(Pager<Dept> pager);
+    //模糊查询的个数
+    public int countDeptByName(String deptName);
 
 
 
