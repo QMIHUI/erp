@@ -32,7 +32,7 @@ function tipClose() {
       <li> <label>部门名称:</label>
         <input type="text" name="dname" />
       </li>
-      <li style="width: 100px;height: 30px;margin-top: -5px">
+      <li style="width: 100px;height: 35px;margin-top: -10px">
         <input	value="查 询" type="submit" id="searchbutton" class="subBut">
       </li>
       <%--<li class="subBut" onclick="window.location.href='getDeptByName.do'">

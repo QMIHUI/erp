@@ -165,16 +165,19 @@ $(function(){
                 <ul class="menuson">
                     <li>
                         <cite></cite>
-                        <%--<a href="sys/users/userList.jsp" target="rightFrame">用户管理</a>--%>
-                        <a href="queryAllUser.do" target="rightFrame">用户管理</a>
+                        <a href="${pageContext.request.contextPath}/queryAllUser.do" target="rightFrame">用户管理</a>
                         <i></i>
                     </li>
                     <li>
                         <cite></cite>
-                        <a href="queryAllDept.do" target="rightFrame">部门管理</a>
+                        <a href="${pageContext.request.contextPath}/queryAllDept.do" target="rightFrame">部门管理</a>
                         <i></i>
                     </li>
-                    <li><cite></cite><a href="sys/dept/positionList.jsp" target="rightFrame">职位管理</a><i></i></li>
+                    <li>
+                        <cite></cite>
+                        <a href="${pageContext.request.contextPath}/queryAllJob.do" target="rightFrame">职位管理</a>
+                        <i></i>
+                    </li>
                     <li><cite></cite><a href="sys/modules/moduleList.jsp" target="rightFrame">模块管理</a><i></i></li>
                     <li><cite></cite><a href="sys/logs/logList.jsp" target="rightFrame">日志管理</a><i></i></li>
                     <li><cite></cite><a href="sys/area/areaList.jsp" target="rightFrame">区域管理</a><i></i></li>

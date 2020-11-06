@@ -7,11 +7,23 @@
     <result column="job_state" jdbcType="VARCHAR" property="jobState" />
     <result column="job_dept_id" jdbcType="INTEGER" property="jobDeptId" />
   </resultMap>
+
   <sql id="Base_Column_List">
     job_id, job_name, job_state, job_dept_id
   </sql>
-  <select id="getAllJob" resultMap="BaseResultMap">
-    select * from job
+  <resultMap id="AllMap" type="com.bean.Job">
+    <id column="job_id" jdbcType="INTEGER" property="jobId" />
+    <result column="job_name" jdbcType="VARCHAR" property="jobName" />
+    <result column="job_state" jdbcType="VARCHAR" property="jobState" />
+    <result column="job_dept_id" jdbcType="INTEGER" property="jobDeptId" />
+    <association property="dept" javaType="Dept">
+      <id column="dept_id" jdbcType="INTEGER" property="deptId" />
+      <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+      <result column="dept_state" jdbcType="VARCHAR" property="deptState" />
+    </association>
+  </resultMap>
+  <select id="getAllJob" resultMap="AllMap">
+    select * from job LEFT JOIN dept ON job.job_dept_id = dept.dept_id limit #{page},#{size}
   </select>
   <resultMap id="getJobByDid" type="com.bean.Job">
     <id column="job_id" jdbcType="INTEGER" property="jobId" />
@@ -26,6 +38,12 @@
   </resultMap>
   <select id="getJobByDid" resultMap="getJobByDid">
     SELECT * FROM job LEFT JOIN dept ON job.job_dept_id = dept.dept_id WHERE dept.dept_id=#{dept_id}
+  </select>
+  <select id="countJob" resultType="java.lang.Integer">
+    select count(*) from job
+  </select>
+  <select id="getAllJob01" resultMap="BaseResultMap">
+    select * from job
   </select>
 
 

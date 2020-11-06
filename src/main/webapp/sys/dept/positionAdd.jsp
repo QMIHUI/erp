@@ -5,14 +5,14 @@ pageEncoding="UTF-8"%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>职位管理</title>
-<link href="../../css/style.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="../../laydate/laydate.js"></script>
+<link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="${pageContext.request.contextPath}/laydate/laydate.js"></script>
 </head>
 
 <body>
 <div class="place"> <span>位置：</span>
   <ul class="placeul">
-    <li><a href="../users/userList.jsp">系统管理</a></li>
+    <li><a href="${pageContext.request.contextPath}/sys/users/userList.jsp">系统管理</a></li>
     <li><a href="deptList.jsp">职位管理</a></li>
     <li><a href="#">添加</a></li>
   </ul>
@@ -27,11 +27,14 @@ pageEncoding="UTF-8"%>
       <i>必填，不能超过30个字符</i>
     </li>
     <li> <label>所属部门：</label>
-      <select class="dfselect" name="">
-        <option>请选择部门</option>
-        <option value="">研发</option>
+      <select name="deptId">
+        <option value="0">请选择部门</option>
+        <c:forEach items="${listDept}" var="ld">
+          <option value="${ld.deptId}">${ld.deptName}</option>
+        </c:forEach>
+        <%--<option value="">研发</option>
         <option value="">销售</option>
-        <option value="">财务</option>
+        <option value="">财务</option>--%>
       </select>
     </li>
     <li>
