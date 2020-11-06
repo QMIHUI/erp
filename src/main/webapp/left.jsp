@@ -122,11 +122,13 @@ $(function(){
                 <div class="title">采购管理</div>
                 <ul class="menuson">
                     <li><cite></cite><a href="purchase/purchase/purchaseList.jsp" target="rightFrame">采购单管理</a><i></i></li>
-                    <li><cite></cite><a href="purchase/purchaseExamine/purchaseExamineList.jsp" target="rightFrame">采购单审核</a><i></i></li>
+                    <c:if test="${user.jobId==7||user.jobId==8||user.jobId==9}">
+                        <li><cite></cite><a href="purchase/purchaseExamine/purchaseExamineList.jsp" target="rightFrame">采购单审核</a><i></i></li>
+                    </c:if>
                     <li><cite></cite><a href="purchase/brand/brandList.jsp" target="rightFrame">品牌管理</a><i></i></li>
                     <li><cite></cite><a href="purchase/productType/productTypeList.jsp" target="rightFrame">商品类型管理</a><i></i></li>
                     <li><cite></cite><a href="purchase/product/productList.jsp" target="rightFrame">商品管理</a><i></i></li>
-                    <li><cite></cite><a href="purchase/manufacturer/manufacturerList.jsp" target="rightFrame">厂商管理</a><i></i></li>
+                    <li><cite></cite><a href="${pageContext.request.contextPath}/getAllFirm.do" target="rightFrame">厂商管理</a><i></i></li>
                 </ul>
             </dd>
         </dl>
