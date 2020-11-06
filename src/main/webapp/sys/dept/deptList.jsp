@@ -27,12 +27,12 @@ function tipClose() {
   </ul>
 </div>
 <div class="rightinfo">
-  <form action="" method="post">
+  <form action="${pageContext.request.contextPath }/getDeptByName.do" method="get">
     <ul class="tools">
       <li> <label>部门名称:</label>
         <input type="text" name="dname" />
       </li>
-      <li>
+      <li style="width: 100px;height: 35px;margin-top: -10px">
         <input	value="查 询" type="submit" id="searchbutton" class="subBut">
       </li>
       <%--<li class="subBut" onclick="window.location.href='getDeptByName.do'">

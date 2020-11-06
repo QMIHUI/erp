@@ -75,7 +75,7 @@ public class UsersController {
         pager.setTotal(countUsers);
         List<Users> listUsers = usersDao.getAllUsersByPage(pager);
         List<Dept> listDept = deptDao.getAllDept();
-        List<Job> listJob = jobDao.getAllJob();
+        List<Job> listJob = jobDao.getAllJob01();
         request.getSession().setAttribute("listDept",listDept);
         request.getSession().setAttribute("listJob",listJob);
         request.getSession().setAttribute("row",row);

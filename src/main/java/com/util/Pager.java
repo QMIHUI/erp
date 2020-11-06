@@ -7,11 +7,21 @@ import java.util.List;
  * @create 2020-10-20 17:27
  */
 public class Pager<T> {
+    //查询起始条件
+    private String deptName;
+
+
     private int page;//分页起始页
     private int size;//每页记录数
     private List<T> rows;//返回的记录集合
     private long total;//总记录条数
 
+    public String getDeptName() {
+        return deptName;
+    }
+    public void setDeptName(String deptName) {
+        this.deptName = deptName;
+    }
     public int getPage() {
         return page;
     }
