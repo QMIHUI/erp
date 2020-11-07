@@ -14,6 +14,14 @@ public interface UsersDao {
     public int countUsers();
     //根据id查找用户
     public Users getOneUser(int uid);
+    //增加用户
+    public int addUser(Users user);
+    //注销用户
+    public int forbiddenUser(Users user);
+    //恢复用户
+    public int recoverUser(Users user);
+    //修改用户
+    public int updateUser(Users user);
 
 
 

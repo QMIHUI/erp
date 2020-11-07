@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.bean.Users">
     <id column="u_id"  property="uId" />
     <result column="uname"  property="uname" />
-    <result column="uname" property="names"></result>
+    <result column="uname"  property="names" />
     <result column="upassword"  property="upassword" />
     <result column="utelephone"  property="utelephone" />
     <result column="dept_id"  property="deptId" />
@@ -19,6 +19,20 @@
     u_id, uname, upassword, utelephone, dept_id, job_id, sex, `status`, hiredate, leavedate, 
     birthday
   </sql>
+    <insert id="addUser">
+      insert into users (uname,upassword,utelephone,dept_id,job_id,sex,hiredate,birthday)
+      values (#{uname},#{upassword},#{utelephone},#{deptId},#{jobId},#{sex},#{hiredate},#{birthday})
+    </insert>
+  <update id="forbiddenUser">
+    update users set status=2,leavedate=#{leavedate} where u_id=#{uId}
+  </update>
+  <update id="recoverUser">
+    update users set status=1,hiredate=#{hiredate},leavedate=null where u_id=#{uId}
+  </update>
+  <update id="updateUser">
+    update users set uname=#{uname},upassword=#{upassword},utelephone=#{utelephone},dept_id=#{deptId},
+     job_id=#{jobId},sex=#{sex},birthday=#{birthday} where u_id=#{uId}
+  </update>
   <select id="login" resultMap="BaseResultMap">
     select * from users where uname=#{uname} and upassword=#{upassword}
   </select>
