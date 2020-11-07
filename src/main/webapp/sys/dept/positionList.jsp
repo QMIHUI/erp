@@ -45,7 +45,8 @@ pageEncoding="UTF-8"%>
       <li> <label>职位名称:</label>
         <input type="text" name="jobName" />
       </li>
-      <li> <label>所属部门：</label>
+      <li>
+        <label>所属部门：</label>
         <select name="deptId">
           <option value="0">请选择部门</option>
           <c:forEach items="${listDept}" var="ld">

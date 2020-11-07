@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -182,6 +184,58 @@ public class UsersController {
         }
 
     }
+
+    @RequestMapping(value = "getUsersByCon.do",method = RequestMethod.GET)
+    public String getUsersByCon(HttpServletRequest request){
+        System.out.println("执行条件查询查找用户！！！");
+        /*int uid = Integer.parseInt(request.getParameter("uid"));
+        System.out.println("uid"+uid);*/
+        String uname = request.getParameter("uname");
+        int deptId = Integer.parseInt(request.getParameter("deptId"));
+        int status = Integer.parseInt(request.getParameter("status"));
+        Map<String,Object> map = new HashMap<>();
+        /*map.put("uId",uid);*/
+        map.put("uname",uname);
+        map.put("deptId",deptId);
+        map.put("status",status);
+        int countUserByCon = usersDao.countUsersBycon(map);
+        System.out.println("总个数："+countUserByCon);
+        int size = 5;
+        int rowJobByCon = countUserByCon % size == 0 ? (countUserByCon / size) : (countUserByCon / size + 1);
+        System.out.println("总页数："+rowJobByCon);
+        String currentIndex= request.getParameter("pageIndex");
+        //第一次访问(当前页码=1)
+        int pageIndex = 1;
+        if(currentIndex!=null) {
+            pageIndex=Integer.parseInt(currentIndex);
+        }
+        if(currentIndex==null || Integer.parseInt(currentIndex) <= 0){
+            pageIndex = 1;
+        }else if(Integer.parseInt(currentIndex) >= rowJobByCon){
+            pageIndex=rowJobByCon;
+        }
+        Pager<Users> pager = new Pager<>();
+        pager.setPage((pageIndex-1)*size);
+        pager.setSize(size);
+        pager.setTotal(countUserByCon);
+       /* pager.setuId(uid);*/
+        pager.setUname(uname);
+        pager.setDeptId(deptId);
+        pager.setStatus(status);
+        List<Users> listUsersByCon = usersDao.getUsersByCon(pager);
+        request.getSession().setAttribute("listUsersByCon",listUsersByCon);
+        request.getSession().setAttribute("pageIndex",pageIndex);
+        request.getSession().setAttribute("rowJobByCon",rowJobByCon);
+        request.getSession().setAttribute("countUserByCon",countUserByCon);
+        /*request.getSession().setAttribute("uid",uid);*/
+        request.getSession().setAttribute("uname",uname);
+        request.getSession().setAttribute("deptId",deptId);
+        request.getSession().setAttribute("status",status);
+        return "sys/users/userListByCon";
+    }
+
+
+
 
 
 
