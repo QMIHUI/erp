@@ -62,6 +62,7 @@ public class BuyController {
         session.setAttribute("provinceList",provinceList);
         return "redirect:purchase/manufacturer/manufacturerAdd.jsp";
     }
+
     @RequestMapping(value = "getAllCitiesByProvinceId.do",method = RequestMethod.POST)
     public @ResponseBody List<City> getAllCitiesByProvinceId(HttpServletRequest request, String id){
         int id1=Integer.parseInt(id);

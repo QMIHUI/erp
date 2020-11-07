@@ -18,6 +18,8 @@ function tipOpen(content,did) {
 }
 function tipOpen01(content,did) {
   $(".tipright01 p").text(content);
+  $(".tipright01 p").text(content).css("font-weight","bold");
+  $(".tipright01 p").text(content).css("font-size","14px");
   $("input[name='recoverDept']").bind("click",function () {
     window.location.href="${pageContext.request.contextPath}/recoverDept.do?did="+did;
   })

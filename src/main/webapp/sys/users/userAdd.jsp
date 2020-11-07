@@ -16,62 +16,12 @@ pageEncoding="UTF-8"%>
     line-height: 32px;
   }
 </style>
-  <script type="text/javascript">
-    $(function(){
-      $("#deptId").change(function(){
-        $.ajax({
-          url:"deptJob/test.do",
-          type:"get",
-          success:function(result){
-            console.log(result);
-          }
-        });
-      });
-    });
-
-   /* function getDept() {
-        alert("111");
-        var deptId = $("#deptId").val();
-        alert(deptId);
-        var deptName=$("#deptId option:checked").text();
-        $("#jobId").html("&lt;option>==请选择==&lt;/option>");
-
-        $.ajax({
-          url:"getJobByDeptId.do",
-          type:"get",
-          cache:false,
-          contentType: 'application/json',
-          data:JSON.stringify({"deptId":deptId}),
-          success:function(data){
-            /!*if(data!=null){
-              $.each(data.list, function(index, job) {
-                $("#jobId").append("&lt;option value='"+job[index].jobId+"'>"+job[index].jobName+"</option>");
-              });*!/
-           /!* }*!/
-          }
-        });
-      }*/
-      /*$.ajax({
-        url: "getAllDept.do",
-        data: {},
-        type: "get",
-        contentType: 'application/json',
-        success:function (data) {
-          $(data).each(function (index) {
-            $("#deptId").append(
-                    '&lt;option value="'+data[index].deptId+'">'+data[index].deptName+'</option>'
-            )
-          })
-        }
-      })*/
-  </script>
 </head>
-
 <body>
 <div class="place"> <span>位置：</span>
   <ul class="placeul">
     <li><a href="userList.jsp">系统管理</a></li>
-    <li><a href="userList.jsp">用户管理</a></li>
+    <li><a href="${pageContext.request.contextPath }/sys/users/userList.jsp">用户管理</a></li>
     <li><a href="#">添加</a></li>
   </ul>
 </div>
@@ -110,7 +60,9 @@ pageEncoding="UTF-8"%>
         <select name="deptId" id="deptId" class="dfselect">
             <option value="0">请选择部门</option>
             <c:forEach items="${listDept}" var="ld">
-              <option value="${ld.deptId}">${ld.deptName}</option>
+              <c:if test="${ld.deptState=='正常'}">
+                <option value="${ld.deptId}">${ld.deptName}</option>
+              </c:if>
             </c:forEach>
         </select>
       </li>
@@ -118,19 +70,27 @@ pageEncoding="UTF-8"%>
         <label>职位</label>
         <select name="jobId" id="jobId" class="dfselect">
             <option value="0">请选择职位</option>
-          <%--<c:forEach items="${listJob}" var="lj">
-            <option value="${lj.jobId}">${lj.jobName}</option>
-          </c:forEach>--%>
-          <%--<option value="" selected="selected">经理</option>
-          <option value="">高级工程师</option>
-          <option value="">中级工程师</option>
-          <option value="">初级工程师</option>--%>
         </select>
+        <script type="text/javascript">
+          $("select[name='deptId']").change(function (){
+            $.ajax({
+              dataType:"json",
+              data: {"did":$(this).val()},
+              url:"${pageContext.request.contextPath}/getJobByDeptId.do",
+              type:"post",
+              success:function (result) {
+                $("select[name='jobId']").empty();
+                $.each(result,function (key,value) {
+                  $("select[name='jobId']").append("<option value='"+value.jobId+"'>"+value.jobName+"</option>")
+                })
+              }
+            })
+          })
+        </script>
       </li>
       <li>
         <label>&nbsp;</label>
         <input  type="submit" class="btn" value="保存"/>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <input  type="reset" class="btn" value="重置" />
       </li>
     </ul>
