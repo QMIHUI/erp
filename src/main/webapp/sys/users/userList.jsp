@@ -40,17 +40,18 @@ pageEncoding="UTF-8"%>
   </ul>
 </div>
 <div class="rightinfo">
-  <form action="" method="get">
+  <form action="${pageContext.request.contextPath}/getUsersByCon.do" method="get">
     <ul class="tools">
-      <li> <label>员工编号:</label>
-        <input type="text" name="uid" />
-      </li>
+     <%-- <li> <label>员工编号:</label>
+        <input type="text" name="uid"  />
+      </li>--%>
       <li> <label>员工姓名:</label>
         <input type="text" name="uname" />
       </li>
-      <li> <label>所属部门：</label>
+      <li>
+        <label>所属部门：</label>
         <select name="deptId">
-          <option>请选择部门</option>
+          <option value="0">请选择部门</option>
           <c:forEach items="${listDept}" var="ld">
             <option value="${ld.deptId}">${ld.deptName}</option>
           </c:forEach>
@@ -61,7 +62,7 @@ pageEncoding="UTF-8"%>
       </li>
       <li> <label>状态：</label>
         <select name="status">
-          <option>请选择</option>
+          <option value="0">请选择</option>
           <option value="1">在职</option>
           <option value="2">离职</option>
         </select>
