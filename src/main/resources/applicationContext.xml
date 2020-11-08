@@ -5,13 +5,13 @@
 
     <!-- spring配置文件 -->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <!--<property name="driverClassName" value="com.mysql.jdbc.Driver" />
         <property name="url" value="jdbc:mysql://localhost:3306/erp" />
         <property name="username" value="root" />
-        <property name="password" value="102299" />
-        <!--<property name="url" value="jdbc:mysql://12.12.43.245:3306/erp" />
+        <property name="password" value="102299" />-->
+        <property name="url" value="jdbc:mysql://12.12.43.245:3306/erp" />
         <property name="username" value="root" />
-        <property name="password" value="root" />-->
+        <property name="password" value="root" />
     </bean>
 
     <!-- 2. mybatis 的 SqlSession 的工厂: SqlSessionFactoryBean -->
