@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -38,8 +41,12 @@ public class UsersController {
 
     //登录
     @RequestMapping(value = "login.do",method = RequestMethod.POST)
-    public String login(HttpServletRequest request){
+    public String login(HttpServletRequest request, HttpServletResponse response) throws IOException {
         System.out.println("执行登录！！！");
+        //设置编码格式
+        request.setCharacterEncoding("utf-8"); // 1
+        response.setContentType("text/html;charset=utf-8"); // 2
+        response.setCharacterEncoding("utf-8"); // 3
         String uname = request.getParameter("uname");
         System.out.println(uname);
         String upassword = request.getParameter("upassword");
@@ -48,9 +55,24 @@ public class UsersController {
         Users user = usersDao.login(users);
         request.getSession().setAttribute("user",user);
         System.out.println(user);
+        PrintWriter out = response.getWriter();
         if(user!=null){
-            return "main";
+            if(user.getStatus()==1){
+                if(user.getDept().getDeptState().equals("正常")){
+                    return "main";
+                }else{
+                    out.print("<script>alert('您账号的部门为注销状态！！！');location.href='login.jsp'</script>");
+                    out.flush();
+                    return "login";
+                }
+            }else{
+                out.print("<script>alert('此账号为注销状态！！！');location.href='login.jsp'</script>");
+                out.flush();
+                return "login";
+            }
         }else{
+            out.print("<script>alert('用户名或密码输入错误！！！');location.href='login.jsp'</script>");
+            out.flush();
             return "login";
         }
     }
