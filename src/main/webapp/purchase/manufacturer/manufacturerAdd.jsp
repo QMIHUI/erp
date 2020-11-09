@@ -76,9 +76,9 @@
                 </select>
                 省
                 <select class="dfselect" name="city">
-                    <option value="1">抚州</option>
-                    <option value="2">南昌</option>
-                    <option value="3">九江</option>
+                    <c:forEach items="${cityList}" var="city">
+                        <option value="${city.cId}">${city.cName}</option>
+                    </c:forEach>
                 </select>
                 市
                 <script type="text/javascript">
