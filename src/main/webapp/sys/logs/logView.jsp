@@ -5,13 +5,13 @@ pageEncoding="UTF-8"%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>无标题文档</title>
-<link href="../../css/style.css" rel="stylesheet" type="text/css" />
+<link href="${pageContext.request.contextPath }/css/style.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
 <div class="place"> <span>位置：</span>
   <ul class="placeul">
-    <li><a href="../users/userList.jsp">系统管理</a></li>
+    <li><a href="${pageContext.request.contextPath }/sys/users/userList.jsp">系统管理</a></li>
     <li><a href="logList.jsp">日志管理</a></li>
     <li><a href="#">日志查看</a></li>
   </ul>
@@ -20,24 +20,24 @@ pageEncoding="UTF-8"%>
   <div class="formtitle"><span>日志信息</span></div>
   <ul class="forminfo">
     <li>
-      <label>员工编号</label>
-      <cite>9527</cite>
+      <label>日志编号</label>
+      <cite>${journal.jId}</cite>
     </li>
     <li>
-      <label>员工姓名</label>
-      <cite>唐寅</cite>
+      <label>被修改者员工姓名</label>
+      <cite>${journal.jId}</cite>
     </li>
     <li>
-      <label>操作模块</label>
-      <cite>用户管理</cite>
+      <label>修改者员工ID</label>
+      <cite>${journal.uId}</cite>
     </li>
     <li>
       <label>日志内容</label>
-      <cite>进行了添加用户xxx的操作</cite>
+      <cite>${journal.jcontent}</cite>
     </li>
     <li>
       <label>记录时间</label>
-      <cite>2016-11-20 15:05:29</cite>
+      <cite>${journal.jdate}</cite>
     </li>
 
     <li>
