@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>日志管理</title>
-<link href="../../css/style.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="../../js/jquery.js"></script>
-<script type="text/javascript" src="../../laydate/laydate.js"></script>
+<link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/laydate/laydate.js"></script>
 <script type="text/javascript">
 function tipOpen(content) {
 	$(".tipright p").text(content);
@@ -22,46 +23,63 @@ function tipClose() {
 <body>
 <div class="place"> <span>位置：</span>
   <ul class="placeul">
-    <li><a href="../users/userList.jsp">系统管理</a></li>
+    <li><a href="${pageContext.request.contextPath}/sys/users/userList.jsp">系统管理</a></li>
     <li><a href="#">日志管理</a></li>
   </ul>
 </div>
 <div class="rightinfo">
-  <form action="" method="post">
+  <form action="${pageContext.request.contextPath}/getJournalByCon.do" method="get">
     <ul class="tools">
-      <li> <label>员工编号:</label>
-        <input type="text" />
-      </li>
-      <li> <label>员工姓名:</label>
-        <input type="text" />
+     <%-- <li> <label>修改者员工ID:</label>
+        <select name="uId">
+          <option value="0">请选择部门</option>
+          <c:forEach items="${listJournal}" var="lJ">
+            <option value="${lJ.uId}">${lJ.uId}</option>
+          </c:forEach>
+        </select>
+      </li>--%>
+      <li> <label>被修改name:</label>
+        <input type="text" name="uname" />
       </li>
       <li> <label>日志内容：</label>
-        <input type="text" />
-      </li>
-      <li> <label>操作模块：</label>
-        <input type="text" />
+        <input type="text" name="jcontent" />
       </li>
       <li> <label>记录时间:</label>
-        <input type="text" class="laydate-icon" id="logStartTime"/>
+        <input name="startDate" type="text" class="laydate-icon" id="logStartTime"/>
         <label>-</label>
-        <input type="text" class="laydate-icon" id="logEndTime"/>
+        <input name="enddate" type="text" class="laydate-icon" id="logEndTime"/>
       </li>
-      <li class="subBut" onclick=""><img src="../../images/t06.png" />查询</li>
+      <li style="width: 100px;height: 35px;margin-top: -10px">
+        <input value="查 询" type="submit" id="searchbutton" class="subBut">
+      </li>
+     <%-- <li class="subBut" onclick=""><img src="../../images/t06.png" />查询</li>--%>
     </ul>
+  </form>
     <table class="tablelist">
       <thead>
         <tr>
           <th>序号</th>
-          <th>员工编号</th>
-          <th>员工姓名</th>
-          <th>操作模块</th>
+          <th>被修改name</th>
+          <th>修改者员工ID</th>
           <th>日志内容</th>
           <th>记录时间</th>
           <th>操作</th>
         </tr>
       </thead>
       <tbody>
+      <c:forEach items="${listJournal}" var="listJ">
         <tr>
+          <td>${listJ.jId}</td>
+          <td>${listJ.bname}</td>
+          <td>${listJ.uId}</td>
+          <td>${listJ.jcontent}</td>
+          <td>${listJ.jdate}</td>
+          <td>
+            <a href="${pageContext.request.contextPath }/getOneJournal.do?jId=${listJ.jId}" class="tablelink">查看日志信息</a>
+          </td>
+        </tr>
+      </c:forEach>
+       <%-- <tr>
           <td>1</td>
           <td>9527</td>
           <td>唐寅</td>
@@ -72,56 +90,19 @@ function tipClose() {
             <a href="logView.jsp" class="tablelink">查看日志信息</a>
           </td>
         </tr>
-        <tr>
-          <td>2</td>
-          <td>9527</td>
-          <td>唐寅</td>
-          <td>用户管理</td>
-          <td>进行了添加用户xxx的操作</td>
-          <td>2016-11-20 15:05:29</td>
-          <td>
-            <a href="logView.jsp" class="tablelink">查看日志信息</a>
-          </td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>9527</td>
-          <td>唐寅</td>
-          <td>用户管理</td>
-          <td>进行了添加用户xxx的操作</td>
-          <td>2016-11-20 15:05:29</td>
-          <td>
-            <a href="logView.jsp" class="tablelink">查看日志信息</a>
-          </td>
-        </tr>
-        <tr>
-          <td>4</td>
-          <td>9527</td>
-          <td>唐寅</td>
-          <td>用户管理</td>
-          <td>进行了添加用户xxx的操作</td>
-          <td>2016-11-20 15:05:29</td>
-          <td>
-            <a href="logView.jsp" class="tablelink">查看日志信息</a>
-          </td>
-        </tr>
+--%>
       </tbody>
     </table>
     <div class="pagin">
-      <div class="message">共<i class="blue">1256</i>条记录，当前显示第&nbsp;<i class="blue">2&nbsp;</i>页</div>
+      <div class="message">共<i class="blue">${countJournal}</i>条记录，当前显示第&nbsp;<i class="blue">${pageIndex}&nbsp;</i>页</div>
       <ul class="paginList">
-        <li class="paginItem"><a href="javascript:;"><span class="pagepre"></span></a></li>
-        <li class="paginItem"><a href="javascript:;">1</a></li>
-        <li class="paginItem current"><a href="javascript:;">2</a></li>
-        <li class="paginItem"><a href="javascript:;">3</a></li>
-        <li class="paginItem"><a href="javascript:;">4</a></li>
-        <li class="paginItem"><a href="javascript:;">5</a></li>
-        <li class="paginItem more"><a href="javascript:;">...</a></li>
-        <li class="paginItem"><a href="javascript:;">10</a></li>
-        <li class="paginItem"><a href="javascript:;"><span class="pagenxt"></span></a></li>
+        <li class="paginItem"><a href="${pageContext.request.contextPath }/queryAllJournal.do?pageIndex=1">首页</a></li>
+        <li class="paginItem"><a href="${pageContext.request.contextPath }/queryAllJournal.do?pageIndex=${pageIndex-1}">上页</a></li>
+        <li class="paginItem"><a href="${pageContext.request.contextPath }/queryAllJournal.do?pageIndex=${pageIndex+1}">下页</a></li>
+        <li class="paginItem"><a href="${pageContext.request.contextPath }/queryAllJournal.do?pageIndex=${rowJournal}">末页</a></li>
       </ul>
     </div>
-  </form>
+
   <!-- 提示框 -->
   <div id="tip" class="tip">
     <div class="tiptop"><span>提示信息</span><a onclick="tipClose()"></a></div>

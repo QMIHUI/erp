@@ -21,6 +21,7 @@ pageEncoding="UTF-8"%>
   <div class="formbody">
     <div class="formtitle"><span>部门信息</span></div>
     <ul class="forminfo">
+      <input name="uId" type="hidden" class="dfinput" value="${user.uId}"  />
       <li>
         <label>部门名称</label>
         <input name="deptName" type="text" class="dfinput" />

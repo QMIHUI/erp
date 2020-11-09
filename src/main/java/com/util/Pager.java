@@ -21,6 +21,13 @@ public class Pager<T> {
     //区域模糊查询起始条件
     private int pId;
     private int cId;
+    //日志模糊查询起始条件
+    private String bname;
+    private String jcontent;
+    private String startDate;
+    private String endDate;
+
+
 
 
     private int page;//分页起始页
@@ -74,6 +81,39 @@ public class Pager<T> {
 
     public void setcId(int cId) {
         this.cId = cId;
+    }
+
+
+    public String getBname() {
+        return bname;
+    }
+
+    public void setBname(String bname) {
+        this.bname = bname;
+    }
+
+    public String getJcontent() {
+        return jcontent;
+    }
+
+    public void setJcontent(String jcontent) {
+        this.jcontent = jcontent;
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
     }
 
     public String getJobName() {
