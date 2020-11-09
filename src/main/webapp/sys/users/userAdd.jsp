@@ -29,6 +29,7 @@ pageEncoding="UTF-8"%>
   <div class="formbody">
     <div class="formtitle"><span>员工信息</span></div>
     <ul class="forminfo">
+      <input name="uId" type="hidden" class="dfinput" value="${user.uId}"  />
       <li>
         <label>员工姓名</label>
         <input name="name" type="text" class="dfinput" />

@@ -90,29 +90,29 @@ pageEncoding="UTF-8"%>
         </tr>
       </thead>
       <tbody>
-        <c:forEach items="${listUsers}" var="user">
+        <c:forEach items="${listUsers}" var="users">
           <tr>
-            <td>${user.uId}</td>
-            <td>${user.uname}</td>
-            <td>${user.utelephone}</td>
-            <td>${user.dept.deptName}</td>
-            <td>${user.job.jobName}</td>
-            <td>${user.sex}</td>
-            <c:if test="${user.status==1}">
+            <td>${users.uId}</td>
+            <td>${users.uname}</td>
+            <td>${users.utelephone}</td>
+            <td>${users.dept.deptName}</td>
+            <td>${users.job.jobName}</td>
+            <td>${users.sex}</td>
+            <c:if test="${users.status==1}">
               <td>在职</td>
             </c:if>
-            <c:if test="${user.status==2}">
+            <c:if test="${users.status==2}">
               <td>离职</td>
             </c:if>
-            <td>${user.hiredate}</td>
-            <td>${user.leavedate}</td>
+            <td>${users.hiredate}</td>
+            <td>${users.leavedate}</td>
             <td>
-                <a href="${pageContext.request.contextPath }/selectOneUser.do?uid=${user.uId}&did=${user.deptId}" class="tablelink">修改</a>
-                <c:if test="${user.status==1}">
-                  <a href="javascript:void(0);" class="tablelink" onclick="tipOpen('您确定此员工离职吗？',${user.uId})">离职</a>
+                <a href="${pageContext.request.contextPath }/selectOneUser.do?uid=${users.uId}&did=${users.deptId}" class="tablelink">修改</a>
+                <c:if test="${users.status==1}">
+                  <a href="javascript:void(0);" class="tablelink" onclick="tipOpen('您确定此员工离职吗？',${users.uId})">离职</a>
                 </c:if>
-              <c:if test="${user.status==2}">
-                <a href="javascript:void(0);" class="tablelink" onclick="tipOpen1('您确定要恢复此员工吗？',${user.uId})">恢复</a>
+              <c:if test="${users.status==2}">
+                <a href="javascript:void(0);" class="tablelink" onclick="tipOpen1('您确定要恢复此员工吗？',${users.uId})">恢复</a>
               </c:if>
 
             </td>

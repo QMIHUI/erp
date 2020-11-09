@@ -29,30 +29,31 @@ pageEncoding="UTF-8"%>
 <form action="${pageContext.request.contextPath }/updateUser.do" method="get">
   <div class="formbody">
     <div class="formtitle"><span>员工信息</span></div>
+    <input name="uId" type="hidden" class="dfinput" value="${user.uId}"  />
     <ul class="forminfo">
       <li>
         <label>员工ID</label>
-        <input name="uid" type="text" value="${user.uId}" class="dfinput" readonly="readonly" />
+        <input name="uid" type="text" value="${users.uId}" class="dfinput" readonly="readonly" />
         <i>必填，不能超过30个字符</i>
       </li>
       <li>
         <label>员工姓名</label>
-        <input name="uname" type="text" value="${user.uname}" class="dfinput" />
+        <input name="uname" type="text" value="${users.uname}" class="dfinput" />
         <i>必填，不能超过30个字符</i>
       </li>
       <li>
         <label>密码</label>
-        <input name="upwd" type="password" value="${user.upassword}" class="dfinput" />
+        <input name="upwd" type="password" value="${users.upassword}" class="dfinput" />
         <i>必填，不能超过30个字符</i>
       </li>
       <li>
         <label>性别</label>
         <cite>
-          <c:if test="${user.sex=='男'}">
+          <c:if test="${users.sex=='男'}">
             <input name="gender" type="radio" value="男" checked="checked" />男
             <input name="gender" type="radio" value="女" />女
           </c:if>
-          <c:if test="${user.sex=='女'}">
+          <c:if test="${users.sex=='女'}">
             <input name="gender" type="radio" value="男" />男
             <input name="gender" type="radio" value="女" checked="checked"  />女
           </c:if>
@@ -60,21 +61,21 @@ pageEncoding="UTF-8"%>
       </li>
       <li>
         <label>联系方式</label>
-        <input name="utelephone" type="text" value="${user.utelephone}" class="dfinput" />
+        <input name="utelephone" type="text" value="${users.utelephone}" class="dfinput" />
         <i>必填，不能超过30个字符</i>
       </li>
       <li>
         <label>出生年月</label>
-        <input name="birthday" class="dfinput laydate-icon" id="birthday" value="${user.birthday}">
+        <input name="birthday" class="dfinput laydate-icon" id="birthday" value="${users.birthday}">
       </li>
       <li>
         <label>所属部门</label>
         <select name="deptId" id="deptId" class="dfselect">
           <c:forEach items="${listDept}" var="ld">
-            <c:if test="${ld.deptId==user.deptId}">
+            <c:if test="${ld.deptId==users.deptId}">
               <option value="${ld.deptId}" selected="selected">${ld.deptName}</option>
             </c:if>
-            <c:if test="${ld.deptId!=user.deptId}">
+            <c:if test="${ld.deptId!=users.deptId}">
               <c:if test="${ld.deptState=='正常'}">
                 <option value="${ld.deptId}">${ld.deptName}</option>
               </c:if>
@@ -86,10 +87,10 @@ pageEncoding="UTF-8"%>
         <label>职位</label>
         <select name="jobId" id="jobId" class="dfselect">
           <c:forEach  items="${listJobByDid}" var="ljbd">
-            <c:if test="${user.jobId==ljbd.jobId}">
+            <c:if test="${users.jobId==ljbd.jobId}">
               <option selected="selected" value="${ljbd.jobId}">${ljbd.jobName}</option>
             </c:if>
-            <c:if test="${user.jobId!=ljbd.jobId}">
+            <c:if test="${users.jobId!=ljbd.jobId}">
               <option value="${ljbd.jobId}">${ljbd.jobName}</option>
             </c:if>
           </c:forEach>
