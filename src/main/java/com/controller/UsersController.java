@@ -1,11 +1,9 @@
 package com.controller;
 
-import com.bean.City;
-import com.bean.Dept;
-import com.bean.Job;
-import com.bean.Users;
+import com.bean.*;
 import com.dao.DeptDao;
 import com.dao.JobDao;
+import com.dao.JournalDao;
 import com.dao.UsersDao;
 import com.util.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +36,8 @@ public class UsersController {
     private DeptDao deptDao;
     @Autowired
     private JobDao jobDao;
+    @Autowired
+    private JournalDao journalDao;
 
     //登录
     @RequestMapping(value = "login.do",method = RequestMethod.POST)
@@ -126,6 +126,10 @@ public class UsersController {
     @RequestMapping(value = "addUser.do",method = RequestMethod.GET)
     public String addUser(HttpServletRequest request){
         System.out.println("执行增加用户");
+        //日志的信息
+        int uId = Integer.parseInt(request.getParameter("uId"));
+        String jcontent = "添加用户";
+
         String name = request.getParameter("name");
         String password = request.getParameter("password");
         String telephone = request.getParameter("telephone");
@@ -139,7 +143,9 @@ public class UsersController {
         String creationDate = format.format(date);
         Users user = new Users(name,password,telephone,deptId,jobId,gender,creationDate,birthday);
         int num = usersDao.addUser(user);
-        if(num>0){
+        Journal journal = new Journal(jcontent,creationDate,name,uId);
+        int n = journalDao.addJournal(journal);
+        if(num>0 && n>0){
             return "forward:queryAllUser.do";
         }else{
             return "redirect:sys/users/userAdd.jsp";
@@ -154,8 +160,8 @@ public class UsersController {
         int did = Integer.parseInt(request.getParameter("did"));
         List<Job> listJobByDid = jobDao.getJobByDid(did);
         request.getSession().setAttribute("listJobByDid",listJobByDid);
-        Users user = usersDao.getOneUser(uid);
-        request.getSession().setAttribute("user",user);
+        Users users = usersDao.getOneUser(uid);
+        request.getSession().setAttribute("users",users);
         return "sys/users/userUpdate";
     }
 
@@ -175,6 +181,9 @@ public class UsersController {
     public String recoverUser(HttpServletRequest request){
         System.out.println("恢复被注销的用户！！！");
         int uid = Integer.parseInt(request.getParameter("uid"));
+        String uname = request.getParameter("uname");
+        int uId = Integer.parseInt(request.getParameter("uId"));
+        System.out.println(uname+"...."+uId);
         Date date = new Date();
         SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         String createDate = format.format(date);
@@ -187,6 +196,11 @@ public class UsersController {
     @RequestMapping(value = "updateUser.do",method = RequestMethod.GET)
     public String updateUser(HttpServletRequest request){
         System.out.println("执行修改用户！！！");
+        int uId = Integer.parseInt(request.getParameter("uId"));
+        String jcontent = "修改用户";
+        Date date = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        String creationDate = format.format(date);
         int uid = Integer.parseInt(request.getParameter("uid"));
         String uname = request.getParameter("uname");
         String upwd = request.getParameter("upwd");
@@ -198,8 +212,10 @@ public class UsersController {
         String birthday = request.getParameter("birthday");
         Users user = new Users(uid,uname,upwd,utelephone,deptId,jobId,gender,birthday);
         int num = usersDao.updateUser(user);
+        Journal journal = new Journal(jcontent,creationDate,uname,uId);
+        int n = journalDao.addJournal(journal);
         System.out.println(num);
-        if(num>0){
+        if(num>0 && n>0){
             return "forward:queryAllUser.do";
         }else{
             return "redirect:sys/users/userUpdate.jsp";
