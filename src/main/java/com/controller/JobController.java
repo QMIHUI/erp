@@ -2,8 +2,10 @@ package com.controller;
 
 import com.bean.Dept;
 import com.bean.Job;
+import com.bean.Journal;
 import com.dao.DeptDao;
 import com.dao.JobDao;
+import com.dao.JournalDao;
 import com.util.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +29,8 @@ public class JobController {
     private JobDao jobDao;
     @Autowired
     private DeptDao deptDao;
+    @Autowired
+    private JournalDao journalDao;
 
     @RequestMapping(value = "queryAllJob",method = RequestMethod.GET)
     public String queryAllJob(HttpServletRequest request){
@@ -62,14 +68,21 @@ public class JobController {
     @RequestMapping(value = "addJob.do",method = RequestMethod.GET)
     public String addJob(HttpServletRequest request){
         System.out.println("执行添加职位！！！");
+        int uId = Integer.parseInt(request.getParameter("uId"));
+        String jcontent = "添加职位";
+        Date date = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        String createDate = format.format(date);
         String jobName = request.getParameter("jobName");
         int deptId = Integer.parseInt(request.getParameter("deptId"));
         Job job = new Job(jobName,deptId);
         System.out.println(jobName);
         System.out.println(deptId);
         int num = jobDao.addJob(job);
+        Journal journal = new Journal(jcontent,createDate,jobName,uId);
+        int n = journalDao.addJournal(journal);
         System.out.println(num);
-        if(num>0){
+        if(num>0 &&  n > 0){
             return "forward:queryAllJob.do";
         }else{
             return "redirect:sys/dept/positionAdd.jsp";
@@ -89,13 +102,20 @@ public class JobController {
     @RequestMapping(value = "updateJob.do",method = RequestMethod.GET)
     public String updateJob(HttpServletRequest request){
         System.out.println("执行修改职位！！！");
+        int uId = Integer.parseInt(request.getParameter("uId"));
+        String jcontent = "修改职位";
+        Date date = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        String createDate = format.format(date);
         int jobId = Integer.parseInt(request.getParameter("jobId"));
         String jobName = request.getParameter("jobName");
         int deptId = Integer.parseInt(request.getParameter("deptId"));
         Job job = new Job(jobId,jobName,deptId);
         int num = jobDao.updateJob(job);
+        Journal journal = new Journal(jcontent,createDate,jobName,uId);
+        int n = journalDao.addJournal(journal);
         System.out.println(num);
-        if(num>0){
+        if(num>0 && n > 0){
             return "forward:queryAllJob.do";
         }else{
             return "redirect:sys/dept/positionUpdate.jsp";

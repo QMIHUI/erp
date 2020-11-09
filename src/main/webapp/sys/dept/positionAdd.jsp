@@ -23,6 +23,7 @@ pageEncoding="UTF-8"%>
     <div class="formtitle"><span>职位信息</span></div>
     <ul class="forminfo">
       <li>
+        <input name="uId" type="hidden" class="dfinput" value="${user.uId}"  />
         <label>职位名称</label>
         <input name="jobName" type="text" class="dfinput"/>
         <i>必填，不能超过30个字符</i>

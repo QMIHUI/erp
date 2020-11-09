@@ -38,7 +38,7 @@ function tipClose() {
           </c:forEach>
         </select>
       </li>--%>
-      <li> <label>被修改者员工姓名:</label>
+      <li> <label>被修改name:</label>
         <input type="text" name="uname" />
       </li>
       <li> <label>日志内容：</label>
@@ -59,7 +59,7 @@ function tipClose() {
       <thead>
         <tr>
           <th>序号</th>
-          <th>被修改员工姓名</th>
+          <th>被修改name</th>
           <th>修改者员工ID</th>
           <th>日志内容</th>
           <th>记录时间</th>

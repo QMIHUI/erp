@@ -1,8 +1,10 @@
 package com.controller;
 
 import com.bean.Dept;
+import com.bean.Journal;
 import com.bean.Users;
 import com.dao.DeptDao;
+import com.dao.JournalDao;
 import com.util.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -20,6 +24,8 @@ import java.util.List;
 public class DeptController {
     @Autowired
     private DeptDao deptDao;
+    @Autowired
+    private JournalDao journalDao;
 
     @RequestMapping(value = "queryAllDept.do",method = RequestMethod.GET)
     public String getDeptByPager(HttpServletRequest request){
@@ -57,9 +63,16 @@ public class DeptController {
         System.out.println("执行增加部门！！！");
         String deptName = request.getParameter("deptName");
         System.out.println(deptName);
+        int uId = Integer.parseInt(request.getParameter("uId"));
+        String jcontent = "添加部门";
+        Date date = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        String createDate = format.format(date);
         Dept dept = new Dept(deptName);
         int num = deptDao.addDept(dept);
-        if(num>0){
+        Journal journal = new Journal(jcontent,createDate,deptName,uId);
+        int n = journalDao.addJournal(journal);
+        if(num>0 && n>0){
             return "forward:queryAllDept.do";
         }else{
             return "redirect:sys/dept/deptAdd.jsp";
@@ -79,11 +92,18 @@ public class DeptController {
     @RequestMapping(value = "updateDept.do",method = RequestMethod.GET)
     public String updateDept(HttpServletRequest request){
         System.out.println("执行修改部门！！！");
+        int uId = Integer.parseInt(request.getParameter("uId"));
+        String jcontent = "修改部门";
+        Date date = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        String createDate = format.format(date);
         int deptId = Integer.parseInt(request.getParameter("deptId"));
         String deptName = request.getParameter("deptName");
         Dept dept = new Dept(deptId,deptName);
         int num = deptDao.updateDept(dept);
-        if(num > 0){
+        Journal journal = new Journal(jcontent,createDate,deptName,uId);
+        int n = journalDao.addJournal(journal);
+        if(num > 0 && n > 0){
             return "forward:queryAllDept.do";
         }else{
             return "redirect:sys/dept/deptUpdate.jsp";

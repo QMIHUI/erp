@@ -22,6 +22,7 @@ pageEncoding="UTF-8"%>
     <div class="formtitle"><span>部门信息</span></div>
     <ul class="forminfo">
       <li>
+        <input name="uId" type="hidden" class="dfinput" value="${user.uId}"  />
         <label>部门编号</label>
         <input name="deptId" type="text" value="${dept.deptId}" class="dfinput" readonly/>
         <i>不可修改</i>
