@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.bean.Users">
     <id column="u_id"  property="uId" />
     <result column="uname"  property="uname" />
-    <result column="uname" property="names"></result>
+    <result column="uname"  property="names" />
     <result column="upassword"  property="upassword" />
     <result column="utelephone"  property="utelephone" />
     <result column="dept_id"  property="deptId" />
@@ -19,9 +19,20 @@
     u_id, uname, upassword, utelephone, dept_id, job_id, sex, `status`, hiredate, leavedate, 
     birthday
   </sql>
-  <select id="login" resultMap="BaseResultMap">
-    select * from users where uname=#{uname} and upassword=#{upassword}
-  </select>
+    <insert id="addUser">
+      insert into users (uname,upassword,utelephone,dept_id,job_id,sex,hiredate,birthday)
+      values (#{uname},#{upassword},#{utelephone},#{deptId},#{jobId},#{sex},#{hiredate},#{birthday})
+    </insert>
+  <update id="forbiddenUser">
+    update users set status=2,leavedate=#{leavedate} where u_id=#{uId}
+  </update>
+  <update id="recoverUser">
+    update users set status=1,hiredate=#{hiredate},leavedate=null where u_id=#{uId}
+  </update>
+  <update id="updateUser">
+    update users set uname=#{uname},upassword=#{upassword},utelephone=#{utelephone},dept_id=#{deptId},
+     job_id=#{jobId},sex=#{sex},birthday=#{birthday} where u_id=#{uId}
+  </update>
   <resultMap id="getAll" type="com.bean.Users">
     <id column="u_id"  property="uId" />
     <result column="uname"  property="uname" />
@@ -46,6 +57,11 @@
       <result column="job_dept_id"  property="jobDeptId" />
     </association>
   </resultMap>
+  <select id="login" resultMap="getAll">
+    SELECT * FROM users LEFT JOIN dept ON users.dept_id=dept.dept_id
+    LEFT JOIN job ON users.job_id=job.job_id
+     where uname=#{uname} and upassword=#{upassword}
+  </select>
   <select id="getAllUsersByPage" resultMap="getAll">
     SELECT * FROM users LEFT JOIN dept ON users.dept_id=dept.dept_id
     LEFT JOIN job ON users.job_id=job.job_id limit #{page},#{size}
@@ -55,6 +71,43 @@
   </select>
   <select id="getOneUser" resultMap="getAll">
     select * from users where u_id=#{uId}
+  </select>
+  <select id="getUsersByCon" resultMap="getAll">
+    SELECT * FROM users LEFT JOIN dept ON users.dept_id=dept.dept_id
+    LEFT JOIN job ON users.job_id=job.job_id
+    <where>
+      <if test="uname!=null and uname!='' ">
+        and uname like '%${uname}%'
+      </if>
+     <!-- <if test="uId!='' and uId!=null ">
+        and u_id=#{uId}
+      </if>-->
+      <if test="deptId!='' ">
+        and users.dept_id=#{deptId}
+      </if>
+      <if test="status!='' ">
+        and status=#{status}
+      </if>
+    </where>
+    limit #{page},#{size}
+  </select>
+  <select id="countUsersBycon" resultType="java.lang.Integer">
+    SELECT count(*) FROM users LEFT JOIN dept ON users.dept_id=dept.dept_id
+    LEFT JOIN job ON users.job_id=job.job_id
+    <where>
+      <!--<if test="uId!='' ">
+        and u_id=#{uId}
+      </if>-->
+      <if test="uname!=null and uname!='' ">
+        and uname like '%${uname}%'
+      </if>
+      <if test="deptId!='' ">
+        and users.dept_id=#{deptId}
+      </if>
+      <if test="status!='' ">
+        and status=#{status}
+      </if>
+    </where>
   </select>
 
 

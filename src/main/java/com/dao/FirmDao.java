@@ -2,6 +2,7 @@ package com.dao;
 
 import com.bean.Firm;
 
+import java.util.Date;
 import java.util.List;
 
 public interface FirmDao {
@@ -13,5 +14,11 @@ public interface FirmDao {
 
     //根据id删除供应商
     public int delFirm(int id);
+
+    //增加供应商
+    public int addFirm(String firmName, String firmTel, String firmAddress, String firmContent, int c_id, Date createTime,int createId,int status,String firmFounder);
+
+    //修改供应商
+    public int updateFirm(String firmName, String firmTel, String firmAddress, String firmContent, int c_id,int createId,int status,String firmFounder,int firmId);
 
 }

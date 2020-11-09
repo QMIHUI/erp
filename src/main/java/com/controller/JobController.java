@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author HUI
@@ -100,6 +102,71 @@ public class JobController {
         }
     }
 
+    @RequestMapping(value = "cancelJob.do",method = RequestMethod.GET)
+    public String cancelJob(HttpServletRequest request){
+        System.out.println("注销职位！！！");
+        int jid = Integer.parseInt(request.getParameter("jid"));
+        int num = jobDao.cancelJob(jid);
+        if(num>0){
+            return "forward:queryAllJob.do";
+        }else{
+            return "forward:queryAllJob.do";
+        }
+    }
+
+    @RequestMapping(value = "recoverJob.do",method = RequestMethod.GET)
+    public String recoverJob(HttpServletRequest request){
+        System.out.println("恢复职位！！！");
+        int jid = Integer.parseInt(request.getParameter("jid"));
+        int num = jobDao.recoverJob(jid);
+        if(num>0){
+            return "forward:queryAllJob.do";
+        }else{
+            return "forward:queryAllJob.do";
+        }
+    }
+
+    @RequestMapping(value = "getJobByCon.do",method = RequestMethod.GET)
+    public String getJobByCon(HttpServletRequest request){
+        System.out.println("根据条件查询职位");
+        String jobName = request.getParameter("jobName");
+        int deptId = Integer.parseInt(request.getParameter("deptId"));
+        System.out.println(jobName+"///"+deptId);
+        Map<String,Object> map = new HashMap<>();
+        map.put("jobName",jobName);
+        map.put("jobDeptId",deptId);
+        int countJobByCon = jobDao.countJobByCon(map);
+        System.out.println("总个数："+countJobByCon);
+        int size = 5;
+        int rowJobByCon = countJobByCon % size == 0 ? (countJobByCon / size) : (countJobByCon / size + 1);
+        System.out.println(rowJobByCon);
+        String currentIndex= request.getParameter("pageIndex");
+        //第一次访问(当前页码=1)
+        int pageIndex = 1;
+        if(currentIndex!=null) {
+            pageIndex=Integer.parseInt(currentIndex);
+        }
+        if(currentIndex==null || Integer.parseInt(currentIndex) <= 0){
+            pageIndex = 1;
+        }else if(Integer.parseInt(currentIndex) >= rowJobByCon){
+            pageIndex=rowJobByCon;
+        }
+        Pager<Job> pager = new Pager<>();
+        pager.setPage((pageIndex-1)*size);
+        pager.setSize(size);
+        pager.setTotal(countJobByCon);
+        pager.setJobName(jobName);
+        pager.setJobDeptId(deptId);
+        List<Job> listJobByCon = jobDao.getJobByCon(pager);
+        request.getSession().setAttribute("listJobByCon",listJobByCon);
+        listJobByCon.forEach((e)-> System.out.println(e));
+        request.getSession().setAttribute("pageIndex",pageIndex);
+        request.getSession().setAttribute("rowJobByCon",rowJobByCon);
+        request.getSession().setAttribute("countJobByCon",countJobByCon);
+        request.getSession().setAttribute("jobName",jobName);
+        request.getSession().setAttribute("deptId",deptId);
+        return "sys/dept/positionListByCon";
+    }
 
 
 

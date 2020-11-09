@@ -9,12 +9,25 @@ pageEncoding="UTF-8"%>
 <link href="${pageContext.request.contextPath }/css/style.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.js"></script>
 <script type="text/javascript">
-function tipOpen(content) {
+function tipOpen(content,did) {
 	$(".tipright p").text(content);
+    $("input[name='cancelDept']").bind("click",function () {
+      window.location.href="${pageContext.request.contextPath}/forbiddenDept.do?did="+did;
+    })
 	$("#tip").fadeIn(200);
+}
+function tipOpen01(content,did) {
+  $(".tipright01 p").text(content);
+  $(".tipright01 p").text(content).css("font-weight","bold");
+  $(".tipright01 p").text(content).css("font-size","14px");
+  $("input[name='recoverDept']").bind("click",function () {
+    window.location.href="${pageContext.request.contextPath}/recoverDept.do?did="+did;
+  })
+  $("#tip01").fadeIn(200);
 }
 function tipClose() {
 	$("#tip").fadeOut(200);
+    $("#tip01").fadeOut(200);
 }
 </script>
 </head>
@@ -59,10 +72,12 @@ function tipClose() {
             <td>
               <a href="${pageContext.request.contextPath }/getOneDept.do?did=${ldp.deptId}" class="tablelink">修改</a>
               <c:if test="${ldp.deptState=='正常'}">
-               <a href="${pageContext.request.contextPath }/forbiddenDept.do?did=${ldp.deptId}" class="tablelink" onclick="tipOpen('是否确认注销此条信息？')">注销</a>
+                <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('是否确认注销这个部门吗？',${ldp.deptId})">注销</a>
               </c:if>
               <c:if test="${ldp.deptState=='注销'}">
-                <a href="${pageContext.request.contextPath }/recoverDept.do?did=${ldp.deptId}" class="tablelink" onclick="tipOpen('是否确认恢复此条信息？')">恢复</a>
+                <a href="javascript:void(0)" class="tablelink" onclick="tipOpen01('是否确认恢复这个部门吗？',${ldp.deptId})">恢复</a>
+
+               <%-- <a href="${pageContext.request.contextPath }/recoverDept.do?did=${ldp.deptId}" class="tablelink" onclick="tipOpen('是否确认恢复此条信息？')">恢复</a>--%>
               </c:if>
             </td>
           </tr>
@@ -82,14 +97,26 @@ function tipClose() {
   <!-- 提示框 -->
   <div id="tip" class="tip">
     <div class="tiptop"><span>提示信息</span><a onclick="tipClose()"></a></div>
-    <div class="tipinfo"> <span><img src="../../images/ticon.png" /></span>
+    <div class="tipinfo"> <span><img src="${pageContext.request.contextPath }/images/ticon.png" /></span>
       <div class="tipright">
         <p></p>
         <cite>如果是请点击确定按钮 ，否则请点取消。</cite> </div>
     </div>
     <div class="tipbtn">
-      <input name="" type="button"  class="sure" value="确定" onclick="tipClose()" />
-      &nbsp;
+      <input name="cancelDept" type="button"  class="sure" value="确定" />
+      <input name="" type="button"  class="cancel" value="取消" onclick="tipClose()" />
+    </div>
+  </div>
+
+  <div id="tip01" class="tip">
+    <div class="tiptop"><span>提示信息</span><a onclick="tipClose()"></a></div>
+    <div class="tipinfo"> <span><img src="${pageContext.request.contextPath }/images/ticon.png" /></span>
+      <div class="tipright01">
+        <p></p>
+        <cite>如果是请点击确定按钮 ，否则请点取消。</cite> </div>
+    </div>
+    <div class="tipbtn">
+      <input name="recoverDept" type="button"  class="sure" value="确定" />
       <input name="" type="button"  class="cancel" value="取消" onclick="tipClose()" />
     </div>
   </div>

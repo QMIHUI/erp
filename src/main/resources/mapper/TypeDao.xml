@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dao.TypeDao">
-  <resultMap id="type" type="com.bean.Type">
-    <id column="TYPE_ID" jdbcType="INTEGER" property="typeId" />
-    <result column="TYPE_NAME" jdbcType="VARCHAR" property="typeName" />
-    <result column="TYPE_STATUS" jdbcType="INTEGER" property="typeStatus" />
-    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
-    <association property="brand" select="com.dao.BrandDao.getBrandById" column="BRAND_ID"/>
-    <association property="creater" select="com.dao.UsersDao.getOneUser" column="CREATE_ID"/>
-  </resultMap>
+    <resultMap id="type" type="com.bean.Type">
+        <id column="TYPE_ID" jdbcType="INTEGER" property="typeId" />
+        <result column="TYPE_NAME" jdbcType="VARCHAR" property="typeName" />
+        <result column="TYPE_STATUS" jdbcType="INTEGER" property="typeStatus" />
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+        <association property="brand" select="com.dao.BrandDao.getBrandById" column="BRAND_ID"/>
+        <association property="creater" select="com.dao.UsersDao.getOneUser" column="CREATE_ID"/>
+    </resultMap>
 
     <select id="getTypeById" resultMap="type">
         select type_id, type_name, type_status, create_time, create_id, brand_id from c_type where TYPE_ID=#{id}
+    </select>
+    <!--根据BrandId获取Type集合-->
+    <select id="getTypeListByBrandId" resultMap="type">
+        select type_id, type_name, type_status, create_time, create_id, brand_id from c_type where brand_id=#{brandId}
     </select>
 
 </mapper>

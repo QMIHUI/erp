@@ -50,7 +50,7 @@ INNER JOIN city c ON c.c_ID=w.CITY_ID WHERE w.ID=#{id}
     <result property="users.names" column="names"></result>
     <result property="province.id" column="ID"></result>
     <result property="province.pName" column="p_NAME"></result>
-    <result property="city.id" column="c_ID"></result>
+    <result property="city.cId" column="c_ID"></result>
     <result property="city.cName" column="C_NAME"></result>
   </resultMap>
   <select id="getAllWarehouse" resultMap="WarehouseAndCityResultMap">

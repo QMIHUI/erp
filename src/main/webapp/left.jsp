@@ -127,7 +127,7 @@ $(function(){
                     </c:if>
                     <li><cite></cite><a href="purchase/brand/brandList.jsp" target="rightFrame">品牌管理</a><i></i></li>
                     <li><cite></cite><a href="purchase/productType/productTypeList.jsp" target="rightFrame">商品类型管理</a><i></i></li>
-                    <li><cite></cite><a href="purchase/product/productList.jsp" target="rightFrame">商品管理</a><i></i></li>
+                    <li><cite></cite><a href="${pageContext.request.contextPath}/getAllProduct.do" target="rightFrame">商品管理</a><i></i></li>
                     <li><cite></cite><a href="${pageContext.request.contextPath}/getAllFirm.do" target="rightFrame">厂商管理</a><i></i></li>
                 </ul>
             </dd>
@@ -182,9 +182,13 @@ $(function(){
                         <a href="${pageContext.request.contextPath}/queryAllJob.do" target="rightFrame">职位管理</a>
                         <i></i>
                     </li>
-                    <li><cite></cite><a href="sys/modules/moduleList.jsp" target="rightFrame">模块管理</a><i></i></li>
+                    <%--<li><cite></cite><a href="sys/modules/moduleList.jsp" target="rightFrame">模块管理</a><i></i></li>--%>
                     <li><cite></cite><a href="sys/logs/logList.jsp" target="rightFrame">日志管理</a><i></i></li>
-                    <li><cite></cite><a href="sys/area/areaList.jsp" target="rightFrame">区域管理</a><i></i></li>
+                    <li>
+                        <cite></cite>
+                        <a href="${pageContext.request.contextPath}/queryAllProCity.do" target="rightFrame">区域管理</a>
+                        <i></i>
+                    </li>
                 </ul>
             </dd>
         </dl>

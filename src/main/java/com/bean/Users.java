@@ -31,6 +31,7 @@ public class Users implements Serializable {
     private String birthday;
 
     private Dept dept;
+
     private Job job;
 
     public Dept getDept() {
@@ -153,6 +154,39 @@ public class Users implements Serializable {
     public Users(String uname, String upassword) {
         this.uname = uname;
         this.upassword = upassword;
+    }
+
+    public Users(Integer uId, String hiredate, String leavedate) {
+        this.uId = uId;
+        this.hiredate = hiredate;
+        this.leavedate = leavedate;
+    }
+
+    public Users(Integer uId, String leavedate) {
+        this.uId = uId;
+        this.leavedate = leavedate;
+    }
+
+    public Users(String uname, String upassword, String utelephone, Integer deptId, Integer jobId, String sex, String hiredate, String birthday) {
+        this.uname = uname;
+        this.upassword = upassword;
+        this.utelephone = utelephone;
+        this.deptId = deptId;
+        this.jobId = jobId;
+        this.sex = sex;
+        this.hiredate = hiredate;
+        this.birthday = birthday;
+    }
+
+    public Users(Integer uId, String uname, String upassword, String utelephone, Integer deptId, Integer jobId, String sex,  String birthday) {
+        this.uId = uId;
+        this.uname = uname;
+        this.upassword = upassword;
+        this.utelephone = utelephone;
+        this.deptId = deptId;
+        this.jobId = jobId;
+        this.sex = sex;
+        this.birthday = birthday;
     }
 
     @Override

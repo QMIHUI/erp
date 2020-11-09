@@ -29,7 +29,6 @@ public class WarehouseController {
     @RequestMapping(value = "/{id}/storageView.do",method = RequestMethod.GET)
     public String storageView(@PathVariable("id") int id,HttpSession session){//根据id查询单个对象
         Warehouse warehouse=warehouseDao.selectByPrimaryKey(id);
-        System.out.println(id);
         session.setAttribute("warehouse",warehouse);
         return "redirect:../storage/storage/storageView.jsp";
     }

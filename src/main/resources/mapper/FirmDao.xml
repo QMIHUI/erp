@@ -14,6 +14,14 @@
     <association property="user" select="com.dao.UsersDao.getOneUser" column="CREATE_ID"/>
     <association property="purchaseList" select="com.dao.PurchaseDao.getPurchaseByCheckId" column="FIRM_ID"/>
    </resultMap>
+  <!--增加供应商-->
+    <insert id="addFirm">
+      insert into c_firm(firm_name, firm_tel, firm_address, firm_content, firm_city, create_time, create_id, status, firm_founder) values(#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7},#{param8},#{param9})
+    </insert>
+  <!--修改供应商-->
+  <update id="updateFirm">
+    update c_firm set firm_name=#{param1}, firm_tel=#{param2}, firm_address=#{param3}, firm_content=#{param4}, firm_city=#{param5}, create_id=#{param6}, status=#{param7}, firm_founder=#{param8} where FIRM_ID=#{param9}
+  </update>
   <!--根据id删除供应商-->
   <delete id="delFirm">
         delete from c_firm where FIRM_ID=#{id}
