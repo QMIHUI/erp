@@ -109,6 +109,20 @@
                     $("select[name='province']").val(${firm.city.province.id});
                     $("select[name='city']").val(${firm.city.cId});
                     $("select[name='status']").val(${firm.status});
+                    $("select[name='province']").change(function () {
+                        $.ajax({
+                            dataType:"json",
+                            data: {"id":$(this).val()},
+                            url:"${pageContext.request.contextPath}/getAllCitiesByProvinceId.do",
+                            type:"post",
+                            success:function (result) {
+                                $("select[name='city']").empty();
+                                $.each(result,function (key,value) {
+                                    $("select[name='city']").append("<option value='"+value.cId+"'>"+value.cName+"</option>")
+                                })
+                            }
+                        })
+                    })
                 })
             </script>
             <li>

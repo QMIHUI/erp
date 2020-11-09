@@ -56,7 +56,6 @@ public class ProductController {
         int firstBrandId=brandList.get(0).getBrandId();
         List<Type> typeList=typeDao.getTypeListByBrandId(firstBrandId);
         session.setAttribute("typeList",typeList);
-
         return "redirect:purchase/product/productAdd.jsp";
     }
 
