@@ -18,5 +18,7 @@ public interface FirmDao {
     //增加供应商
     public int addFirm(String firmName, String firmTel, String firmAddress, String firmContent, int c_id, Date createTime,int createId,int status,String firmFounder);
 
+    //修改供应商
+    public int updateFirm(String firmName, String firmTel, String firmAddress, String firmContent, int c_id,int createId,int status,String firmFounder,int firmId);
 
 }

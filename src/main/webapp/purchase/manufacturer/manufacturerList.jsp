@@ -96,7 +96,7 @@
                         <td>${firm.user.uname}</td>
                         <td>
                             <a href="${pageContext.request.contextPath}/getFirmDetails.do?id=${firm.firmId}" class="tablelink">查看详情</a>
-                            <a href="manufacturerUpdate.jsp" class="tablelink">修改</a>
+                            <a href="${pageContext.request.contextPath}/firmUpdate.do?id=${firm.firmId}" class="tablelink">修改</a>
                             <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('是否确认注销此条信息？',${firm.firmId})">注销</a>
                         </td>
                     </tr>

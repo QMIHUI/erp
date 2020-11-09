@@ -91,7 +91,7 @@
                             success:function (result) {
                                 $("select[name='city']").empty();
                                 $.each(result,function (key,value) {
-                                    $("select[name='city']").append("<option value='"+value.id+"'>"+value.cName+"</option>")
+                                    $("select[name='city']").append("<option value='"+value.cId+"'>"+value.cName+"</option>")
                                 })
                             }
                         })
