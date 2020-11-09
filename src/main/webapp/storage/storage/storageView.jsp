@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+<%@ taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -21,39 +22,42 @@ pageEncoding="UTF-8"%>
   <ul class="forminfo">
     <li>
       <label>仓库名称</label>
-      <cite>南京21号仓库</cite>
+      <cite>${warehouse.name}</cite>
     </li>
     <li>
       <label>仓库地址</label>
-      <cite>江苏南京苏铺路180号泸州花园7栋3单元1801室</cite>
+      <cite>${warehouse.province.pName}省${warehouse.city.cName}市${warehouse.cAddress}</cite>
     </li>
     <li>
       <label>所属区域</label>
-      <cite>江苏省南京市</cite>
+      <cite>${warehouse.province.pName}省${warehouse.city.cName}市</cite>
     </li>
     <li>
       <label>负责人</label>
-      <cite>周仓</cite>
+      <cite>${warehouse.users.uname}</cite>
     </li>
     <li>
       <label>联系方式</label>
-      <cite>17370899727</cite>
+      <cite>${warehouse.phone}</cite>
     </li>
     <li>
       <label>描述</label>
-      <cite>天下第一仓</cite>
+      <cite>${warehouse.details}</cite>
     </li>
     <li>
       <label>状态</label>
-      <cite>可用</cite>
+      <cite>
+        <c:if test="${warehouse.state==1}">可用</c:if>
+        <c:if test="${warehouse.state==0}">不可用</c:if>
+      </cite>
     </li>
     <li>
       <label>创建人</label>
-      <cite>马云</cite>
+      <cite>${warehouse.users.names}</cite>
     </li>
     <li>
       <label>创建时间</label>
-      <cite>2017-11-18 15:36:10</cite>
+      <cite>${warehouse.creationTime}</cite>
     </li>
     <li>
       <label>&nbsp;</label>

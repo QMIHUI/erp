@@ -49,7 +49,6 @@ public class BuyController {
     }
     @RequestMapping(value = "delFirm.do",method = RequestMethod.GET)
     public String delFirm(HttpServletRequest request,HttpSession session){
-        System.out.println("执行del（）");
         int id=Integer.parseInt(request.getParameter("id"));
         int num=firmDao.delFirm(id);
         if (num>0){
@@ -57,14 +56,15 @@ public class BuyController {
         }else{
             System.out.println("删除失败");
         }
-        List<Firm> firmList=firmDao.getAllFrims();
-        session.setAttribute("firmList",firmList);
-        return "redirect:purchase/manufacturer/manufacturerList.jsp";
+        return "redirect:getAllFirm.do";
     }
     @RequestMapping(value = "goToAddFirm.do",method = RequestMethod.GET)
     public String goToAddFirm(HttpSession session){
         List<Province> provinceList=provinceDao.getAllProvinces();
         session.setAttribute("provinceList",provinceList);
+        int provinceId=provinceList.get(0).getId();
+        List<City> cityList=cityDao.getAllCitiesByProvinceId(provinceId);
+        session.setAttribute("cityList",cityList);
         return "redirect:purchase/manufacturer/manufacturerAdd.jsp";
     }
     //ajax省市两级联动

@@ -17,8 +17,14 @@
             if ($("input[name='firmName']").val()===""){
                 alert("厂商名称不得为空!");
                 return false;
+            }else if ($("input[name='firmName']").val().length>50){
+                alert("厂商名称不得多于50字符!");
+                return false;
             }else if ($("input[name='firmFounder']").val()===""){
                 alert("负责人姓名不得为空!");
+                return false;
+            }else if ($("input[name='firmFounder']").val().length>30){
+                alert("负责人姓名不得多于30字符!");
                 return false;
             }else if ($("input[name='firmTel']").val()===""){
                 alert("联系方式不得为空!");
@@ -28,6 +34,9 @@
                 return false;
             }else if ($("input[name='firmAddress']").val()===""){
                 alert("联系地址不得为空!");
+                return false;
+            }else if ($("input[name='firmName']").val().length>130){
+                alert("联系地址不得多于130字符!");
                 return false;
             }
         })
@@ -100,6 +109,20 @@
                     $("select[name='province']").val(${firm.city.province.id});
                     $("select[name='city']").val(${firm.city.cId});
                     $("select[name='status']").val(${firm.status});
+                    $("select[name='province']").change(function () {
+                        $.ajax({
+                            dataType:"json",
+                            data: {"id":$(this).val()},
+                            url:"${pageContext.request.contextPath}/getAllCitiesByProvinceId.do",
+                            type:"post",
+                            success:function (result) {
+                                $("select[name='city']").empty();
+                                $.each(result,function (key,value) {
+                                    $("select[name='city']").append("<option value='"+value.cId+"'>"+value.cName+"</option>")
+                                })
+                            }
+                        })
+                    })
                 })
             </script>
             <li>

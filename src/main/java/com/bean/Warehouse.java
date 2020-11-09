@@ -5,7 +5,7 @@ import java.util.Date;
 
 /**
  * warehouse
- * @author 
+ * @author
  */
 public class Warehouse implements Serializable {
     /**
@@ -16,7 +16,7 @@ public class Warehouse implements Serializable {
     /**
      * 仓库名称
      */
-    private String cName;
+    private String name;
 
     /**
      * 仓库地址
@@ -26,12 +26,12 @@ public class Warehouse implements Serializable {
     /**
      * 仓库区域（省）id
      */
-    private Province province;
+    private Integer provinceId;
 
     /**
      * 负责人id(财务部的员工)
      */
-    private Users principal;
+    private Integer usreId;
 
     /**
      * 联系方式
@@ -51,19 +51,31 @@ public class Warehouse implements Serializable {
     /**
      * 创建人id
      */
-    private Users creater;
+    private Integer usersId;
 
     /**
      * 创建时间
      */
-    private Date creationTime;
+    private String creationTime;
 
     /**
      * 市id
      */
+    private Integer cityId;
+
+    //多个一(仓库对管理员)
+    private Users users;
+
+    //多对一(仓库对省)
+    private Province province;
+    //多对一(仓库对市)
     private City city;
 
-    private static final long serialVersionUID = 1L;
+    public Warehouse(){}
+    public Warehouse(Integer id, Integer state) {
+        this.id = id;
+        this.state = state;
+    }
 
     public Integer getId() {
         return id;
@@ -73,12 +85,12 @@ public class Warehouse implements Serializable {
         this.id = id;
     }
 
-    public String getcName() {
-        return cName;
+    public String getName() {
+        return name;
     }
 
-    public void setcName(String cName) {
-        this.cName = cName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getcAddress() {
@@ -89,20 +101,20 @@ public class Warehouse implements Serializable {
         this.cAddress = cAddress;
     }
 
-    public Province getProvince() {
-        return province;
+    public Integer getProvinceId() {
+        return provinceId;
     }
 
-    public void setProvince(Province province) {
-        this.province = province;
+    public void setProvinceId(Integer provinceId) {
+        this.provinceId = provinceId;
     }
 
-    public Users getPrincipal() {
-        return principal;
+    public Integer getUsreId() {
+        return usreId;
     }
 
-    public void setPrincipal(Users principal) {
-        this.principal = principal;
+    public void setUsreId(Integer usreId) {
+        this.usreId = usreId;
     }
 
     public String getPhone() {
@@ -129,20 +141,44 @@ public class Warehouse implements Serializable {
         this.state = state;
     }
 
-    public Users getCreater() {
-        return creater;
+    public Integer getUsersId() {
+        return usersId;
     }
 
-    public void setCreater(Users creater) {
-        this.creater = creater;
+    public void setUsersId(Integer usersId) {
+        this.usersId = usersId;
     }
 
-    public Date getCreationTime() {
+    public String getCreationTime() {
         return creationTime;
     }
 
-    public void setCreationTime(Date creationTime) {
+    public void setCreationTime(String  creationTime) {
         this.creationTime = creationTime;
+    }
+
+    public Integer getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(Integer cityId) {
+        this.cityId = cityId;
+    }
+
+    public Users getUsers() {
+        return users;
+    }
+
+    public void setUsers(Users users) {
+        this.users = users;
+    }
+
+    public Province getProvince() {
+        return province;
+    }
+
+    public void setProvince(Province province) {
+        this.province = province;
     }
 
     public City getCity() {
@@ -153,20 +189,26 @@ public class Warehouse implements Serializable {
         this.city = city;
     }
 
-    public Warehouse() {
+
+    @Override
+    public String toString() {
+        return "Warehouse{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", cAddress='" + cAddress + '\'' +
+                ", provinceId=" + provinceId +
+                ", usreId=" + usreId +
+                ", phone='" + phone + '\'' +
+                ", details='" + details + '\'' +
+                ", state=" + state +
+                ", usersId=" + usersId +
+                ", creationTime=" + creationTime +
+                ", cityId=" + cityId +
+                ", users=" + users +
+                ", province=" + province +
+                ", city=" + city +
+                '}';
     }
 
-    public Warehouse(Integer id, String cName, String cAddress, Province province, Users principal, String phone, String details, Integer state, Users creater, Date creationTime, City city) {
-        this.id = id;
-        this.cName = cName;
-        this.cAddress = cAddress;
-        this.province = province;
-        this.principal = principal;
-        this.phone = phone;
-        this.details = details;
-        this.state = state;
-        this.creater = creater;
-        this.creationTime = creationTime;
-        this.city = city;
-    }
+    private static final long serialVersionUID = 1L;
 }

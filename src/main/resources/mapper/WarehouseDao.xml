@@ -1,22 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dao.WarehouseDao">
-  <resultMap id="Warehouse" type="com.bean.Warehouse">
-    <id column="ID" jdbcType="INTEGER" property="id" />
-    <result column="NAME" jdbcType="VARCHAR" property="cName" />
-    <result column="C_ADDRESS" jdbcType="VARCHAR" property="cAddress" />
-    <result column="PHONE" jdbcType="VARCHAR" property="phone" />
-    <result column="DETAILS" jdbcType="VARCHAR" property="details" />
-    <result column="STATE" jdbcType="INTEGER" property="state" />
-    <result column="CREATION_TIME" jdbcType="TIMESTAMP" property="creationTime" />
-    <association property="province" select="com.dao.ProvinceDao.getProvinceById" column="PROVINCE_ID"/>
-    <association property="city" select="com.dao.CityDao.getCityById" column="CITY_ID"/>
-    <association property="principal" select="com.dao.UsersDao.getOneUser" column="USRE_ID"/>
-    <association property="creater" select="com.dao.UsersDao.getOneUser" column="USERS_ID"/>
+  <resultMap id="BaseResultMap" type="com.bean.Warehouse">
+    <id column="ID"  property="id" />
+    <result column="NAME"  property="name" />
+    <result column="C_ADDRESS"  property="cAddress" />
+    <result column="PROVINCE_ID"  property="provinceId" />
+    <result column="USRE_ID"  property="usreId" />
+    <result column="PHONE"  property="phone" />
+    <result column="DETAILS"  property="details" />
+    <result column="STATE"  property="state" />
+    <result column="USERS_ID"  property="usersId" />
+    <result column="CREATION_TIME" property="creationTime" />
+    <result column="CITY_ID"  property="cityId" />
   </resultMap>
+  <sql id="Base_Column_List">
+    ID, `NAME`, C_ADDRESS, PROVINCE_ID, USRE_ID, PHONE, DETAILS, `STATE`, USERS_ID, CREATION_TIME,
+    CITY_ID
+  </sql>
 
-    <select id="getWarehouseById" resultMap="Warehouse">
-      select id, name, c_address, province_id, usre_id, phone, details, state, users_id, creation_time, city_id  from warehouse where ID=#{id}
-    </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="WarehouseAndCityResultMap">
+    SELECT u.*,us.UNAME AS NAMES,w.*,c.*,p.*
+ FROM (SELECT * FROM users ) AS us
+RIGHT JOIN warehouse w ON us.U_ID=w.USERS_ID
+LEFT JOIN users u ON u.U_ID=w.USRE_ID
+INNER JOIN province p ON p.ID=w.PROVINCE_ID
+INNER JOIN city c ON c.c_ID=w.CITY_ID WHERE w.ID=#{id}
+  </select>
 
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from warehouse
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <resultMap id="WarehouseAndCityResultMap" type="com.bean.Warehouse">
+    <id property="id" column="ID"></id>
+    <result column="NAME"  property="name" />
+    <result column="C_ADDRESS"  property="cAddress" />
+    <result column="PROVINCE_ID"  property="provinceId" />
+    <result column="USRE_ID"  property="usreId" />
+    <result column="PHONE"  property="phone" />
+    <result column="DETAILS"  property="details" />
+    <result column="STATE"  property="state" />
+    <result column="USERS_ID"  property="usersId" />
+    <result column="CREATION_TIME" property="creationTime" />
+    <result column="CITY_ID"  property="cityId" />
+    <result property="users.uId" column="u_id"></result>
+    <result property="users.uname" column="uname"></result>
+    <result property="users.names" column="names"></result>
+    <result property="province.id" column="ID"></result>
+    <result property="province.pName" column="p_NAME"></result>
+    <result property="city.cId" column="c_ID"></result>
+    <result property="city.cName" column="C_NAME"></result>
+  </resultMap>
+  <select id="getAllWarehouse" resultMap="WarehouseAndCityResultMap">
+     SELECT u.*,us.UNAME AS NAMES,w.*,c.*,p.*
+ FROM (SELECT * FROM users ) AS us
+RIGHT JOIN warehouse w ON us.U_ID=w.USERS_ID
+LEFT JOIN users u ON u.U_ID=w.USRE_ID
+INNER JOIN province p ON p.ID=w.PROVINCE_ID
+INNER JOIN city c ON c.c_ID=w.CITY_ID
+  </select>
+  <update id="updateWarehouseState" parameterType="com.bean.Warehouse">
+    UPDATE warehouse SET STATE=#{state} where ID=#{id};
+  </update>
 </mapper>
