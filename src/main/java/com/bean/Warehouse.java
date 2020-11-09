@@ -32,6 +32,7 @@ public class Warehouse implements Serializable {
      * 负责人id(财务部的员工)
      */
     private Integer usreId;
+    private Users principal;
 
     /**
      * 联系方式
@@ -52,6 +53,7 @@ public class Warehouse implements Serializable {
      * 创建人id
      */
     private Integer usersId;
+    private Users creater;
 
     /**
      * 创建时间
