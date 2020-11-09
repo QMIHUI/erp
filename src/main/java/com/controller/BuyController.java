@@ -104,5 +104,47 @@ public class BuyController {
             out.flush();
         }
     }
+    //修改供应商
+    @RequestMapping(value = "firmUpdate.do",method = RequestMethod.GET)
+    public String firmUpdate(HttpSession session,HttpServletRequest request){
+        int firmId=Integer.parseInt(request.getParameter("id"));
+        Firm firm=firmDao.getFirmById(firmId);
+        session.setAttribute("firm",firm);
+        List<Province> provinceList=provinceDao.getAllProvinces();
+        session.setAttribute("provinceList",provinceList);
+        int provinceId=firm.getCity().getProvince().getId();
+        List<City> cityList=cityDao.getAllCitiesByProvinceId(provinceId);
+        session.setAttribute("cityList",cityList);
+        return "redirect:purchase/manufacturer/manufacturerUpdate.jsp";
+    }
+    @RequestMapping(value = "firmDoUpdate.do",method = RequestMethod.POST)
+    public void firmDoUpdate(HttpSession session,HttpServletRequest request,HttpServletResponse response){
+        int firmId=Integer.parseInt(request.getParameter("id"));
+        String firmName=request.getParameter("firmName");
+        String firmTel=request.getParameter("firmTel");
+        String firmAddress=request.getParameter("firmAddress");
+        String firmContent=request.getParameter("firmContent");
+        int c_id=Integer.parseInt(request.getParameter("city"));
+        int createId=((Users)session.getAttribute("user")).getuId();
+        int status=Integer.parseInt(request.getParameter("status"));
+        String firmFounder=request.getParameter("firmFounder");
+        int num=firmDao.updateFirm(firmName,firmTel,firmAddress,firmContent,c_id,createId,status,firmFounder,firmId);
+        PrintWriter out=null;
+        try {
+            out=response.getWriter();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (num>0){
+            List<Firm> firmList=firmDao.getAllFrims();
+            session.setAttribute("firmList",firmList);
+            out.print("<script type='text/javaScript'>alert('修改成功！');window.location.href='purchase/manufacturer/manufacturerList.jsp'</script>");
+            out.flush();
+        }else {
+            out.print("<script type='text/javaScript'>alert('修改失败！');window.location.href='purchase/manufacturer/manufacturerList.jsp'</script>");
+            out.flush();
+        }
+    }
 
 }
