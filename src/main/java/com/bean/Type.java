@@ -99,4 +99,16 @@ public class Type implements Serializable {
     public void setBrand(Brand brand) {
         this.brand = brand;
     }
+
+    @Override
+    public String toString() {
+        return "Type{" +
+                "typeId=" + typeId +
+                ", typeName='" + typeName + '\'' +
+                ", typeStatus=" + typeStatus +
+                ", createTime=" + createTime +
+                ", creater=" + creater +
+                ", brand=" + brand +
+                '}';
+    }
 }

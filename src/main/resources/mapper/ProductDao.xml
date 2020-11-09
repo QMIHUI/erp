@@ -13,6 +13,10 @@
         <association property="creater" select="com.dao.UsersDao.getOneUser" column="CREATE_ID"/>
 
     </resultMap>
+    <!--添加商品-->
+    <insert id="addProcduct">
+        insert into c_product (product_model, product_price, product_status, product_unit, create_time, create_id, type_id, firm_id) VALUES (#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7},#{param8})
+    </insert>
     <!--根据Id删除Product-->
     <delete id="delProduct">
         delete from c_product where PRODUCT_ID=#{id}
