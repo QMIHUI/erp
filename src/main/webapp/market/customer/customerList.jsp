@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>客户管理</title>
-<link href="../../css/style.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="../../js/jquery.js"></script>
+<link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.js"></script>
 <script type="text/javascript">
 function tipOpen(content) {
 	$(".tipright p").text(content);
@@ -69,11 +70,26 @@ function allottipclose() {
           <option value="0">未分配</option>
         </select>
       </li>
-      <li class="subBut" onclick="window.location.href='customerList.html'"><img src="../../images/t06.png" />查询</li>
-      <li class="subBut" onclick="window.location.href='customerAdd.jsp'"><img src="../../images/t01.png" />添加</li>
+      <li class="subBut" onclick="window.location.href='customerList.html'"><img src="${pageContext.request.contextPath}/images/t06.png" />查询</li>
+      <li class="subBut" onclick="window.location.href='customerAdd.jsp'"><img src="${pageContext.request.contextPath}/images/t01.png" />添加</li>
     </ul>
+  </form>
     <table class="tablelist">
       <thead>
+      <c:forEach items="${listCustom}" var="customer">
+        <%--<tr>
+          <td>${customer.customid}</td>
+          <td>${customer.customname}</td>
+          <td>${customer.sex}</td>
+          <td>${customer.telephone}</td>
+          <td>${customer.}</td>
+          <td>${customer.}</td>
+          <td>${customer.}</td>
+          <td>${customer.}</td>
+          <td>${customer.}</td>
+          <td>${customer.}</td>--%>
+        </tr>
+      </c:forEach>
         <tr>
           <th>序号</th>
           <th>客户姓名</th>
@@ -85,7 +101,6 @@ function allottipclose() {
           <th>创建时间</th>
           <th>创建人</th>
           <th>分配时间</th>
-          <th>客户人员</th>
           <th>操作</th>
         </tr>
       </thead>
@@ -109,61 +124,7 @@ function allottipclose() {
             <a href="javascript:void(0);" class="tablelink" onclick="allottipOpen()">分配</a>
           </td>
         </tr>
-        <tr>
-          <td>2</td>
-          <td>张永祥</td>
-          <td>女</td>
-          <td>17370897894</td>
-          <td>腾讯公司</td>
-          <td>江苏南京</td>
-          <td>不可用</td>
-          <td>2013-09-09 15:05:05</td>
-          <td>管理员</td>
-          <td>2013-09-09 15:05:05</td>
-          <td>关羽</td>
-          <td>
-          	<a href="customerView.jsp" class="tablelink">查看详情</a>
-            <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('是否确认恢复此条信息？')">恢复</a>
-            <a href="javascript:void(0);" class="tablelink" onclick="allottipOpen()">分配</a>
-          </td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>王金平</td>
-          <td>男</td>
-          <td>17370899727</td>
-          <td>阿里巴巴</td>
-          <td>江苏南京</td>
-          <td>可用</td>
-          <td>2013-09-09 15:05:05</td>
-          <td>管理员</td>
-          <td></td>
-          <td></td>
-          <td>
-          	<a href="customerView.jsp" class="tablelink">查看详情</a>
-            <a href="customerUpdate.jsp" class="tablelink">修改</a>
-            <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('是否确认注销此条信息？')">注销</a>
-            <a href="javascript:void(0);" class="tablelink" onclick="allottipOpen()">分配</a>
-          </td>
-        </tr>
-        <tr>
-          <td>4</td>
-          <td>张永祥</td>
-          <td>女</td>
-          <td>17370897894</td>
-          <td>腾讯公司</td>
-          <td>江苏南京</td>
-          <td>不可用</td>
-          <td>2013-09-09 15:05:05</td>
-          <td>管理员</td>
-          <td>2013-09-09 15:05:05</td>
-          <td>关羽</td>
-          <td>
-          	<a href="customerView.jsp" class="tablelink">查看详情</a>
-            <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('是否确认恢复此条信息？')">恢复</a>
-            <a href="javascript:void(0);" class="tablelink" onclick="allottipOpen()">分配</a>
-          </td>
-        </tr>
+
       </tbody>
     </table>
     <div class="pagin">
@@ -180,7 +141,7 @@ function allottipclose() {
         <li class="paginItem"><a href="javascript:;"><span class="pagenxt"></span></a></li>
       </ul>
     </div>
-  </form>
+
   <!-- 提示框 -->
   <div id="tip" class="tip">
     <div class="tiptop"><span>提示信息</span><a onclick="tipClose()"></a></div>
