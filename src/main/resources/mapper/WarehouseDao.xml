@@ -14,6 +14,7 @@
     <result column="CREATION_TIME" property="creationTime" />
     <result column="CITY_ID"  property="cityId" />
   </resultMap>
+
   <sql id="Base_Column_List">
     ID, `NAME`, C_ADDRESS, PROVINCE_ID, USRE_ID, PHONE, DETAILS, `STATE`, USERS_ID, CREATION_TIME,
     CITY_ID
@@ -64,4 +65,21 @@ INNER JOIN city c ON c.c_ID=w.CITY_ID
   <update id="updateWarehouseState" parameterType="com.bean.Warehouse">
     UPDATE warehouse SET STATE=#{state} where ID=#{id};
   </update>
+
+  <resultMap id="Warehouse" type="com.bean.Warehouse">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="C_ADDRESS" jdbcType="VARCHAR" property="cAddress" />
+    <result column="PHONE" jdbcType="VARCHAR" property="phone" />
+    <result column="DETAILS" jdbcType="VARCHAR" property="details" />
+    <result column="STATE" jdbcType="INTEGER" property="state" />
+    <result column="CREATION_TIME" jdbcType="TIMESTAMP" property="creationTime" />
+    <association property="province" select="com.dao.ProvinceDao.getProvinceById" column="PROVINCE_ID"/>
+    <association property="city" select="com.dao.CityDao.getCityById" column="CITY_ID"/>
+    <association property="principal" select="com.dao.UsersDao.getOneUser" column="USRE_ID"/>
+    <association property="creater" select="com.dao.UsersDao.getOneUser" column="USERS_ID"/>
+  </resultMap>
+  <select id="getWarehouseById" resultMap="Warehouse">
+    select id, name, c_address, province_id, usre_id, phone, details, state, users_id, creation_time, city_id  from warehouse where ID=#{id}
+  </select>
 </mapper>

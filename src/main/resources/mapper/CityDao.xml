@@ -2,13 +2,66 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dao.CityDao">
   <resultMap id="city" type="com.bean.City">
-    <id property="cId" column="c_ID"/>
+    <id property="cId" column="C_ID"/>
     <result property="cName" column="C_NAME" />
     <result property="cNumber" column="C_NUMBER"/>
     <association property="province" select="com.dao.ProvinceDao.getProvinceById" column="P_ID"/>
   </resultMap>
 
+  <resultMap id="getProCity" type="com.bean.City">
+    <id property="cId" column="C_ID"/>
+    <result property="cName" column="C_NAME" />
+    <result property="pId" column="P_ID" />
+    <result property="cNumber" column="C_NUMBER"/>
+    <association property="province" javaType="Province">
+      <id property="id" column="ID"/>
+      <result property="pName" column="P_NAME"/>
+    </association>
+  </resultMap>
+
   <select id="getCityById" resultMap="city">
-    select * from city where ID=#{id}
+        select * from city where C_ID=#{cId}
+    </select>
+  <!--根据provinceId获得List<City>-->
+  <select id="getAllCitiesByProvinceId" resultMap="city">
+        select * from city where P_ID=#{id}
+    </select>
+  <select id="getAllProCity" resultMap="getProCity">
+        SELECT * FROM city LEFT JOIN province ON province.ID = city.P_ID limit #{page},#{size}
+    </select>
+  <select id="countCity" resultType="java.lang.Integer">
+        SELECT count(*) FROM city LEFT JOIN province ON province.ID = city.P_ID
+    </select>
+  <resultMap id="base" type="com.bean.City">
+    <id property="cId" column="C_ID"/>
+    <result property="pId" column="P_ID" />
+    <result property="cName" column="C_NAME" />
+    <result property="cNumber" column="C_NUMBER"/>
+  </resultMap>
+  <select id="getAllCity" resultMap="base">
+        SELECT * FROM city
+    </select>
+  <select id="getProCityByCon" resultMap="getProCity">
+    SELECT * FROM city LEFT JOIN province ON province.ID = city.P_ID
+    <where>
+      <if test="pId!='' and pId!= null ">
+        and P_ID=#{pId}
+      </if>
+      <if test="cId!='' and cId!= null ">
+        and C_ID=#{cId}
+      </if>
+    </where>
+    limit #{page},#{size}
+  </select>
+  <select id="countCityByCon" resultType="java.lang.Integer">
+    SELECT count(*) FROM city LEFT JOIN province ON province.ID = city.P_ID
+    <where>
+      <if test="pId!='' and pId!= null ">
+        and P_ID=#{pId}
+      </if>
+      <if test="cId!='' and cId!= null ">
+        and C_ID=#{cId}
+      </if>
+    </where>
   </select>
 </mapper>

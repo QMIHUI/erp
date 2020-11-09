@@ -15,4 +15,6 @@ public interface WarehouseDao {
     List<Warehouse> getAllWarehouse(); //查询所有
     int updateWarehouseState(Warehouse warehouse);//根据ID修改状态
 
+    public Warehouse getWarehouseById(int id);
+
 }
