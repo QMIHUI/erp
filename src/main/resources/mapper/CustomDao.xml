@@ -21,19 +21,19 @@
     DISTRACTIME, SERVICEID, DISTRACT, HOMEADDRESS
   </sql>
   <resultMap id="getAll" type="com.bean.Custom">
-    <id column="CUSTOMID" jdbcType="INTEGER" property="customid" />
-    <result column="CUSTOMNAME" jdbcType="VARCHAR" property="customname" />
-    <result column="SEX" jdbcType="VARCHAR" property="sex" />
-    <result column="TELEPHONE" jdbcType="VARCHAR" property="telephone" />
-    <result column="COMPANY" jdbcType="VARCHAR" property="company" />
-    <result column="ADDRESS" jdbcType="INTEGER" property="address" />
-    <result column="STATUS" jdbcType="VARCHAR" property="status" />
-    <result column="CREATETIME" jdbcType="DATE" property="createtime" />
-    <result column="CREATEID" jdbcType="INTEGER" property="createid" />
-    <result column="DISTRACTIME" jdbcType="DATE" property="distractime" />
-    <result column="SERVICEID" jdbcType="INTEGER" property="serviceid" />
-    <result column="DISTRACT" jdbcType="VARCHAR" property="distract" />
-    <result column="HOMEADDRESS" jdbcType="VARCHAR" property="homeaddress" />
+    <id column="CUSTOMID"  property="customid" />
+    <result column="CUSTOMNAME" property="customname" />
+    <result column="SEX"  property="sex" />
+    <result column="TELEPHONE"  property="telephone" />
+    <result column="COMPANY"  property="company" />
+    <result column="ADDRESS"  property="address" />
+    <result column="STATUS" property="status" />
+    <result column="CREATETIME"  property="createtime" />
+    <result column="CREATEID"  property="createid" />
+    <result column="DISTRACTIME"  property="distractime" />
+    <result column="SERVICEID" property="serviceid" />
+    <result column="DISTRACT"  property="distract" />
+    <result column="HOMEADDRESS"  property="homeaddress" />
     <association property="province" javaType="Province">
       <id property="id" column="ID"/>
       <result property="pName" column="P_NAME"/>
@@ -49,6 +49,10 @@
   </select>
   <select id="countCustom" resultType="java.lang.Integer">
     SELECT count(*) FROM custom
+  </select>
+  <select id="getOneCustom" resultMap="getAll">
+    SELECT * FROM custom LEFT JOIN province ON custom.address = province.ID
+    LEFT JOIN users ON custom.CREATEID = users.u_id where CUSTOMID=#{customid}
   </select>
 
   <!--<select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">

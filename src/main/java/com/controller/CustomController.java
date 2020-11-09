@@ -51,6 +51,22 @@ public class CustomController {
         return "market/customer/customerList";
     }
 
+    @RequestMapping(value = "getOneCust.do",method = RequestMethod.GET)
+    public String getOneCust(HttpServletRequest request){
+        System.out.println("根据顾客ID查找顾客");
+        String op = request.getParameter("op");
+        System.out.println(op);
+        int customId = Integer.parseInt(request.getParameter("customId"));
+        Custom custom = customDao.getOneCustom(customId);
+        request.getSession().setAttribute("custom",custom);
+        if(op.equals("查看")){
+            return "market/customer/customerView";
+        }else{
+
+        }
+        return "market/customer/customerUpdate";
+    }
+
 
 
 }

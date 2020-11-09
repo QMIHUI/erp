@@ -58,7 +58,7 @@ function allottipclose() {
       </li>
       <li> 状态：
         <select>
-          <option>请选择     </option>
+          <option>请选择</option>
           <option value="1">可用</option>
           <option value="0">不可用</option>
         </select>
@@ -76,20 +76,6 @@ function allottipclose() {
   </form>
     <table class="tablelist">
       <thead>
-      <c:forEach items="${listCustom}" var="customer">
-        <%--<tr>
-          <td>${customer.customid}</td>
-          <td>${customer.customname}</td>
-          <td>${customer.sex}</td>
-          <td>${customer.telephone}</td>
-          <td>${customer.}</td>
-          <td>${customer.}</td>
-          <td>${customer.}</td>
-          <td>${customer.}</td>
-          <td>${customer.}</td>
-          <td>${customer.}</td>--%>
-        </tr>
-      </c:forEach>
         <tr>
           <th>序号</th>
           <th>客户姓名</th>
@@ -105,7 +91,27 @@ function allottipclose() {
         </tr>
       </thead>
       <tbody>
+      <c:forEach items="${listCustom}" var="customer">
         <tr>
+          <td>${customer.customid}</td>
+          <td>${customer.customname}</td>
+          <td>${customer.sex}</td>
+          <td>${customer.telephone}</td>
+          <td>${customer.company}</td>
+          <td>${customer.province.pName}</td>
+          <td>${customer.status}</td>
+          <td>${customer.createtime}</td>
+          <td>${customer.users.uname}</td>
+          <td>${customer.distractime}</td>
+          <td>
+            <a href="${pageContext.request.contextPath}/getOneCust.do?customId=${customer.customid}&op=查看" class="tablelink">查看详情</a>
+            <a href="${pageContext.request.contextPath}/getOneCust.do?customId=${customer.customid}&op=修改" class="tablelink">修改</a>
+            <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('是否确认注销此条信息？')">注销</a>
+            <a href="javascript:void(0);" class="tablelink" onclick="allottipOpen()">分配</a>
+          </td>
+        </tr>
+      </c:forEach>
+       <%-- <tr>
           <td>1</td>
           <td>王金平</td>
           <td>男</td>
@@ -124,21 +130,16 @@ function allottipclose() {
             <a href="javascript:void(0);" class="tablelink" onclick="allottipOpen()">分配</a>
           </td>
         </tr>
-
+--%>
       </tbody>
     </table>
     <div class="pagin">
-      <div class="message">共<i class="blue">1256</i>条记录，当前显示第&nbsp;<i class="blue">2&nbsp;</i>页</div>
+      <div class="message">共<i class="blue">${countCust}</i>条记录，当前显示第&nbsp;<i class="blue">${pageIndex}&nbsp;</i>页</div>
       <ul class="paginList">
-        <li class="paginItem"><a href="javascript:;"><span class="pagepre"></span></a></li>
-        <li class="paginItem"><a href="javascript:;">1</a></li>
-        <li class="paginItem current"><a href="javascript:;">2</a></li>
-        <li class="paginItem"><a href="javascript:;">3</a></li>
-        <li class="paginItem"><a href="javascript:;">4</a></li>
-        <li class="paginItem"><a href="javascript:;">5</a></li>
-        <li class="paginItem more"><a href="javascript:;">...</a></li>
-        <li class="paginItem"><a href="javascript:;">10</a></li>
-        <li class="paginItem"><a href="javascript:;"><span class="pagenxt"></span></a></li>
+        <li class="paginItem"><a href="${pageContext.request.contextPath }/queryAllCustom.do?pageIndex=1">首页</a></li>
+        <li class="paginItem"><a href="${pageContext.request.contextPath }/queryAllCustom.do?pageIndex=${pageIndex-1}">上页</a></li>
+        <li class="paginItem"><a href="${pageContext.request.contextPath }/queryAllCustom.do?pageIndex=${pageIndex+1}">下页</a></li>
+        <li class="paginItem"><a href="${pageContext.request.contextPath }/queryAllCustom.do?pageIndex=${rowCust}">末页</a></li>
       </ul>
     </div>
 

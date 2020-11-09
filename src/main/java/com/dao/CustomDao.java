@@ -10,5 +10,7 @@ public interface CustomDao {
     public List<Custom> getAllCustom(Pager<Custom> pager);
     //查询所有顾客数量
     public int countCustom();
+    //根据顾客id查找顾客
+    public Custom getOneCustom(int customid);
 
 }

@@ -22,11 +22,11 @@ public class Custom implements Serializable {
 
     private String status;
 
-    private Date createtime;
+    private String createtime;
 
     private Integer createid;
 
-    private Date distractime;
+    private String distractime;
 
     private Integer serviceid;
 
@@ -112,11 +112,11 @@ public class Custom implements Serializable {
         this.status = status;
     }
 
-    public Date getCreatetime() {
+    public String getCreatetime() {
         return createtime;
     }
 
-    public void setCreatetime(Date createtime) {
+    public void setCreatetime(String createtime) {
         this.createtime = createtime;
     }
 
@@ -128,11 +128,11 @@ public class Custom implements Serializable {
         this.createid = createid;
     }
 
-    public Date getDistractime() {
+    public String getDistractime() {
         return distractime;
     }
 
-    public void setDistractime(Date distractime) {
+    public void setDistractime(String distractime) {
         this.distractime = distractime;
     }
 
@@ -158,5 +158,26 @@ public class Custom implements Serializable {
 
     public void setHomeaddress(String homeaddress) {
         this.homeaddress = homeaddress;
+    }
+
+    @Override
+    public String toString() {
+        return "Custom{" +
+                "customid=" + customid +
+                ", customname='" + customname + '\'' +
+                ", sex='" + sex + '\'' +
+                ", telephone='" + telephone + '\'' +
+                ", company='" + company + '\'' +
+                ", address=" + address +
+                ", status='" + status + '\'' +
+                ", createtime='" + createtime + '\'' +
+                ", createid=" + createid +
+                ", distractime='" + distractime + '\'' +
+                ", serviceid=" + serviceid +
+                ", distract='" + distract + '\'' +
+                ", homeaddress='" + homeaddress + '\'' +
+                ", province=" + province +
+                ", users=" + users +
+                '}';
     }
 }

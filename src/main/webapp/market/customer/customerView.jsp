@@ -5,7 +5,7 @@ pageEncoding="UTF-8"%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>无标题文档</title>
-<link href="../../css/style.css" rel="stylesheet" type="text/css" />
+<link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
@@ -21,43 +21,43 @@ pageEncoding="UTF-8"%>
   <ul class="forminfo">
     <li>
       <label>姓名</label>
-      <cite>王金平</cite>
+      <cite>${custom.customname}</cite>
     </li>
     <li>
       <label>性别</label>
-      <cite>男</cite>
+      <cite>${custom.sex}</cite>
     </li>
     <li>
       <label>所属公司名称</label>
-      <cite>阿里巴巴</cite>
+      <cite>${custom.company}</cite>
     </li>
     <li>
       <label>联系方式</label>
-      <cite>17370899727</cite>
+      <cite>${custom.telephone}</cite>
     </li>
     <li>
       <label>联系地址</label>
-      <cite>江苏南京苏铺路180号泸州花园7栋3单元1801室</cite>
+      <cite>${custom.homeaddress}</cite>
     </li>
     <li>
       <label>所属区域</label>
-      <cite>江苏省南京市</cite>
+      <cite>${custom.province.pName}</cite>
     </li>
     <li>
       <label>描述</label>
-      <cite>阿里巴巴上市公司</cite>
+      <cite>${custom.distract}</cite>
     </li>
     <li>
       <label>状态</label>
-      <cite>可用</cite>
+      <cite>${custom.status}</cite>
     </li>
     <li>
       <label>创建人</label>
-      <cite>马云</cite>
+      <cite>${custom.users.uname}</cite>
     </li>
     <li>
       <label>创建时间</label>
-      <cite>2017-11-18 15:36:10</cite>
+      <cite>${custom.createtime}</cite>
     </li>
     <li>
       <label>&nbsp;</label>
