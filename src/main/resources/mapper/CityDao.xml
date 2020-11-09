@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dao.CityDao">
   <resultMap id="city" type="com.bean.City">
-    <id property="id" column="ID"/>
+    <id property="id" column="c_ID"/>
     <result property="cName" column="C_NAME" />
     <result property="cNumber" column="C_NUMBER"/>
     <association property="province" select="com.dao.ProvinceDao.getProvinceById" column="P_ID"/>
