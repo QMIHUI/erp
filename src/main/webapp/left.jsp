@@ -144,6 +144,10 @@ $(function(){
                     <li><cite></cite><a href="storage/delivery/deliveryList.jsp" target="rightFrame">出库管理</a><i></i></li>
                     <li><cite></cite><a href="storage/stock/stockList.jsp" target="rightFrame">入库管理</a><i></i></li>
                     <li><cite></cite><a href="storage/inventory/inventoryList.jsp" target="rightFrame">库存管理</a><i></i></li>
+
+
+
+
                 </ul>
             </dd>
             <dd>
