@@ -31,6 +31,7 @@ public class Users implements Serializable {
     private String birthday;
 
     private Dept dept;
+
     private Job job;
 
     public Dept getDept() {

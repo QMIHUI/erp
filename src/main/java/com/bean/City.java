@@ -10,11 +10,13 @@ public class City implements Serializable {
     /**
      * 市id
      */
-    private Integer id;
+    private Integer cId;
 
     /**
      * 省份
      */
+    private Integer pId;
+
     private Province province;
 
     /**
@@ -32,20 +34,29 @@ public class City implements Serializable {
     public City() {
     }
 
-    public City(Integer id, Province province, String cName, String cNumber) {
-        this.id = id;
+    public City(Integer cId, Province province, String cName, String cNumber) {
+        this.cId = cId;
         this.province = province;
         this.cName = cName;
         this.cNumber = cNumber;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getpId() {
+        return pId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setpId(Integer pId) {
+        this.pId = pId;
     }
+
+    public Integer getcId() {
+        return cId;
+    }
+
+    public void setcId(Integer cId) {
+        this.cId = cId;
+    }
+
 
     public Province getProvince() {
         return province;
@@ -74,7 +85,8 @@ public class City implements Serializable {
     @Override
     public String toString() {
         return "City{" +
-                "id=" + id +
+                "cId=" + cId +
+                ", pId=" + pId +
                 ", province=" + province +
                 ", cName='" + cName + '\'' +
                 ", cNumber='" + cNumber + '\'' +

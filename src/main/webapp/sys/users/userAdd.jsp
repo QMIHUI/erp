@@ -8,7 +8,7 @@ pageEncoding="UTF-8"%>
 <title>无标题文档</title>
 <link href="${pageContext.request.contextPath }/css/style.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="${pageContext.request.contextPath }/laydate/laydate.js"></script>
-  <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-1.8.3.min.js"></script>
 <style type="text/css">
   #birthday{
     padding-right: 0;

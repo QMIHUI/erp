@@ -18,6 +18,9 @@ public class Pager<T> {
     private String uname;
     private int deptId;
     private int status;
+    //区域模糊查询起始条件
+    private int pId;
+    private int cId;
 
 
     private int page;//分页起始页
@@ -55,6 +58,22 @@ public class Pager<T> {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public int getpId() {
+        return pId;
+    }
+
+    public void setpId(int pId) {
+        this.pId = pId;
+    }
+
+    public int getcId() {
+        return cId;
+    }
+
+    public void setcId(int cId) {
+        this.cId = cId;
     }
 
     public String getJobName() {

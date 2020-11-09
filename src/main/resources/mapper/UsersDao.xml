@@ -33,9 +33,6 @@
     update users set uname=#{uname},upassword=#{upassword},utelephone=#{utelephone},dept_id=#{deptId},
      job_id=#{jobId},sex=#{sex},birthday=#{birthday} where u_id=#{uId}
   </update>
-  <select id="login" resultMap="BaseResultMap">
-    select * from users where uname=#{uname} and upassword=#{upassword}
-  </select>
   <resultMap id="getAll" type="com.bean.Users">
     <id column="u_id"  property="uId" />
     <result column="uname"  property="uname" />
@@ -60,6 +57,11 @@
       <result column="job_dept_id"  property="jobDeptId" />
     </association>
   </resultMap>
+  <select id="login" resultMap="getAll">
+    SELECT * FROM users LEFT JOIN dept ON users.dept_id=dept.dept_id
+    LEFT JOIN job ON users.job_id=job.job_id
+     where uname=#{uname} and upassword=#{upassword}
+  </select>
   <select id="getAllUsersByPage" resultMap="getAll">
     SELECT * FROM users LEFT JOIN dept ON users.dept_id=dept.dept_id
     LEFT JOIN job ON users.job_id=job.job_id limit #{page},#{size}
