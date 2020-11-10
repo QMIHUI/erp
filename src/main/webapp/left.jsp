@@ -128,7 +128,9 @@ $(function(){
             <dd>
                 <div class="title">营销管理</div>
                 <ul class="menuson">
-                    <li><cite></cite><a href="market/customer/customerList.jsp" target="rightFrame">客户管理</a><i></i></li>
+                    <li><cite></cite>
+                        <a href="${pageContext.request.contextPath}/queryAllCustom.do" target="rightFrame">客户管理</a>
+                        <i></i></li>
                     <li><cite></cite><a href="market/customerBrowse/customerBrowse.jsp" target="rightFrame">客户浏览</a><i></i></li>
                     <li><cite></cite><a href="market/order/orderList.jsp" target="rightFrame">订购单管理</a><i></i></li>
                     <li><cite></cite><a href="market/orderExamine/orderExamineList.jsp" target="rightFrame">订购单审核</a><i></i></li>
