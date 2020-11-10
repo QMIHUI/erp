@@ -13,7 +13,6 @@
     $(function () {
         var reg=/^(([1-9][0-9]*)|((([1-9][0-9]*)|0)\.[0-9]{1,2}))$/;
         $("form").submit(function () {
-            alert("111");
             if ($("input[name='productModel']").val()===""){
                 alert("商品型号不能为空");
                 return false;
