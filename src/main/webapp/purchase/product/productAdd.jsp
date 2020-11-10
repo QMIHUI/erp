@@ -128,7 +128,7 @@
                 <label>&nbsp;</label>
                 <input name="" type="submit" class="btn" value="确定"/>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <input name="" type="button" class="btn" value="返回" onclick="window.location.href='purchase/product/productList.jsp'"/>
+                <input name="" type="button" class="btn" value="返回" onclick="window.location.href='productList.jsp'"/>
             </li>
         </ul>
     </div>

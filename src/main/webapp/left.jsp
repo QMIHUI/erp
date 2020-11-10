@@ -147,7 +147,7 @@ $(function(){
                     <c:if test="${user.jobId==7||user.jobId==8||user.jobId==9}">
                         <li><cite></cite><a href="purchase/purchaseExamine/purchaseExamineList.jsp" target="rightFrame">采购单审核</a><i></i></li>
                     </c:if>
-                    <li><cite></cite><a href="purchase/brand/brandList.jsp" target="rightFrame">品牌管理</a><i></i></li>
+                    <li><cite></cite><a href="${pageContext.request.contextPath}/getAllBrands.do" target="rightFrame">品牌管理</a><i></i></li>
                     <li><cite></cite><a href="purchase/productType/productTypeList.jsp" target="rightFrame">商品类型管理</a><i></i></li>
                     <li><cite></cite><a href="${pageContext.request.contextPath}/getAllProduct.do" target="rightFrame">商品管理</a><i></i></li>
                     <li><cite></cite><a href="${pageContext.request.contextPath}/getAllFirm.do" target="rightFrame">厂商管理</a><i></i></li>
