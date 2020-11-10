@@ -60,7 +60,7 @@
         </li>
         <li>
             <label>创建时间</label>
-            <cite><fmt:formatDate value="${firm.createTime}" pattern="yyyy-MM-dd hh:MM:ss"/></cite>
+            <cite><fmt:formatDate value="${firm.createTime}" pattern="yyyy-MM-dd HH:MM:ss"/></cite>
         </li>
         <li>
             <label>&nbsp;</label>

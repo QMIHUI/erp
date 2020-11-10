@@ -28,7 +28,7 @@
         </li>
         <li>
             <label>订购时间</label>
-            <cite><fmt:formatDate value="${purchase.purchaseTime}" pattern="yyyy-MM-dd hh:MM:ss"/></cite>
+            <cite><fmt:formatDate value="${purchase.purchaseTime}" pattern="yyyy-MM-dd HH:MM:ss"/></cite>
         </li>
         <li>
             <label>总金额</label>
@@ -64,7 +64,7 @@
         </li>
         <li>
             <label>审核时间</label>
-            <cite><fmt:formatDate value="${purchase.checkTime}" pattern="yyyy-MM-dd hh:MM:ss"/></cite>
+            <cite><fmt:formatDate value="${purchase.checkTime}" pattern="yyyy-MM-dd HH:MM:ss"/></cite>
         </li>
     </ul>
     <table class="tablelist">

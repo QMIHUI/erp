@@ -9,6 +9,22 @@
         <association property="brand" select="com.dao.BrandDao.getBrandById" column="BRAND_ID"/>
         <association property="creater" select="com.dao.UsersDao.getOneUser" column="CREATE_ID"/>
     </resultMap>
+    <!--添加type-->
+    <insert id="addType">
+        insert into c_type(type_name, type_status, create_time, create_id, brand_id) VALUES (#{param1},#{param2},#{param3},#{param4},#{param5})
+    </insert>
+    <!--修改type-->
+    <update id="updateType">
+        update c_type set type_name=#{param1}, type_status=#{param2},brand_id=#{param3} where TYPE_ID=#{param4}
+    </update>
+    <!--注销Type-->
+    <update id="delType">
+        update c_type set TYPE_STATUS=2 where TYPE_ID=#{id}
+    </update>
+    <!--恢复type-->
+    <update id="recoverType">
+        update c_type set TYPE_STATUS=1 where TYPE_ID=#{id}
+    </update>
 
     <select id="getTypeById" resultMap="type">
         select type_id, type_name, type_status, create_time, create_id, brand_id from c_type where TYPE_ID=#{id}
@@ -16,6 +32,10 @@
     <!--根据BrandId获取Type集合-->
     <select id="getTypeListByBrandId" resultMap="type">
         select type_id, type_name, type_status, create_time, create_id, brand_id from c_type where brand_id=#{brandId}
+    </select>
+    <!--获取所有type集合-->
+    <select id="getAllType" resultMap="type">
+        select type_id, type_name, type_status, create_time, create_id, brand_id from c_type order by BRAND_ID
     </select>
 
 </mapper>

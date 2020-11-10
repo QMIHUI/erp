@@ -92,7 +92,7 @@
                         <c:if test="${firm.status==2}">
                             <td>不可用</td>
                         </c:if>
-                        <td><fmt:formatDate value="${firm.createTime}" pattern="yyyy-MM-dd hh:MM:ss"/></td>
+                        <td><fmt:formatDate value="${firm.createTime}" pattern="yyyy-MM-dd HH:MM:ss"/></td>
                         <td>${firm.user.uname}</td>
                         <td>
                             <a href="${pageContext.request.contextPath}/getFirmDetails.do?id=${firm.firmId}" class="tablelink">查看详情</a>

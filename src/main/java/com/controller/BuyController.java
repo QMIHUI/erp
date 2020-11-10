@@ -3,10 +3,7 @@ package com.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.bean.*;
-import com.dao.BrandDao;
-import com.dao.CityDao;
-import com.dao.FirmDao;
-import com.dao.ProvinceDao;
+import com.dao.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +30,8 @@ public class BuyController {
     public CityDao cityDao;
     @Autowired
     public BrandDao brandDao;
+    @Autowired
+    public TypeDao typeDao;
 
     @RequestMapping(value = "getAllFirm.do",method = RequestMethod.GET)
     public String getAllFirms(HttpSession session){
@@ -249,6 +248,103 @@ public class BuyController {
         }
         return "redirect:getAllBrands.do";
     }
+    //获取所有商品类型
+    @RequestMapping(value = "getAllTypes.do",method = RequestMethod.GET)
+    public String getAllTypes(HttpSession session){
+        List<Type> typeList=typeDao.getAllType();
+        session.setAttribute("typeList",typeList);
+        return "redirect:purchase/productType/productTypeList.jsp";
+    }
+    //添加商品类型
+    @RequestMapping(value = "toAddType.do",method = RequestMethod.GET)
+    public String toAddType(HttpSession session){
+        List<Brand> brandList=brandDao.getAllBrands();
+        session.setAttribute("brandList",brandList);
+        return "redirect:purchase/productType/productTypeAdd.jsp";
+    }
+    @RequestMapping(value = "addType.do",method = RequestMethod.POST)
+    public void addType(HttpServletRequest request,HttpSession session,HttpServletResponse response){
+        String typeName=request.getParameter("typeName");
+        int typeStatu=Integer.parseInt(request.getParameter("typeStatus"));
+        Date createTime=new Date();
+        int createId=((Users)session.getAttribute("user")).getuId();
+        int brandId=Integer.parseInt(request.getParameter("brand"));
+        int num=typeDao.addType(typeName,typeStatu,createTime,createId,brandId);
+        PrintWriter out=null;
+        try {
+            out=response.getWriter();
 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (num>0){
+            List<Type> typeList=typeDao.getAllType();
+            session.setAttribute("typeList",typeList);
+            out.print("<script type='text/javaScript'>alert('添加成功！');window.location.href='purchase/productType/productTypeList.jsp'</script>");
+            out.flush();
+        }else {
+            out.print("<script type='text/javaScript'>alert('添加失败！');window.location.href='purchase/productType/productTypeList.jsp'</script>");
+            out.flush();
+        }
+    }
+    //修改商品类型
+    @RequestMapping(value = "toTypeUpdate.do",method = RequestMethod.GET)
+    public String toTypeUpdate(HttpServletRequest request,HttpSession session){
+        int id=Integer.parseInt(request.getParameter("id"));
+        Type type= typeDao.getTypeById(id);
+        session.setAttribute("type",type);
+        List<Brand> brandList=brandDao.getAllBrands();
+        session.setAttribute("brandList",brandList);
+        return "redirect:purchase/productType/productTypeUpdate.jsp";
+    }
+    @RequestMapping(value = "updateType.do",method = RequestMethod.POST)
+    public void updateType(HttpSession session,HttpServletRequest request,HttpServletResponse response){
+        int id=Integer.parseInt(request.getParameter("id"));
+        String typeName=request.getParameter("typeName");
+        int typeStatu=Integer.parseInt(request.getParameter("typeStatus"));
+        int brandId=Integer.parseInt(request.getParameter("brand"));
+        int num=typeDao.updateType(typeName,typeStatu,brandId,id);
+        PrintWriter out=null;
+        try {
+            out=response.getWriter();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (num>0){
+            List<Type> typeList=typeDao.getAllType();
+            session.setAttribute("typeList",typeList);
+            out.print("<script type='text/javaScript'>alert('修改成功！');window.location.href='purchase/productType/productTypeList.jsp'</script>");
+            out.flush();
+        }else {
+            out.print("<script type='text/javaScript'>alert('修改失败！');window.location.href='purchase/productType/productTypeList.jsp'</script>");
+            out.flush();
+        }
+
+    }
+    //注销Type
+    @RequestMapping(value = "delType.do",method = RequestMethod.GET)
+    public String delType(HttpServletRequest request){
+        int id=Integer.parseInt(request.getParameter("id"));
+        int num=typeDao.delType(id);
+        if (num>0){
+            System.out.println("注销成功！");
+        }else {
+            System.out.println("注销失败！");
+        }
+        return "redirect:getAllTypes.do";
+    }
+    //恢复type
+    @RequestMapping(value = "recoverType.do",method = RequestMethod.GET)
+    public String recoverType(HttpServletRequest request){
+        int id=Integer.parseInt(request.getParameter("id"));
+        int num=typeDao.recoverType(id);
+        if (num>0){
+            System.out.println("注销成功！");
+        }else {
+            System.out.println("注销失败！");
+        }
+        return "redirect:getAllTypes.do";
+    }
 
 }
