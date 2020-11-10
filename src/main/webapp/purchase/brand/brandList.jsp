@@ -69,7 +69,7 @@
                     <c:if test="${brand.brandStatus==2}">
                         <td>不可用</td>
                     </c:if>
-                    <td><fmt:formatDate value="${brand.createTime}" pattern="yyyy-MM-dd hh:MM:ss"/></td>
+                    <td><fmt:formatDate value="${brand.createTime}" pattern="yyyy-MM-dd HH:MM:ss"/></td>
                     <td>${brand.creater.uname}</td>
                     <td>
                         <a href="${pageContext.request.contextPath}/toBrandUpdate.do?id=${brand.brandId}" class="tablelink">修改</a>

@@ -87,7 +87,7 @@
                         <c:if test="${product.productStatus==1}">可用</c:if>
                         <c:if test="${product.productStatus==2}">不可用</c:if>
                     </td>
-                    <td><fmt:formatDate value="${product.createTime}" pattern="yyyy-MM-dd hh:MM:ss"/></td>
+                    <td><fmt:formatDate value="${product.createTime}" pattern="yyyy-MM-dd HH:MM:ss"/></td>
                     <td>${product.creater.uname}</td>
                     <td>
                         <a href="${pageContext.request.contextPath}/gotoUpdateProduct.do?id=${product.productId}" class="tablelink">修改</a>

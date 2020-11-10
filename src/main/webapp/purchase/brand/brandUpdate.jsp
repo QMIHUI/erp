@@ -60,7 +60,7 @@
             </li>
             <li>
                 <label>创建时间</label>
-                <input name="createTime" type="text" value="<fmt:formatDate value="${brand.createTime}" pattern="yyyy-MM-dd hh:MM:ss"/>" readonly="readonly" class="roinput" />
+                <input name="createTime" type="text" value="<fmt:formatDate value="${brand.createTime}" pattern="yyyy-MM-dd HH:MM:ss"/>" readonly="readonly" class="roinput" />
                 <i>不能编辑</i>
             </li>
             <li>
