@@ -2,10 +2,8 @@ package com.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
-import com.bean.City;
-import com.bean.Firm;
-import com.bean.Province;
-import com.bean.Users;
+import com.bean.*;
+import com.dao.BrandDao;
 import com.dao.CityDao;
 import com.dao.FirmDao;
 import com.dao.ProvinceDao;
@@ -33,6 +31,8 @@ public class BuyController {
     public ProvinceDao provinceDao;
     @Autowired
     public CityDao cityDao;
+    @Autowired
+    public BrandDao brandDao;
 
     @RequestMapping(value = "getAllFirm.do",method = RequestMethod.GET)
     public String getAllFirms(HttpSession session){
@@ -48,7 +48,7 @@ public class BuyController {
         return "redirect:purchase/manufacturer/manufacturerView.jsp";
     }
     @RequestMapping(value = "delFirm.do",method = RequestMethod.GET)
-    public String delFirm(HttpServletRequest request,HttpSession session){
+    public String delFirm(HttpServletRequest request){
         int id=Integer.parseInt(request.getParameter("id"));
         int num=firmDao.delFirm(id);
         if (num>0){
@@ -57,6 +57,18 @@ public class BuyController {
             System.out.println("删除失败");
         }
         return "redirect:getAllFirm.do";
+    }
+    @RequestMapping(value = "recoverFirm.do",method = RequestMethod.GET)
+    public String recoverFirm(HttpServletRequest request){
+        int id=Integer.parseInt(request.getParameter("id"));
+        int num=firmDao.recoverFirm(id);
+        if (num>0){
+            System.out.println("恢复成功");
+        }else{
+            System.out.println("恢复失败");
+        }
+        return "redirect:getAllFirm.do";
+
     }
     @RequestMapping(value = "goToAddFirm.do",method = RequestMethod.GET)
     public String goToAddFirm(HttpSession session){
@@ -147,5 +159,97 @@ public class BuyController {
             out.flush();
         }
     }
+    //获取所有品牌
+    @RequestMapping(value ="getAllBrands.do",method = RequestMethod.GET)
+    public String getAllBrands(HttpSession session){
+        List<Brand> brandList=brandDao.getAllBrands();
+        session.setAttribute("brandList",brandList);
+        return "redirect:purchase/brand/brandList.jsp";
+    }
+    //添加品牌
+    @RequestMapping(value = "addBrand.do",method = RequestMethod.POST)
+    public void addBrand(HttpServletRequest request,HttpSession session,HttpServletResponse response){
+        String brandName=request.getParameter("brandName");
+        int brandStatus=Integer.parseInt(request.getParameter("brandStatus"));
+        Date createTime=new Date();
+        int createId=((Users)session.getAttribute("user")).getuId();
+        int num=brandDao.addBrand(brandName,brandStatus,createTime,createId);
+        PrintWriter out=null;
+        try {
+            out=response.getWriter();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (num>0){
+            List<Brand> brandList=brandDao.getAllBrands();
+            session.setAttribute("brandList",brandList);
+            out.print("<script type='text/javaScript'>alert('添加成功！');window.location.href='purchase/brand/brandList.jsp'</script>");
+            out.flush();
+        }else {
+            out.print("<script type='text/javaScript'>alert('添加失败！');window.location.href='purchase/brand/brandList.jsp'</script>");
+            out.flush();
+        }
+    }
+    //修改品牌
+    @RequestMapping(value = "toBrandUpdate.do",method = RequestMethod.GET)
+    public String toBrandUpdate(HttpSession session,HttpServletRequest request){
+        int id=Integer.parseInt(request.getParameter("id"));
+        Brand brand=brandDao.getBrandById(id);
+        session.setAttribute("brand",brand);
+        return "redirect:purchase/brand/brandUpdate.jsp";
+    }
+
+
+    @RequestMapping(value = "brandUpdate.do",method = RequestMethod.POST)
+    public void brandUpdate(HttpSession session,HttpServletRequest request,HttpServletResponse response){
+        int id=Integer.parseInt(request.getParameter("id"));
+        String brandName=request.getParameter("brandName");
+        int brandStatus=Integer.parseInt(request.getParameter("brandStatus"));
+        int num=brandDao.updateBrand(brandName,brandStatus,id);
+        PrintWriter out=null;
+        try {
+            out=response.getWriter();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (num>0){
+            List<Brand> brandList=brandDao.getAllBrands();
+            session.setAttribute("brandList",brandList);
+            out.print("<script type='text/javaScript'>alert('修改成功！');window.location.href='purchase/brand/brandList.jsp'</script>");
+            out.flush();
+        }else {
+            out.print("<script type='text/javaScript'>alert('修改失败！');window.location.href='purchase/brand/brandList.jsp'</script>");
+            out.flush();
+        }
+
+    }
+
+    //注销brand
+    @RequestMapping(value = "delBrand",method = RequestMethod.GET)
+    public String delBrand(HttpServletRequest request){
+        int id=Integer.parseInt(request.getParameter("id"));
+        int num=brandDao.delBrand(id);
+        if (num>0){
+            System.out.println("注销成功！");
+        }else {
+            System.out.println("注销失败！");
+        }
+        return "redirect:getAllBrands.do";
+    }
+    //恢复brand
+    @RequestMapping(value = "recoverBrand.do",method = RequestMethod.GET)
+    public String recoverBrand(HttpServletRequest request){
+        int id=Integer.parseInt(request.getParameter("id"));
+        int num=brandDao.recoverBrand(id);
+        if (num>0){
+            System.out.println("恢复成功！");
+        }else {
+            System.out.println("恢复失败！");
+        }
+        return "redirect:getAllBrands.do";
+    }
+
 
 }

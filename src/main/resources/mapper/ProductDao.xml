@@ -17,10 +17,18 @@
     <insert id="addProcduct">
         insert into c_product (product_model, product_price, product_status, product_unit, create_time, create_id, type_id, firm_id) VALUES (#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7},#{param8})
     </insert>
-    <!--根据Id删除Product-->
-    <delete id="delProduct">
-        delete from c_product where PRODUCT_ID=#{id}
-    </delete>
+    <!--修改商品-->
+    <update id="updateProduct">
+        update c_product set product_model=#{param1}, product_price=#{param2}, product_status=#{param3}, product_unit=#{param4}, type_id=#{param5}, firm_id=#{param6} where PRODUCT_ID=#{param7}
+    </update>
+    <!--恢复商品-->
+    <update id="recoverProduct">
+        update c_product set PRODUCT_STATUS=1 where PRODUCT_ID=#{id}
+    </update>
+    <!--根据Id注销Product-->
+    <update id="delProduct">
+        update c_product set PRODUCT_STATUS=2 where PRODUCT_ID=#{id}
+    </update>
     <!--根据Id获取Product-->
     <select id="getProductById" resultMap="product">
         select product_id, product_model, product_price, product_status, product_unit, create_time, create_id, type_id, firm_id from c_product where PRODUCT_ID=#{id}

@@ -142,4 +142,20 @@ public class Product implements Serializable {
     public void setFirm(Firm firm) {
         this.firm = firm;
     }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "productId=" + productId +
+                ", productModel='" + productModel + '\'' +
+                ", productPrice=" + productPrice +
+                ", productStatus=" + productStatus +
+                ", productUnit='" + productUnit + '\'' +
+                ", createTime=" + createTime +
+                ", creater=" + creater.getUname() +
+                ", type=" + type.getTypeName() +
+                ", brand=" + type.getBrand().getBrandName() +
+                ", firm=" + firm.getFirmName() +
+                '}';
+    }
 }

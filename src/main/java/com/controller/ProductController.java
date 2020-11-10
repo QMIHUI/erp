@@ -40,15 +40,27 @@ public class ProductController {
         session.setAttribute("productList",productList);
         return "redirect:purchase/product/productList.jsp";
     }
-    //删除Product
+    //注销Product
     @RequestMapping(value = "delProduct.do",method = RequestMethod.GET)
-    public String delProduct(HttpServletRequest request, HttpSession session){
+    public String delProduct(HttpServletRequest request){
         int id=Integer.parseInt(request.getParameter("id"));
         int num=productDao.delProduct(id);
         if (num>0){
-            System.out.println("删除成功");
+            System.out.println("注销成功");
         }else{
-            System.out.println("删除失败");
+            System.out.println("注销失败");
+        }
+        return "redirect:getAllProduct.do";
+    }
+    //恢复
+    @RequestMapping(value = "recoverProduct.do",method = RequestMethod.GET)
+    public String recoverProduct(HttpServletRequest request){
+        int id=Integer.parseInt(request.getParameter("id"));
+        int num=productDao.recoverProduct(id);
+        if (num>0){
+            System.out.println("恢复成功");
+        }else{
+            System.out.println("恢复失败");
         }
         return "redirect:getAllProduct.do";
     }
@@ -102,6 +114,47 @@ public class ProductController {
             out.flush();
         }
     }
+    //修改商品
+    @RequestMapping(value = "gotoUpdateProduct.do",method = RequestMethod.GET)
+    public String gotoUpdateProduct(HttpSession session,HttpServletRequest request){
+        int productId=Integer.parseInt(request.getParameter("id"));
+        Product product=productDao.getProductById(productId);
+        session.setAttribute("product",product);
+        List<Brand> brandList=brandDao.getAllBrands();
+        session.setAttribute("brandList",brandList);
+        int brandId=product.getType().getBrand().getBrandId();
+        List<Type> typeList=typeDao.getTypeListByBrandId(brandId);
+        session.setAttribute("typeList",typeList);
+        List<Firm> firmList=firmDao.getAllFrims();
+        session.setAttribute("firmList",firmList);
+        return "redirect:purchase/product/productUpdate.jsp";
+    }
+    @RequestMapping(value = "doUpdateProduct.do",method = RequestMethod.POST)
+    public void updateProduct(HttpSession session,HttpServletRequest request,HttpServletResponse response){
+        int id=Integer.parseInt(request.getParameter("id"));
+        String productModel=request.getParameter("productModel");
+        double productPrice=Double.parseDouble(request.getParameter("productPrice"));
+        int productStatus=Integer.parseInt(request.getParameter("productStatus"));
+        String productUnit=request.getParameter("productUnit");
+        int typeId=Integer.parseInt(request.getParameter("type"));
+        int firmId=Integer.parseInt(request.getParameter("firm"));
+        int num=productDao.updateProduct(productModel,productPrice,productStatus,productUnit,typeId,firmId,id);
+        PrintWriter out=null;
+        try {
+            out=response.getWriter();
 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (num>0){
+            List<Product> productList=productDao.getAllProduct();
+            session.setAttribute("productList",productList);
+            out.print("<script type='text/javaScript'>alert('修改成功！');window.location.href='purchase/product/productList.jsp'</script>");
+            out.flush();
+        }else {
+            out.print("<script type='text/javaScript'>alert('修改失败！');window.location.href='purchase/product/productList.jsp'</script>");
+            out.flush();
+        }
+    }
 
 }
