@@ -129,7 +129,6 @@ public class UsersController {
         //日志的信息
         int uId = Integer.parseInt(request.getParameter("uId"));
         String jcontent = "添加用户";
-
         String name = request.getParameter("name");
         String password = request.getParameter("password");
         String telephone = request.getParameter("telephone");

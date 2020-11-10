@@ -70,6 +70,7 @@ public class BuyController {
     //ajax省市两级联动
     @RequestMapping(value = "getAllCitiesByProvinceId.do",method = RequestMethod.POST)
     public @ResponseBody List<City> getAllCitiesByProvinceId(HttpServletRequest request, String id){
+        System.out.println("111");
         int id1=Integer.parseInt(id);
         List<City> cityList=cityDao.getAllCitiesByProvinceId(id1);
         return cityList;

@@ -9,22 +9,38 @@ pageEncoding="UTF-8"%>
 <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.js"></script>
 <script type="text/javascript">
-function tipOpen(content) {
-	$(".tipright p").text(content);
-	$("#tip").fadeIn(200);
-}
-function tipClose() {
-	$("#tip").fadeOut(200);
-}
-function allottipOpen() {
-	$("#allottip").fadeIn(200);
-}
-function allottipclose() {
-	$("#allottip").fadeOut(200);
-}
+    function tipOpen(content,custId) {
+        $(".tipright p").text(content);
+        $("input[name='cancelCust']").bind("click",function () {
+          window.location.href="${pageContext.request.contextPath}/cancelCust.do?custId="+custId;
+        })
+        $("#tip").fadeIn(200);
+    }
+    function tipOpen1(content,custId) {
+        $(".tipright1 p").text(content);
+        $("input[name='cancelCust']").bind("click",function () {
+          window.location.href="${pageContext.request.contextPath}/recoverCust.do?custId="+custId;
+        })
+        $("#tip").fadeIn(200);
+    }
+
+    function tipClose() {
+        $("#tip").fadeOut(200);
+        $("#tip01").fadeOut(200);
+    }
+    function allottipOpen(content,custId) {
+        $(".tipinfo1 p").text(content);
+        $("input[name='distributionCust']").bind("click",function () {
+          window.location.href="${pageContext.request.contextPath}/distributionCust.do?custId="+custId;
+        })
+        $("#allottip").fadeIn(200);
+
+    }
+    function allottipclose() {
+        $("#allottip").fadeOut(200);
+    }
 </script>
 </head>
-
 <body>
 <div class="place"> <span>位置：</span>
   <ul class="placeul">
@@ -65,13 +81,17 @@ function allottipclose() {
       </li>
       <li> 是否分配：
         <select>
-          <option>请选择     </option>
+          <option>请选择</option>
           <option value="1">已分配</option>
           <option value="0">未分配</option>
         </select>
       </li>
-      <li class="subBut" onclick="window.location.href='customerList.html'"><img src="${pageContext.request.contextPath}/images/t06.png" />查询</li>
-      <li class="subBut" onclick="window.location.href='customerAdd.jsp'"><img src="${pageContext.request.contextPath}/images/t01.png" />添加</li>
+      <li class="subBut" onclick="window.location.href='customerList.jsp'">
+        <img src="${pageContext.request.contextPath}/images/t06.png" />查询
+      </li>
+      <li class="subBut" onclick="window.location.href='customerAdd.jsp'">
+        <img src="${pageContext.request.contextPath}/images/t01.png" />添加
+      </li>
     </ul>
   </form>
     <table class="tablelist">
@@ -83,6 +103,7 @@ function allottipclose() {
           <th>联系电话</th>
           <th>所属公司</th>
           <th>所属区域</th>
+          <th>负责人ID</th>
           <th>状态</th>
           <th>创建时间</th>
           <th>创建人</th>
@@ -99,6 +120,7 @@ function allottipclose() {
           <td>${customer.telephone}</td>
           <td>${customer.company}</td>
           <td>${customer.province.pName}</td>
+          <td>${customer.leading}</td>
           <td>${customer.status}</td>
           <td>${customer.createtime}</td>
           <td>${customer.users.uname}</td>
@@ -106,31 +128,22 @@ function allottipclose() {
           <td>
             <a href="${pageContext.request.contextPath}/getOneCust.do?customId=${customer.customid}&op=查看" class="tablelink">查看详情</a>
             <a href="${pageContext.request.contextPath}/getOneCust.do?customId=${customer.customid}&op=修改" class="tablelink">修改</a>
-            <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('是否确认注销此条信息？')">注销</a>
-            <a href="javascript:void(0);" class="tablelink" onclick="allottipOpen()">分配</a>
+            <c:if test="${customer.distractime == null}">
+              <c:if test="${customer.status == '可用'}">
+                <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('是否确认注销此条信息？',${customer.customid})">注销</a>
+              </c:if>
+              <c:if test="${customer.status == '不可用'}">
+                <a href="javascript:void(0)" class="tablelink" onclick="tipOpen1('是否确认恢复此条信息？',${customer.customid})">恢复</a>
+              </c:if>
+            </c:if>
+
+            <c:if test="${customer.distractime == null}">
+                <a href="javascript:void(0);" class="tablelink" onclick="allottipOpen('确认分配此客户？',${customer.customid})">分配</a>
+            </c:if>
+
           </td>
         </tr>
       </c:forEach>
-       <%-- <tr>
-          <td>1</td>
-          <td>王金平</td>
-          <td>男</td>
-          <td>17370899727</td>
-          <td>阿里巴巴</td>
-          <td>江苏南京</td>
-          <td>可用</td>
-          <td>2013-09-09 15:05:05</td>
-          <td>管理员</td>
-          <td></td>
-          <td></td>
-          <td>
-          	<a href="customerView.jsp" class="tablelink">查看详情</a>
-            <a href="customerUpdate.jsp" class="tablelink">修改</a>
-            <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('是否确认注销此条信息？')">注销</a>
-            <a href="javascript:void(0);" class="tablelink" onclick="allottipOpen()">分配</a>
-          </td>
-        </tr>
---%>
       </tbody>
     </table>
     <div class="pagin">
@@ -142,18 +155,29 @@ function allottipclose() {
         <li class="paginItem"><a href="${pageContext.request.contextPath }/queryAllCustom.do?pageIndex=${rowCust}">末页</a></li>
       </ul>
     </div>
-
   <!-- 提示框 -->
   <div id="tip" class="tip">
     <div class="tiptop"><span>提示信息</span><a onclick="tipClose()"></a></div>
-    <div class="tipinfo"> <span><img src="../../images/ticon.png" /></span>
+    <div class="tipinfo"> <span><img src="${pageContext.request.contextPath }/images/ticon.png" /></span>
       <div class="tipright">
         <p></p>
         <cite>如果是请点击确定按钮 ，否则请点取消。</cite> </div>
     </div>
     <div class="tipbtn">
-      <input name="" type="button"  class="sure" value="确定" onclick="tipClose()" />
-      &nbsp;
+      <input name="cancelCust" type="button"  class="sure" value="确定" />
+      <input name="" type="button"  class="cancel" value="取消" onclick="tipClose()" />
+    </div>
+  </div>
+  <!-- 提示框 -->
+  <div id="tip1" class="tip">
+    <div class="tiptop"><span>提示信息</span><a onclick="tipClose()"></a></div>
+    <div class="tipinfo"> <span><img src="${pageContext.request.contextPath }/images/ticon.png" /></span>
+      <div class="tipright1">
+        <p></p>
+        <cite>如果是请点击确定按钮 ，否则请点取消。</cite> </div>
+    </div>
+    <div class="tipbtn">
+      <input name="cancelCust" type="button"  class="sure" value="确定" />
       <input name="" type="button"  class="cancel" value="取消" onclick="tipClose()" />
     </div>
   </div>
@@ -162,35 +186,11 @@ function allottipclose() {
     <div class="tiptop">
     	<span>提示信息</span><a onclick="allottipclose()"></a>
     </div>
-    <div class="tipinfo1"> 
-    	
-        部门：
-            <select class="dfselect" disabled="disabled">
-            	<option>请选择</option>
-                <option selected="selected">市场部</option>
-                <option>采购部</option>
-                <option>财务部</option>
-            </select>
-			<p/>
-            职位：
-            <select class="dfselect">
-            	<option>请选择</option>
-                <option>一组组员</option>
-                <option>二组组员</option>
-                <option>三组组员</option>
-            </select>
-   			<p/>
-            姓名：
-            <select class="dfselect">
-            	<option>请选择</option>
-                <option>刘备</option>
-                <option>曹操</option>
-            </select>
-			<p/>
+    <div class="tipinfo1">
+        <p></p>
     </div>
     <div class="tipbtn">
-      <input name="" type="button"  class="sure" value="确定" onclick="allottipclose()" />
-      &nbsp;
+      <input name="distributionCust" type="button"  class="sure" value="确定" />
       <input name="" type="button"  class="cancel" value="取消" onclick="allottipclose()" />
     </div>
   </div>

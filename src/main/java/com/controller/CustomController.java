@@ -1,14 +1,18 @@
 package com.controller;
 
-import com.bean.Custom;
-import com.dao.CustomDao;
+import com.bean.*;
+import com.dao.*;
 import com.util.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -19,6 +23,14 @@ import java.util.List;
 public class CustomController {
     @Autowired
     private CustomDao customDao;
+    @Autowired
+    public ProvinceDao provinceDao;
+    @Autowired
+    public CityDao cityDao;
+    @Autowired
+    private JournalDao journalDao;
+    @Autowired
+    private UsersDao usersDao;
 
     @RequestMapping(value = "queryAllCustom.do",method = RequestMethod.GET)
     public String queryAllCustom(HttpServletRequest request){
@@ -52,19 +64,116 @@ public class CustomController {
     }
 
     @RequestMapping(value = "getOneCust.do",method = RequestMethod.GET)
-    public String getOneCust(HttpServletRequest request){
+    public String getOneCust(HttpServletRequest request, HttpSession session){
         System.out.println("根据顾客ID查找顾客");
         String op = request.getParameter("op");
         System.out.println(op);
         int customId = Integer.parseInt(request.getParameter("customId"));
         Custom custom = customDao.getOneCustom(customId);
         request.getSession().setAttribute("custom",custom);
+        List<Province> provinceList=provinceDao.getAllProvinces();
+        session.setAttribute("provinceList",provinceList);
+        int provinceId=provinceList.get(0).getId();
+        List<City> cityList=cityDao.getAllCitiesByProvinceId(provinceId);
+        session.setAttribute("cityList",cityList);
         if(op.equals("查看")){
             return "market/customer/customerView";
         }else{
 
         }
         return "market/customer/customerUpdate";
+    }
+
+    @RequestMapping(value = "getCitiesByProvinceId.do",method = RequestMethod.POST)
+    public @ResponseBody
+    List<City> getAllCitiesByProvinceId(HttpServletRequest request, String id){
+        System.out.println("222");
+        int id1=Integer.parseInt(id);
+        List<City> cityList=cityDao.getAllCitiesByProvinceId(id1);
+        return cityList;
+    }
+
+    @RequestMapping(value = "updateCust.do",method = RequestMethod.GET)
+    public String updateCust(HttpServletRequest request){
+        System.out.println("执行修改顾客！！!");
+        int custId = Integer.parseInt(request.getParameter("custId"));
+        String custName = request.getParameter("custName");
+        String custSex = request.getParameter("custSex");
+        String custCompany = request.getParameter("custCompany");
+        String custTel = request.getParameter("custTel");
+        String custHomeAddress = request.getParameter("custHomeAddress");
+        int province = Integer.parseInt(request.getParameter("province"));
+        String desc = request.getParameter("desc");
+        String status = request.getParameter("status");
+        Custom custom = new Custom(custId,custName,custSex,custTel,custCompany,province,status,desc,custHomeAddress);
+        int num = customDao.updateCustom(custom);
+        //添加日志
+        Date date = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        String creationDate = format.format(date);
+        int uId = Integer.parseInt(request.getParameter("uId"));
+        String jcontent = "修改顾客";
+        Journal journal = new Journal(jcontent,creationDate,custName,uId);
+        int n = journalDao.addJournal(journal);
+        if(num>0 && n>0){
+            return "forward:queryAllCustom.do";
+        }else{
+            return "redirect:market/customer/customerUpdate.jsp";
+        }
+    }
+
+    @RequestMapping(value = "distributionCust.do",method = RequestMethod.GET)
+    public String distributionCust(HttpServletRequest request){
+        System.out.println("分配客户！！！");
+        int custId = Integer.parseInt(request.getParameter("custId"));
+        System.out.println("custId:"+custId);
+        Custom custom = customDao.getOneCustom(custId);
+        request.getSession().setAttribute("custom",custom);
+        List<Users> listUsersMarket = usersDao.getUsersByDid(2);
+        request.getSession().setAttribute("listUsersMarket",listUsersMarket);
+        return "market/customer/distinctCstom";
+    }
+
+    @RequestMapping(value = "distrctCustSucc.do",method = RequestMethod.GET)
+    public String distrctCustSucc(HttpServletRequest request){
+        System.out.println("执行分配成功！！！");
+        int custId = Integer.parseInt(request.getParameter("custId"));
+        int luId = Integer.parseInt(request.getParameter("luId"));
+        Date date = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        String creationDate = format.format(date);
+        Custom custom = new Custom(custId,luId,creationDate);
+        //添加日志
+        int uId = Integer.parseInt(request.getParameter("uId"));
+        String jcontent = "分配客户";
+        String custName = request.getParameter("custName");
+        Journal journal = new Journal(jcontent,creationDate,custName,uId);
+        int num = customDao.distinctCust(custom);
+        int n = journalDao.addJournal(journal);
+        if(num>0 && n>0){
+            return "forward:queryAllCustom.do";
+        }else{
+            return "redirect:market/customer/distinctCstom.jsp";
+        }
+
+    }
+
+    @RequestMapping(value = "cancelCust.do",method = RequestMethod.GET)
+    public String cancelCust(HttpServletRequest request){
+        System.out.println("注销顾客！！！");
+        int custId = Integer.parseInt(request.getParameter("custId"));
+        System.out.println("custId:"+custId);
+        int num = customDao.cancelCust(custId);
+        return "forward:queryAllCustom.do";
+    }
+
+    @RequestMapping(value = "recoverCust.do",method = RequestMethod.GET)
+    public String recoverCust(HttpServletRequest request){
+        System.out.println("恢复顾客！！！");
+        int custId = Integer.parseInt(request.getParameter("custId"));
+        System.out.println("custId:"+custId);
+        int num = customDao.recoverCust(custId);
+        return "forward:queryAllCustom.do";
     }
 
 
