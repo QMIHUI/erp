@@ -90,8 +90,14 @@
                     <td><fmt:formatDate value="${product.createTime}" pattern="yyyy-MM-dd hh:MM:ss"/></td>
                     <td>${product.creater.uname}</td>
                     <td>
-                        <a href="productUpdate.jsp" class="tablelink">修改</a>
-                        <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('是否确认注销此条信息？',${product.productId})">注销</a>
+                        <a href="${pageContext.request.contextPath}/gotoUpdateProduct.do?id=${product.productId}" class="tablelink">修改</a>
+                        <c:if test="${product.productStatus==1}">
+                            <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('是否确认注销此条信息？',${product.productId})">注销</a>
+                        </c:if>
+                        <c:if test="${product.productStatus==2}">
+                            <a href="${pageContext.request.contextPath}/recoverProduct.do?id=${product.productId}" class="tablelink" >恢复</a>
+                        </c:if>
+
                     </td>
                 </tr>
             </c:forEach>

@@ -1,50 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dao.FirmDao">
-  <resultMap id="firm" type="com.bean.Firm">
-    <id property="firmId" column="FIRM_ID"/>
-    <result property="firmName" column="FIRM_NAME"/>
-    <result property="firmTel" column="FIRM_TEL"/>
-    <result property="firmAddress" column="FIRM_ADDRESS"/>
-    <result property="firmContent" column="FIRM_CONTENT"/>
-    <result property="createTime" column="CREATE_TIME"/>
-    <result property="status" column="STATUS"/>
-    <result property="firmFounder" column="FIRM_FOUNDER"/>
-    <association property="city" select="com.dao.CityDao.getCityById" column="FIRM_CITY"/>
-    <association property="user" select="com.dao.UsersDao.getOneUser" column="CREATE_ID"/>
-    <association property="purchaseList" select="com.dao.PurchaseDao.getPurchaseByCheckId" column="FIRM_ID"/>
-   </resultMap>
-  <!--增加供应商-->
+    <resultMap id="firm" type="com.bean.Firm">
+        <id property="firmId" column="FIRM_ID"/>
+        <result property="firmName" column="FIRM_NAME"/>
+        <result property="firmTel" column="FIRM_TEL"/>
+        <result property="firmAddress" column="FIRM_ADDRESS"/>
+        <result property="firmContent" column="FIRM_CONTENT"/>
+        <result property="createTime" column="CREATE_TIME"/>
+        <result property="status" column="STATUS"/>
+        <result property="firmFounder" column="FIRM_FOUNDER"/>
+        <association property="city" select="com.dao.CityDao.getCityById" column="FIRM_CITY"/>
+        <association property="user" select="com.dao.UsersDao.getOneUser" column="CREATE_ID"/>
+        <association property="purchaseList" select="com.dao.PurchaseDao.getPurchaseByCheckId" column="FIRM_ID"/>
+    </resultMap>
+    <!--增加供应商-->
     <insert id="addFirm">
-      insert into c_firm(firm_name, firm_tel, firm_address, firm_content, firm_city, create_time, create_id, status, firm_founder) values(#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7},#{param8},#{param9})
+        insert into c_firm(firm_name, firm_tel, firm_address, firm_content, firm_city, create_time, create_id, status, firm_founder) values(#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7},#{param8},#{param9})
     </insert>
-  <!--修改供应商-->
-  <update id="updateFirm">
-    update c_firm set firm_name=#{param1}, firm_tel=#{param2}, firm_address=#{param3}, firm_content=#{param4}, firm_city=#{param5}, create_id=#{param6}, status=#{param7}, firm_founder=#{param8} where FIRM_ID=#{param9}
-  </update>
-  <!--根据id删除供应商-->
-  <delete id="delFirm">
-        delete from c_firm where FIRM_ID=#{id}
-  </delete>
-  <select id="getAllFrims" resultMap="firm">
-    select firm_id, firm_name, firm_tel, firm_address, firm_content, firm_city, create_time, create_id, status, firm_founder from c_firm
-  </select>
+    <!--修改供应商-->
+    <update id="updateFirm">
+        update c_firm set firm_name=#{param1}, firm_tel=#{param2}, firm_address=#{param3}, firm_content=#{param4}, firm_city=#{param5}, create_id=#{param6}, status=#{param7}, firm_founder=#{param8} where FIRM_ID=#{param9}
+    </update>
+    <!--恢复供应商-->
+    <update id="recoverFirm">
+        update c_firm set STATUS=1 where FIRM_ID=#{id}
+    </update>
+    <!--根据id注销供应商-->
+    <update id="delFirm">
+        update c_firm set STATUS=2 where FIRM_ID=#{id}
+    </update>
+    <select id="getAllFrims" resultMap="firm">
+        select firm_id, firm_name, firm_tel, firm_address, firm_content, firm_city, create_time, create_id, status, firm_founder from c_firm
+    </select>
 
-  <!--获取单个厂商，不含采购单-->
-  <resultMap id="frimWithoutPurchase" type="com.bean.Firm">
-    <id property="firmId" column="FIRM_ID"/>
-    <result property="firmName" column="FIRM_NAME"/>
-    <result property="firmTel" column="FIRM_TEL"/>
-    <result property="firmAddress" column="FIRM_ADDRESS"/>
-    <result property="firmContent" column="FIRM_CONTENT"/>
-    <result property="createTime" column="CREATE_TIME"/>
-    <result property="status" column="STATUS"/>
-    <result property="firmFounder" column="FIRM_FOUNDER"/>
-    <association property="city" select="com.dao.CityDao.getCityById" column="FIRM_CITY"/>
-    <association property="user" select="com.dao.UsersDao.getOneUser" column="CREATE_ID"/>
-  </resultMap>
+    <!--获取单个厂商，不含采购单-->
+    <resultMap id="frimWithoutPurchase" type="com.bean.Firm">
+        <id property="firmId" column="FIRM_ID"/>
+        <result property="firmName" column="FIRM_NAME"/>
+        <result property="firmTel" column="FIRM_TEL"/>
+        <result property="firmAddress" column="FIRM_ADDRESS"/>
+        <result property="firmContent" column="FIRM_CONTENT"/>
+        <result property="createTime" column="CREATE_TIME"/>
+        <result property="status" column="STATUS"/>
+        <result property="firmFounder" column="FIRM_FOUNDER"/>
+        <association property="city" select="com.dao.CityDao.getCityById" column="FIRM_CITY"/>
+        <association property="user" select="com.dao.UsersDao.getOneUser" column="CREATE_ID"/>
+    </resultMap>
 
-  <select id="getFirmById" resultMap="frimWithoutPurchase">
-    select firm_id, firm_name, firm_tel, firm_address, firm_content, firm_city, create_time, create_id, status, firm_founder from c_firm where FIRM_ID=#{id}
-  </select>
+    <select id="getFirmById" resultMap="frimWithoutPurchase">
+        select firm_id, firm_name, firm_tel, firm_address, firm_content, firm_city, create_time, create_id, status, firm_founder from c_firm where FIRM_ID=#{id}
+    </select>
 </mapper>

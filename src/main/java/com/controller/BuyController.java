@@ -48,7 +48,7 @@ public class BuyController {
         return "redirect:purchase/manufacturer/manufacturerView.jsp";
     }
     @RequestMapping(value = "delFirm.do",method = RequestMethod.GET)
-    public String delFirm(HttpServletRequest request,HttpSession session){
+    public String delFirm(HttpServletRequest request){
         int id=Integer.parseInt(request.getParameter("id"));
         int num=firmDao.delFirm(id);
         if (num>0){
@@ -57,6 +57,18 @@ public class BuyController {
             System.out.println("删除失败");
         }
         return "redirect:getAllFirm.do";
+    }
+    @RequestMapping(value = "recoverFirm.do",method = RequestMethod.GET)
+    public String recoverFirm(HttpServletRequest request){
+        int id=Integer.parseInt(request.getParameter("id"));
+        int num=firmDao.recoverFirm(id);
+        if (num>0){
+            System.out.println("删除成功");
+        }else{
+            System.out.println("删除失败");
+        }
+        return "redirect:getAllFirm.do";
+
     }
     @RequestMapping(value = "goToAddFirm.do",method = RequestMethod.GET)
     public String goToAddFirm(HttpSession session){

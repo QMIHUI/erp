@@ -97,7 +97,12 @@
                         <td>
                             <a href="${pageContext.request.contextPath}/getFirmDetails.do?id=${firm.firmId}" class="tablelink">查看详情</a>
                             <a href="${pageContext.request.contextPath}/firmUpdate.do?id=${firm.firmId}" class="tablelink">修改</a>
-                            <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('是否确认注销此条信息？',${firm.firmId})">注销</a>
+                            <c:if test="${firm.status==1}">
+                                <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('是否确认注销此条信息？',${firm.firmId})">注销</a>
+                            </c:if>
+                            <c:if test="${firm.status==2}">
+                                <a href="${pageContext.request.contextPath}/recoverFirm.do?id=${firm.firmId}" class="tablelink" >恢复</a>
+                            </c:if>
                         </td>
                     </tr>
                 </c:forEach>
