@@ -26,7 +26,7 @@ public class Purchase implements Serializable {
     private Integer cgState;
 
     private Double totalMoney;
-
+    //未审核1 审核中2  审核通过3 审核未通过4
     private Integer checkStatus;
 
     private List<Details> detailsList;

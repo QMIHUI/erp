@@ -143,7 +143,7 @@ $(function(){
             <dd>
                 <div class="title">采购管理</div>
                 <ul class="menuson">
-                    <li><cite></cite><a href="purchase/purchase/purchaseList.jsp" target="rightFrame">采购单管理</a><i></i></li>
+                    <li><cite></cite><a href="${pageContext.request.contextPath}/getAllPurchases.do" target="rightFrame">采购单管理</a><i></i></li>
                     <c:if test="${user.jobId==7||user.jobId==8||user.jobId==9||user.jobId==1}">
                         <li><cite></cite><a href="purchase/purchaseExamine/purchaseExamineList.jsp" target="rightFrame">采购单审核</a><i></i></li>
                     </c:if>
