@@ -26,6 +26,8 @@ public class Custom implements Serializable {
 
     private Integer createid;
 
+    private Integer leading;
+
     private String distractime;
 
     private Integer serviceid;
@@ -128,6 +130,14 @@ public class Custom implements Serializable {
         this.createid = createid;
     }
 
+    public Integer getLeading() {
+        return leading;
+    }
+
+    public void setLeading(Integer leading) {
+        this.leading = leading;
+    }
+
     public String getDistractime() {
         return distractime;
     }
@@ -179,5 +189,31 @@ public class Custom implements Serializable {
                 ", province=" + province +
                 ", users=" + users +
                 '}';
+    }
+
+    public Custom() {
+    }
+
+    public Custom(Integer customid, Integer leading) {
+        this.customid = customid;
+        this.leading = leading;
+    }
+
+    public Custom(Integer customid, Integer leading, String distractime) {
+        this.customid = customid;
+        this.leading = leading;
+        this.distractime = distractime;
+    }
+
+    public Custom(Integer customid, String customname, String sex, String telephone, String company, Integer address, String status, String distract, String homeaddress) {
+        this.customid = customid;
+        this.customname = customname;
+        this.sex = sex;
+        this.telephone = telephone;
+        this.company = company;
+        this.address = address;
+        this.status = status;
+        this.distract = distract;
+        this.homeaddress = homeaddress;
     }
 }

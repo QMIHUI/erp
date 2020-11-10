@@ -3,23 +3,39 @@
 <mapper namespace="com.dao.CustomDao">
   <resultMap id="BaseResultMap" type="com.bean.Custom">
     <id column="CUSTOMID" jdbcType="INTEGER" property="customid" />
-    <result column="CUSTOMNAME" jdbcType="VARCHAR" property="customname" />
-    <result column="SEX" jdbcType="VARCHAR" property="sex" />
-    <result column="TELEPHONE" jdbcType="VARCHAR" property="telephone" />
-    <result column="COMPANY" jdbcType="VARCHAR" property="company" />
-    <result column="ADDRESS" jdbcType="INTEGER" property="address" />
-    <result column="STATUS" jdbcType="VARCHAR" property="status" />
-    <result column="CREATETIME" jdbcType="DATE" property="createtime" />
-    <result column="CREATEID" jdbcType="INTEGER" property="createid" />
-    <result column="DISTRACTIME" jdbcType="DATE" property="distractime" />
-    <result column="SERVICEID" jdbcType="INTEGER" property="serviceid" />
-    <result column="DISTRACT" jdbcType="VARCHAR" property="distract" />
-    <result column="HOMEADDRESS" jdbcType="VARCHAR" property="homeaddress" />
+    <result column="CUSTOMNAME"  property="customname" />
+    <result column="SEX"  property="sex" />
+    <result column="TELEPHONE"  property="telephone" />
+    <result column="COMPANY"  property="company" />
+    <result column="ADDRESS"  property="address" />
+    <result column="STATUS"  property="status" />
+    <result column="CREATETIME"  property="createtime" />
+    <result column="CREATEID"  property="createid" />
+    <result column="LEADING"  property="leading" />
+    <result column="DISTRACTIME" jdbcType="VARCHAR"  property="distractime" />
+    <result column="SERVICEID"  property="serviceid" />
+    <result column="DISTRACT"  property="distract" />
+    <result column="HOMEADDRESS"  property="homeaddress" />
   </resultMap>
   <sql id="Base_Column_List">
     CUSTOMID, CUSTOMNAME, SEX, TELEPHONE, COMPANY, ADDRESS, `STATUS`, CREATETIME, CREATEID, 
     DISTRACTIME, SERVICEID, DISTRACT, HOMEADDRESS
   </sql>
+  <update id="updateCustom">
+    update custom set CUSTOMNAME=#{customname},SEX=#{sex},TELEPHONE=#{telephone},
+    COMPANY=#{company},ADDRESS=#{address},STATUS=#{status},DISTRACT=#{distract},
+    HOMEADDRESS=#{homeaddress} where CUSTOMID=#{customid}
+  </update>
+  <update id="cancelCust">
+    update custom set STATUS='不可用' where CUSTOMID=#{customid}
+  </update>
+  <update id="recoverCust">
+    update custom set STATUS='可用' where CUSTOMID=#{customid}
+  </update>
+  <update id="distinctCust" parameterType="Custom">
+    update custom set custom.LEADING=#{leading},DISTRACTIME=#{distractime} where CUSTOMID=#{customid}
+  </update>
+
   <resultMap id="getAll" type="com.bean.Custom">
     <id column="CUSTOMID"  property="customid" />
     <result column="CUSTOMNAME" property="customname" />
@@ -30,6 +46,7 @@
     <result column="STATUS" property="status" />
     <result column="CREATETIME"  property="createtime" />
     <result column="CREATEID"  property="createid" />
+    <result column="leading"  property="leading" />
     <result column="DISTRACTIME"  property="distractime" />
     <result column="SERVICEID" property="serviceid" />
     <result column="DISTRACT"  property="distract" />
@@ -41,6 +58,8 @@
     <association property="users" javaType="Users">
       <id column="u_id"  property="uId" />
       <result column="uname"  property="uname" />
+      <result column="dept_id"  property="deptId" />
+      <result column="job_id"  property="jobId" />
     </association>
   </resultMap>
   <select id="getAllCustom" resultMap="getAll">

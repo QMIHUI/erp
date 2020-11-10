@@ -109,6 +109,9 @@
       </if>
     </where>
   </select>
+    <select id="getUsersByDid" resultMap="getAll">
+      select * from users where dept_id=#{deptId}
+    </select>
 
 
 </mapper>
