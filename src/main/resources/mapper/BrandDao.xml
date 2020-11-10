@@ -12,6 +12,10 @@
     <insert id="addBrand">
         insert into c_brand(brand_name, brand_status, create_time, create_id) values (#{param1},#{param2},#{param3},#{param4})
     </insert>
+    <!--更新brand-->
+    <update id="updateBrand">
+        update c_brand set brand_name=#{param1}, brand_status=#{param2} where BRAND_ID=#{param3}
+    </update>
     <select id="getBrandById" resultMap="brand">
         select brand_id, brand_name, brand_status, create_time, create_id from c_brand where BRAND_ID=#{id}
     </select>

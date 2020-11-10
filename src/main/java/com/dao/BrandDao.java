@@ -11,4 +11,6 @@ public interface BrandDao {
     public List<Brand> getAllBrands();
     //添加Brand
     public int addBrand(String brandName, int brandStatus, Date createTime,int createId);
+    //更新brand
+    public int updateBrand(String brandName, int brandStatus,int id);
 }

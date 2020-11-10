@@ -190,5 +190,39 @@ public class BuyController {
             out.flush();
         }
     }
+    //修改品牌
+    @RequestMapping(value = "toBrandUpdate.do",method = RequestMethod.GET)
+    public String toBrandUpdate(HttpSession session,HttpServletRequest request){
+        int id=Integer.parseInt(request.getParameter("id"));
+        Brand brand=brandDao.getBrandById(id);
+        session.setAttribute("brand",brand);
+        return "redirect:purchase/brand/brandUpdate.jsp";
+    }
+
+
+    @RequestMapping(value = "brandUpdate.do",method = RequestMethod.POST)
+    public void brandUpdate(HttpSession session,HttpServletRequest request,HttpServletResponse response){
+        int id=Integer.parseInt(request.getParameter("id"));
+        String brandName=request.getParameter("brandName");
+        int brandStatus=Integer.parseInt(request.getParameter("brandStatus"));
+        int num=brandDao.updateBrand(brandName,brandStatus,id);
+        PrintWriter out=null;
+        try {
+            out=response.getWriter();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (num>0){
+            List<Brand> brandList=brandDao.getAllBrands();
+            session.setAttribute("brandList",brandList);
+            out.print("<script type='text/javaScript'>alert('修改成功！');window.location.href='purchase/brand/brandList.jsp'</script>");
+            out.flush();
+        }else {
+            out.print("<script type='text/javaScript'>alert('修改失败！');window.location.href='purchase/brand/brandList.jsp'</script>");
+            out.flush();
+        }
+
+    }
 
 }

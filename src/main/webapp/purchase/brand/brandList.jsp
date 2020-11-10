@@ -69,7 +69,7 @@
                     <td><fmt:formatDate value="${brand.createTime}" pattern="yyyy-MM-dd hh:MM:ss"/></td>
                     <td>${brand.creater.uname}</td>
                     <td>
-                        <a href="brandUpdate.jsp" class="tablelink">修改</a>
+                        <a href="${pageContext.request.contextPath}/toBrandUpdate.do?id=${brand.brandId}" class="tablelink">修改</a>
                         <c:if test="${brand.brandStatus==1}">
                             <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('是否确认注销此条信息？')">注销</a>
                         </c:if>
