@@ -10,8 +10,11 @@
     <link href="../../css/style.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="../../js/jquery.js"></script>
     <script type="text/javascript">
-        function tipOpen(content) {
+        function tipOpen(content,id) {
             $(".tipright p").text(content);
+            $("input[name='delete']").bind("click",function () {
+                window.location.href="${pageContext.request.contextPath}/delBrand.do?id="+id;
+            })
             $("#tip").fadeIn(200);
         }
         function tipClose() {
@@ -71,10 +74,10 @@
                     <td>
                         <a href="${pageContext.request.contextPath}/toBrandUpdate.do?id=${brand.brandId}" class="tablelink">修改</a>
                         <c:if test="${brand.brandStatus==1}">
-                            <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('是否确认注销此条信息？')">注销</a>
+                            <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('是否确认注销此条信息？',${brand.brandId})">注销</a>
                         </c:if>
                         <c:if test="${brand.brandStatus==2}">
-                            <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('是否确认注销此条信息？')">恢复</a>
+                            <a href="${pageContext.request.contextPath}/recoverBrand.do?id=${brand.brandId}" class="tablelink" >恢复</a>
                         </c:if>
                     </td>
                 </tr>
@@ -105,7 +108,7 @@
                 <cite>如果是请点击确定按钮 ，否则请点取消。</cite> </div>
         </div>
         <div class="tipbtn">
-            <input name="" type="button"  class="sure" value="确定" onclick="tipClose()" />
+            <input name="delete" type="button"  class="sure" value="确定"  />
             &nbsp;
             <input name="" type="button"  class="cancel" value="取消" onclick="tipClose()" />
         </div>

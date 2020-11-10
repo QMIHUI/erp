@@ -225,4 +225,30 @@ public class BuyController {
 
     }
 
+    //注销brand
+    @RequestMapping(value = "delBrand",method = RequestMethod.GET)
+    public String delBrand(HttpServletRequest request){
+        int id=Integer.parseInt(request.getParameter("id"));
+        int num=brandDao.delBrand(id);
+        if (num>0){
+            System.out.println("注销成功！");
+        }else {
+            System.out.println("注销失败！");
+        }
+        return "redirect:getAllBrands.do";
+    }
+    //恢复brand
+    @RequestMapping(value = "recoverBrand.do",method = RequestMethod.GET)
+    public String recoverBrand(HttpServletRequest request){
+        int id=Integer.parseInt(request.getParameter("id"));
+        int num=brandDao.recoverBrand(id);
+        if (num>0){
+            System.out.println("恢复成功！");
+        }else {
+            System.out.println("恢复失败！");
+        }
+        return "redirect:getAllBrands.do";
+    }
+
+
 }
