@@ -131,7 +131,11 @@ $(function(){
                     <li><cite></cite>
                         <a href="${pageContext.request.contextPath}/queryAllCustom.do" target="rightFrame">客户管理</a>
                         <i></i></li>
-                    <li><cite></cite><a href="market/customerBrowse/customerBrowse.jsp" target="rightFrame">客户浏览</a><i></i></li>
+                    <li>
+                        <cite></cite>
+                        <a href="${pageContext.request.contextPath}/getAllCustomerBro.do" target="rightFrame">客户浏览</a>
+                        <i></i>
+                    </li>
                     <li><cite></cite><a href="market/order/orderList.jsp" target="rightFrame">订购单管理</a><i></i></li>
                     <li><cite></cite><a href="market/orderExamine/orderExamineList.jsp" target="rightFrame">订购单审核</a><i></i></li>
                 </ul>

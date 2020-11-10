@@ -114,5 +114,41 @@
        </if>
     </where>
   </select>
+  <select id="getCustsNotNull" resultMap="getAll">
+    SELECT * FROM custom LEFT JOIN province ON custom.address = province.ID
+    LEFT JOIN users ON custom.CREATEID = users.u_id WHERE DISTRACTIME IS NOT NULL
+    limit #{page},#{size}
+  </select>
+  <select id="countNotNull" resultType="java.lang.Integer">
+    SELECT count(*) FROM custom LEFT JOIN province ON custom.address = province.ID
+    LEFT JOIN users ON custom.CREATEID = users.u_id WHERE DISTRACTIME IS NOT NULL
+  </select>
+  <select id="getCustomBroByCon" resultMap="getAll">
+    SELECT * FROM custom LEFT JOIN province ON custom.address = province.ID
+    LEFT JOIN users ON custom.CREATEID = users.u_id WHERE DISTRACTIME IS NOT NULL
+      <if test="company!=null and company!='' ">
+        and COMPANY like '%${company}%'
+      </if>
+      <if test="customname!=null and customname!='' ">
+        and CUSTOMNAME like '%${customname}%'
+      </if>
+      <if test="address!=null and address!='' ">
+        and ADDRESS=#{address}
+      </if>
+    limit #{page},#{size}
+  </select>
+  <select id="countCustBroByCon" resultType="java.lang.Integer">
+    SELECT count(*) FROM custom LEFT JOIN province ON custom.address = province.ID
+    LEFT JOIN users ON custom.CREATEID = users.u_id WHERE DISTRACTIME IS NOT NULL
+      <if test="company!=null and company!='' ">
+        and COMPANY like '%${company}%'
+      </if>
+      <if test="customname!=null and customname!='' ">
+        and CUSTOMNAME like '%${customname}%'
+      </if>
+      <if test="address!=null and address!='' ">
+        and ADDRESS=#{address}
+      </if>
+  </select>
 
 </mapper>
