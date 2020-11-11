@@ -64,4 +64,7 @@
       </if>
     </where>
   </select>
+  <select id="getAllCityorWarehouse" resultMap="city">
+   SELECT * FROM city
+  </select>
 </mapper>

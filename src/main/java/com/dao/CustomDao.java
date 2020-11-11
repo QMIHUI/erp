@@ -4,6 +4,7 @@ import com.bean.Custom;
 import com.util.Pager;
 
 import java.util.List;
+import java.util.Map;
 
 public interface CustomDao {
     //查询所有并分页
@@ -20,5 +21,18 @@ public interface CustomDao {
     public int recoverCust(int custId);
     //分配顾客
     public int distinctCust(Custom custom);
+    //添加顾客
+    public int addCustomer(Custom custom);
+    //查询分配时间不为空的
+    public List<Custom> getCustsNotNull(Pager<Custom> pager);
+    public int countNotNull();
+
+    //模糊查询
+    public List<Custom> getCustomByCon(Pager<Custom> pager);
+    public int countCustByCon(Map<String,Object> map);
+
+    public List<Custom> getCustomBroByCon(Pager<Custom> pager);
+    public int countCustBroByCon(Map<String,Object> map);
+
 
 }

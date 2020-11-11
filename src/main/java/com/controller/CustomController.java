@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author HUI
@@ -56,11 +58,40 @@ public class CustomController {
         pager.setSize(size);
         pager.setTotal(countCust);
         List<Custom> listCustom = customDao.getAllCustom(pager);
+        List<Province> provinceList=provinceDao.getAllProvinces();
+        request.getSession().setAttribute("provinceList",provinceList);
         request.getSession().setAttribute("listCustom",listCustom);
         request.getSession().setAttribute("countCust",countCust);
         request.getSession().setAttribute("pageIndex",pageIndex);
         request.getSession().setAttribute("rowCust",rowCust);
         return "market/customer/customerList";
+    }
+
+    @RequestMapping(value = "addCustomer.do",method = RequestMethod.GET)
+    public String addCustomer(HttpServletRequest request){
+        System.out.println("添加顾客");
+        String custName = request.getParameter("custName");
+        String custSex = request.getParameter("custSex");
+        String custTelephone = request.getParameter("custTelephone");
+        String custCompany = request.getParameter("custCompany");
+        int custProvince = Integer.parseInt(request.getParameter("custProvince"));
+        Date date = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        String creationDate = format.format(date);
+        int uId = Integer.parseInt(request.getParameter("uId"));
+        String custDesc = request.getParameter("custDesc");
+        String custHomeAddress = request.getParameter("custHomeAddress");
+        Custom custom = new Custom(custName,custSex,custTelephone,custCompany,custProvince,creationDate,uId,custDesc,custHomeAddress);
+        int num = customDao.addCustomer(custom);
+        //添加日志
+        String jcontent = "添加顾客";
+        Journal journal = new Journal(jcontent,creationDate,custName,uId);
+        int n = journalDao.addJournal(journal);
+        if(num>0 && n>0){
+            return "forward:queryAllCustom.do";
+        }else{
+            return "redirect:market/customer/customerAdd.jsp";
+        }
     }
 
     @RequestMapping(value = "getOneCust.do",method = RequestMethod.GET)
@@ -79,9 +110,9 @@ public class CustomController {
         if(op.equals("查看")){
             return "market/customer/customerView";
         }else{
-
+            return "market/customer/customerUpdate";
         }
-        return "market/customer/customerUpdate";
+
     }
 
     @RequestMapping(value = "getCitiesByProvinceId.do",method = RequestMethod.POST)
@@ -104,7 +135,7 @@ public class CustomController {
         String custHomeAddress = request.getParameter("custHomeAddress");
         int province = Integer.parseInt(request.getParameter("province"));
         String desc = request.getParameter("desc");
-        String status = request.getParameter("status");
+        int status = Integer.parseInt(request.getParameter("status"));
         Custom custom = new Custom(custId,custName,custSex,custTel,custCompany,province,status,desc,custHomeAddress);
         int num = customDao.updateCustom(custom);
         //添加日志
@@ -155,7 +186,6 @@ public class CustomController {
         }else{
             return "redirect:market/customer/distinctCstom.jsp";
         }
-
     }
 
     @RequestMapping(value = "cancelCust.do",method = RequestMethod.GET)
@@ -174,6 +204,55 @@ public class CustomController {
         System.out.println("custId:"+custId);
         int num = customDao.recoverCust(custId);
         return "forward:queryAllCustom.do";
+    }
+
+    @RequestMapping(value = "getCustomersByCon.do",method = RequestMethod.GET)
+    public String getCustomersByCon(HttpServletRequest request){
+        System.out.println("执行模糊查询顾客");
+        String custCom = request.getParameter("custCom");
+        String custName = request.getParameter("custName");
+        int province = Integer.parseInt(request.getParameter("province"));
+        int cstatus = Integer.parseInt(request.getParameter("cstatus"));
+        System.out.println(custCom+"..."+custName+"..."+province+"..."+cstatus);
+        Map<String,Object> map = new HashMap<>();
+        map.put("company",custCom);
+        map.put("customname",custName);
+        map.put("address",province);
+        map.put("cstatus",cstatus);
+        int countCustByCon = customDao.countCustByCon(map);
+        System.out.println(countCustByCon);
+        int size = 5;
+        int rowCustByCon = countCustByCon % size == 0 ? (countCustByCon / size) : (countCustByCon / size + 1);
+        System.out.println(rowCustByCon);
+        String currentIndex= request.getParameter("pageIndex");
+        //第一次访问(当前页码=1)
+        int pageIndex = 1;
+        if(currentIndex!=null) {
+            pageIndex=Integer.parseInt(currentIndex);
+        }
+        if(currentIndex==null || Integer.parseInt(currentIndex) <= 0){
+            pageIndex = 1;
+        }else if(Integer.parseInt(currentIndex) >= rowCustByCon){
+            pageIndex=rowCustByCon;
+        }
+        Pager<Custom> pager = new Pager<>();
+        pager.setPage((pageIndex-1)*size);
+        pager.setSize(size);
+        pager.setTotal(countCustByCon);
+        pager.setCompany(custCom);
+        pager.setCstatus(cstatus);
+        pager.setCustomname(custName);
+        pager.setAddress(province);
+        List<Custom> listCustomByCon = customDao.getCustomByCon(pager);
+        request.getSession().setAttribute("listCustomByCon",listCustomByCon);
+        request.getSession().setAttribute("countCustByCon",countCustByCon);
+        request.getSession().setAttribute("pageIndex",pageIndex);
+        request.getSession().setAttribute("rowCustByCon",rowCustByCon);
+        request.getSession().setAttribute("custCom",custCom);
+        request.getSession().setAttribute("custName",custName);
+        request.getSession().setAttribute("cstatus",cstatus);
+        request.getSession().setAttribute("province",province);
+        return "market/customer/customerListByCon";
     }
 
 

@@ -101,13 +101,13 @@ pageEncoding="UTF-8"%>
       <li>
         <label>状态</label>
         <select class="dfselect" name="status">
-            <c:if test="${custom.status=='可用'}">
-              <option value="可用" selected="selected">可用</option>
-              <option value="不可用">不可用</option>
+            <c:if test="${custom.cstatus==1}">
+              <option value="1" selected="selected">可用</option>
+              <option value="2">不可用</option>
             </c:if>
-            <c:if test="${custom.status=='不可用'}">
-              <option value="可用" >可用</option>
-              <option value="不可用" selected="selected">不可用</option>
+            <c:if test="${custom.cstatus=='2'}">
+              <option value="1" >可用</option>
+              <option value="2" selected="selected">不可用</option>
             </c:if>
           </select>
         <i>必选</i>

@@ -26,6 +26,11 @@ public class Pager<T> {
     private String jcontent;
     private String startDate;
     private String endDate;
+    //顾客模糊查询起始条件
+    private String company;
+    private String customname;
+    private int address;
+    private int cstatus;
 
 
 
@@ -88,9 +93,43 @@ public class Pager<T> {
         return bname;
     }
 
+    public int getCstatus() {
+        return cstatus;
+    }
+
+    public void setCstatus(int cstatus) {
+        this.cstatus = cstatus;
+    }
+
     public void setBname(String bname) {
         this.bname = bname;
     }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public String getCustomname() {
+        return customname;
+    }
+
+    public void setCustomname(String customname) {
+        this.customname = customname;
+    }
+
+    public int getAddress() {
+        return address;
+    }
+
+    public void setAddress(int address) {
+        this.address = address;
+    }
+
+
 
     public String getJcontent() {
         return jcontent;

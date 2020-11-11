@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -49,7 +50,12 @@ pageEncoding="UTF-8"%>
     </li>
     <li>
       <label>状态</label>
-      <cite>${custom.status}</cite>
+      <c:if test="${custom.cstatus==1}">
+        <cite>可用</cite>
+      </c:if>
+      <c:if test="${custom.cstatus==2}">
+        <cite>不可用</cite>
+      </c:if>
     </li>
     <li>
       <label>创建人</label>

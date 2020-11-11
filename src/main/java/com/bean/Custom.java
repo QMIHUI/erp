@@ -20,7 +20,7 @@ public class Custom implements Serializable {
 
     private Integer address;
 
-    private String status;
+    private Integer cstatus;
 
     private String createtime;
 
@@ -106,12 +106,12 @@ public class Custom implements Serializable {
         this.address = address;
     }
 
-    public String getStatus() {
-        return status;
+    public Integer getCstatus() {
+        return cstatus;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setCstatus(Integer cstatus) {
+        this.cstatus = cstatus;
     }
 
     public String getCreatetime() {
@@ -179,7 +179,7 @@ public class Custom implements Serializable {
                 ", telephone='" + telephone + '\'' +
                 ", company='" + company + '\'' +
                 ", address=" + address +
-                ", status='" + status + '\'' +
+                ", status='" + cstatus + '\'' +
                 ", createtime='" + createtime + '\'' +
                 ", createid=" + createid +
                 ", distractime='" + distractime + '\'' +
@@ -205,14 +205,26 @@ public class Custom implements Serializable {
         this.distractime = distractime;
     }
 
-    public Custom(Integer customid, String customname, String sex, String telephone, String company, Integer address, String status, String distract, String homeaddress) {
+    public Custom(String customname, String sex, String telephone, String company, Integer address, String createtime, Integer createid, String distract, String homeaddress) {
+        this.customname = customname;
+        this.sex = sex;
+        this.telephone = telephone;
+        this.company = company;
+        this.address = address;
+        this.createtime = createtime;
+        this.createid = createid;
+        this.distract = distract;
+        this.homeaddress = homeaddress;
+    }
+
+    public Custom(Integer customid, String customname, String sex, String telephone, String company, Integer address, Integer cstatus, String distract, String homeaddress) {
         this.customid = customid;
         this.customname = customname;
         this.sex = sex;
         this.telephone = telephone;
         this.company = company;
         this.address = address;
-        this.status = status;
+        this.cstatus = cstatus;
         this.distract = distract;
         this.homeaddress = homeaddress;
     }

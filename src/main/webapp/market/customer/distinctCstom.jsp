@@ -74,7 +74,13 @@
             <li>
                 <label>状态</label>
                 <select class="dfselect" name="status">
-                    <option value="${custom.status}" selected="selected">${custom.status}</option>
+                    <c:if test="${custom.cstatus==1}">
+                        <option value="1" selected="selected">可用</option>
+                    </c:if>
+                    <c:if test="${custom.cstatus==2}">
+                        <option value="2" selected="selected">不可用</option>
+                    </c:if>
+
                 </select>
                 <i>不能修改</i>
             </li>

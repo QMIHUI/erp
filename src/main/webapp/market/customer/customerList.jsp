@@ -50,46 +50,43 @@ pageEncoding="UTF-8"%>
   </ul>
 </div>
 <div class="rightinfo">
-  <form action="" method="post">
+  <form action="${pageContext.request.contextPath}/getCustomersByCon.do" method="get">
     <ul class="tools">
       <li> 公司名称:
-        <input type="text" size="12" />
+        <input name="custCom" type="text" size="12" />
       </li>
       <li> 客户姓名:
-        <input type="text" size="12" />
+        <input name="custName" type="text" size="12" />
       </li>
       <li> 所属区域：
-        <select>
-          <option>请选择省份</option>
-          <option>北京</option>
-          <option>江苏</option>
-          <option>天津</option>
-        </select>
-        <select>
-          <option>请选择城市</option>
-          <option>北京</option>
-          <option>南京</option>
-          <option>天津</option>
+        <select name="province">
+          <option value="0">请选择省份</option>
+          <c:forEach items="${provinceList}" var="province">
+            <option value="${province.id}">${province.pName}</option>
+          </c:forEach>
         </select>
       </li>
       <li> 状态：
-        <select>
-          <option>请选择</option>
+        <select name="cstatus">
+          <option value="0">请选择</option>
           <option value="1">可用</option>
-          <option value="0">不可用</option>
+          <option value="2">不可用</option>
         </select>
       </li>
-      <li> 是否分配：
+      <%--<li> 是否分配：
         <select>
           <option>请选择</option>
           <option value="1">已分配</option>
           <option value="0">未分配</option>
         </select>
+      </li>--%>
+      <li style="width: 100px;height: 35px;margin-top: -10px">
+        <input value="查 询" type="submit" id="searchbutton" class="subBut">
       </li>
-      <li class="subBut" onclick="window.location.href='customerList.jsp'">
+     <%-- <li class="subBut" onclick="window.location.href='customerList.jsp'">
         <img src="${pageContext.request.contextPath}/images/t06.png" />查询
-      </li>
-      <li class="subBut" onclick="window.location.href='customerAdd.jsp'">
+      </li>--%>
+      <li class="subBut" onclick="window.location.href='${pageContext.request.contextPath}/market/customer/customerAdd.jsp'">
         <img src="${pageContext.request.contextPath}/images/t01.png" />添加
       </li>
     </ul>
@@ -121,7 +118,12 @@ pageEncoding="UTF-8"%>
           <td>${customer.company}</td>
           <td>${customer.province.pName}</td>
           <td>${customer.leading}</td>
-          <td>${customer.status}</td>
+          <c:if test="${customer.cstatus==1}">
+            <td>可用</td>
+          </c:if>
+          <c:if test="${customer.cstatus==2}">
+            <td>不可用</td>
+          </c:if>
           <td>${customer.createtime}</td>
           <td>${customer.users.uname}</td>
           <td>${customer.distractime}</td>
@@ -129,10 +131,10 @@ pageEncoding="UTF-8"%>
             <a href="${pageContext.request.contextPath}/getOneCust.do?customId=${customer.customid}&op=查看" class="tablelink">查看详情</a>
             <a href="${pageContext.request.contextPath}/getOneCust.do?customId=${customer.customid}&op=修改" class="tablelink">修改</a>
             <c:if test="${customer.distractime == null}">
-              <c:if test="${customer.status == '可用'}">
+              <c:if test="${customer.cstatus == 1}">
                 <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('是否确认注销此条信息？',${customer.customid})">注销</a>
               </c:if>
-              <c:if test="${customer.status == '不可用'}">
+              <c:if test="${customer.cstatus == 2}">
                 <a href="javascript:void(0)" class="tablelink" onclick="tipOpen1('是否确认恢复此条信息？',${customer.customid})">恢复</a>
               </c:if>
             </c:if>

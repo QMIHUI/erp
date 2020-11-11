@@ -8,7 +8,7 @@
     <result column="TELEPHONE"  property="telephone" />
     <result column="COMPANY"  property="company" />
     <result column="ADDRESS"  property="address" />
-    <result column="STATUS"  property="status" />
+    <result column="CSTATUS"  property="cstatus" />
     <result column="CREATETIME"  property="createtime" />
     <result column="CREATEID"  property="createid" />
     <result column="LEADING"  property="leading" />
@@ -18,19 +18,23 @@
     <result column="HOMEADDRESS"  property="homeaddress" />
   </resultMap>
   <sql id="Base_Column_List">
-    CUSTOMID, CUSTOMNAME, SEX, TELEPHONE, COMPANY, ADDRESS, `STATUS`, CREATETIME, CREATEID, 
+    CUSTOMID, CUSTOMNAME, SEX, TELEPHONE, COMPANY, ADDRESS, `CSTATUS`, CREATETIME, CREATEID,
     DISTRACTIME, SERVICEID, DISTRACT, HOMEADDRESS
   </sql>
+  <insert id="addCustomer">
+    insert into custom (CUSTOMNAME,SEX,TELEPHONE,COMPANY,ADDRESS,CREATETIME,CREATEID,DISTRACT,HOMEADDRESS)
+    values (#{customname},#{sex},#{telephone},#{company},#{address},#{createtime},#{createid},#{distract},#{homeaddress})
+  </insert>
   <update id="updateCustom">
     update custom set CUSTOMNAME=#{customname},SEX=#{sex},TELEPHONE=#{telephone},
-    COMPANY=#{company},ADDRESS=#{address},STATUS=#{status},DISTRACT=#{distract},
+    COMPANY=#{company},ADDRESS=#{address},CSTATUS=#{cstatus},DISTRACT=#{distract},
     HOMEADDRESS=#{homeaddress} where CUSTOMID=#{customid}
   </update>
   <update id="cancelCust">
-    update custom set STATUS='不可用' where CUSTOMID=#{customid}
+    update custom set CSTATUS=2 where CUSTOMID=#{customid}
   </update>
   <update id="recoverCust">
-    update custom set STATUS='可用' where CUSTOMID=#{customid}
+    update custom set CSTATUS=1 where CUSTOMID=#{customid}
   </update>
   <update id="distinctCust" parameterType="Custom">
     update custom set custom.LEADING=#{leading},DISTRACTIME=#{distractime} where CUSTOMID=#{customid}
@@ -43,10 +47,10 @@
     <result column="TELEPHONE"  property="telephone" />
     <result column="COMPANY"  property="company" />
     <result column="ADDRESS"  property="address" />
-    <result column="STATUS" property="status" />
+    <result column="CSTATUS" property="cstatus" />
     <result column="CREATETIME"  property="createtime" />
     <result column="CREATEID"  property="createid" />
-    <result column="leading"  property="leading" />
+    <result column="LEADING"  property="leading" />
     <result column="DISTRACTIME"  property="distractime" />
     <result column="SERVICEID" property="serviceid" />
     <result column="DISTRACT"  property="distract" />
@@ -73,164 +77,78 @@
     SELECT * FROM custom LEFT JOIN province ON custom.address = province.ID
     LEFT JOIN users ON custom.CREATEID = users.u_id where CUSTOMID=#{customid}
   </select>
-
-  <!--<select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from custom
-    where CUSTOMID = #{customid,jdbcType=INTEGER}
+  <select id="getCustomByCon" resultMap="getAll">
+    SELECT * FROM custom LEFT JOIN province ON custom.address = province.ID
+    LEFT JOIN users ON custom.CREATEID = users.u_id
+    <where>
+      <if test="company!=null and company!='' ">
+        and COMPANY like '%${company}%'
+      </if>
+      <if test="customname!=null and customname!='' ">
+        and CUSTOMNAME like '%${customname}%'
+      </if>
+      <if test="address!=null and address!='' ">
+        and ADDRESS=#{address}
+      </if>
+      <if test="cstatus!=null and cstatus!='' ">
+        and CSTATUS=#{cstatus}
+      </if>
+    </where>
+    limit #{page},#{size}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from custom
-    where CUSTOMID = #{customid,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" keyColumn="CUSTOMID" keyProperty="customid" parameterType="com.bean.Custom" useGeneratedKeys="true">
-    insert into custom (CUSTOMNAME, SEX, TELEPHONE, 
-      COMPANY, ADDRESS, `STATUS`, 
-      CREATETIME, CREATEID, DISTRACTIME, 
-      SERVICEID, DISTRACT, HOMEADDRESS
-      )
-    values (#{customname,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, 
-      #{company,jdbcType=VARCHAR}, #{address,jdbcType=INTEGER}, #{status,jdbcType=VARCHAR}, 
-      #{createtime,jdbcType=DATE}, #{createid,jdbcType=INTEGER}, #{distractime,jdbcType=DATE}, 
-      #{serviceid,jdbcType=INTEGER}, #{distract,jdbcType=VARCHAR}, #{homeaddress,jdbcType=VARCHAR}
-      )
-  </insert>
-  <insert id="insertSelective" keyColumn="CUSTOMID" keyProperty="customid" parameterType="com.bean.Custom" useGeneratedKeys="true">
-    insert into custom
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="customname != null">
-        CUSTOMNAME,
+  <select id="countCustByCon" resultType="java.lang.Integer">
+    SELECT count(*) FROM custom LEFT JOIN province ON custom.address = province.ID
+    LEFT JOIN users ON custom.CREATEID = users.u_id
+    <where>
+      <if test="company!=null and company!='' ">
+        and COMPANY like '%${company}%'
       </if>
-      <if test="sex != null">
-        SEX,
+      <if test="customname!=null and customname!='' ">
+        and CUSTOMNAME like '%${customname}%'
       </if>
-      <if test="telephone != null">
-        TELEPHONE,
+      <if test="address!=null and address!='' ">
+        and ADDRESS=#{address}
       </if>
-      <if test="company != null">
-        COMPANY,
+       <if test="cstatus!=null and cstatus!='' ">
+         and CSTATUS=#{cstatus}
+       </if>
+    </where>
+  </select>
+  <select id="getCustsNotNull" resultMap="getAll">
+    SELECT * FROM custom LEFT JOIN province ON custom.address = province.ID
+    LEFT JOIN users ON custom.CREATEID = users.u_id WHERE DISTRACTIME IS NOT NULL
+    limit #{page},#{size}
+  </select>
+  <select id="countNotNull" resultType="java.lang.Integer">
+    SELECT count(*) FROM custom LEFT JOIN province ON custom.address = province.ID
+    LEFT JOIN users ON custom.CREATEID = users.u_id WHERE DISTRACTIME IS NOT NULL
+  </select>
+  <select id="getCustomBroByCon" resultMap="getAll">
+    SELECT * FROM custom LEFT JOIN province ON custom.address = province.ID
+    LEFT JOIN users ON custom.CREATEID = users.u_id WHERE DISTRACTIME IS NOT NULL
+      <if test="company!=null and company!='' ">
+        and COMPANY like '%${company}%'
       </if>
-      <if test="address != null">
-        ADDRESS,
+      <if test="customname!=null and customname!='' ">
+        and CUSTOMNAME like '%${customname}%'
       </if>
-      <if test="status != null">
-        `STATUS`,
+      <if test="address!=null and address!='' ">
+        and ADDRESS=#{address}
       </if>
-      <if test="createtime != null">
-        CREATETIME,
+    limit #{page},#{size}
+  </select>
+  <select id="countCustBroByCon" resultType="java.lang.Integer">
+    SELECT count(*) FROM custom LEFT JOIN province ON custom.address = province.ID
+    LEFT JOIN users ON custom.CREATEID = users.u_id WHERE DISTRACTIME IS NOT NULL
+      <if test="company!=null and company!='' ">
+        and COMPANY like '%${company}%'
       </if>
-      <if test="createid != null">
-        CREATEID,
+      <if test="customname!=null and customname!='' ">
+        and CUSTOMNAME like '%${customname}%'
       </if>
-      <if test="distractime != null">
-        DISTRACTIME,
+      <if test="address!=null and address!='' ">
+        and ADDRESS=#{address}
       </if>
-      <if test="serviceid != null">
-        SERVICEID,
-      </if>
-      <if test="distract != null">
-        DISTRACT,
-      </if>
-      <if test="homeaddress != null">
-        HOMEADDRESS,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="customname != null">
-        #{customname,jdbcType=VARCHAR},
-      </if>
-      <if test="sex != null">
-        #{sex,jdbcType=VARCHAR},
-      </if>
-      <if test="telephone != null">
-        #{telephone,jdbcType=VARCHAR},
-      </if>
-      <if test="company != null">
-        #{company,jdbcType=VARCHAR},
-      </if>
-      <if test="address != null">
-        #{address,jdbcType=INTEGER},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=VARCHAR},
-      </if>
-      <if test="createtime != null">
-        #{createtime,jdbcType=DATE},
-      </if>
-      <if test="createid != null">
-        #{createid,jdbcType=INTEGER},
-      </if>
-      <if test="distractime != null">
-        #{distractime,jdbcType=DATE},
-      </if>
-      <if test="serviceid != null">
-        #{serviceid,jdbcType=INTEGER},
-      </if>
-      <if test="distract != null">
-        #{distract,jdbcType=VARCHAR},
-      </if>
-      <if test="homeaddress != null">
-        #{homeaddress,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.bean.Custom">
-    update custom
-    <set>
-      <if test="customname != null">
-        CUSTOMNAME = #{customname,jdbcType=VARCHAR},
-      </if>
-      <if test="sex != null">
-        SEX = #{sex,jdbcType=VARCHAR},
-      </if>
-      <if test="telephone != null">
-        TELEPHONE = #{telephone,jdbcType=VARCHAR},
-      </if>
-      <if test="company != null">
-        COMPANY = #{company,jdbcType=VARCHAR},
-      </if>
-      <if test="address != null">
-        ADDRESS = #{address,jdbcType=INTEGER},
-      </if>
-      <if test="status != null">
-        `STATUS` = #{status,jdbcType=VARCHAR},
-      </if>
-      <if test="createtime != null">
-        CREATETIME = #{createtime,jdbcType=DATE},
-      </if>
-      <if test="createid != null">
-        CREATEID = #{createid,jdbcType=INTEGER},
-      </if>
-      <if test="distractime != null">
-        DISTRACTIME = #{distractime,jdbcType=DATE},
-      </if>
-      <if test="serviceid != null">
-        SERVICEID = #{serviceid,jdbcType=INTEGER},
-      </if>
-      <if test="distract != null">
-        DISTRACT = #{distract,jdbcType=VARCHAR},
-      </if>
-      <if test="homeaddress != null">
-        HOMEADDRESS = #{homeaddress,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where CUSTOMID = #{customid,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.bean.Custom">
-    update custom
-    set CUSTOMNAME = #{customname,jdbcType=VARCHAR},
-      SEX = #{sex,jdbcType=VARCHAR},
-      TELEPHONE = #{telephone,jdbcType=VARCHAR},
-      COMPANY = #{company,jdbcType=VARCHAR},
-      ADDRESS = #{address,jdbcType=INTEGER},
-      `STATUS` = #{status,jdbcType=VARCHAR},
-      CREATETIME = #{createtime,jdbcType=DATE},
-      CREATEID = #{createid,jdbcType=INTEGER},
-      DISTRACTIME = #{distractime,jdbcType=DATE},
-      SERVICEID = #{serviceid,jdbcType=INTEGER},
-      DISTRACT = #{distract,jdbcType=VARCHAR},
-      HOMEADDRESS = #{homeaddress,jdbcType=VARCHAR}
-    where CUSTOMID = #{customid,jdbcType=INTEGER}
-  </update>-->
+  </select>
+
 </mapper>

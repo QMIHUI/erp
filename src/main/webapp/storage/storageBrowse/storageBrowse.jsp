@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+<%@ taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -63,58 +64,26 @@ function tipClose() {
         </tr>
       </thead>
       <tbody>
+        <c:forEach items="${listWarehouse}" var="lw">
         <tr>
-          <td>1</td>
-          <td>南京21号仓库</td>
-          <td>朱元璋</td>
-          <td>17370899727</td>
-          <td>江苏南京</td>
-          <td>可用</td>
-          <td>2013-09-09 15:05:05</td>
-          <td>马云</td>
+          <td>${lw.id}</td>
+          <td>${lw.name}</td>
+          <td>${lw.users.uname}</td>
+          <td>${lw.phone}</td>
+          <td>${lw.province.pName}${lw.city.cName}</td>
           <td>
-          	<a href="storageView.html" class="tablelink">查看详情</a>
+            <c:if test="${lw.state==1}">可用</c:if>
+            <c:if test="${lw.state==0}">不可用</c:if>
+          </td>
+          <td>${lw.creationTime}</td>
+          <td>${lw.users.names}</td>
+          <td>
+          	<a href="${pageContext.request.contextPath}/${lw.id}/storageView.do" class="tablelink">查看详情</a>
           </td>
         </tr>
-        <tr>
-          <td>2</td>
-          <td>武汉71号仓库</td>
-          <td>周瑜</td>
-          <td>17370899727</td>
-          <td>湖北武汉</td>
-          <td>不可用</td>
-          <td>2013-09-09 15:05:05</td>
-          <td>马化腾</td>
-          <td>
-          	<a href="storageView.html" class="tablelink">查看详情</a>
-          </td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>南京21号仓库</td>
-          <td>朱元璋</td>
-          <td>17370899727</td>
-          <td>江苏南京</td>
-          <td>可用</td>
-          <td>2013-09-09 15:05:05</td>
-          <td>马云</td>
-          <td>
-          	<a href="storageView.html" class="tablelink">查看详情</a>
-          </td>
-        </tr>
-        <tr>
-          <td>4</td>
-          <td>武汉71号仓库</td>
-          <td>周瑜</td>
-          <td>17370899727</td>
-          <td>湖北武汉</td>
-          <td>不可用</td>
-          <td>2013-09-09 15:05:05</td>
-          <td>马化腾</td>
-          <td>
-          	<a href="storageView.html" class="tablelink">查看详情</a>
-          </td>
-        </tr>
+        </c:forEach>
+
+
       </tbody>
     </table>
     <div class="pagin">

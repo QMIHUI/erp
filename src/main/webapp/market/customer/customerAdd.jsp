@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -16,67 +17,52 @@ pageEncoding="UTF-8"%>
   </ul>
 </div>
 <div class="formbody">
-  <form action="" method="get">
+  <form action="${pageContext.request.contextPath}/addCustomer.do" method="get">
     <div class="formtitle"><span>客户信息</span></div>
     <ul class="forminfo">
       <li>
         <label>姓名</label>
-        <input name="" type="text" class="dfinput" />
+        <input name="custName" type="text" class="dfinput" />
         <i>必填，不能超过30个字符</i>
       </li>
       <li>
         <label>性别</label>
         <cite>
-            <input name="" type="radio" value="1" checked="checked" />男
+            <input name="custSex" type="radio" value="1" checked="checked" />男
             &nbsp;&nbsp;&nbsp;&nbsp;
-            <input name="" type="radio" value="2" />女
+            <input name="sex" type="radio" value="2" />女
         </cite>
       </li>
       <li>
         <label>所属公司名称</label>
-        <input name="" type="text" class="dfinput" />
+        <input name="custCompany" type="text" class="dfinput" />
          <i>必填，不能超过30个字符</i>
       </li>
       <li>
         <label>联系方式</label>
-        <input name="" type="text" class="dfinput" />
+        <input name="custTelephone" type="text" class="dfinput" />
          <i>必填，不能超过30个字符</i>
       </li>
       <li>
         <label>联系地址</label>
-        <input name="" type="text" class="dfinput" />
+        <input name="custHomeAddress" type="text" class="dfinput" />
          <i>必填，不能超过130个字符</i>
       </li>
       <li>
         <label>所属区域</label>
-        <select class="dfselect">
+        <select class="dfselect" name="custProvince">
             <option>请选择</option>
-            <option>北京</option>
-            <option>江苏</option>
-            <option>天津</option>
+            <c:forEach items="${provinceList}" var="province">
+              <option value="${province.id}">${province.pName}</option>
+            </c:forEach>
         </select>
         省
-        <select class="dfselect">
-            <option>请选择</option>
-            <option>北京</option>
-            <option>南京</option>
-            <option>天津</option>
-        </select>
-        市
         <i>必选</i>
       </li>
       <li>
         <label>描述</label>
-        <textarea class="textinput"></textarea>
+        <textarea class="textinput" name="custDesc"></textarea>
         <i>可选</i>
-      </li>
-      <li>
-        <label>状态</label>
-        <select class="dfselect">
-            <option value="1">可用</option>
-            <option value="0">不可用</option>
-          </select>
-        <i>必选</i>
       </li>
       <li>
         <label>创建人</label>
