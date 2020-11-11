@@ -82,13 +82,78 @@ pageEncoding="UTF-8"%>
         <tr>
             <th>序号</th>
             <th>品牌</th>
+            <th>类型</th>
+            <th>型号</th>
             <th>数量</th>
             <th>单位</th>
             <th>单价</th>
+            <th>金额</th>
         </tr>
       </thead>
       <tbody>
-      <c:forEach items="${orderDetailsList}" var="orderDeList">
+      <tr>
+          <td>1</td>
+          <td>
+              <select>
+                  <option>请选择</option>
+                  <option selected="selected">联想</option>
+                  <option>海尔</option>
+                  <option>小米</option>
+              </select>
+          </td>
+          <td>
+              <select>
+                  <option>请选择</option>
+                  <option selected="selected">笔记本电脑</option>
+                  <option>台式电脑</option>
+                  <option>手机</option>
+              </select>
+          </td>
+          <td>
+              <select>
+                  <option>请选择</option>
+                  <option>X260</option>
+                  <option>E470</option>
+                  <option selected="selected">T470</option>
+              </select>
+          </td>
+          <td><input type="text" value="10" /></td>
+          <td>台</td>
+          <td><input type="text" value="9998" /></td>
+          <td><input type="text" value="99980" /></td>
+      </tr>
+      <tr>
+          <td>2</td>
+          <td>
+              <select>
+                  <option>请选择</option>
+                  <option selected="selected">联想</option>
+                  <option>海尔</option>
+                  <option>小米</option>
+              </select>
+          </td>
+          <td>
+              <select>
+                  <option>请选择</option>
+                  <option selected="selected">笔记本电脑</option>
+                  <option>台式电脑</option>
+                  <option>手机</option>
+              </select>
+          </td>
+          <td>
+              <select>
+                  <option>请选择</option>
+                  <option selected="selected">X260</option>
+                  <option>E470</option>
+                  <option>T470</option>
+              </select>
+          </td>
+          <td><input type="text" value="5" /></td>
+          <td>台</td>
+          <td><input type="text" value="5500" /></td>
+          <td><input type="text" value="27500" /></td>
+      </tr>
+      <%--<c:forEach items="${orderDetailsList}" var="orderDeList">
           <tr>
               <td>${orderDeList.detailsId}</td>
               <td>
@@ -107,7 +172,8 @@ pageEncoding="UTF-8"%>
               <td>${orderDeList.product.productUnit}</td>
               <td><input style="width: 200px;height: 30px" type="text" value="${orderDeList.proprice}" /></td>
           </tr>
-      </c:forEach>
+      </c:forEach>--%>
+
       </tbody>
   </table>
     <div style="margin-left: 450px;margin-top: 20px">
