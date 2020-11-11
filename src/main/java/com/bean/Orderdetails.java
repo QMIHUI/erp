@@ -37,7 +37,17 @@ public class Orderdetails implements Serializable {
      */
     private String orderId;
 
+    private Product product;
+
     private static final long serialVersionUID = 1L;
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 
     public Integer getDetailsId() {
         return detailsId;

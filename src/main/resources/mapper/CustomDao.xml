@@ -150,5 +150,8 @@
         and ADDRESS=#{address}
       </if>
   </select>
+    <select id="getCust" resultMap="BaseResultMap">
+      SELECT * FROM custom
+    </select>
 
 </mapper>

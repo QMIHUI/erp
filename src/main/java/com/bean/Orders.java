@@ -15,11 +15,11 @@ public class Orders implements Serializable {
 
     private Double ordermoney;
 
-    private Integer operatorid;
+    private Users operatorid;
 
     private String dstatus;
 
-    private Integer checkid;
+    private Users checkid;
 
     private String chectime;
 
@@ -30,7 +30,6 @@ public class Orders implements Serializable {
     private Integer ddState;
 
     private Custom custom;
-    private Users users;
     private Warehouse warehouse;
 
     private static final long serialVersionUID = 1L;
@@ -43,13 +42,7 @@ public class Orders implements Serializable {
         this.custom = custom;
     }
 
-    public Users getUsers() {
-        return users;
-    }
 
-    public void setUsers(Users users) {
-        this.users = users;
-    }
 
     public Warehouse getWarehouse() {
         return warehouse;
@@ -59,14 +52,16 @@ public class Orders implements Serializable {
         this.warehouse = warehouse;
     }
 
-
-
     public String getOrderId() {
         return orderId;
     }
 
     public void setOrderId(String orderId) {
         this.orderId = orderId;
+    }
+
+    public Users getCheckid() {
+        return checkid;
     }
 
     public Integer getCustomid() {
@@ -93,12 +88,16 @@ public class Orders implements Serializable {
         this.ordermoney = ordermoney;
     }
 
-    public Integer getOperatorid() {
+    public Users getOperatorid() {
         return operatorid;
     }
 
-    public void setOperatorid(Integer operatorid) {
+    public void setOperatorid(Users operatorid) {
         this.operatorid = operatorid;
+    }
+
+    public void setCheckid(Users checkid) {
+        this.checkid = checkid;
     }
 
     public String getDstatus() {
@@ -109,13 +108,6 @@ public class Orders implements Serializable {
         this.dstatus = dstatus;
     }
 
-    public Integer getCheckid() {
-        return checkid;
-    }
-
-    public void setCheckid(Integer checkid) {
-        this.checkid = checkid;
-    }
 
     public String getChectime() {
         return chectime;
