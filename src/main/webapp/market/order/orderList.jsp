@@ -7,20 +7,30 @@ pageEncoding="UTF-8"%>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>客户管理</title>
 <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.js"></script>
+  <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.js"></script>
 <script type="text/javascript">
-function deltipOpen() {
-	$("#deltip").fadeIn(200);
-}
-function deltipClose() {
-	$("#deltip").fadeOut(200);
-}
-function examinetipOpen() {
-	$("#examinetip").fadeIn(200);
-}
-function examinetipclose() {
-	$("#examinetip").fadeOut(200);
-}
+    /*function deltipOpen(orderId) {
+        $("input[name='delOrder']").bind("click",function () {
+          window.location.href="/deleteOrder.do?orderId="+orderId;
+        })
+        $("#deltip").fadeIn(200);
+    }*/
+    function tipOpen(content,custId) {
+      $(".tipright p").text(content);
+      $("input[name='cancelCust']").bind("click",function () {
+        window.location.href="${pageContext.request.contextPath}/cancelCust.do?custId="+custId;
+      })
+      $("#tip").fadeIn(200);
+    }
+    function deltipClose() {
+        $("#deltip").fadeOut(200);
+    }
+    function examinetipOpen() {
+        $("#examinetip").fadeIn(200);
+    }
+    function examinetipclose() {
+        $("#examinetip").fadeOut(200);
+    }
 </script>
 </head>
 
@@ -101,7 +111,8 @@ function examinetipclose() {
             <c:if test="${lorder.dstatus==4}">
               <a href="${pageContext.request.contextPath}/getOneOrder.do?orderId=${lorder.orderId}&op=查看" class="tablelink">查看详情</a>
               <a href="${pageContext.request.contextPath}/getOneOrder.do?orderId=${lorder.orderId}&op=更新" class="tablelink">修改</a>
-              <a href="javascript:void(0);" class="tablelink" onclick="deltipOpen()">删除</a>
+              <%--<a href="javascript:void(0);" class="tablelink" onclick="tipOpen(${lorder.orderId})">删除</a>--%>
+              <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('是否确认注销此条信息？',${lorder.orderId}">注销</a>
               <a href="javascript:void(0);" class="tablelink" onclick="examinetipOpen()">提交审核</a>
             </c:if>
             <c:if test="${lorder.dstatus==1}">
@@ -150,6 +161,20 @@ function examinetipclose() {
       </ul>
     </div>
   </form>
+  <!-- 提示框 -->
+  <div id="tip" class="tip">
+    <div class="tiptop"><span>提示信息</span><a onclick="tipClose()"></a></div>
+    <div class="tipinfo"> <span><img src="${pageContext.request.contextPath }/images/ticon.png" /></span>
+      <div class="tipright">
+        <p></p>
+        <cite>如果是请点击确定按钮 ，否则请点取消。</cite> </div>
+    </div>
+    <div class="tipbtn">
+      <input name="cancelCust" type="button"  class="sure" value="确定" />
+      <input name="" type="button"  class="cancel" value="取消" onclick="tipClose()" />
+    </div>
+  </div>
+
   <!-- 删除提示框 -->
   <div id="deltip" class="tip">
     <div class="tiptop"><span>提示信息</span><a onclick="deltipClose()"></a></div>
@@ -159,8 +184,7 @@ function examinetipclose() {
         <cite>如果是请点击确定按钮 ，否则请点取消。</cite> </div>
     </div>
     <div class="tipbtn">
-      <input name="" type="button"  class="sure" value="确定" onclick="deltipClose()" />
-      &nbsp;
+      <input name="delOrder" type="button"  class="sure" value="确定"  />
       <input name="" type="button"  class="cancel" value="取消" onclick="deltipClose()" />
     </div>
   </div>

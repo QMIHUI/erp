@@ -84,4 +84,11 @@ public class OrderController {
         }
     }
 
+    @RequestMapping(value = "deleteOrder.do",method = RequestMethod.GET)
+    public String deleteOrder(){
+        System.out.println("执行删除订单！！！");
+
+        return "";
+    }
+
 }
