@@ -51,12 +51,8 @@ public class BuyController {
     @RequestMapping(value = "delFirm.do",method = RequestMethod.GET)
     public String delFirm(HttpServletRequest request){
         int id=Integer.parseInt(request.getParameter("id"));
-        int num=firmDao.delFirm(id);
-        if (num>0){
-            System.out.println("删除成功");
-        }else{
-            System.out.println("删除失败");
-        }
+        firmDao.delFirm(id);
+        productDao.delProductByFirmId(id);
         return "redirect:getAllFirm.do";
     }
     @RequestMapping(value = "recoverFirm.do",method = RequestMethod.GET)
@@ -249,10 +245,10 @@ public class BuyController {
         //恢复brand下的所有商品类型
         typeDao.recoverTypeByBrandId(id);
         //恢复brand下的所有商品
-        List<Type> typeList=typeDao.getTypeListByBrandId(id);
+        /*List<Type> typeList=typeDao.getTypeListByBrandId(id);
         for (int i=0;i<typeList.size();i++){
             productDao.recoverProductByTypeId(typeList.get(i).getTypeId());
-        }
+        }*/
         return "redirect:getAllBrands.do";
     }
     //获取所有商品类型
@@ -308,9 +304,14 @@ public class BuyController {
     public void updateType(HttpSession session,HttpServletRequest request,HttpServletResponse response){
         int id=Integer.parseInt(request.getParameter("id"));
         String typeName=request.getParameter("typeName");
-        int typeStatu=Integer.parseInt(request.getParameter("typeStatus"));
+        //int typeStatu=Integer.parseInt(request.getParameter("typeStatus"));
         int brandId=Integer.parseInt(request.getParameter("brand"));
-        int num=typeDao.updateType(typeName,typeStatu,brandId,id);
+        int num=0;
+        if (brandDao.getBrandById(brandId).getBrandStatus()==2){
+            num=typeDao.updateType2(typeName,brandId,id);
+        }else {
+            num=typeDao.updateType(typeName,brandId,id);
+        }
         PrintWriter out=null;
         try {
             out=response.getWriter();
@@ -344,7 +345,7 @@ public class BuyController {
         int id=Integer.parseInt(request.getParameter("id"));
         int num=typeDao.recoverType(id);
         //恢复所有该type下的商品
-        productDao.recoverProductByTypeId(id);
+        //productDao.recoverProductByTypeId(id);
         return "redirect:getAllTypes.do";
     }
 

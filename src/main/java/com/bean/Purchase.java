@@ -36,6 +36,13 @@ public class Purchase implements Serializable {
     public Purchase() {
     }
 
+    public Purchase(String purchaseId, Users buyer, Date purchaseTime, Integer checkStatus) {
+        this.purchaseId = purchaseId;
+        this.buyer = buyer;
+        this.purchaseTime = purchaseTime;
+        this.checkStatus = checkStatus;
+    }
+
     public Purchase(String purchaseId, Users buyer, Users checker, Date purchaseTime, Date checkTime, String checkOpinion, Warehouse warehuose, Integer cgState, Double totalMoney, Integer checkStatus) {
         this.purchaseId = purchaseId;
         this.buyer = buyer;

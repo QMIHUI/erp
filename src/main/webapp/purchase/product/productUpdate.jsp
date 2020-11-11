@@ -53,7 +53,7 @@
                 <label>品牌名称</label>
                 <select class="dfselect" name="brand">
                     <c:forEach items="${brandList}" var="brand">
-                        <option value="${brand.brandId}">${brand.brandName}</option>
+                            <option value="${brand.brandId}">${brand.brandName}</option>
                     </c:forEach>
                 </select>
                 <i>必选</i>
@@ -62,7 +62,7 @@
                 <label>商品类型</label>
                 <select class="dfselect" name="type">
                     <c:forEach items="${typeList}" var="type">
-                        <option value="${type.typeId}">${type.typeName}</option>
+                            <option value="${type.typeId}">${type.typeName}</option>
                     </c:forEach>
                 </select>
                 <i>必选</i>
@@ -71,7 +71,7 @@
                 <label>供应厂商</label>
                 <select class="dfselect" name="firm">
                     <c:forEach items="${firmList}" var="frim">
-                        <option value="${frim.firmId}">${frim.firmName}</option>
+                            <option value="${frim.firmId}">${frim.firmName}</option>
                     </c:forEach>
                 </select>
                 <i>必选</i>
@@ -92,14 +92,14 @@
                 <input name="productPrice" type="text" class="dfinput" value="${product.productPrice}"/>
                 <i>必填</i>
             </li>
-            <li>
+            <%--<li>
                 <label>状态</label>
                 <select class="dfselect" name="productStatus">
                     <option value="1">可用</option>
                     <option value="0">不可用</option>
                 </select>
                 <i>必选</i>
-            </li>
+            </li>--%>
             <script type="text/javascript">
                 $(function () {
                     $("select[name='brand']").val(${product.type.brand.brandId});

@@ -17,5 +17,6 @@ public interface BrandDao {
     public int delBrand(int id);
     //恢复brand
     public int recoverBrand(int id);
-
+    //获取所有可用brand
+    public List<Brand> getAllBrandsUseful();
 }

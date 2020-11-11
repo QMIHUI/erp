@@ -42,7 +42,7 @@
                 <label>品牌名称</label>
                 <select class="dfselect" name="brand">
                     <c:forEach items="${brandList}" var="brand">
-                        <option value="${brand.brandId}">${brand.brandName}</option>
+                            <option value="${brand.brandId}">${brand.brandName}</option>
                     </c:forEach>
                 </select>
                 <i>必选</i>
@@ -52,14 +52,14 @@
                 <input name="typeName" type="text" value="${type.typeName}" class="dfinput" />
                 <i>必填，不能超过50个字符</i>
             </li>
-            <li>
+            <%--<li>
                 <label>状态</label>
                 <select class="dfselect" name="typeStatus">
                     <option value="1">可用</option>
                     <option value="2">不可用</option>
                 </select>
                 <i>必选</i>
-            </li>
+            </li>--%>
             <li>
                 <label>创建人</label>
                 <input name="creater" type="text" value="${type.creater.uname}" readonly="readonly" class="roinput" />

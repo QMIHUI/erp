@@ -134,11 +134,16 @@ public class ProductController {
         int id=Integer.parseInt(request.getParameter("id"));
         String productModel=request.getParameter("productModel");
         double productPrice=Double.parseDouble(request.getParameter("productPrice"));
-        int productStatus=Integer.parseInt(request.getParameter("productStatus"));
+        //int productStatus=Integer.parseInt(request.getParameter("productStatus"));
         String productUnit=request.getParameter("productUnit");
         int typeId=Integer.parseInt(request.getParameter("type"));
         int firmId=Integer.parseInt(request.getParameter("firm"));
-        int num=productDao.updateProduct(productModel,productPrice,productStatus,productUnit,typeId,firmId,id);
+        int num=0;
+        if(typeDao.getTypeById(typeId).getTypeStatus()==2||firmDao.getFirmById(firmId).getStatus()==2){
+            num=productDao.updateProduct2(productModel,productPrice,productUnit,typeId,firmId,id);
+        }else {
+            num=productDao.updateProduct(productModel,productPrice,productUnit,typeId,firmId,id);
+        }
         PrintWriter out=null;
         try {
             out=response.getWriter();

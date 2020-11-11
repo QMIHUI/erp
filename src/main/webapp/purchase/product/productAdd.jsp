@@ -52,7 +52,9 @@
                 <label>品牌名称</label>
                 <select class="dfselect" name="brand">
                     <c:forEach items="${brandList}" var="brand">
-                        <option value="${brand.brandId}">${brand.brandName}</option>
+                        <c:if test="${brand.brandStatus==1}">
+                            <option value="${brand.brandId}">${brand.brandName}</option>
+                        </c:if>
                     </c:forEach>
                 </select>
                 <i>必选</i>
@@ -61,7 +63,9 @@
                 <label>商品类型</label>
                 <select class="dfselect" name="type">
                     <c:forEach items="${typeList}" var="type">
-                        <option value="${type.typeId}">${type.typeName}</option>
+                        <c:if test="${type.typeStatus==1}">
+                            <option value="${type.typeId}">${type.typeName}</option>
+                        </c:if>
                     </c:forEach>
                 </select>
                 <i>必选</i>
@@ -86,7 +90,9 @@
                 <label>供应厂商</label>
                 <select class="dfselect" name="firm">
                     <c:forEach items="${firmList}" var="frim">
-                        <option value="${frim.firmId}">${frim.firmName}</option>
+                        <c:if test="${frim.status==1}">
+                            <option value="${frim.firmId}">${frim.firmName}</option>
+                        </c:if>
                     </c:forEach>
                 </select>
                 <i>必选</i>

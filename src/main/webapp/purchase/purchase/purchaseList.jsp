@@ -55,7 +55,10 @@
                 </select>
             </li>
             <li class="subBut" onclick="window.location.href='purchaseList.html'"><img src="../../images/t06.png" />查询</li>
-            <li class="subBut" onclick="window.location.href='purchaseAdd.jsp'"><img src="../../images/t01.png" />添加</li>
+            <c:if test="${user.jobId!=7&&user.jobId!=1}">
+                <li class="subBut" onclick="window.location.href='${pageContext.request.contextPath}/toAddPurchase.do'"><img src="../../images/t01.png" />添加</li>
+            </c:if>
+
         </ul>
         <table class="tablelist">
             <thead>
