@@ -25,6 +25,14 @@
     <update id="recoverType">
         update c_type set TYPE_STATUS=1 where TYPE_ID=#{id}
     </update>
+    <!--根据brandId注销type-->
+    <update id="delTypeByBrandId">
+        update c_type set TYPE_STATUS=2 where BRAND_ID=#{brandId}
+    </update>
+    <!--根据brandId恢复type-->
+    <update id="recoverTypeByBrandId">
+        update c_type set TYPE_STATUS=1 where BRAND_ID=#{brandId}
+    </update>
 
     <select id="getTypeById" resultMap="type">
         select type_id, type_name, type_status, create_time, create_id, brand_id from c_type where TYPE_ID=#{id}

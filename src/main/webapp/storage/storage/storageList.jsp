@@ -48,7 +48,7 @@
                 </select>
             </li>
             <li class="subBut" onclick="window.location.href='storageList.html'"><img src="../../images/t06.png" />查询</li>
-            <li class="subBut" onclick="window.location.href='storageAdd.html'"><img src="../../images/t01.png" />添加</li>
+            <li class="subBut" onclick="window.location.href='${pageContext.request.contextPath}/addSelectWarehouse.do'"><img src="../../images/t01.png" />添加</li>
         </ul>
         <table class="tablelist">
             <thead>
@@ -81,7 +81,7 @@
                     <td>
                         <a href="${pageContext.request.contextPath}/${lw.id}/storageView.do" class="tablelink">查看详情</a>
                         <c:if test="${lw.state==1}">
-                            <a href="storageUpdate.jsp" class="tablelink">修改</a>
+                            <a href="${pageContext.request.contextPath}/${lw.id}/storageUpdate.do">修改</a>
                             <a href="${pageContext.request.contextPath}/${lw.id}/${lw.state}/storageState.do" class="tablelink" >注销</a>
                         </c:if>
                         <c:if test="${lw.state==0}">

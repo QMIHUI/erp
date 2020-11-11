@@ -85,7 +85,7 @@
                         <c:if test="${type.typeStatus==1}">
                             <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('是否确认注销此条信息？',${type.typeId})">注销</a>
                         </c:if>
-                        <c:if test="${type.typeStatus==2}">
+                        <c:if test="${type.typeStatus==2&&type.brand.brandStatus==1}">
                             <a href="${pageContext.request.contextPath}/recoverType.do?id=${type.typeId}" class="tablelink" >恢复</a>
                         </c:if>
                     </td>

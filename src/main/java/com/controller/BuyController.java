@@ -32,6 +32,8 @@ public class BuyController {
     public BrandDao brandDao;
     @Autowired
     public TypeDao typeDao;
+    @Autowired
+    public ProductDao productDao;
 
     @RequestMapping(value = "getAllFirm.do",method = RequestMethod.GET)
     public String getAllFirms(HttpSession session){
@@ -229,11 +231,13 @@ public class BuyController {
     @RequestMapping(value = "delBrand",method = RequestMethod.GET)
     public String delBrand(HttpServletRequest request){
         int id=Integer.parseInt(request.getParameter("id"));
-        int num=brandDao.delBrand(id);
-        if (num>0){
-            System.out.println("注销成功！");
-        }else {
-            System.out.println("注销失败！");
+        brandDao.delBrand(id);
+        //注销brand下的所有商品类型
+        typeDao.delTypeByBrandId(id);
+        //注销brand下的所有商品
+        List<Type> typeList=typeDao.getTypeListByBrandId(id);
+        for (int i=0;i<typeList.size();i++){
+            productDao.delProductByTypeId(typeList.get(i).getTypeId());
         }
         return "redirect:getAllBrands.do";
     }
@@ -241,11 +245,13 @@ public class BuyController {
     @RequestMapping(value = "recoverBrand.do",method = RequestMethod.GET)
     public String recoverBrand(HttpServletRequest request){
         int id=Integer.parseInt(request.getParameter("id"));
-        int num=brandDao.recoverBrand(id);
-        if (num>0){
-            System.out.println("恢复成功！");
-        }else {
-            System.out.println("恢复失败！");
+        brandDao.recoverBrand(id);
+        //恢复brand下的所有商品类型
+        typeDao.recoverTypeByBrandId(id);
+        //恢复brand下的所有商品
+        List<Type> typeList=typeDao.getTypeListByBrandId(id);
+        for (int i=0;i<typeList.size();i++){
+            productDao.recoverProductByTypeId(typeList.get(i).getTypeId());
         }
         return "redirect:getAllBrands.do";
     }
@@ -327,12 +333,9 @@ public class BuyController {
     @RequestMapping(value = "delType.do",method = RequestMethod.GET)
     public String delType(HttpServletRequest request){
         int id=Integer.parseInt(request.getParameter("id"));
-        int num=typeDao.delType(id);
-        if (num>0){
-            System.out.println("注销成功！");
-        }else {
-            System.out.println("注销失败！");
-        }
+        typeDao.delType(id);
+        //注销所有该type下的商品
+        productDao.delProductByTypeId(id);
         return "redirect:getAllTypes.do";
     }
     //恢复type
@@ -340,11 +343,8 @@ public class BuyController {
     public String recoverType(HttpServletRequest request){
         int id=Integer.parseInt(request.getParameter("id"));
         int num=typeDao.recoverType(id);
-        if (num>0){
-            System.out.println("注销成功！");
-        }else {
-            System.out.println("注销失败！");
-        }
+        //恢复所有该type下的商品
+        productDao.recoverProductByTypeId(id);
         return "redirect:getAllTypes.do";
     }
 

@@ -17,4 +17,5 @@ public interface BrandDao {
     public int delBrand(int id);
     //恢复brand
     public int recoverBrand(int id);
+
 }

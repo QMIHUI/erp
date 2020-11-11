@@ -14,6 +14,11 @@ public interface ProductDao {
     public int delProduct(int id);
     //恢复商品
     public int recoverProduct(int id);
+    //根据typeId注销商品
+    public int delProductByTypeId(int typeId);
+    //根据typeId恢复商品
+    public int recoverProductByTypeId(int typeId);
+
     //添加商品
     public int addProcduct(String productModel, double productPrice, int productStatus, String productUnit, Date createTime,int createId,int typeId,int firmId);
     //修改商品

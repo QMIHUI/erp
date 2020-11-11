@@ -169,8 +169,8 @@ $(function(){
             <dd>
                 <div class="title">仓库管理</div>
                 <ul class="menuson">
-                    <li><cite></cite><a href="storageList.do" target="rightFrame">仓库管理</a><i></i></li>
-                    <li><cite></cite><a href="storage/storageBrowse/storageBrowse.jsp" target="rightFrame">仓库浏览</a><i></i></li>
+                    <li><cite></cite><a href="${pageContext.request.contextPath}/storageList.do" target="rightFrame">仓库管理</a><i></i></li>
+                    <li><cite></cite><a href="${pageContext.request.contextPath}/${user.uId}/storageBrowse.do" target="rightFrame">仓库浏览</a><i></i></li>
                     <li><cite></cite><a href="storage/delivery/deliveryList.jsp" target="rightFrame">出库管理</a><i></i></li>
                     <li><cite></cite><a href="storage/stock/stockList.jsp" target="rightFrame">入库管理</a><i></i></li>
                     <li><cite></cite><a href="storage/inventory/inventoryList.jsp" target="rightFrame">库存管理</a><i></i></li>
