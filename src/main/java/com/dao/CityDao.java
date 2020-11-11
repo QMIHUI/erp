@@ -23,5 +23,6 @@ public interface CityDao {
     //条件查询的个数
     public int countCityByCon(@Param("pId") int pId,@Param("cId") int cId);
 
+    public List<City> getAllCityorWarehouse();
 
 }

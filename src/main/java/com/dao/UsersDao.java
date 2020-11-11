@@ -30,6 +30,7 @@ public interface UsersDao {
     //根据部门id查找用户
     public List<Users> getUsersByDid(int did);
 
+    public List<Users> getUsersByWarehouse();//查询所有仓库管理员
 
 
 }

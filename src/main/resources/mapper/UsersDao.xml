@@ -113,5 +113,7 @@
       select * from users where dept_id=#{deptId}
     </select>
 
-
+<select id="getUsersByWarehouse" resultMap="BaseResultMap">
+  SELECT * FROM users WHERE job_id=16
+</select>
 </mapper>
