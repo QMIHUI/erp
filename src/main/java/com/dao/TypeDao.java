@@ -22,4 +22,9 @@ public interface TypeDao {
     public int delType(int id);
     //恢复type
     public int recoverType(int id);
+    //根据brandId注销type
+    public int delTypeByBrandId(int brandId);
+    //根据brandId恢复type
+    public int recoverTypeByBrandId(int brandId);
+
 }

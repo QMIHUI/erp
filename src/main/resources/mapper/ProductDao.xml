@@ -29,6 +29,14 @@
     <update id="delProduct">
         update c_product set PRODUCT_STATUS=2 where PRODUCT_ID=#{id}
     </update>
+    <!--根据typeId注销商品-->
+    <update id="delProductByTypeId">
+        update c_product set PRODUCT_STATUS=2 where TYPE_ID=#{typeId}
+    </update>
+    <!--根据typeId恢复商品-->
+    <update id="recoverProductByTypeId">
+        update c_product set PRODUCT_STATUS=1 where TYPE_ID=#{typeId}
+    </update>
     <!--根据Id获取Product-->
     <select id="getProductById" resultMap="product">
         select product_id, product_model, product_price, product_status, product_unit, create_time, create_id, type_id, firm_id from c_product where PRODUCT_ID=#{id}

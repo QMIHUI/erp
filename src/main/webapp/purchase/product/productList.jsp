@@ -94,7 +94,7 @@
                         <c:if test="${product.productStatus==1}">
                             <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('是否确认注销此条信息？',${product.productId})">注销</a>
                         </c:if>
-                        <c:if test="${product.productStatus==2}">
+                        <c:if test="${product.productStatus==2&&product.type.typeStatus==1}">
                             <a href="${pageContext.request.contextPath}/recoverProduct.do?id=${product.productId}" class="tablelink" >恢复</a>
                         </c:if>
 
