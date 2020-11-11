@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.OrderdetailsDao">
+  <resultMap id="BaseResultMap" type="com.bean.Orderdetails">
+    <id column="DETAILS_ID" jdbcType="INTEGER" property="detailsId" />
+    <result column="PURCHASE_NUM" jdbcType="INTEGER" property="purchaseNum" />
+    <result column="PRODUCT_ID" jdbcType="INTEGER" property="productId" />
+    <result column="PROPRICE" jdbcType="INTEGER" property="proprice" />
+    <result column="PROTOTAL" jdbcType="INTEGER" property="prototal" />
+    <result column="ORDER_ID" jdbcType="VARCHAR" property="orderId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    DETAILS_ID, PURCHASE_NUM, PRODUCT_ID, PROPRICE, PROTOTAL, ORDER_ID
+  </sql>
+  <!--<select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from orderdetails
+    where DETAILS_ID = #{detailsId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from orderdetails
+    where DETAILS_ID = #{detailsId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="DETAILS_ID" keyProperty="detailsId" parameterType="com.bean.Orderdetails" useGeneratedKeys="true">
+    insert into orderdetails (PURCHASE_NUM, PRODUCT_ID, PROPRICE, 
+      PROTOTAL, ORDER_ID)
+    values (#{purchaseNum,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER}, #{proprice,jdbcType=INTEGER}, 
+      #{prototal,jdbcType=INTEGER}, #{orderId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="DETAILS_ID" keyProperty="detailsId" parameterType="com.bean.Orderdetails" useGeneratedKeys="true">
+    insert into orderdetails
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="purchaseNum != null">
+        PURCHASE_NUM,
+      </if>
+      <if test="productId != null">
+        PRODUCT_ID,
+      </if>
+      <if test="proprice != null">
+        PROPRICE,
+      </if>
+      <if test="prototal != null">
+        PROTOTAL,
+      </if>
+      <if test="orderId != null">
+        ORDER_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="purchaseNum != null">
+        #{purchaseNum,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="proprice != null">
+        #{proprice,jdbcType=INTEGER},
+      </if>
+      <if test="prototal != null">
+        #{prototal,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bean.Orderdetails">
+    update orderdetails
+    <set>
+      <if test="purchaseNum != null">
+        PURCHASE_NUM = #{purchaseNum,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null">
+        PRODUCT_ID = #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="proprice != null">
+        PROPRICE = #{proprice,jdbcType=INTEGER},
+      </if>
+      <if test="prototal != null">
+        PROTOTAL = #{prototal,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null">
+        ORDER_ID = #{orderId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where DETAILS_ID = #{detailsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bean.Orderdetails">
+    update orderdetails
+    set PURCHASE_NUM = #{purchaseNum,jdbcType=INTEGER},
+      PRODUCT_ID = #{productId,jdbcType=INTEGER},
+      PROPRICE = #{proprice,jdbcType=INTEGER},
+      PROTOTAL = #{prototal,jdbcType=INTEGER},
+      ORDER_ID = #{orderId,jdbcType=VARCHAR}
+    where DETAILS_ID = #{detailsId,jdbcType=INTEGER}
+  </update>-->
+</mapper>
