@@ -136,7 +136,7 @@ $(function(){
                         <a href="${pageContext.request.contextPath}/getAllCustomerBro.do" target="rightFrame">客户浏览</a>
                         <i></i>
                     </li>
-                    <li>[
+                    <li>
                         <cite></cite>
                         <a href="${pageContext.request.contextPath}/queryAllOrder.do" target="rightFrame">订购单管理</a>
                         <i></i>

@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>客户管理</title>
-<link href="../../css/style.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="../../js/jquery.js"></script>
+<link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.js"></script>
 <script type="text/javascript">
 function deltipOpen() {
 	$("#deltip").fadeIn(200);
@@ -61,7 +62,6 @@ function examinetipclose() {
     <table class="tablelist">
       <thead>
         <tr>
-          <th>序号</th>
           <th>订单编号</th>
           <th>客户姓名</th>
           <th>联系电话</th>
@@ -75,7 +75,52 @@ function examinetipclose() {
         </tr>
       </thead>
       <tbody>
+      <c:forEach items="${listOrder}" var="lorder">
         <tr>
+          <td>${lorder.orderId}</td>
+          <td>${lorder.custom.customname}</td>
+          <td>${lorder.custom.telephone}</td>
+          <td>${lorder.ordertime}</td>
+          <td>${lorder.ordermoney}</td>
+          <td>${lorder.operatorid.uname}</td>
+          <c:if test="${lorder.dstatus==1}">
+            <td>审核中</td>
+          </c:if>
+          <c:if test="${lorder.dstatus==2}">
+            <td>审核通过</td>
+          </c:if>
+          <c:if test="${lorder.dstatus==3}">
+            <td>审核不通过</td>
+          </c:if>
+          <c:if test="${lorder.dstatus==4}">
+            <td>未审核</td>
+          </c:if>
+          <td>${lorder.checkid.uname}</td>
+          <td>${lorder.chectime}</td>
+          <td>
+            <c:if test="${lorder.dstatus==4}">
+              <a href="${pageContext.request.contextPath}/getOneOrder.do?orderId=${lorder.orderId}&op=查看" class="tablelink">查看详情</a>
+              <a href="${pageContext.request.contextPath}/getOneOrder.do?orderId=${lorder.orderId}&op=更新" class="tablelink">修改</a>
+              <a href="javascript:void(0);" class="tablelink" onclick="deltipOpen()">删除</a>
+              <a href="javascript:void(0);" class="tablelink" onclick="examinetipOpen()">提交审核</a>
+            </c:if>
+            <c:if test="${lorder.dstatus==1}">
+              <a href="${pageContext.request.contextPath}/getOneOrder.do?orderId=${lorder.orderId}&op=查看" class="tablelink">查看详情</a>
+            </c:if>
+            <c:if test="${lorder.dstatus==2}">
+              <a href="${pageContext.request.contextPath}/getOneOrder.do?orderId=${lorder.orderId}&op=查看" class="tablelink">查看详情</a>
+              <a href="${pageContext.request.contextPath}/storage/delivery/deliveryView.jsp" class="tablelink">出库详情</a>
+            </c:if>
+            <c:if test="${lorder.dstatus==3}">
+              <a href="${pageContext.request.contextPath}/getOneOrder.do?orderId=${lorder.orderId}&op=查看" class="tablelink">查看详情</a>
+              <a href="orderUpdate.jsp" class="tablelink">修改</a>
+              <a href="javascript:void(0);" class="tablelink" onclick="deltipOpen()">删除</a>
+              <a href="javascript:void(0);" class="tablelink" onclick="examinetipOpen()">提交审核</a>
+            </c:if>
+          </td>
+        </tr>
+      </c:forEach>
+        <%--<tr>
           <td>1</td>
           <td>DJ201701270001</td>
           <td>王金平</td>
@@ -92,75 +137,23 @@ function examinetipclose() {
             <a href="javascript:void(0);" class="tablelink" onclick="deltipOpen()">删除</a>
             <a href="javascript:void(0);" class="tablelink" onclick="examinetipOpen()">提交审核</a>
             </td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>DJ201701270002</td>
-          <td>张永祥</td>
-          <td>17370899727</td>
-          <td>2017-01-25 15:05:05</td>
-          <td>￥9,876,582</td>
-          <td>关羽</td>
-          <td>审核中</td>
-          <td></td>
-          <td></td>
-          <td>
-          	<a href="orderView.jsp" class="tablelink">查看详情</a>
-          </td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>DJ201701270003</td>
-          <td>王金平</td>
-          <td>17370899727</td>
-          <td>2017-01-25 15:05:05</td>
-          <td>￥9,876,582</td>
-          <td>关羽</td>
-          <td>审核通过</td>
-          <td>曹操</td>
-          <td>2017-01-30 12:05:05</td>
-          <td>
-          	<a href="orderView.jsp" class="tablelink">查看详情</a>
-            <a href="../../storage/delivery/deliveryView.jsp" class="tablelink">出库详情</a>
-          </td>
-        </tr>
-        <tr>
-          <td>4</td>
-          <td>DJ201701270004</td>
-          <td>张永祥</td>
-          <td>17370899727</td>
-          <td>2017-01-25 15:05:05</td>
-          <td>￥9,876,582</td>
-          <td>关羽</td>
-          <td>审核不通过</td>
-          <td>曹操</td>
-          <td>2017-01-30 12:05:05</td>
-          <td>
-            <a href="orderUpdate.jsp" class="tablelink">修改</a>
-            <a href="javascript:void(0);" class="tablelink" onclick="examinetipOpen()">提交审核</a>
-          </td>
-        </tr>
+        </tr>--%>
       </tbody>
     </table>
     <div class="pagin">
-      <div class="message">共<i class="blue">1256</i>条记录，当前显示第&nbsp;<i class="blue">2&nbsp;</i>页</div>
+      <div class="message">共<i class="blue">${countOrder}</i>条记录，当前显示第&nbsp;<i class="blue">${pageIndex}&nbsp;</i>页</div>
       <ul class="paginList">
-        <li class="paginItem"><a href="javascript:;"><span class="pagepre"></span></a></li>
-        <li class="paginItem"><a href="javascript:;">1</a></li>
-        <li class="paginItem current"><a href="javascript:;">2</a></li>
-        <li class="paginItem"><a href="javascript:;">3</a></li>
-        <li class="paginItem"><a href="javascript:;">4</a></li>
-        <li class="paginItem"><a href="javascript:;">5</a></li>
-        <li class="paginItem more"><a href="javascript:;">...</a></li>
-        <li class="paginItem"><a href="javascript:;">10</a></li>
-        <li class="paginItem"><a href="javascript:;"><span class="pagenxt"></span></a></li>
+        <li class="paginItem"><a href="${pageContext.request.contextPath }/queryAllOrder.do?pageIndex=1">首页</a></li>
+        <li class="paginItem"><a href="${pageContext.request.contextPath }/queryAllOrder.do?pageIndex=${pageIndex-1}">上页</a></li>
+        <li class="paginItem"><a href="${pageContext.request.contextPath }/queryAllOrder.do?pageIndex=${pageIndex+1}">下页</a></li>
+        <li class="paginItem"><a href="${pageContext.request.contextPath }/queryAllOrder.do?pageIndex=${rowOrder}">末页</a></li>
       </ul>
     </div>
   </form>
   <!-- 删除提示框 -->
   <div id="deltip" class="tip">
     <div class="tiptop"><span>提示信息</span><a onclick="deltipClose()"></a></div>
-    <div class="tipinfo"> <span><img src="../../images/ticon.png" /></span>
+    <div class="tipinfo"> <span><img src="${pageContext.request.contextPath}/images/ticon.png" /></span>
       <div class="tipright">
         <p>是否确认删除此条信息？</p>
         <cite>如果是请点击确定按钮 ，否则请点取消。</cite> </div>
@@ -177,8 +170,7 @@ function examinetipclose() {
     <div class="tiptop">
     	<span>提示信息</span><a onclick="examinetipclose()"></a>
     </div>
-    <div class="tipinfo1"> 
-    	
+    <div class="tipinfo1">
         部门：
             <select class="dfselect">
             	<option>请选择</option>
