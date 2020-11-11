@@ -19,7 +19,11 @@
     </insert>
     <!--修改商品-->
     <update id="updateProduct">
-        update c_product set product_model=#{param1}, product_price=#{param2}, product_status=#{param3}, product_unit=#{param4}, type_id=#{param5}, firm_id=#{param6} where PRODUCT_ID=#{param7}
+        update c_product set product_model=#{param1}, product_price=#{param2}, product_unit=#{param3}, type_id=#{param4}, firm_id=#{param5} where PRODUCT_ID=#{param6}
+    </update>
+    <!--修改商品(状态不可用)-->
+    <update id="updateProduct2">
+        update c_product set product_model=#{param1}, product_price=#{param2}, product_unit=#{param3}, type_id=#{param4}, firm_id=#{param5},PRODUCT_STATUS=2 where PRODUCT_ID=#{param6}
     </update>
     <!--恢复商品-->
     <update id="recoverProduct">
@@ -36,6 +40,10 @@
     <!--根据typeId恢复商品-->
     <update id="recoverProductByTypeId">
         update c_product set PRODUCT_STATUS=1 where TYPE_ID=#{typeId}
+    </update>
+    <!--根据firmId注销商品-->
+    <update id="delProductByFirmId">
+        update c_product set PRODUCT_STATUS=2 where FIRM_ID=#{firmId}
     </update>
     <!--根据Id获取Product-->
     <select id="getProductById" resultMap="product">

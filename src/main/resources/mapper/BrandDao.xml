@@ -31,5 +31,9 @@
     <select id="getAllBrands" resultMap="brand">
         select brand_id, brand_name, brand_status, create_time, create_id from c_brand
     </select>
+    <!--获取所有可用brand-->
+    <select id="getAllBrandsUseful" resultMap="brand">
+        select brand_id, brand_name, brand_status, create_time, create_id from c_brand where BRAND_STATUS=1
+    </select>
 
 </mapper>

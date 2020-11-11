@@ -39,7 +39,9 @@
                 <label>品牌名称</label>
                 <select class="dfselect" name="brand">
                     <c:forEach items="${brandList}" var="brand">
-                        <option value="${brand.brandId}">${brand.brandName}</option>
+                        <c:if test="${brand.brandStatus==1}">
+                            <option value="${brand.brandId}">${brand.brandName}</option>
+                        </c:if>
                     </c:forEach>
                 </select>
                 <i>必选</i>
@@ -71,7 +73,7 @@
                 <label>&nbsp;</label>
                 <input name="" type="submit" class="btn" value="确定"/>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <input name="" type="button" class="btn" value="返回" onclick="window.location.href='productTypeList.html'"/>
+                <input name="" type="button" class="btn" value="返回" onclick="window.location.href='productTypeList.jsp'"/>
             </li>
         </ul>
     </div>

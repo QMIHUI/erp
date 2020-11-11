@@ -17,7 +17,9 @@ public interface TypeDao {
     //添加type
     public int addType(String typeName, int typeStatu, Date createTime,int createId,int brandId);
     //修改type
-    public int updateType(String typeName, int typeStatu,int brandId,int id);
+    public int updateType(String typeName,int brandId,int id);
+    //修改type(状态为不可用)
+    public int updateType2(String typeName,int brandId,int id);
     //注销Type
     public int delType(int id);
     //恢复type

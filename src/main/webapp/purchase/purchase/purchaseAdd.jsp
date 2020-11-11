@@ -36,6 +36,12 @@ pageEncoding="UTF-8"%>
       <i>不能编辑</i>
     </li>
     <li>
+       <label>采购仓库</label>
+       <select name="" class="roinput">
+           <option>请选择</option>
+       </select>
+    </li>
+    <li>
       <label>审核状态</label>
       <input type="text" value="未审核" readonly="readonly" class="roinput" />
       <input name="" type="hidden" value="1" />
@@ -53,7 +59,7 @@ pageEncoding="UTF-8"%>
        &nbsp;&nbsp;&nbsp;&nbsp;
       <input type="button" value="保存" class="smallbtn" />
        &nbsp;&nbsp;&nbsp;&nbsp;
-      <input type="button" value="返回" class="smallbtn" onclick="window.location.href='purchaseList.html'"/>
+      <input type="button" value="返回" class="smallbtn" onclick="window.location.href='purchaseList.jsp'"/>
     </li>
   </ul>
   <table class="tablelist">

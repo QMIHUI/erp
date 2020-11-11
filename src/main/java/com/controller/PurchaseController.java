@@ -33,7 +33,14 @@ public class PurchaseController {
         }
         return "redirect:purchase/purchase/purchaseList.jsp";
     }
+    //添加采购单
+    @RequestMapping(value = "toAddPurchase.do",method = RequestMethod.GET)
+    public String toAddPurchase(){
 
+
+
+        return "redirect:purchase/purchase/purchaseAdd.jsp";
+    }
 
 
 }

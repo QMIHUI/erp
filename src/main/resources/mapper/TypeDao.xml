@@ -15,7 +15,11 @@
     </insert>
     <!--修改type-->
     <update id="updateType">
-        update c_type set type_name=#{param1}, type_status=#{param2},brand_id=#{param3} where TYPE_ID=#{param4}
+        update c_type set type_name=#{param1},brand_id=#{param2} where TYPE_ID=#{param3}
+    </update>
+    <!--修改type(状态不可用)-->
+    <update id="updateType2">
+        update c_type set type_name=#{param1},brand_id=#{param2},TYPE_STATUS=2 where TYPE_ID=#{param3}
     </update>
     <!--注销Type-->
     <update id="delType">
