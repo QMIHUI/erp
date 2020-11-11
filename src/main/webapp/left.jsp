@@ -70,7 +70,7 @@ $(function(){
                     <li><cite></cite><a href="storage/inventory/inventoryList.jsp" target="rightFrame">库存管理</a><i></i></li>
                 </ul>
             </dd>
-            <dd>
+            <%--<dd>
                 <div class="title">采购管理</div>
                 <ul class="menuson">
                     <li><cite></cite><a href="purchase/purchase/purchaseList.jsp" target="rightFrame">采购单管理</a><i></i></li>
@@ -80,7 +80,7 @@ $(function(){
                     <li><cite></cite><a href="purchase/product/productList.jsp" target="rightFrame">商品管理</a><i></i></li>
                     <li><cite></cite><a href="purchase/manufacturer/manufacturerList.jsp" target="rightFrame">厂商管理</a><i></i></li>
                 </ul>
-            </dd>
+            </dd>--%>
             <dd>
                 <div class="title">数据统计</div>
                 <ul class="menuson">
@@ -153,7 +153,7 @@ $(function(){
                 <ul class="menuson">
                     <li><cite></cite><a href="${pageContext.request.contextPath}/getAllPurchases.do" target="rightFrame">采购单管理</a><i></i></li>
                     <c:if test="${user.jobId==7||user.jobId==8||user.jobId==9||user.jobId==1}">
-                        <li><cite></cite><a href="purchase/purchaseExamine/purchaseExamineList.jsp" target="rightFrame">采购单审核</a><i></i></li>
+                        <li><cite></cite><a href="${pageContext.request.contextPath}/getAllPurchaseStatus2.do" target="rightFrame">采购单审核</a><i></i></li>
                     </c:if>
                     <li><cite></cite><a href="${pageContext.request.contextPath}/getAllBrands.do" target="rightFrame">品牌管理</a><i></i></li>
                     <li><cite></cite><a href="${pageContext.request.contextPath}/getAllTypes.do" target="rightFrame">商品类型管理</a><i></i></li>

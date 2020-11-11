@@ -14,6 +14,21 @@
       <association property="detailsList" select="com.dao.DetailsDao.getDetailsByPurchaseId" column="purchase_id"/>
       <association property="buyer" select="com.dao.UsersDao.getOneUser" column="creat_id" />
     </resultMap>
+    <!--采购单提交审核-->
+    <update id="submitPurchase">
+        update c_purchase set check_status=2 where purchase_id=#{id}
+    </update>
+    <!--审核采购单-->
+    <update id="purchaseExamine">
+        update c_purchase set check_id=#{param1},check_time=#{param2},check_opinion=#{param3},cg_state=1,check_status=#{param4} where purchase_id=#{param5}
+    </update>
+    <!--删除采购单-->
+    <delete id="deletePurchase">
+        delete from c_purchase where purchase_id=#{id}
+    </delete>
+    <delete id="deletePurchaseDetails">
+        delete from c_details where purchase_id=#{id}
+    </delete>
     <!--根据厂商id查找采购单集合-->
     <select id="getPurchaseByCheckId" resultMap="purchase">
       select purchase_id, creat_id, check_id, purchase_time, check_time, check_opinion, warehuoseId, cg_state, total_money, check_status from c_purchase where check_id=#{id}
@@ -29,6 +44,10 @@
     <!--根据createId查找所有个人的采购单-->
     <select id="getPurchasesByCreateId" resultMap="purchase">
         select purchase_id, creat_id, check_id, purchase_time, check_time, check_opinion, warehuoseId, cg_state, total_money, check_status from c_purchase where creat_id=#{createId}
+    </select>
+    <!--获取所有审核中采购单-->
+    <select id="getAllPurchaseStatus2" resultMap="purchase">
+        select purchase_id, creat_id, check_id, purchase_time, check_time, check_opinion, warehuoseId, cg_state, total_money, check_status from c_purchase where check_status=2
     </select>
 
 </mapper>

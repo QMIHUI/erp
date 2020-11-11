@@ -10,8 +10,11 @@
     <link href="../../css/style.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="../../js/jquery.js"></script>
     <script type="text/javascript">
-        function deltipOpen() {
+        function deltipOpen(id) {
             $("#deltip").fadeIn(200);
+            $("input[name='delete']").bind("click",function () {
+                window.location.href="${pageContext.request.contextPath}/delPurchase.do?id="+id;
+            })
         }
         function deltipClose() {
             $("#deltip").fadeOut(200);
@@ -98,17 +101,20 @@
                     <td><fmt:formatDate value="${purchase.checkTime}" pattern="yyyy-MM-dd HH:MM:ss"/></td>
                     <td>
                         <c:if test="${user.jobId==7||user.jobId==1}">
-                            <c:if test="${purchase.checkStatus==1&&purchase.checkStatus==4}">
+                            <a href="${pageContext.request.contextPath}/purchaseView.do?id=${purchase.purchaseId}" class="tablelink">查看详情</a>
+                        </c:if>
+                        <c:if test="${user.jobId!=7&&user.jobId!=1}">
+                            <c:if test="${purchase.checkStatus==1||purchase.checkStatus==4}">
                                 <a href="purchaseUpdate.jsp" class="tablelink">修改</a>
                             </c:if>
-                            <c:if test="${purchase.checkStatus==2}">
-                                <a href="javascript:void(0);" class="tablelink" onclick="deltipOpen()">删除</a>
+                            <c:if test="${purchase.checkStatus==1}">
+                                <a href="javascript:void(0);" class="tablelink" onclick="deltipOpen('${purchase.purchaseId}')">删除</a>
                             </c:if>
-                            <c:if test="${purchase.checkStatus==1&&purchase.checkStatus==4}">
-                                <a href="javascript:void(0);" class="tablelink" onclick="examinetipOpen()">提交审核</a>
+                            <c:if test="${purchase.checkStatus==1||purchase.checkStatus==4}">
+                                <a href="${pageContext.request.contextPath}/submitPurchase.do?id=${purchase.purchaseId}" class="tablelink" <%--onclick="examinetipOpen()"--%>>提交审核</a>
                             </c:if>
-                            <c:if test="${purchase.checkStatus==2&&purchase.checkStatus==3}">
-                                <a href="purchaseView.jsp" class="tablelink">查看详情</a>
+                            <c:if test="${purchase.checkStatus==2||purchase.checkStatus==3}">
+                                <a href="${pageContext.request.contextPath}/purchaseView.do?id=${purchase.purchaseId}" class="tablelink">查看详情</a>
                             </c:if>
                             <c:if test="${purchase.checkStatus==3}">
                                 <a href="../../storage/stock/stockView.jsp" class="tablelink">入库详情</a>
@@ -144,7 +150,7 @@
                 <cite>如果是请点击确定按钮 ，否则请点取消。</cite> </div>
         </div>
         <div class="tipbtn">
-            <input name="" type="button"  class="sure" value="确定" onclick="deltipClose()" />
+            <input name="delete" type="button"  class="sure" value="确定" />
             &nbsp;
             <input name="" type="button"  class="cancel" value="取消" onclick="deltipClose()" />
         </div>
