@@ -17,7 +17,7 @@ public class Orders implements Serializable {
     private Double ordermoney;
 
     private Users operatorid;
-    private Integer operatorId;
+    /*private Integer operatorId;*/
 
     private String dstatus;
 
@@ -36,6 +36,9 @@ public class Orders implements Serializable {
     private List<Orderdetails> orderdetailsList;
 
     private static final long serialVersionUID = 1L;
+
+    public Orders() {
+    }
 
     public Orders(String orderId, Integer customid, String ordertime, Double ordermoney, Users operatorid, String dstatus, Users checkid, String chectime, String opinion, Integer warehouseid, Integer ddState, Custom custom, Warehouse warehouse, List<Orderdetails> orderdetailsList) {
         this.orderId = orderId;
