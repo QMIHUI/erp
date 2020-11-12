@@ -32,9 +32,9 @@ public class OrderController {
 
     @RequestMapping(value = "queryAllOrder.do",method = RequestMethod.GET)
     public String queryAllOrder(HttpServletRequest request, HttpSession session){
-        System.out.println("执行查找全部订单！！！");
         Users user=(Users)session.getAttribute("user");
         if (user.getJobId()==1||user.getJobId()==2){
+            System.out.println("执行查找全部订单！！！");
             int countOrder = ordersDao.countOrders();
             System.out.println(countOrder);
             int size = 5;
@@ -61,7 +61,8 @@ public class OrderController {
             request.getSession().setAttribute("rowOrder",rowOrder);
             request.getSession().setAttribute("pageIndex",pageIndex);
         }else{
-            /*int countOrder = ordersDao.countOrdersById(user.getuId());
+            System.out.println("执行查找个人全部订单！！！");
+            int countOrder = ordersDao.countOrdersById(user.getuId());
             System.out.println(countOrder);
             int size = 5;
             int rowOrder = countOrder % size == 0 ? (countOrder / size) : (countOrder / size + 1);
@@ -81,11 +82,12 @@ public class OrderController {
             pager.setPage((pageIndex-1)*size);
             pager.setSize(size);
             pager.setTotal(countOrder);
-            List<Orders> listOrder = ordersDao.getAllOrdersById(pager,user.getuId());
+            pager.setOperatorid(user.getuId());
+            List<Orders> listOrder = ordersDao.getAllOrdersById(pager);
             request.getSession().setAttribute("listOrder",listOrder);
             request.getSession().setAttribute("countOrder",countOrder);
             request.getSession().setAttribute("rowOrder",rowOrder);
-            request.getSession().setAttribute("pageIndex",pageIndex);*/
+            request.getSession().setAttribute("pageIndex",pageIndex);
         }
         return "market/order/orderList";
     }
