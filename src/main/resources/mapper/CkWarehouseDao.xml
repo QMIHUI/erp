@@ -12,7 +12,7 @@
     </resultMap>
     <!--获取所有出库信息-->
     <select id="getAllCkWarehouse" resultMap="ckWarehouse">
-        select id, indent, warehouse_id, c_date, user_id, state from erp.ck_warehouse
+        select id, indent, warehouse_id, c_date, user_id, state from erp.ck_warehouse where WAREHOUSE_ID=#{warehouseId}
     </select>
 
 </mapper>

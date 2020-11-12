@@ -58,31 +58,26 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${ckWarehouseList}" var="ckWarehouse" varStatus="index">
+            <c:forEach items="${warehouseList}" var="warehouse" varStatus="index">
                 <tr>
-                    <td>${index.index+1}/td>
-                    <td>${ckWarehouse.warehouse.name}</td>
-                    <td>${ckWarehouse.warehouse.principal.uname}</td>
-                    <td>${ckWarehouse.warehouse.province.pName}${ckWarehouse.warehouse.city.cName}</td>
-                    <td>${ckWarehouse}</td>
-                    <td>￥9,876,582</td>
+                    <td>${index.index+1}</td>
+                    <td>${warehouse.name}</td>
+                    <td>${warehouse.principal.uname}</td>
+                    <td>${warehouse.province.pName}${warehouse.city.cName}</td>
+                    <td>${warehouse.ckWarehouseList.size()}</td>
+                    <c:set var="sum" value="0"/>
+                    <c:forEach items="${warehouse.ckWarehouseList}" var="ckWarehouse">
+                        <c:set var="sum" value="${sum+ckWarehouse.order.ordermoney}"/>
+                    </c:forEach>
+                    <fmt:parseNumber var="i"  type="number" value="${sum}" />
+                    <td>￥<c:out value="${i}"/> </td>
                     <td>
-                        <a href="deliveryView.jsp" class="tablelink">查看详情</a>
+                        <a href="${pageContext.request.contextPath}/getCkWarehouseByWarehouseId.do?id=${warehouse.id}" class="tablelink">查看详情</a>
                     </td>
                 </tr>
             </c:forEach>
 
-            <tr>
-                <td>2</td>
-                <td>武汉71号仓库</td>
-                <td>柳传志</td>
-                <td>湖北武汉</td>
-                <td>8</td>
-                <td>￥9,876,582</td>
-                <td>
-                    <a href="deliveryView.jsp" class="tablelink">查看详情</a>
-                </td>
-            </tr>
+
             </tbody>
         </table>
         <div class="pagin">
