@@ -11,7 +11,7 @@
     </resultMap>
     <!--获取所有入库信息-->
     <select id="getAllRkWarehouse" resultMap="BaseResultMap">
-        select id, rk_indent, warehouse_id, rk_date, user_id, state from erp.rk_warehouse
+        select id, rk_indent, warehouse_id, rk_date, user_id, state from erp.rk_warehouse where WAREHOUSE_ID=#{warehouseId}
     </select>
 
 </mapper>

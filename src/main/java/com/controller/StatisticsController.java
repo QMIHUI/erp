@@ -65,7 +65,7 @@ public class StatisticsController {
     @RequestMapping(value = "getOrdersByCustomId.do",method = RequestMethod.GET)
     public String getOrdersByCustomId(HttpServletRequest request ,HttpSession session){
         int customId=Integer.parseInt(request.getParameter("id"));
-        List<Orders> ordersList=ordersDao.getOrdersByCustomId(customId);
+        List<Orders> ordersList=ordersDao.getOrdersByCustomId1(customId);
         session.setAttribute("ordersList",ordersList);
         return "redirect:statis/sales/salesView.jsp";
     }
@@ -79,7 +79,14 @@ public class StatisticsController {
         session.setAttribute("warehouseList",warehouseList);
         return "redirect:statis/stock/stockStatis.jsp";
     }
-
+    //根据仓库获取入库详情集合
+    @RequestMapping(value = "getRkWarehouseByWarehouseId.do",method = RequestMethod.GET)
+    public String getRkWarehouseByWarehouseId(HttpServletRequest request,HttpSession session){
+        int id=Integer.parseInt(request.getParameter("id"));
+        List<RkWarehouse> rkWarehouseList=rkWarehouseDao.getAllRkWarehouse(id);
+        session.setAttribute("rkWarehouseList",rkWarehouseList);
+        return "redirect:statis/stock/stockView.jsp";
+    }
 
 
     //出库统计
@@ -90,7 +97,7 @@ public class StatisticsController {
         session.setAttribute("warehouseList",warehouseList);
         return "redirect:statis/delivery/deliveryStatis.jsp";
     }
-        //根据仓库获取出库详情集合
+    //根据仓库获取出库详情集合
     @RequestMapping(value = "getCkWarehouseByWarehouseId.do",method = RequestMethod.GET)
     public String getCkWarehouseByWarehouseId(HttpServletRequest request,HttpSession session){
         int id=Integer.parseInt(request.getParameter("id"));
