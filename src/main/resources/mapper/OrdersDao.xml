@@ -50,7 +50,6 @@
     order_id, CustomId, OrderTime, OrderMoney, operatorId, dStatus, Checkid, Chectime, 
     opinion, warehouseId, Dd_state
   </sql>
-    <select id="getAllOrders" resultMap="getAll">
   <update id="examineOrder">
     update orders set dStatus=1 where order_id=#{orderId}
   </update>
