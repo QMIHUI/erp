@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.RkWarehouseDao">
+    <resultMap id="BaseResultMap" type="com.bean.RkWarehouse">
+        <id column="ID" jdbcType="INTEGER" property="id" />
+        <result column="RK_DATE" jdbcType="TIMESTAMP" property="rkDate" />
+        <result column="STATE" jdbcType="INTEGER" property="state" />
+        <association property="purchase" select="com.dao.PurchaseDao.getPurchaseById" column="RK_INDENT"/>
+        <association property="warehouse" select="com.dao.WarehouseDao.getWarehouseById" column="WAREHOUSE_ID"/>
+        <association property="intoUser" select="com.dao.UsersDao.getOneUser" column="USER_ID"/>
+    </resultMap>
+    <!--获取所有入库信息-->
+    <select id="getAllRkWarehouse" resultMap="BaseResultMap">
+        select id, rk_indent, warehouse_id, rk_date, user_id, state from erp.rk_warehouse
+    </select>
+
+</mapper>

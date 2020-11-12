@@ -19,5 +19,6 @@ public interface WarehouseDao {
     List<Warehouse> selectWarehouseByuid(int uId);//根据用户ID查询自己管理的仓库
 
     public Warehouse getWarehouseById(int id);
+    public List<Warehouse> getAllWarehouseStatis();
 
 }

@@ -1,9 +1,6 @@
 package com.controller;
 
-import com.bean.Custom;
-import com.bean.Firm;
-import com.bean.Orders;
-import com.bean.Purchase;
+import com.bean.*;
 import com.dao.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,6 +25,10 @@ public class StatisticsController {
     public CustomDao customDao;
     @Autowired
     public OrdersDao ordersDao;
+    @Autowired
+    public CkWarehouseDao ckWarehouseDao;
+    @Autowired
+    public RkWarehouseDao rkWarehouseDao;
 
     @RequestMapping(value = "getAllFirms.do",method = RequestMethod.GET)
     public String getAllFirms(HttpSession session){
@@ -65,5 +66,24 @@ public class StatisticsController {
         List<Orders> ordersList=ordersDao.getOrdersByCustomId(customId);
         session.setAttribute("ordersList",ordersList);
         return "redirect:statis/sales/salesView.jsp";
+    }
+
+
+    //入库统计
+    @RequestMapping(value = "intoWarehouseStatis.do",method = RequestMethod.GET)
+    public String intoWarehouse(){
+
+        return "redirect:statis/stock/stockStatis.jsp";
+    }
+
+
+
+    //出库统计
+    @RequestMapping(value = "outWarehouseStatis.do",method = RequestMethod.GET)
+    public String outWarehouse(HttpSession session){
+        //获取所有出库信息
+        List<CkWarehouse> ckWarehouseList=ckWarehouseDao.getAllCkWarehouse();
+        session.setAttribute("ckWarehouseList",ckWarehouseList);
+        return "redirect:statis/delivery/deliveryStatis.jsp";
     }
 }
