@@ -79,9 +79,7 @@
         <result column="CustomId"  property="customid" />
         <result column="OrderTime"  property="ordertime" />
         <result column="OrderMoney"  property="ordermoney" />
-        <!--<result column="operatorId"  property="operatorid" />-->
         <result column="dStatus"  property="dstatus" />
-        <!--<result column="Checkid"  property="checkid" />-->
         <result column="Chectime" property="chectime" />
         <result column="opinion"  property="opinion" />
         <result column="warehouseId"  property="warehouseid" />
@@ -124,7 +122,7 @@
     SELECT * FROM orders  LEFT JOIN custom ON orders.CustomId = custom.CUSTOMID
     LEFT JOIN users ON orders.operatorId = users.u_id
     LEFT JOIN warehouse ON orders.warehouseId = warehouse.ID
-    where CustomId=#{customId}
+    where custom.CUSTOMID=#{customId}
   </select>
   <select id="getAllOrdersById" resultMap="getAll">
       select * FROM orders where operatorId=#{operatorid} limit #{page},#{size}

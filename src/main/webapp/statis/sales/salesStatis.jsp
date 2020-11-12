@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -59,10 +60,15 @@
             <c:forEach items="${customList}" var="custom" varStatus="index">
                 <tr>
                     <td>${index.index+1}</td>
-                    <td>${custom.}</td>
-                    <td>江苏南京</td>
-                    <td>5</td>
-                    <td>￥9,876,582</td>
+                    <td>${custom.customname}</td>
+                    <td>${custom.province.pName}</td>
+                    <td>${custom.ordersList.size()}</td>
+                    <c:set var="sum" value="0"/>
+                    <c:forEach items="${custom.ordersList}" var="order">
+                        <c:set var="sum" value="${sum+order.ordermoney}"/>
+                    </c:forEach>
+                    <fmt:parseNumber var="i"  type="number" value="${sum}" />
+                    <td>￥<c:out value="${i}"/> </td>
                     <td>
                         <a href="salesView.jsp" class="tablelink">查看详情</a>
                     </td>
