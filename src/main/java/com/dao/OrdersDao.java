@@ -25,5 +25,8 @@ public interface OrdersDao {
     public List<Orders> getOrdersByCon(Pager<Orders> pager);
     public int countOrdersByCon(Map<String,Object> map);
 
-
+    //通过订单编号获取订单(含订单详情)
+    public Orders getOneOrder1(String orderId);
+    //根据客户得到所有订单(含订单详情)
+    public List<Orders> getOrdersByCustomId1(int customId);
 }

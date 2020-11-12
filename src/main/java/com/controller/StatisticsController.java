@@ -1,9 +1,6 @@
 package com.controller;
 
-import com.bean.Custom;
-import com.bean.Firm;
-import com.bean.Orders;
-import com.bean.Purchase;
+import com.bean.*;
 import com.dao.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,6 +25,12 @@ public class StatisticsController {
     public CustomDao customDao;
     @Autowired
     public OrdersDao ordersDao;
+    @Autowired
+    public CkWarehouseDao ckWarehouseDao;
+    @Autowired
+    public RkWarehouseDao rkWarehouseDao;
+    @Autowired
+    public WarehouseDao warehouseDao;
 
     @RequestMapping(value = "getAllFirms.do",method = RequestMethod.GET)
     public String getAllFirms(HttpSession session){
@@ -62,8 +65,44 @@ public class StatisticsController {
     @RequestMapping(value = "getOrdersByCustomId.do",method = RequestMethod.GET)
     public String getOrdersByCustomId(HttpServletRequest request ,HttpSession session){
         int customId=Integer.parseInt(request.getParameter("id"));
-        List<Orders> ordersList=ordersDao.getOrdersByCustomId(customId);
+        List<Orders> ordersList=ordersDao.getOrdersByCustomId1(customId);
         session.setAttribute("ordersList",ordersList);
         return "redirect:statis/sales/salesView.jsp";
+    }
+
+
+    //入库统计
+    @RequestMapping(value = "intoWarehouseStatis.do",method = RequestMethod.GET)
+    public String intoWarehouse(HttpSession session){
+        //获取所有仓库
+        List<Warehouse> warehouseList=warehouseDao.getAllWarehouseStatis();
+        session.setAttribute("warehouseList",warehouseList);
+        return "redirect:statis/stock/stockStatis.jsp";
+    }
+    //根据仓库获取入库详情集合
+    @RequestMapping(value = "getRkWarehouseByWarehouseId.do",method = RequestMethod.GET)
+    public String getRkWarehouseByWarehouseId(HttpServletRequest request,HttpSession session){
+        int id=Integer.parseInt(request.getParameter("id"));
+        List<RkWarehouse> rkWarehouseList=rkWarehouseDao.getAllRkWarehouse(id);
+        session.setAttribute("rkWarehouseList",rkWarehouseList);
+        return "redirect:statis/stock/stockView.jsp";
+    }
+
+
+    //出库统计
+    @RequestMapping(value = "outWarehouseStatis.do",method = RequestMethod.GET)
+    public String outWarehouse(HttpSession session){
+        //获取所有仓库
+        List<Warehouse> warehouseList=warehouseDao.getAllWarehouseStatis();
+        session.setAttribute("warehouseList",warehouseList);
+        return "redirect:statis/delivery/deliveryStatis.jsp";
+    }
+    //根据仓库获取出库详情集合
+    @RequestMapping(value = "getCkWarehouseByWarehouseId.do",method = RequestMethod.GET)
+    public String getCkWarehouseByWarehouseId(HttpServletRequest request,HttpSession session){
+        int id=Integer.parseInt(request.getParameter("id"));
+        List<CkWarehouse> ckWarehouseList=ckWarehouseDao.getAllCkWarehouse(id);
+        session.setAttribute("ckWarehouseList",ckWarehouseList);
+        return "redirect:statis/delivery/deliveryView.jsp";
     }
 }

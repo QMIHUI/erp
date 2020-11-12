@@ -2,6 +2,7 @@ package com.bean;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * warehouse
@@ -72,11 +73,44 @@ public class Warehouse implements Serializable {
     private Province province;
     //多对一(仓库对市)
     private City city;
+    //出、入库集合
+    private List<CkWarehouse> ckWarehouseList;
+    private List<RkWarehouse> rkWarehouseList;
 
     public Warehouse(){}
     public Warehouse(Integer id, Integer state) {
         this.id = id;
         this.state = state;
+    }
+
+    public Warehouse(Integer id, String name, String cAddress, Users principal, String phone, String details, Integer state, Users creater, String creationTime, Province province, City city) {
+        this.id = id;
+        this.name = name;
+        this.cAddress = cAddress;
+        this.principal = principal;
+        this.phone = phone;
+        this.details = details;
+        this.state = state;
+        this.creater = creater;
+        this.creationTime = creationTime;
+        this.province = province;
+        this.city = city;
+    }
+
+    public Warehouse(Integer id, String name, String cAddress, Users principal, String phone, String details, Integer state, Users creater, String creationTime, Province province, City city, List<CkWarehouse> ckWarehouseList, List<RkWarehouse> rkWarehouseList) {
+        this.id = id;
+        this.name = name;
+        this.cAddress = cAddress;
+        this.principal = principal;
+        this.phone = phone;
+        this.details = details;
+        this.state = state;
+        this.creater = creater;
+        this.creationTime = creationTime;
+        this.province = province;
+        this.city = city;
+        this.ckWarehouseList = ckWarehouseList;
+        this.rkWarehouseList = rkWarehouseList;
     }
 
     public Integer getId() {
@@ -191,6 +225,37 @@ public class Warehouse implements Serializable {
         this.city = city;
     }
 
+    public Users getPrincipal() {
+        return principal;
+    }
+
+    public void setPrincipal(Users principal) {
+        this.principal = principal;
+    }
+
+    public Users getCreater() {
+        return creater;
+    }
+
+    public void setCreater(Users creater) {
+        this.creater = creater;
+    }
+
+    public List<CkWarehouse> getCkWarehouseList() {
+        return ckWarehouseList;
+    }
+
+    public void setCkWarehouseList(List<CkWarehouse> ckWarehouseList) {
+        this.ckWarehouseList = ckWarehouseList;
+    }
+
+    public List<RkWarehouse> getRkWarehouseList() {
+        return rkWarehouseList;
+    }
+
+    public void setRkWarehouseList(List<RkWarehouse> rkWarehouseList) {
+        this.rkWarehouseList = rkWarehouseList;
+    }
 
     @Override
     public String toString() {

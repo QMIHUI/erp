@@ -89,9 +89,9 @@ pageEncoding="UTF-8"%>
         </tr>
       </thead>
       <tbody>
-      <c:forEach items="${orderDetailsList}" var="orderDeList">
+      <c:forEach items="${orderDetailsList}" var="orderDeList" varStatus="index">
         <tr>
-          <td>${orderDeList.detailsId}</td>
+          <td>${index.index+1}</td>
           <td>${orderDeList.product.productModel}</td>
           <td>${orderDeList.purchaseNum}</td>
           <td>${orderDeList.product.productUnit}</td>

@@ -166,7 +166,7 @@
         <result property="telephone" column="TELEPHONE"/>
         <result property="cstatus" column="STATUS"/>
         <association property="province" select="com.dao.ProvinceDao.getProvinceById" column="ADDRESS"/>
-        <association property="ordersList" select="com.dao.OrdersDao.getOrdersByCustomId" column="CUSTOMID"/>
+        <association property="ordersList" select="com.dao.OrdersDao.getOrdersByCustomId1" column="CUSTOMID"/>
     </resultMap>
     <!--数据统计页面查找所有客户-->
     <select id="getAllCustomsStatis" resultMap="CustomsStatis">
