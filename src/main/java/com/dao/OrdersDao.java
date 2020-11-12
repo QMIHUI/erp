@@ -11,5 +11,10 @@ public interface OrdersDao {
     public int countOrders();
     //通过订单编号获取订单
     public Orders getOneOrder(String orderId);
+    //删除订单
+    public int deleteOrder(String orderId);
+    //提交审核订单
+    public int examineOrder(String orderId);
+
     
 }

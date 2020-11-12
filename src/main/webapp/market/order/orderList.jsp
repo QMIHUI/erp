@@ -9,24 +9,21 @@ pageEncoding="UTF-8"%>
 <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css" />
   <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.js"></script>
 <script type="text/javascript">
-    /*function deltipOpen(orderId) {
-        $("input[name='delOrder']").bind("click",function () {
-          window.location.href="/deleteOrder.do?orderId="+orderId;
-        })
-        $("#deltip").fadeIn(200);
-    }*/
-    function tipOpen(content,custId) {
-      $(".tipright p").text(content);
-      $("input[name='cancelCust']").bind("click",function () {
-        window.location.href="${pageContext.request.contextPath}/cancelCust.do?custId="+custId;
+    function deltipOpen(orderId) {
+      $("#deltip").fadeIn(200);
+      $("input[name='delete']").bind("click",function () {
+        window.location.href="${pageContext.request.contextPath}/deleteOrder.do?orderId="+orderId;
       })
-      $("#tip").fadeIn(200);
     }
     function deltipClose() {
         $("#deltip").fadeOut(200);
+
     }
-    function examinetipOpen() {
+    function examinetipOpen(orderId) {
         $("#examinetip").fadeIn(200);
+        $("input[name='examine']").bind("click",function () {
+          window.location.href="${pageContext.request.contextPath}/examineOrder.do?orderId="+orderId;
+        })
     }
     function examinetipclose() {
         $("#examinetip").fadeOut(200);
@@ -111,9 +108,8 @@ pageEncoding="UTF-8"%>
             <c:if test="${lorder.dstatus==4}">
               <a href="${pageContext.request.contextPath}/getOneOrder.do?orderId=${lorder.orderId}&op=查看" class="tablelink">查看详情</a>
               <a href="${pageContext.request.contextPath}/getOneOrder.do?orderId=${lorder.orderId}&op=更新" class="tablelink">修改</a>
-              <%--<a href="javascript:void(0);" class="tablelink" onclick="tipOpen(${lorder.orderId})">删除</a>--%>
-              <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('是否确认注销此条信息？',${lorder.orderId}">注销</a>
-              <a href="javascript:void(0);" class="tablelink" onclick="examinetipOpen()">提交审核</a>
+              <a href="javascript:void(0);" class="tablelink" onclick="deltipOpen('${lorder.orderId}')">删除</a>
+              <a href="javascript:void(0);" class="tablelink" onclick="examinetipOpen('${lorder.orderId}')">提交审核</a>
             </c:if>
             <c:if test="${lorder.dstatus==1}">
               <a href="${pageContext.request.contextPath}/getOneOrder.do?orderId=${lorder.orderId}&op=查看" class="tablelink">查看详情</a>
@@ -125,30 +121,12 @@ pageEncoding="UTF-8"%>
             <c:if test="${lorder.dstatus==3}">
               <a href="${pageContext.request.contextPath}/getOneOrder.do?orderId=${lorder.orderId}&op=查看" class="tablelink">查看详情</a>
               <a href="orderUpdate.jsp" class="tablelink">修改</a>
-              <a href="javascript:void(0);" class="tablelink" onclick="deltipOpen()">删除</a>
+                <a href="javascript:void(0);" class="tablelink" onclick="deltipOpen('${lorder.orderId}')">删除</a>
               <a href="javascript:void(0);" class="tablelink" onclick="examinetipOpen()">提交审核</a>
             </c:if>
           </td>
         </tr>
       </c:forEach>
-        <%--<tr>
-          <td>1</td>
-          <td>DJ201701270001</td>
-          <td>王金平</td>
-          <td>17370899727</td>
-          <td>2017-01-25 15:05:05</td>
-          <td>￥9,876,582</td>
-          <td>关羽</td>
-          <td>未审核</td>
-          <td></td>
-          <td></td>
-          <td>
-          	<a href="orderView.jsp" class="tablelink">查看详情</a>
-            <a href="orderUpdate.jsp" class="tablelink">修改</a>
-            <a href="javascript:void(0);" class="tablelink" onclick="deltipOpen()">删除</a>
-            <a href="javascript:void(0);" class="tablelink" onclick="examinetipOpen()">提交审核</a>
-            </td>
-        </tr>--%>
       </tbody>
     </table>
     <div class="pagin">
@@ -161,19 +139,6 @@ pageEncoding="UTF-8"%>
       </ul>
     </div>
   </form>
-  <!-- 提示框 -->
-  <div id="tip" class="tip">
-    <div class="tiptop"><span>提示信息</span><a onclick="tipClose()"></a></div>
-    <div class="tipinfo"> <span><img src="${pageContext.request.contextPath }/images/ticon.png" /></span>
-      <div class="tipright">
-        <p></p>
-        <cite>如果是请点击确定按钮 ，否则请点取消。</cite> </div>
-    </div>
-    <div class="tipbtn">
-      <input name="cancelCust" type="button"  class="sure" value="确定" />
-      <input name="" type="button"  class="cancel" value="取消" onclick="tipClose()" />
-    </div>
-  </div>
 
   <!-- 删除提示框 -->
   <div id="deltip" class="tip">
@@ -184,18 +149,31 @@ pageEncoding="UTF-8"%>
         <cite>如果是请点击确定按钮 ，否则请点取消。</cite> </div>
     </div>
     <div class="tipbtn">
-      <input name="delOrder" type="button"  class="sure" value="确定"  />
+      <input name="delete" type="button"  class="sure" value="确定" />
+      &nbsp;
       <input name="" type="button"  class="cancel" value="取消" onclick="deltipClose()" />
     </div>
   </div>
-  
+
   <!-- 审批提示框 -->
   <div id="examinetip" class="tip">
+    <div class="tiptop"><span>提示信息</span><a onclick="deltipClose()"></a></div>
+    <div class="tipinfo"> <span><img src="${pageContext.request.contextPath}/images/ticon.png" /></span>
+      <div class="tipright">
+        <p>是否提交审核此条信息？</p>
+        <cite>如果是请点击确定按钮 ，否则请点取消。</cite> </div>
+    </div>
+    <div class="tipbtn">
+      <input name="examine" type="button"  class="sure" value="确定" />
+      <input name="" type="button"  class="cancel" value="取消" onclick="deltipClose()" />
+    </div>
+  </div>
+  <%--<div id="examinetip" class="tip">
     <div class="tiptop">
     	<span>提示信息</span><a onclick="examinetipclose()"></a>
     </div>
     <div class="tipinfo1">
-        部门：
+        &lt;%&ndash;部门：
             <select class="dfselect">
             	<option>请选择</option>
                 <option>市场部</option>
@@ -217,7 +195,7 @@ pageEncoding="UTF-8"%>
                 <option>刘备</option>
                 <option>曹操</option>
             </select>
-			<p/>
+			<p/>&ndash;%&gt;
     </div>
     <div class="tipbtn">
       <input name="" type="button"  class="sure" value="确定" onclick="examinetipclose()" />
@@ -225,7 +203,7 @@ pageEncoding="UTF-8"%>
       <input name="" type="button"  class="cancel" value="取消" onclick="examinetipclose()" />
     </div>
   </div>
-</div>
+</div>--%>
 <script type="text/javascript">
 	$('.tablelist tbody tr:odd').addClass('odd');
 </script>

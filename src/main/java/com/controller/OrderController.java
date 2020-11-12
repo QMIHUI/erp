@@ -85,10 +85,32 @@ public class OrderController {
     }
 
     @RequestMapping(value = "deleteOrder.do",method = RequestMethod.GET)
-    public String deleteOrder(){
+    public String deleteOrder(HttpServletRequest request){
         System.out.println("执行删除订单！！！");
-
-        return "";
+        String orderId = request.getParameter("orderId");
+        System.out.println(orderId);
+        //删除订单详情
+        int n = orderdetailsDao.deleteOrderDetail(orderId);
+        //删除订单
+        int num = ordersDao.deleteOrder(orderId);
+        System.out.println(num);
+        System.out.println(n);
+        if(num>0 && n>0 ){
+            return "forward:queryAllOrder.do";
+        }else{
+            return "forward:queryAllOrder.do";
+        }
     }
+
+    @RequestMapping(value = "examineOrder.do",method = RequestMethod.GET)
+    public String examineOrder(HttpServletRequest request){
+        System.out.println("执行提交审核");
+        String orderId = request.getParameter("orderId");
+        System.out.println(orderId);
+        int num = ordersDao.examineOrder(orderId);
+        return "forward:queryAllOrder.do";
+    }
+
+
 
 }
