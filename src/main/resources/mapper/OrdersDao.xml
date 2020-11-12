@@ -44,8 +44,8 @@
             <result column="CREATION_TIME" property="creationTime" />
             <result column="CITY_ID"  property="cityId" />
         </association>
-        <association property="orderdetailsList" select="com.dao.OrderdetailsDao.getDetailsByOrderId" column="order_id"/>
     </resultMap>
+
     <sql id="Base_Column_List">
     order_id, CustomId, OrderTime, OrderMoney, operatorId, dStatus, Checkid, Chectime, 
     opinion, warehouseId, Dd_state
@@ -74,8 +74,53 @@
   </select>
 
 
+    <resultMap id="psqing" type="com.bean.Orders">
+        <id column="order_id"  property="orderId" />
+        <result column="CustomId"  property="customid" />
+        <result column="OrderTime"  property="ordertime" />
+        <result column="OrderMoney"  property="ordermoney" />
+        <!--<result column="operatorId"  property="operatorid" />-->
+        <result column="dStatus"  property="dstatus" />
+        <!--<result column="Checkid"  property="checkid" />-->
+        <result column="Chectime" property="chectime" />
+        <result column="opinion"  property="opinion" />
+        <result column="warehouseId"  property="warehouseid" />
+        <result column="Dd_state"  property="ddState" />
+        <association property="custom" javaType="Custom">
+            <id column="CUSTOMID" jdbcType="INTEGER" property="customid" />
+            <result column="CUSTOMNAME"  property="customname" />
+            <result column="SEX"  property="sex" />
+            <result column="TELEPHONE"  property="telephone" />
+            <result column="COMPANY"  property="company" />
+            <result column="ADDRESS"  property="address" />
+            <result column="CSTATUS"  property="cstatus" />
+            <result column="CREATETIME"  property="createtime" />
+            <result column="CREATEID"  property="createid" />
+            <result column="LEADING"  property="leading" />
+            <result column="DISTRACTIME" jdbcType="VARCHAR"  property="distractime" />
+            <result column="SERVICEID"  property="serviceid" />
+            <result column="DISTRACT"  property="distract" />
+            <result column="HOMEADDRESS"  property="homeaddress" />
+        </association>
+        <association property="operatorid" select="com.dao.UsersDao.getOneUser" column="operatorId"/>
+        <association property="checkid" select="com.dao.UsersDao.getOneUser" column="Checkid"/>
+        <association property="warehouse" javaType="Warehouse">
+            <id column="ID"  property="id" />
+            <result column="NAME"  property="name" />
+            <result column="C_ADDRESS"  property="cAddress" />
+            <result column="PROVINCE_ID"  property="provinceId" />
+            <result column="USRE_ID"  property="usreId" />
+            <result column="PHONE"  property="phone" />
+            <result column="DETAILS"  property="details" />
+            <result column="STATE"  property="state" />
+            <result column="USERS_ID"  property="usersId" />
+            <result column="CREATION_TIME" property="creationTime" />
+            <result column="CITY_ID"  property="cityId" />
+        </association>
+        <association property="orderdetailsList" select="com.dao.OrderdetailsDao.getDetailsByOrderId" column="order_id"/>
+    </resultMap>
   <!--根据客户得到所有订单-->
-  <select id="getOrdersByCustomId" resultMap="getAll">
+  <select id="getOrdersByCustomId" resultMap="psqing">
     SELECT * FROM orders  LEFT JOIN custom ON orders.CustomId = custom.CUSTOMID
     LEFT JOIN users ON orders.operatorId = users.u_id
     LEFT JOIN warehouse ON orders.warehouseId = warehouse.ID

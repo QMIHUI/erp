@@ -1,5 +1,6 @@
 package com.controller;
 
+import com.bean.Custom;
 import com.bean.Firm;
 import com.bean.Purchase;
 import com.dao.*;
@@ -22,6 +23,8 @@ public class StatisticsController {
     public FirmDao firmDao;
     @Autowired
     public PurchaseDao purchaseDao;
+    @Autowired
+    public CustomDao customDao;
 
     @RequestMapping(value = "getAllFirms.do",method = RequestMethod.GET)
     public String getAllFirms(HttpSession session){
@@ -44,5 +47,11 @@ public class StatisticsController {
         Purchase purchase=purchaseDao.getPurchaseById(purchaseId);
         session.setAttribute("purchase",purchase);
         return "redirect:statis/purchase/details.jsp";
+    }
+    @RequestMapping(value = "getAllcustomsStatis.do",method = RequestMethod.GET)
+    public String getAllcustomsStatis(HttpSession session){
+        List<Custom> customList=customDao.getAllCustomsStatis();
+        session.setAttribute("customList",customList);
+        return "redirect:statis/sales/salesStatis.jsp";
     }
 }
