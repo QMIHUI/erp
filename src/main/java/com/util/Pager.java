@@ -31,6 +31,7 @@ public class Pager<T> {
     private String customname;
     private int address;
     private int cstatus;
+    private int leading;
     //订购单
     private int operatorid;
 
@@ -42,6 +43,14 @@ public class Pager<T> {
     private List<T> rows;//返回的记录集合
     private long total;//总记录条数
 
+
+    public int getLeading() {
+        return leading;
+    }
+
+    public void setLeading(int leading) {
+        this.leading = leading;
+    }
 
     public int getOperatorid() {
         return operatorid;

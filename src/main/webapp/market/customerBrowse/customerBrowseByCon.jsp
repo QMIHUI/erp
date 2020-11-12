@@ -109,10 +109,10 @@
     <div class="pagin">
         <div class="message">共<i class="blue">${countCustBroByCon}</i>条记录，当前显示第&nbsp;<i class="blue">${pageIndex}&nbsp;</i>页</div>
         <ul class="paginList">
-            <li class="paginItem"><a href="${pageContext.request.contextPath }/getCustBroByCon.do?pageIndex=1&custCom=${custCom}&custName=${custName}&province=${province}">首页</a></li>
-            <li class="paginItem"><a href="${pageContext.request.contextPath }/getCustBroByCon.do?pageIndex=${pageIndex-1}&custCom=${custCom}&custName=${custName}&province=${province}">上页</a></li>
-            <li class="paginItem"><a href="${pageContext.request.contextPath }/getCustBroByCon.do?pageIndex=${pageIndex+1}&custCom=${custCom}&custName=${custName}&province=${province}">下页</a></li>
-            <li class="paginItem"><a href="${pageContext.request.contextPath }/getCustBroByCon.do?pageIndex=${rowCustBroByCon}&custCom=${custCom}&custName=${custName}&province=${province}">末页</a></li>
+            <li class="paginItem"><a href="${pageContext.request.contextPath }/getCustBroByCon.do?pageIndex=1&custCom=${custCom}&custName=${custName}&province=${province}&uId=${uId}">首页</a></li>
+            <li class="paginItem"><a href="${pageContext.request.contextPath }/getCustBroByCon.do?pageIndex=${pageIndex-1}&custCom=${custCom}&custName=${custName}&province=${province}&uId=${uId}">上页</a></li>
+            <li class="paginItem"><a href="${pageContext.request.contextPath }/getCustBroByCon.do?pageIndex=${pageIndex+1}&custCom=${custCom}&custName=${custName}&province=${province}&uId=${uId}">下页</a></li>
+            <li class="paginItem"><a href="${pageContext.request.contextPath }/getCustBroByCon.do?pageIndex=${rowCustBroByCon}&custCom=${custCom}&custName=${custName}&province=${province}&uId=${uId}">末页</a></li>
         </ul>
     </div>
     <!-- 提示框 -->

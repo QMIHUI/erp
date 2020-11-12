@@ -123,6 +123,7 @@
     SELECT count(*) FROM custom LEFT JOIN province ON custom.address = province.ID
     LEFT JOIN users ON custom.CREATEID = users.u_id WHERE DISTRACTIME IS NOT NULL
   </select>
+    <!-- 客户浏览模糊查询 -->
     <select id="getCustomBroByCon" resultMap="getAll">
         SELECT * FROM custom LEFT JOIN province ON custom.address = province.ID
         LEFT JOIN users ON custom.CREATEID = users.u_id WHERE DISTRACTIME IS NOT NULL
@@ -134,6 +135,9 @@
         </if>
         <if test="address!=null and address!='' ">
             and ADDRESS=#{address}
+        </if>
+        <if test="leading!=null and leading!='' ">
+            and custom.LEADING=#{leading}
         </if>
         limit #{page},#{size}
     </select>
@@ -148,6 +152,9 @@
         </if>
         <if test="address!=null and address!='' ">
             and ADDRESS=#{address}
+        </if>
+        <if test="leading!=null and leading!='' ">
+            and custom.LEADING=#{leading}
         </if>
     </select>
     <select id="getCust" resultMap="BaseResultMap">
@@ -164,6 +171,12 @@
     <!--数据统计页面查找所有客户-->
     <select id="getAllCustomsStatis" resultMap="CustomsStatis">
         select CUSTOMID,CUSTOMNAME,TELEPHONE,CSTATUS,ADDRESS from custom
+    </select>
+    <select id="getAllCustomById" resultMap="getAll">
+        select * from custom where custom.LEADING=#{leading} limit #{page},#{size}
+    </select>
+    <select id="countCustomById" resultType="java.lang.Integer">
+        select count(*) from custom where custom.LEADING=#{leading}
     </select>
     <!--this.customid = customid;
         this.customname = customname;
