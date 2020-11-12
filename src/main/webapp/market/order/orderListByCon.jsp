@@ -87,50 +87,50 @@ pageEncoding="UTF-8"%>
         </tr>
       </thead>
       <tbody>
-      <c:forEach items="${listOrder}" var="lorder">
+      <c:forEach items="${listOrdersByCon}" var="lorderbc">
         <tr>
-          <td>${lorder.orderId}</td>
-          <td>${lorder.custom.customname}</td>
-          <td>${lorder.custom.telephone}</td>
-          <td>${lorder.ordertime}</td>
-          <td>${lorder.ordermoney}</td>
-          <td>${lorder.operatorid.uname}</td>
-          <c:if test="${lorder.dstatus==1}">
+          <td>${lorderbc.orderId}</td>
+          <td>${lorderbc.custom.customname}</td>
+          <td>${lorderbc.custom.telephone}</td>
+          <td>${lorderbc.ordertime}</td>
+          <td>${lorderbc.ordermoney}</td>
+          <td>${lorderbc.operatorid.uname}</td>
+          <c:if test="${lorderbc.dstatus==1}">
             <td>审核中</td>
           </c:if>
-          <c:if test="${lorder.dstatus==2}">
+          <c:if test="${lorderbc.dstatus==2}">
             <td>审核通过</td>
           </c:if>
-          <c:if test="${lorder.dstatus==3}">
+          <c:if test="${lorderbc.dstatus==3}">
             <td>审核不通过</td>
           </c:if>
-          <c:if test="${lorder.dstatus==4}">
+          <c:if test="${lorderbc.dstatus==4}">
             <td>未审核</td>
           </c:if>
-          <td>${lorder.checkid.uname}</td>
-          <td>${lorder.chectime}</td>
+          <td>${lorderbc.checkid.uname}</td>
+          <td>${lorderbc.chectime}</td>
           <td>
             <c:if test="${user.jobId==2}">
-              <a href="${pageContext.request.contextPath}/getOneOrder.do?orderId=${lorder.orderId}&op=查看" class="tablelink">查看详情</a>
+              <a href="${pageContext.request.contextPath}/getOneOrder.do?orderId=${lorderbc.orderId}&op=查看" class="tablelink">查看详情</a>
             </c:if>
             <c:if test="${user.jobId!=2}">
-              <c:if test="${lorder.dstatus==4}">
-                <a href="${pageContext.request.contextPath}/getOneOrder.do?orderId=${lorder.orderId}&op=查看" class="tablelink">查看详情</a>
-                <a href="${pageContext.request.contextPath}/getOneOrder.do?orderId=${lorder.orderId}&op=更新" class="tablelink">修改</a>
-                <a href="javascript:void(0);" class="tablelink" onclick="deltipOpen('${lorder.orderId}')">删除</a>
-                <a href="javascript:void(0);" class="tablelink" onclick="examinetipOpen('${lorder.orderId}')">提交审核</a>
+              <c:if test="${lorderbc.dstatus==4}">
+                <a href="${pageContext.request.contextPath}/getOneOrder.do?orderId=${lorderbc.orderId}&op=查看" class="tablelink">查看详情</a>
+                <a href="${pageContext.request.contextPath}/getOneOrder.do?orderId=${lorderbc.orderId}&op=更新" class="tablelink">修改</a>
+                <a href="javascript:void(0);" class="tablelink" onclick="deltipOpen('${lorderbc.orderId}')">删除</a>
+                <a href="javascript:void(0);" class="tablelink" onclick="examinetipOpen('${lorderbc.orderId}')">提交审核</a>
               </c:if>
-              <c:if test="${lorder.dstatus==1}">
-                <a href="${pageContext.request.contextPath}/getOneOrder.do?orderId=${lorder.orderId}&op=查看" class="tablelink">查看详情</a>
+              <c:if test="${lorderbc.dstatus==1}">
+                <a href="${pageContext.request.contextPath}/getOneOrder.do?orderId=${lorderbc.orderId}&op=查看" class="tablelink">查看详情</a>
               </c:if>
-              <c:if test="${lorder.dstatus==2}">
-                <a href="${pageContext.request.contextPath}/getOneOrder.do?orderId=${lorder.orderId}&op=查看" class="tablelink">查看详情</a>
+              <c:if test="${lorderbc.dstatus==2}">
+                <a href="${pageContext.request.contextPath}/getOneOrder.do?orderId=${lorderbc.orderId}&op=查看" class="tablelink">查看详情</a>
                 <a href="${pageContext.request.contextPath}/storage/delivery/deliveryView.jsp" class="tablelink">出库详情</a>
               </c:if>
-              <c:if test="${lorder.dstatus==3}">
-                <a href="${pageContext.request.contextPath}/getOneOrder.do?orderId=${lorder.orderId}&op=查看" class="tablelink">查看详情</a>
+              <c:if test="${lorderbc.dstatus==3}">
+                <a href="${pageContext.request.contextPath}/getOneOrder.do?orderId=${lorderbc.orderId}&op=查看" class="tablelink">查看详情</a>
                 <a href="orderUpdate.jsp" class="tablelink">修改</a>
-                  <a href="javascript:void(0);" class="tablelink" onclick="deltipOpen('${lorder.orderId}')">删除</a>
+                  <a href="javascript:void(0);" class="tablelink" onclick="deltipOpen('${lorderbc.orderId}')">删除</a>
                 <a href="javascript:void(0);" class="tablelink" onclick="examinetipOpen()">提交审核</a>
               </c:if>
             </c:if>
@@ -140,12 +140,12 @@ pageEncoding="UTF-8"%>
       </tbody>
     </table>
     <div class="pagin">
-      <div class="message">共<i class="blue">${countOrder}</i>条记录，当前显示第&nbsp;<i class="blue">${pageIndex}&nbsp;</i>页</div>
+      <div class="message">共<i class="blue">${countOrderByCon}</i>条记录，当前显示第&nbsp;<i class="blue">${pageIndex}&nbsp;</i>页</div>
       <ul class="paginList">
-        <li class="paginItem"><a href="${pageContext.request.contextPath }/queryAllOrder.do?pageIndex=1">首页</a></li>
-        <li class="paginItem"><a href="${pageContext.request.contextPath }/queryAllOrder.do?pageIndex=${pageIndex-1}">上页</a></li>
-        <li class="paginItem"><a href="${pageContext.request.contextPath }/queryAllOrder.do?pageIndex=${pageIndex+1}">下页</a></li>
-        <li class="paginItem"><a href="${pageContext.request.contextPath }/queryAllOrder.do?pageIndex=${rowOrder}">末页</a></li>
+        <li class="paginItem"><a href="${pageContext.request.contextPath }/getOrderByCon.do?pageIndex=1&orderId=${orderId}&startDate=${startDate}&enddate=${enddate}&bPrice=${bPrice}&sPrice=${sPrice}&dstatus=${dstatus}&uId=${uId}">首页</a></li>
+        <li class="paginItem"><a href="${pageContext.request.contextPath }/getOrderByCon.do?pageIndex=${pageIndex-1}&orderId=${orderId}&startDate=${startDate}&enddate=${enddate}&bPrice=${bPrice}&sPrice=${sPrice}&dstatus=${dstatus}&uId=${uId}">上页</a></li>
+        <li class="paginItem"><a href="${pageContext.request.contextPath }/getOrderByCon.do?pageIndex=${pageIndex+1}&orderId=${orderId}&startDate=${startDate}&enddate=${enddate}&bPrice=${bPrice}&sPrice=${sPrice}&dstatus=${dstatus}&uId=${uId}">下页</a></li>
+        <li class="paginItem"><a href="${pageContext.request.contextPath }/getOrderByCon.do?pageIndex=${rowOrderByCon}&orderId=${orderId}&startDate=${startDate}&enddate=${enddate}&bPrice=${bPrice}&sPrice=${sPrice}&dstatus=${dstatus}&uId=${uId}">末页</a></li>
       </ul>
     </div>
   <!-- 删除提示框 -->

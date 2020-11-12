@@ -4,6 +4,7 @@ import com.bean.Orders;
 import com.util.Pager;
 
 import java.util.List;
+import java.util.Map;
 
 public interface OrdersDao {
     //得到所有并分页
@@ -20,6 +21,9 @@ public interface OrdersDao {
     public int deleteOrder(String orderId);
     //提交审核订单
     public int examineOrder(String orderId);
+    //模糊查询
+    public List<Orders> getOrdersByCon(Pager<Orders> pager);
+    public int countOrdersByCon(Map<String,Object> map);
 
     //通过订单编号获取订单(含订单详情)
     public Orders getOneOrder1(String orderId);

@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author HUI
@@ -130,7 +132,6 @@ public class OrderController {
             return "forward:queryAllOrder.do";
         }
     }
-
     @RequestMapping(value = "examineOrder.do",method = RequestMethod.GET)
     public String examineOrder(HttpServletRequest request){
         System.out.println("执行提交审核");
@@ -138,6 +139,126 @@ public class OrderController {
         System.out.println(orderId);
         int num = ordersDao.examineOrder(orderId);
         return "forward:queryAllOrder.do";
+    }
+
+    /* 模糊查询 */
+    @RequestMapping(value = "getOrderByCon",method = RequestMethod.GET)
+    public String getOrderByCon(HttpSession session,HttpServletRequest request){
+        Users user=(Users)session.getAttribute("user");
+        int size = 5;
+        String orderId = request.getParameter("orderId");
+        String startDate = request.getParameter("startDate");
+        String enddate = request.getParameter("enddate");
+        Double sPrice = 0.0;
+        Double bPrice = 0.0;
+        String sPrice01 =request.getParameter("sPrice");
+        if(!(sPrice01.equals(""))){
+            sPrice = Double.parseDouble(sPrice01);
+        }
+        String bPrice01 =request.getParameter("bPrice");
+        if(!(bPrice01.equals(""))){
+            bPrice = Double.parseDouble(bPrice01);
+        }
+        int dstatus = Integer.parseInt(request.getParameter("dstatus"));
+
+        if (user.getJobId()==1||user.getJobId()==2){
+            System.out.println("执行所有订单模糊查询！！！");
+            System.out.println(orderId+".11-"+startDate+".11-"+enddate+".11-"+sPrice+".11-"+bPrice+".11-"+dstatus);
+            Map<String,Object> map = new HashMap<>();
+            map.put("orderId",orderId);
+            map.put("startDate",startDate);
+            map.put("enddate",enddate);
+            map.put("sPrice",sPrice);
+            map.put("bPrice",bPrice);
+            map.put("dstatus",dstatus);
+            int countOrderByCon = ordersDao.countOrdersByCon(map);
+            System.out.println("个数为:"+countOrderByCon);
+            int rowOrderByCon = countOrderByCon % size == 0 ? (countOrderByCon / size) : (countOrderByCon / size + 1);
+            System.out.println(rowOrderByCon);
+            String currentIndex= request.getParameter("pageIndex");
+            //第一次访问(当前页码=1)
+            int pageIndex = 1;
+            if(currentIndex!=null) {
+                pageIndex=Integer.parseInt(currentIndex);
+            }
+            if(currentIndex==null || Integer.parseInt(currentIndex) <= 0){
+                pageIndex = 1;
+            }else if(Integer.parseInt(currentIndex) >= rowOrderByCon){
+                pageIndex=rowOrderByCon;
+            }
+            Pager<Orders> pager = new Pager<>();
+            pager.setPage((pageIndex-1)*size);
+            pager.setSize(size);
+            pager.setTotal(countOrderByCon);
+            pager.setOrderId(orderId);
+            pager.setStartDate(startDate);
+            pager.setEndDate(enddate);
+            pager.setbPrice(bPrice);
+            pager.setsPrice(sPrice);
+            pager.setDstatus(dstatus);
+            List<Orders> listOrdersByCon = ordersDao.getOrdersByCon(pager);
+            request.getSession().setAttribute("listOrdersByCon",listOrdersByCon);
+            request.getSession().setAttribute("orderId",orderId);
+            request.getSession().setAttribute("startDate",startDate);
+            request.getSession().setAttribute("enddate",enddate);
+            request.getSession().setAttribute("bPrice",bPrice);
+            request.getSession().setAttribute("sPrice",sPrice);
+            request.getSession().setAttribute("dstatus",dstatus);
+            request.getSession().setAttribute("countOrderByCon",countOrderByCon);
+            request.getSession().setAttribute("rowOrderByCon",rowOrderByCon);
+            request.getSession().setAttribute("pageIndex",pageIndex);
+        }else{
+            System.out.println("执行个人所有订单模糊查询！！！");
+            int uId = user.getuId();
+            System.out.println(orderId+".11-"+startDate+".11-"+enddate+".11-"+sPrice+".11-"+bPrice+".11-"+dstatus);
+            Map<String,Object> map = new HashMap<>();
+            map.put("orderId",orderId);
+            map.put("startDate",startDate);
+            map.put("enddate",enddate);
+            map.put("sPrice",sPrice);
+            map.put("bPrice",bPrice);
+            map.put("dstatus",dstatus);
+            map.put("operatorid",uId);
+            int countOrderByCon = ordersDao.countOrdersByCon(map);
+            System.out.println("个数为:"+countOrderByCon);
+            int rowOrderByCon = countOrderByCon % size == 0 ? (countOrderByCon / size) : (countOrderByCon / size + 1);
+            System.out.println(rowOrderByCon);
+            String currentIndex= request.getParameter("pageIndex");
+            //第一次访问(当前页码=1)
+            int pageIndex = 1;
+            if(currentIndex!=null) {
+                pageIndex=Integer.parseInt(currentIndex);
+            }
+            if(currentIndex==null || Integer.parseInt(currentIndex) <= 0){
+                pageIndex = 1;
+            }else if(Integer.parseInt(currentIndex) >= rowOrderByCon){
+                pageIndex=rowOrderByCon;
+            }
+            Pager<Orders> pager = new Pager<>();
+            pager.setPage((pageIndex-1)*size);
+            pager.setSize(size);
+            pager.setTotal(countOrderByCon);
+            pager.setOrderId(orderId);
+            pager.setStartDate(startDate);
+            pager.setEndDate(enddate);
+            pager.setbPrice(bPrice);
+            pager.setsPrice(sPrice);
+            pager.setDstatus(dstatus);
+            pager.setOperatorid(uId);
+            List<Orders> listOrdersByCon = ordersDao.getOrdersByCon(pager);
+            request.getSession().setAttribute("listOrdersByCon",listOrdersByCon);
+            request.getSession().setAttribute("orderId",orderId);
+            request.getSession().setAttribute("startDate",startDate);
+            request.getSession().setAttribute("enddate",enddate);
+            request.getSession().setAttribute("bPrice",bPrice);
+            request.getSession().setAttribute("sPrice",sPrice);
+            request.getSession().setAttribute("dstatus",dstatus);
+            request.getSession().setAttribute("countOrderByCon",countOrderByCon);
+            request.getSession().setAttribute("rowOrderByCon",rowOrderByCon);
+            request.getSession().setAttribute("pageIndex",pageIndex);
+            request.getSession().setAttribute("uId",uId);
+        }
+        return "market/order/orderListByCon";
     }
 
 

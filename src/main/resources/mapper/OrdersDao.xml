@@ -143,5 +143,63 @@
   <select id="countOrdersById" resultType="java.lang.Integer">
       select count(*) FROM orders where operatorId=#{operatorid}
   </select>
+    <select id="getOrdersByCon" resultMap="getAll">
+        SELECT * FROM orders  LEFT JOIN custom ON orders.CustomId = custom.CUSTOMID
+        LEFT JOIN users ON orders.operatorId = users.u_id
+        LEFT JOIN warehouse ON orders.warehouseId = warehouse.ID
+        <where>
+            <if test="orderId!=null and orderId!='' ">
+                and order_id=#{orderId}
+            </if>
+            <if test="dstatus!=null and dstatus!='' ">
+                and dStatus=#{dstatus}
+            </if>
+            <if test="startDate!=null and startDate!='' ">
+                and OrderTime >= #{startDate}
+            </if>
+            <if test="endDate !=null and endDate!='' ">
+                and OrderTime &lt;= #{endDate}
+            </if>
+            <if test="sPrice!=null and sPrice!='' ">
+                and ordermoney >= #{sPrice}
+            </if>
+            <if test="bPrice !=null and bPrice!='' ">
+                and ordermoney &lt;= #{bPrice}
+            </if>
+            <if test="operatorid !=null and operatorid!='' ">
+                and operatorId=#{operatorid}
+            </if>
+        </where>
+        limit #{page},#{size}
+    </select>
+    <select id="countOrdersByCon" resultType="java.lang.Integer">
+        SELECT count(*) FROM orders
+        LEFT JOIN custom ON orders.CustomId = custom.CUSTOMID
+        LEFT JOIN users ON orders.operatorId = users.u_id
+        LEFT JOIN warehouse ON orders.warehouseId = warehouse.ID
+        <where>
+            <if test="orderId!=null and orderId!='' ">
+                and order_id=#{orderId}
+            </if>
+            <if test="dstatus!=null and dstatus!='' ">
+                and dStatus=#{dstatus}
+            </if>
+            <if test="startDate!=null and startDate!='' ">
+                and OrderTime >= #{startDate}
+            </if>
+            <if test="endDate !=null and endDate!='' ">
+                and OrderTime &lt;= #{endDate}
+            </if>
+            <if test="sPrice!=null and sPrice!='' ">
+                and ordermoney >= #{sPrice}
+            </if>
+            <if test="bPrice !=null and bPrice!='' ">
+                and ordermoney &lt;= #{bPrice}
+            </if>
+            <if test="operatorid !=null and operatorid!='' ">
+                and operatorId=#{operatorid}
+            </if>
+        </where>
+    </select>
 
 </mapper>
