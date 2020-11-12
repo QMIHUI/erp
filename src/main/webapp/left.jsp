@@ -141,7 +141,13 @@ $(function(){
                         <a href="${pageContext.request.contextPath}/queryAllOrder.do" target="rightFrame">订购单管理</a>
                         <i></i>
                     </li>
-                    <li><cite></cite><a href="market/orderExamine/orderExamineList.jsp" target="rightFrame">订购单审核</a><i></i></li>
+                    <c:if test="${user.jobId==2||user.jobId==1}">
+                        <li>
+                            <cite></cite>
+                            <a href="market/orderExamine/orderExamineList.jsp" target="rightFrame">订购单审核</a>
+                            <i></i>
+                        </li>
+                    </c:if>
                 </ul>
             </dd>
         </dl>

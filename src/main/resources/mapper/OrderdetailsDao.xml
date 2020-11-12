@@ -27,6 +27,9 @@
   <sql id="Base_Column_List">
     DETAILS_ID, PURCHASE_NUM, PRODUCT_ID, PROPRICE, PROTOTAL, ORDER_ID
   </sql>
+  <delete id="deleteOrderDetail">
+    delete from orderdetails where ORDER_ID=#{orderId}
+  </delete>
   <select id="getDetailsByOrderId" resultMap="getAll">
     SELECT * FROM orderdetails
     LEFT JOIN c_product ON orderdetails.PRODUCT_ID = c_product.PRODUCT_ID

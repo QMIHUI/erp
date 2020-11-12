@@ -151,7 +151,6 @@
         </div>
         <div class="tipbtn">
             <input name="delete" type="button"  class="sure" value="确定" />
-            &nbsp;
             <input name="" type="button"  class="cancel" value="取消" onclick="deltipClose()" />
         </div>
     </div>
