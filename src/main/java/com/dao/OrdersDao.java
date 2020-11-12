@@ -11,5 +11,8 @@ public interface OrdersDao {
     public int countOrders();
     //通过订单编号获取订单
     public Orders getOneOrder(String orderId);
+
+    //根据客户得到所有订单
+    public List<Orders> getOrdersByCustomId(int customId);
     
 }

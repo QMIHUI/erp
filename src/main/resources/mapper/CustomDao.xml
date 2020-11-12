@@ -1,157 +1,174 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dao.CustomDao">
-  <resultMap id="BaseResultMap" type="com.bean.Custom">
-    <id column="CUSTOMID" jdbcType="INTEGER" property="customid" />
-    <result column="CUSTOMNAME"  property="customname" />
-    <result column="SEX"  property="sex" />
-    <result column="TELEPHONE"  property="telephone" />
-    <result column="COMPANY"  property="company" />
-    <result column="ADDRESS"  property="address" />
-    <result column="CSTATUS"  property="cstatus" />
-    <result column="CREATETIME"  property="createtime" />
-    <result column="CREATEID"  property="createid" />
-    <result column="LEADING"  property="leading" />
-    <result column="DISTRACTIME" jdbcType="VARCHAR"  property="distractime" />
-    <result column="SERVICEID"  property="serviceid" />
-    <result column="DISTRACT"  property="distract" />
-    <result column="HOMEADDRESS"  property="homeaddress" />
-  </resultMap>
-  <sql id="Base_Column_List">
+    <resultMap id="BaseResultMap" type="com.bean.Custom">
+        <id column="CUSTOMID" jdbcType="INTEGER" property="customid" />
+        <result column="CUSTOMNAME"  property="customname" />
+        <result column="SEX"  property="sex" />
+        <result column="TELEPHONE"  property="telephone" />
+        <result column="COMPANY"  property="company" />
+        <result column="ADDRESS"  property="address" />
+        <result column="CSTATUS"  property="cstatus" />
+        <result column="CREATETIME"  property="createtime" />
+        <result column="CREATEID"  property="createid" />
+        <result column="LEADING"  property="leading" />
+        <result column="DISTRACTIME" jdbcType="VARCHAR"  property="distractime" />
+        <result column="SERVICEID"  property="serviceid" />
+        <result column="DISTRACT"  property="distract" />
+        <result column="HOMEADDRESS"  property="homeaddress" />
+    </resultMap>
+    <sql id="Base_Column_List">
     CUSTOMID, CUSTOMNAME, SEX, TELEPHONE, COMPANY, ADDRESS, `CSTATUS`, CREATETIME, CREATEID,
     DISTRACTIME, SERVICEID, DISTRACT, HOMEADDRESS
   </sql>
-  <insert id="addCustomer">
+    <insert id="addCustomer">
     insert into custom (CUSTOMNAME,SEX,TELEPHONE,COMPANY,ADDRESS,CREATETIME,CREATEID,DISTRACT,HOMEADDRESS)
     values (#{customname},#{sex},#{telephone},#{company},#{address},#{createtime},#{createid},#{distract},#{homeaddress})
   </insert>
-  <update id="updateCustom">
+    <update id="updateCustom">
     update custom set CUSTOMNAME=#{customname},SEX=#{sex},TELEPHONE=#{telephone},
     COMPANY=#{company},ADDRESS=#{address},CSTATUS=#{cstatus},DISTRACT=#{distract},
     HOMEADDRESS=#{homeaddress} where CUSTOMID=#{customid}
   </update>
-  <update id="cancelCust">
+    <update id="cancelCust">
     update custom set CSTATUS=2 where CUSTOMID=#{customid}
   </update>
-  <update id="recoverCust">
+    <update id="recoverCust">
     update custom set CSTATUS=1 where CUSTOMID=#{customid}
   </update>
-  <update id="distinctCust" parameterType="Custom">
+    <update id="distinctCust" parameterType="Custom">
     update custom set custom.LEADING=#{leading},DISTRACTIME=#{distractime} where CUSTOMID=#{customid}
   </update>
 
-  <resultMap id="getAll" type="com.bean.Custom">
-    <id column="CUSTOMID"  property="customid" />
-    <result column="CUSTOMNAME" property="customname" />
-    <result column="SEX"  property="sex" />
-    <result column="TELEPHONE"  property="telephone" />
-    <result column="COMPANY"  property="company" />
-    <result column="ADDRESS"  property="address" />
-    <result column="CSTATUS" property="cstatus" />
-    <result column="CREATETIME"  property="createtime" />
-    <result column="CREATEID"  property="createid" />
-    <result column="LEADING"  property="leading" />
-    <result column="DISTRACTIME"  property="distractime" />
-    <result column="SERVICEID" property="serviceid" />
-    <result column="DISTRACT"  property="distract" />
-    <result column="HOMEADDRESS"  property="homeaddress" />
-    <association property="province" javaType="Province">
-      <id property="id" column="ID"/>
-      <result property="pName" column="P_NAME"/>
-    </association>
-    <association property="users" javaType="Users">
-      <id column="u_id"  property="uId" />
-      <result column="uname"  property="uname" />
-      <result column="dept_id"  property="deptId" />
-      <result column="job_id"  property="jobId" />
-    </association>
-  </resultMap>
-  <select id="getAllCustom" resultMap="getAll">
+    <resultMap id="getAll" type="com.bean.Custom">
+        <id column="CUSTOMID"  property="customid" />
+        <result column="CUSTOMNAME" property="customname" />
+        <result column="SEX"  property="sex" />
+        <result column="TELEPHONE"  property="telephone" />
+        <result column="COMPANY"  property="company" />
+        <result column="ADDRESS"  property="address" />
+        <result column="CSTATUS" property="cstatus" />
+        <result column="CREATETIME"  property="createtime" />
+        <result column="CREATEID"  property="createid" />
+        <result column="LEADING"  property="leading" />
+        <result column="DISTRACTIME"  property="distractime" />
+        <result column="SERVICEID" property="serviceid" />
+        <result column="DISTRACT"  property="distract" />
+        <result column="HOMEADDRESS"  property="homeaddress" />
+        <association property="province" javaType="Province">
+            <id property="id" column="ID"/>
+            <result property="pName" column="P_NAME"/>
+        </association>
+        <association property="users" javaType="Users">
+            <id column="u_id"  property="uId" />
+            <result column="uname"  property="uname" />
+            <result column="dept_id"  property="deptId" />
+            <result column="job_id"  property="jobId" />
+        </association>
+    </resultMap>
+    <select id="getAllCustom" resultMap="getAll">
     SELECT * FROM custom LEFT JOIN province ON custom.address = province.ID
     LEFT JOIN users ON custom.CREATEID = users.u_id limit #{page},#{size}
   </select>
-  <select id="countCustom" resultType="java.lang.Integer">
+    <select id="countCustom" resultType="java.lang.Integer">
     SELECT count(*) FROM custom
   </select>
-  <select id="getOneCustom" resultMap="getAll">
+    <select id="getOneCustom" resultMap="getAll">
     SELECT * FROM custom LEFT JOIN province ON custom.address = province.ID
     LEFT JOIN users ON custom.CREATEID = users.u_id where CUSTOMID=#{customid}
   </select>
-  <select id="getCustomByCon" resultMap="getAll">
-    SELECT * FROM custom LEFT JOIN province ON custom.address = province.ID
-    LEFT JOIN users ON custom.CREATEID = users.u_id
-    <where>
-      <if test="company!=null and company!='' ">
-        and COMPANY like '%${company}%'
-      </if>
-      <if test="customname!=null and customname!='' ">
-        and CUSTOMNAME like '%${customname}%'
-      </if>
-      <if test="address!=null and address!='' ">
-        and ADDRESS=#{address}
-      </if>
-      <if test="cstatus!=null and cstatus!='' ">
-        and CSTATUS=#{cstatus}
-      </if>
-    </where>
-    limit #{page},#{size}
-  </select>
-  <select id="countCustByCon" resultType="java.lang.Integer">
-    SELECT count(*) FROM custom LEFT JOIN province ON custom.address = province.ID
-    LEFT JOIN users ON custom.CREATEID = users.u_id
-    <where>
-      <if test="company!=null and company!='' ">
-        and COMPANY like '%${company}%'
-      </if>
-      <if test="customname!=null and customname!='' ">
-        and CUSTOMNAME like '%${customname}%'
-      </if>
-      <if test="address!=null and address!='' ">
-        and ADDRESS=#{address}
-      </if>
-       <if test="cstatus!=null and cstatus!='' ">
-         and CSTATUS=#{cstatus}
-       </if>
-    </where>
-  </select>
-  <select id="getCustsNotNull" resultMap="getAll">
-    SELECT * FROM custom LEFT JOIN province ON custom.address = province.ID
-    LEFT JOIN users ON custom.CREATEID = users.u_id WHERE DISTRACTIME IS NOT NULL
-    limit #{page},#{size}
-  </select>
-  <select id="countNotNull" resultType="java.lang.Integer">
-    SELECT count(*) FROM custom LEFT JOIN province ON custom.address = province.ID
-    LEFT JOIN users ON custom.CREATEID = users.u_id WHERE DISTRACTIME IS NOT NULL
-  </select>
-  <select id="getCustomBroByCon" resultMap="getAll">
+    <select id="getCustomByCon" resultMap="getAll">
+        SELECT * FROM custom LEFT JOIN province ON custom.address = province.ID
+        LEFT JOIN users ON custom.CREATEID = users.u_id
+        <where>
+            <if test="company!=null and company!='' ">
+                and COMPANY like '%${company}%'
+            </if>
+            <if test="customname!=null and customname!='' ">
+                and CUSTOMNAME like '%${customname}%'
+            </if>
+            <if test="address!=null and address!='' ">
+                and ADDRESS=#{address}
+            </if>
+            <if test="cstatus!=null and cstatus!='' ">
+                and CSTATUS=#{cstatus}
+            </if>
+        </where>
+        limit #{page},#{size}
+    </select>
+    <select id="countCustByCon" resultType="java.lang.Integer">
+        SELECT count(*) FROM custom LEFT JOIN province ON custom.address = province.ID
+        LEFT JOIN users ON custom.CREATEID = users.u_id
+        <where>
+            <if test="company!=null and company!='' ">
+                and COMPANY like '%${company}%'
+            </if>
+            <if test="customname!=null and customname!='' ">
+                and CUSTOMNAME like '%${customname}%'
+            </if>
+            <if test="address!=null and address!='' ">
+                and ADDRESS=#{address}
+            </if>
+            <if test="cstatus!=null and cstatus!='' ">
+                and CSTATUS=#{cstatus}
+            </if>
+        </where>
+    </select>
+    <select id="getCustsNotNull" resultMap="getAll">
     SELECT * FROM custom LEFT JOIN province ON custom.address = province.ID
     LEFT JOIN users ON custom.CREATEID = users.u_id WHERE DISTRACTIME IS NOT NULL
-      <if test="company!=null and company!='' ">
-        and COMPANY like '%${company}%'
-      </if>
-      <if test="customname!=null and customname!='' ">
-        and CUSTOMNAME like '%${customname}%'
-      </if>
-      <if test="address!=null and address!='' ">
-        and ADDRESS=#{address}
-      </if>
     limit #{page},#{size}
   </select>
-  <select id="countCustBroByCon" resultType="java.lang.Integer">
+    <select id="countNotNull" resultType="java.lang.Integer">
     SELECT count(*) FROM custom LEFT JOIN province ON custom.address = province.ID
     LEFT JOIN users ON custom.CREATEID = users.u_id WHERE DISTRACTIME IS NOT NULL
-      <if test="company!=null and company!='' ">
-        and COMPANY like '%${company}%'
-      </if>
-      <if test="customname!=null and customname!='' ">
-        and CUSTOMNAME like '%${customname}%'
-      </if>
-      <if test="address!=null and address!='' ">
-        and ADDRESS=#{address}
-      </if>
   </select>
+    <select id="getCustomBroByCon" resultMap="getAll">
+        SELECT * FROM custom LEFT JOIN province ON custom.address = province.ID
+        LEFT JOIN users ON custom.CREATEID = users.u_id WHERE DISTRACTIME IS NOT NULL
+        <if test="company!=null and company!='' ">
+            and COMPANY like '%${company}%'
+        </if>
+        <if test="customname!=null and customname!='' ">
+            and CUSTOMNAME like '%${customname}%'
+        </if>
+        <if test="address!=null and address!='' ">
+            and ADDRESS=#{address}
+        </if>
+        limit #{page},#{size}
+    </select>
+    <select id="countCustBroByCon" resultType="java.lang.Integer">
+        SELECT count(*) FROM custom LEFT JOIN province ON custom.address = province.ID
+        LEFT JOIN users ON custom.CREATEID = users.u_id WHERE DISTRACTIME IS NOT NULL
+        <if test="company!=null and company!='' ">
+            and COMPANY like '%${company}%'
+        </if>
+        <if test="customname!=null and customname!='' ">
+            and CUSTOMNAME like '%${customname}%'
+        </if>
+        <if test="address!=null and address!='' ">
+            and ADDRESS=#{address}
+        </if>
+    </select>
     <select id="getCust" resultMap="BaseResultMap">
       SELECT * FROM custom
     </select>
-
+    <resultMap id="CustomsStatis" type="com.bean.Custom">
+        <id property="customid" column="CUSTOMID"/>
+        <result property="customname" column="CUSTOMNAME"/>
+        <result property="telephone" column="TELEPHONE"/>
+        <result property="cstatus" column="STATUS"/>
+        <association property="province" select="com.dao.ProvinceDao.getProvinceById" column="ADDRESS"/>
+        <association property="ordersList" select="com.dao.OrdersDao.getOrdersByCustomId" column="CUSTOMID"/>
+    </resultMap>
+    <!--数据统计页面查找所有客户-->
+    <select id="getAllCustomsStatis" resultMap="CustomsStatis">
+        select CUSTOMID,CUSTOMNAME,TELEPHONE,STATUS,ADDRESS from custom
+    </select>
+    <!--this.customid = customid;
+        this.customname = customname;
+        this.telephone = telephone;
+        this.cstatus = cstatus;
+        this.province = province;
+        this.ordersList = ordersList;-->
 </mapper>

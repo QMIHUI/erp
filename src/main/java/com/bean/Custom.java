@@ -2,6 +2,7 @@ package com.bean;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * custom
@@ -38,7 +39,7 @@ public class Custom implements Serializable {
 
     private Province province;
     private Users users;
-
+    private List<Orders> ordersList;
 
     private static final long serialVersionUID = 1L;
 
@@ -170,6 +171,14 @@ public class Custom implements Serializable {
         this.homeaddress = homeaddress;
     }
 
+    public List<Orders> getOrdersList() {
+        return ordersList;
+    }
+
+    public void setOrdersList(List<Orders> ordersList) {
+        this.ordersList = ordersList;
+    }
+
     @Override
     public String toString() {
         return "Custom{" +
@@ -227,5 +236,14 @@ public class Custom implements Serializable {
         this.cstatus = cstatus;
         this.distract = distract;
         this.homeaddress = homeaddress;
+    }
+
+    public Custom(Integer customid, String customname, String telephone, Integer cstatus, Province province, List<Orders> ordersList) {
+        this.customid = customid;
+        this.customname = customname;
+        this.telephone = telephone;
+        this.cstatus = cstatus;
+        this.province = province;
+        this.ordersList = ordersList;
     }
 }

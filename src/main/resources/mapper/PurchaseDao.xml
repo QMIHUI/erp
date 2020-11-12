@@ -20,7 +20,7 @@
     </update>
     <!--审核采购单-->
     <update id="purchaseExamine">
-        update c_purchase set check_id=#{param1},check_time=#{param2},check_opinion=#{param3},cg_state=1,check_status=#{param4} where purchase_id=#{param5}
+        update c_purchase set check_id=#{param1},check_time=#{param2},check_opinion=#{param3},check_status=#{param4} where purchase_id=#{param5}
     </update>
     <!--删除采购单-->
     <delete id="deletePurchase">

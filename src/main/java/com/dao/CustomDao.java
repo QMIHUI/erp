@@ -36,5 +36,6 @@ public interface CustomDao {
     public List<Custom> getCustomBroByCon(Pager<Custom> pager);
     public int countCustBroByCon(Map<String,Object> map);
 
-
+    //数据统计页面查找所有客户
+    public List<Custom> getAllCustomsStatis();
 }

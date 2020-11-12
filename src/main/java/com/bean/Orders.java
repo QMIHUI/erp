@@ -1,6 +1,7 @@
 package com.bean;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * order
@@ -31,8 +32,26 @@ public class Orders implements Serializable {
 
     private Custom custom;
     private Warehouse warehouse;
+    private List<Orderdetails> orderdetailsList;
 
     private static final long serialVersionUID = 1L;
+
+    public Orders(String orderId, Integer customid, String ordertime, Double ordermoney, Users operatorid, String dstatus, Users checkid, String chectime, String opinion, Integer warehouseid, Integer ddState, Custom custom, Warehouse warehouse, List<Orderdetails> orderdetailsList) {
+        this.orderId = orderId;
+        this.customid = customid;
+        this.ordertime = ordertime;
+        this.ordermoney = ordermoney;
+        this.operatorid = operatorid;
+        this.dstatus = dstatus;
+        this.checkid = checkid;
+        this.chectime = chectime;
+        this.opinion = opinion;
+        this.warehouseid = warehouseid;
+        this.ddState = ddState;
+        this.custom = custom;
+        this.warehouse = warehouse;
+        this.orderdetailsList = orderdetailsList;
+    }
 
     public Custom getCustom() {
         return custom;
@@ -41,8 +60,6 @@ public class Orders implements Serializable {
     public void setCustom(Custom custom) {
         this.custom = custom;
     }
-
-
 
     public Warehouse getWarehouse() {
         return warehouse;
@@ -108,7 +125,6 @@ public class Orders implements Serializable {
         this.dstatus = dstatus;
     }
 
-
     public String getChectime() {
         return chectime;
     }
@@ -139,5 +155,13 @@ public class Orders implements Serializable {
 
     public void setDdState(Integer ddState) {
         this.ddState = ddState;
+    }
+
+    public List<Orderdetails> getOrderdetailsList() {
+        return orderdetailsList;
+    }
+
+    public void setOrderdetailsList(List<Orderdetails> orderdetailsList) {
+        this.orderdetailsList = orderdetailsList;
     }
 }
