@@ -17,7 +17,7 @@ public class Orders implements Serializable {
     private Double ordermoney;
 
     private Users operatorid;
-    /*private Integer operatorId;*/
+    private Integer operatorId;
 
     private String dstatus;
 
@@ -55,6 +55,14 @@ public class Orders implements Serializable {
         this.custom = custom;
         this.warehouse = warehouse;
         this.orderdetailsList = orderdetailsList;
+    }
+
+    public Integer getOperatorId() {
+        return operatorId;
+    }
+
+    public void setOperatorId(Integer operatorId) {
+        this.operatorId = operatorId;
     }
 
     public Custom getCustom() {

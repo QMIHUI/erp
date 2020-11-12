@@ -32,7 +32,7 @@ public class Pager<T> {
     private int address;
     private int cstatus;
     //订购单
-    /*private int operatorid;*/
+    private int operatorid;
 
 
 
@@ -41,6 +41,15 @@ public class Pager<T> {
     private int size;//每页记录数
     private List<T> rows;//返回的记录集合
     private long total;//总记录条数
+
+
+    public int getOperatorid() {
+        return operatorid;
+    }
+
+    public void setOperatorid(int operatorid) {
+        this.operatorid = operatorid;
+    }
 
     public int getuId() {
         return uId;
