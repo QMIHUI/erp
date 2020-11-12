@@ -163,7 +163,7 @@
     </resultMap>
     <!--数据统计页面查找所有客户-->
     <select id="getAllCustomsStatis" resultMap="CustomsStatis">
-        select CUSTOMID,CUSTOMNAME,TELEPHONE,STATUS,ADDRESS from custom
+        select CUSTOMID,CUSTOMNAME,TELEPHONE,CSTATUS,ADDRESS from custom
     </select>
     <!--this.customid = customid;
         this.customname = customname;
