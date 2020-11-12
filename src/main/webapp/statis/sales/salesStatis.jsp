@@ -70,40 +70,10 @@
                     <fmt:parseNumber var="i"  type="number" value="${sum}" />
                     <td>￥<c:out value="${i}"/> </td>
                     <td>
-                        <a href="salesView.jsp" class="tablelink">查看详情</a>
+                        <a href="${pageContext.request.contextPath}/getOrdersByCustomId.do?id=${custom.customid}" class="tablelink">查看详情</a>
                     </td>
                 </tr>
             </c:forEach>
-            <tr>
-                <td>2</td>
-                <td>张永祥</td>
-                <td>江苏南京</td>
-                <td>8</td>
-                <td>￥9,876,582</td>
-                <td>
-                    <a href="salesView.jsp" class="tablelink">查看详情</a>
-                </td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>王金平</td>
-                <td>江苏南京</td>
-                <td>5</td>
-                <td>￥9,876,582</td>
-                <td>
-                    <a href="salesView.jsp" class="tablelink">查看详情</a>
-                </td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>张永祥</td>
-                <td>江苏南京</td>
-                <td>8</td>
-                <td>￥9,876,582</td>
-                <td>
-                    <a href="salesView.jsp" class="tablelink">查看详情</a>
-                </td>
-            </tr>
             </tbody>
         </table>
         <div class="pagin">
