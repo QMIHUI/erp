@@ -34,14 +34,51 @@ public class Pager<T> {
     private int leading;
     //订购单
     private int operatorid;
-
-
+    private String orderId;
+    /*private String custName;*/
+    private double sPrice;
+    private double bPrice;
+    private int dstatus;
 
 
     private int page;//分页起始页
     private int size;//每页记录数
     private List<T> rows;//返回的记录集合
     private long total;//总记录条数
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
+
+    public double getsPrice() {
+        return sPrice;
+    }
+
+    public void setsPrice(double sPrice) {
+        this.sPrice = sPrice;
+    }
+
+    public double getbPrice() {
+        return bPrice;
+    }
+
+    public void setbPrice(double bPrice) {
+        this.bPrice = bPrice;
+    }
+
+    public int getDstatus() {
+        return dstatus;
+    }
+
+    public void setDstatus(int dstatus) {
+        this.dstatus = dstatus;
+    }
+
+
 
 
     public int getLeading() {
