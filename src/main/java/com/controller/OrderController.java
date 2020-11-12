@@ -1,9 +1,6 @@
 package com.controller;
 
-import com.bean.Custom;
-import com.bean.Orderdetails;
-import com.bean.Orders;
-import com.bean.Product;
+import com.bean.*;
 import com.dao.CustomDao;
 import com.dao.OrderdetailsDao;
 import com.dao.OrdersDao;
@@ -15,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -33,33 +31,38 @@ public class OrderController {
     private ProductDao productDao;
 
     @RequestMapping(value = "queryAllOrder.do",method = RequestMethod.GET)
-    public String queryAllOrder(HttpServletRequest request){
+    public String queryAllOrder(HttpServletRequest request, HttpSession session){
         System.out.println("执行查找全部订单！！！");
-        int countOrder = ordersDao.countOrders();
-        System.out.println(countOrder);
-        int size = 5;
-        int rowOrder = countOrder % size == 0 ? (countOrder / size) : (countOrder / size + 1);
-        System.out.println(rowOrder);
-        String currentIndex= request.getParameter("pageIndex");
-        //第一次访问(当前页码=1)
-        int pageIndex = 1;
-        if(currentIndex!=null) {
-            pageIndex=Integer.parseInt(currentIndex);
+        Users user=(Users)session.getAttribute("user");
+        if (user.getJobId()==1||user.getJobId()==2){
+            int countOrder = ordersDao.countOrders();
+            System.out.println(countOrder);
+            int size = 5;
+            int rowOrder = countOrder % size == 0 ? (countOrder / size) : (countOrder / size + 1);
+            System.out.println(rowOrder);
+            String currentIndex= request.getParameter("pageIndex");
+            //第一次访问(当前页码=1)
+            int pageIndex = 1;
+            if(currentIndex!=null) {
+                pageIndex=Integer.parseInt(currentIndex);
+            }
+            if(currentIndex==null || Integer.parseInt(currentIndex) <= 0){
+                pageIndex = 1;
+            }else if(Integer.parseInt(currentIndex) >= rowOrder){
+                pageIndex=rowOrder;
+            }
+            Pager<Orders> pager = new Pager<>();
+            pager.setPage((pageIndex-1)*size);
+            pager.setSize(size);
+            pager.setTotal(countOrder);
+            List<Orders> listOrder = ordersDao.getAllOrders(pager);
+            request.getSession().setAttribute("listOrder",listOrder);
+            request.getSession().setAttribute("countOrder",countOrder);
+            request.getSession().setAttribute("rowOrder",rowOrder);
+            request.getSession().setAttribute("pageIndex",pageIndex);
+        }else{
+
         }
-        if(currentIndex==null || Integer.parseInt(currentIndex) <= 0){
-            pageIndex = 1;
-        }else if(Integer.parseInt(currentIndex) >= rowOrder){
-            pageIndex=rowOrder;
-        }
-        Pager<Orders> pager = new Pager<>();
-        pager.setPage((pageIndex-1)*size);
-        pager.setSize(size);
-        pager.setTotal(countOrder);
-        List<Orders> listOrder = ordersDao.getAllOrders(pager);
-        request.getSession().setAttribute("listOrder",listOrder);
-        request.getSession().setAttribute("countOrder",countOrder);
-        request.getSession().setAttribute("rowOrder",rowOrder);
-        request.getSession().setAttribute("pageIndex",pageIndex);
         return "market/order/orderList";
     }
 
