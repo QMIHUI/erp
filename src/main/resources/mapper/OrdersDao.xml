@@ -6,7 +6,7 @@
         <result column="CustomId"  property="customid" />
         <result column="OrderTime"  property="ordertime" />
         <result column="OrderMoney"  property="ordermoney" />
-        <result column="operatorId"  property="operatorId" />
+        <!--<result column="operatorId"  property="operatorId" />-->
         <result column="dStatus"  property="dstatus" />
         <!--<result column="Checkid"  property="checkid" />-->
         <result column="Chectime" property="chectime" />
@@ -126,11 +126,11 @@
     LEFT JOIN warehouse ON orders.warehouseId = warehouse.ID
     where CustomId=#{customId}
   </select>
-  <select id="getAllOrdersById" resultMap="getAll">
+  <!--<select id="getAllOrdersById" resultMap="getAll">
       select * FROM orders where operatorId=#{operatorid}
   </select>
     <select id="countOrdersById" resultType="java.lang.Integer">
         select count(*) FROM orders where operatorId=#{operatorid}
-    </select>
+    </select>-->
 
 </mapper>

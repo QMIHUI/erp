@@ -61,7 +61,7 @@ public class OrderController {
             request.getSession().setAttribute("rowOrder",rowOrder);
             request.getSession().setAttribute("pageIndex",pageIndex);
         }else{
-            int countOrder = ordersDao.countOrdersById(user.getuId());
+            /*int countOrder = ordersDao.countOrdersById(user.getuId());
             System.out.println(countOrder);
             int size = 5;
             int rowOrder = countOrder % size == 0 ? (countOrder / size) : (countOrder / size + 1);
@@ -85,7 +85,7 @@ public class OrderController {
             request.getSession().setAttribute("listOrder",listOrder);
             request.getSession().setAttribute("countOrder",countOrder);
             request.getSession().setAttribute("rowOrder",rowOrder);
-            request.getSession().setAttribute("pageIndex",pageIndex);
+            request.getSession().setAttribute("pageIndex",pageIndex);*/
         }
         return "market/order/orderList";
     }
