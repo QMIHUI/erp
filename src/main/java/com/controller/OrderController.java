@@ -61,7 +61,31 @@ public class OrderController {
             request.getSession().setAttribute("rowOrder",rowOrder);
             request.getSession().setAttribute("pageIndex",pageIndex);
         }else{
-
+            int countOrder = ordersDao.countOrdersById(user.getuId());
+            System.out.println(countOrder);
+            int size = 5;
+            int rowOrder = countOrder % size == 0 ? (countOrder / size) : (countOrder / size + 1);
+            System.out.println(rowOrder);
+            String currentIndex= request.getParameter("pageIndex");
+            //第一次访问(当前页码=1)
+            int pageIndex = 1;
+            if(currentIndex!=null) {
+                pageIndex=Integer.parseInt(currentIndex);
+            }
+            if(currentIndex==null || Integer.parseInt(currentIndex) <= 0){
+                pageIndex = 1;
+            }else if(Integer.parseInt(currentIndex) >= rowOrder){
+                pageIndex=rowOrder;
+            }
+            Pager<Orders> pager = new Pager<>();
+            pager.setPage((pageIndex-1)*size);
+            pager.setSize(size);
+            pager.setTotal(countOrder);
+            List<Orders> listOrder = ordersDao.getAllOrdersById(pager,user.getuId());
+            request.getSession().setAttribute("listOrder",listOrder);
+            request.getSession().setAttribute("countOrder",countOrder);
+            request.getSession().setAttribute("rowOrder",rowOrder);
+            request.getSession().setAttribute("pageIndex",pageIndex);
         }
         return "market/order/orderList";
     }

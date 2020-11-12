@@ -31,6 +31,8 @@ public class Pager<T> {
     private String customname;
     private int address;
     private int cstatus;
+    //订购单
+    /*private int operatorid;*/
 
 
 
@@ -83,6 +85,8 @@ public class Pager<T> {
     public int getcId() {
         return cId;
     }
+
+
 
     public void setcId(int cId) {
         this.cId = cId;

@@ -17,6 +17,7 @@ public class Orders implements Serializable {
     private Double ordermoney;
 
     private Users operatorid;
+    private Integer operatorId;
 
     private String dstatus;
 
