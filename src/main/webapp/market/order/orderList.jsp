@@ -105,24 +105,29 @@ pageEncoding="UTF-8"%>
           <td>${lorder.checkid.uname}</td>
           <td>${lorder.chectime}</td>
           <td>
-            <c:if test="${lorder.dstatus==4}">
-              <a href="${pageContext.request.contextPath}/getOneOrder.do?orderId=${lorder.orderId}&op=查看" class="tablelink">查看详情</a>
-              <a href="${pageContext.request.contextPath}/getOneOrder.do?orderId=${lorder.orderId}&op=更新" class="tablelink">修改</a>
-              <a href="javascript:void(0);" class="tablelink" onclick="deltipOpen('${lorder.orderId}')">删除</a>
-              <a href="javascript:void(0);" class="tablelink" onclick="examinetipOpen('${lorder.orderId}')">提交审核</a>
-            </c:if>
-            <c:if test="${lorder.dstatus==1}">
+            <c:if test="${user.jobId==2}">
               <a href="${pageContext.request.contextPath}/getOneOrder.do?orderId=${lorder.orderId}&op=查看" class="tablelink">查看详情</a>
             </c:if>
-            <c:if test="${lorder.dstatus==2}">
-              <a href="${pageContext.request.contextPath}/getOneOrder.do?orderId=${lorder.orderId}&op=查看" class="tablelink">查看详情</a>
-              <a href="${pageContext.request.contextPath}/storage/delivery/deliveryView.jsp" class="tablelink">出库详情</a>
-            </c:if>
-            <c:if test="${lorder.dstatus==3}">
-              <a href="${pageContext.request.contextPath}/getOneOrder.do?orderId=${lorder.orderId}&op=查看" class="tablelink">查看详情</a>
-              <a href="orderUpdate.jsp" class="tablelink">修改</a>
+            <c:if test="${user.jobId!=2}">
+              <c:if test="${lorder.dstatus==4}">
+                <a href="${pageContext.request.contextPath}/getOneOrder.do?orderId=${lorder.orderId}&op=查看" class="tablelink">查看详情</a>
+                <a href="${pageContext.request.contextPath}/getOneOrder.do?orderId=${lorder.orderId}&op=更新" class="tablelink">修改</a>
                 <a href="javascript:void(0);" class="tablelink" onclick="deltipOpen('${lorder.orderId}')">删除</a>
-              <a href="javascript:void(0);" class="tablelink" onclick="examinetipOpen()">提交审核</a>
+                <a href="javascript:void(0);" class="tablelink" onclick="examinetipOpen('${lorder.orderId}')">提交审核</a>
+              </c:if>
+              <c:if test="${lorder.dstatus==1}">
+                <a href="${pageContext.request.contextPath}/getOneOrder.do?orderId=${lorder.orderId}&op=查看" class="tablelink">查看详情</a>
+              </c:if>
+              <c:if test="${lorder.dstatus==2}">
+                <a href="${pageContext.request.contextPath}/getOneOrder.do?orderId=${lorder.orderId}&op=查看" class="tablelink">查看详情</a>
+                <a href="${pageContext.request.contextPath}/storage/delivery/deliveryView.jsp" class="tablelink">出库详情</a>
+              </c:if>
+              <c:if test="${lorder.dstatus==3}">
+                <a href="${pageContext.request.contextPath}/getOneOrder.do?orderId=${lorder.orderId}&op=查看" class="tablelink">查看详情</a>
+                <a href="orderUpdate.jsp" class="tablelink">修改</a>
+                  <a href="javascript:void(0);" class="tablelink" onclick="deltipOpen('${lorder.orderId}')">删除</a>
+                <a href="javascript:void(0);" class="tablelink" onclick="examinetipOpen()">提交审核</a>
+              </c:if>
             </c:if>
           </td>
         </tr>

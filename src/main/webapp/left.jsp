@@ -128,9 +128,12 @@ $(function(){
             <dd>
                 <div class="title">营销管理</div>
                 <ul class="menuson">
-                    <li><cite></cite>
-                        <a href="${pageContext.request.contextPath}/queryAllCustom.do" target="rightFrame">客户管理</a>
-                        <i></i></li>
+                    <c:if test="${user.jobId==2||user.jobId==1}">
+                        <li><cite></cite>
+                            <a href="${pageContext.request.contextPath}/queryAllCustom.do" target="rightFrame">客户管理</a>
+                            <i></i>
+                        </li>
+                    </c:if>
                     <li>
                         <cite></cite>
                         <a href="${pageContext.request.contextPath}/getAllCustomerBro.do" target="rightFrame">客户浏览</a>

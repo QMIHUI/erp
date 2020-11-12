@@ -9,6 +9,9 @@ import java.util.Map;
 public interface CustomDao {
     //查询所有并分页
     public List<Custom> getAllCustom(Pager<Custom> pager);
+    //查询个人所有的顾客
+    public List<Custom> getAllCustomById(Pager<Custom> pager);
+    public int countCustomById(int leading);
     //查询所有顾客数量
     public int countCustom();
     //查询所有
