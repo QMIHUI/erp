@@ -2,6 +2,7 @@ package com.controller;
 
 import com.bean.Custom;
 import com.bean.Firm;
+import com.bean.Orders;
 import com.bean.Purchase;
 import com.dao.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,8 @@ public class StatisticsController {
     public PurchaseDao purchaseDao;
     @Autowired
     public CustomDao customDao;
+    @Autowired
+    public OrdersDao ordersDao;
 
     @RequestMapping(value = "getAllFirms.do",method = RequestMethod.GET)
     public String getAllFirms(HttpSession session){
@@ -48,10 +51,19 @@ public class StatisticsController {
         session.setAttribute("purchase",purchase);
         return "redirect:statis/purchase/details.jsp";
     }
+    //数据统计获取所有客户
     @RequestMapping(value = "getAllcustomsStatis.do",method = RequestMethod.GET)
     public String getAllcustomsStatis(HttpSession session){
         List<Custom> customList=customDao.getAllCustomsStatis();
         session.setAttribute("customList",customList);
         return "redirect:statis/sales/salesStatis.jsp";
+    }
+    //获取单个客户下的订购单
+    @RequestMapping(value = "getOrdersByCustomId.do",method = RequestMethod.GET)
+    public String getOrdersByCustomId(HttpServletRequest request ,HttpSession session){
+        int customId=Integer.parseInt(request.getParameter("id"));
+        List<Orders> ordersList=ordersDao.getOrdersByCustomId(customId);
+        session.setAttribute("ordersList",ordersList);
+        return "redirect:statis/sales/salesView.jsp";
     }
 }
