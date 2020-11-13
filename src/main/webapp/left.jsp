@@ -54,10 +54,29 @@ $(function(){
             <dd>
                 <div class="title">营销管理</div>
                 <ul class="menuson">
-                    <li><cite></cite><a href="market/customer/customerList.jsp" target="rightFrame">客户管理</a><i></i></li>
-                    <li><cite></cite><a href="market/customerBrowse/customerBrowse.jsp" target="rightFrame">客户浏览</a><i></i></li>
-                    <li><cite></cite><a href="market/order/orderList.jsp" target="rightFrame">订购单管理</a><i></i></li>
-                    <li><cite></cite><a href="market/orderExamine/orderExamineList.jsp" target="rightFrame">订购单审核</a><i></i></li>
+                    <c:if test="${user.jobId==2||user.jobId==1}">
+                        <li><cite></cite>
+                            <a href="${pageContext.request.contextPath}/queryAllCustom.do" target="rightFrame">客户管理</a>
+                            <i></i>
+                        </li>
+                    </c:if>
+                    <li>
+                        <cite></cite>
+                        <a href="${pageContext.request.contextPath}/getAllCustomerBro.do" target="rightFrame">客户浏览</a>
+                        <i></i>
+                    </li>
+                    <li>
+                        <cite></cite>
+                        <a href="${pageContext.request.contextPath}/queryAllOrder.do" target="rightFrame">订购单管理</a>
+                        <i></i>
+                    </li>
+                    <c:if test="${user.jobId==2||user.jobId==1}">
+                        <li>
+                            <cite></cite>
+                            <a href="${pageContext.request.contextPath}/getAllExamineOrder.do" target="rightFrame">订购单审核</a>
+                            <i></i>
+                        </li>
+                    </c:if>
                 </ul>
             </dd>
             <dd>
@@ -70,17 +89,19 @@ $(function(){
                     <li><cite></cite><a href="storage/inventory/inventoryList.jsp" target="rightFrame">库存管理</a><i></i></li>
                 </ul>
             </dd>
-            <%--<dd>
+            <dd>
                 <div class="title">采购管理</div>
                 <ul class="menuson">
-                    <li><cite></cite><a href="purchase/purchase/purchaseList.jsp" target="rightFrame">采购单管理</a><i></i></li>
-                    <li><cite></cite><a href="purchase/purchaseExamine/purchaseExamineList.jsp" target="rightFrame">采购单审核</a><i></i></li>
-                    <li><cite></cite><a href="purchase/brand/brandList.jsp" target="rightFrame">品牌管理</a><i></i></li>
-                    <li><cite></cite><a href="purchase/productType/productTypeList.jsp" target="rightFrame">商品类型管理</a><i></i></li>
-                    <li><cite></cite><a href="purchase/product/productList.jsp" target="rightFrame">商品管理</a><i></i></li>
-                    <li><cite></cite><a href="purchase/manufacturer/manufacturerList.jsp" target="rightFrame">厂商管理</a><i></i></li>
+                    <li><cite></cite><a href="${pageContext.request.contextPath}/getAllPurchases.do" target="rightFrame">采购单管理</a><i></i></li>
+                    <c:if test="${user.jobId==7||user.jobId==8||user.jobId==9||user.jobId==1}">
+                        <li><cite></cite><a href="${pageContext.request.contextPath}/getAllPurchaseStatus2.do" target="rightFrame">采购单审核</a><i></i></li>
+                    </c:if>
+                    <li><cite></cite><a href="${pageContext.request.contextPath}/getAllBrands.do" target="rightFrame">品牌管理</a><i></i></li>
+                    <li><cite></cite><a href="${pageContext.request.contextPath}/getAllTypes.do" target="rightFrame">商品类型管理</a><i></i></li>
+                    <li><cite></cite><a href="${pageContext.request.contextPath}/getAllProduct.do" target="rightFrame">商品管理</a><i></i></li>
+                    <li><cite></cite><a href="${pageContext.request.contextPath}/getAllFirm.do" target="rightFrame">厂商管理</a><i></i></li>
                 </ul>
-            </dd>--%>
+            </dd>
             <dd>
                 <div class="title">数据统计</div>
                 <ul class="menuson">

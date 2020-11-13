@@ -384,6 +384,12 @@ public class OrderController {
         return "market/orderExamine/orderExamineListByCon";
     }
 
+    @RequestMapping(value = "addOrder.do",method = RequestMethod.GET)
+    public String addOrder(){
+        System.out.println("执行增加订单！！！");
+        return "";
+    }
+
 
 
 
