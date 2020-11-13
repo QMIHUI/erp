@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -54,6 +57,9 @@ public class OrderController {
             }else if(Integer.parseInt(currentIndex) >= rowOrder){
                 pageIndex=rowOrder;
             }
+            if (pageIndex==0){
+                pageIndex=1;
+            }
             Pager<Orders> pager = new Pager<>();
             pager.setPage((pageIndex-1)*size);
             pager.setSize(size);
@@ -80,6 +86,9 @@ public class OrderController {
                 pageIndex = 1;
             }else if(Integer.parseInt(currentIndex) >= rowOrder){
                 pageIndex=rowOrder;
+            }
+            if (pageIndex==0){
+                pageIndex=1;
             }
             Pager<Orders> pager = new Pager<>();
             pager.setPage((pageIndex-1)*size);
@@ -200,6 +209,9 @@ public class OrderController {
             }else if(Integer.parseInt(currentIndex) >= rowOrderByCon){
                 pageIndex=rowOrderByCon;
             }
+            if (pageIndex==0){
+                pageIndex=1;
+            }
             Pager<Orders> pager = new Pager<>();
             pager.setPage((pageIndex-1)*size);
             pager.setSize(size);
@@ -248,6 +260,9 @@ public class OrderController {
             }else if(Integer.parseInt(currentIndex) >= rowOrderByCon){
                 pageIndex=rowOrderByCon;
             }
+            if (pageIndex==0){
+                pageIndex=1;
+            }
             Pager<Orders> pager = new Pager<>();
             pager.setPage((pageIndex-1)*size);
             pager.setSize(size);
@@ -294,6 +309,9 @@ public class OrderController {
         }else if(Integer.parseInt(currentIndex) >= rowExamOrder){
             pageIndex=rowExamOrder;
         }
+        if (pageIndex==0){
+            pageIndex=1;
+        }
         Pager<Orders> pager = new Pager<>();
         pager.setPage((pageIndex-1)*size);
         pager.setSize(size);
@@ -307,8 +325,14 @@ public class OrderController {
     }
 
     @RequestMapping(value = "orderEamine.do",method = RequestMethod.GET)
-    public String orderEamine(HttpServletRequest request,HttpSession session){
+    public String orderEamine(HttpServletRequest request, HttpSession session, HttpServletResponse response){
         System.out.println("审核订单！！！");
+        PrintWriter out=null;
+        try {
+            out=response.getWriter();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         String orderId = request.getParameter("orderId");
         int checkId=((Users)session.getAttribute("user")).getuId();
         String opinion = request.getParameter("opinion");
@@ -321,6 +345,7 @@ public class OrderController {
             return "forward:getAllExamineOrder.do";
         }else{
             return "redirect:market/order/orderExamine";
+
         }
     }
 
@@ -361,6 +386,9 @@ public class OrderController {
             pageIndex = 1;
         }else if(Integer.parseInt(currentIndex) >= rowExamineOrderByCon){
             pageIndex=rowExamineOrderByCon;
+        }
+        if (pageIndex==0){
+            pageIndex=1;
         }
         Pager<Orders> pager = new Pager<>();
         pager.setPage((pageIndex-1)*size);

@@ -97,6 +97,9 @@ public class UsersController {
         }else if(Integer.parseInt(currentIndex) >= row){
             pageIndex=row;
         }
+        if (pageIndex==0){
+            pageIndex=1;
+        }
         Pager<Users> pager = new Pager<>();
         pager.setPage((pageIndex-1)*size);
         pager.setSize(size);
@@ -250,6 +253,9 @@ public class UsersController {
             pageIndex = 1;
         }else if(Integer.parseInt(currentIndex) >= rowJobByCon){
             pageIndex=rowJobByCon;
+        }
+        if (pageIndex==0){
+            pageIndex=1;
         }
         Pager<Users> pager = new Pager<>();
         pager.setPage((pageIndex-1)*size);

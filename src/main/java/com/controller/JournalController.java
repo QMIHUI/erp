@@ -41,6 +41,9 @@ public class JournalController {
         }else if(Integer.parseInt(currentIndex) >= rowJournal){
             pageIndex=rowJournal;
         }
+        if (pageIndex==0){
+            pageIndex=1;
+        }
         Pager<Journal> pager = new Pager<>();
         pager.setPage((pageIndex-1)*size);
         pager.setSize(size);
@@ -90,6 +93,9 @@ public class JournalController {
             pageIndex = 1;
         }else if(Integer.parseInt(currentIndex) >= rowJournalByCon){
             pageIndex=rowJournalByCon;
+        }
+        if (pageIndex==0){
+            pageIndex=1;
         }
         Pager<Journal> pager = new Pager<>();
         pager.setPage((pageIndex-1)*size);

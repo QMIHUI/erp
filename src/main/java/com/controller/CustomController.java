@@ -53,6 +53,9 @@ public class CustomController {
         }else if(Integer.parseInt(currentIndex) >= rowCust){
             pageIndex=rowCust;
         }
+        if (pageIndex==0){
+            pageIndex=1;
+        }
         Pager<Custom> pager = new Pager<>();
         pager.setPage((pageIndex-1)*size);
         pager.setSize(size);
@@ -234,6 +237,9 @@ public class CustomController {
             pageIndex = 1;
         }else if(Integer.parseInt(currentIndex) >= rowCustByCon){
             pageIndex=rowCustByCon;
+        }
+        if (pageIndex==0){
+            pageIndex=1;
         }
         Pager<Custom> pager = new Pager<>();
         pager.setPage((pageIndex-1)*size);

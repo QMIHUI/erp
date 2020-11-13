@@ -53,6 +53,9 @@ public class CustBroController {
             }else if(Integer.parseInt(currentIndex) >= rowCustNotNull){
                 pageIndex=rowCustNotNull;
             }
+            if (pageIndex==0){
+                pageIndex=1;
+            }
             Pager<Custom> pager = new Pager<>();
             pager.setPage((pageIndex-1)*size);
             pager.setSize(size);
@@ -79,6 +82,9 @@ public class CustBroController {
                 pageIndex = 1;
             }else if(Integer.parseInt(currentIndex) >= rowCustNotNull){
                 pageIndex=rowCustNotNull;
+            }
+            if (pageIndex==0){
+                pageIndex=1;
             }
             Pager<Custom> pager = new Pager<>();
             pager.setPage((pageIndex-1)*size);
@@ -123,6 +129,9 @@ public class CustBroController {
             }else if(Integer.parseInt(currentIndex) >= rowCustBroByCon){
                 pageIndex=rowCustBroByCon;
             }
+            if (pageIndex==0){
+                pageIndex=1;
+            }
             Pager<Custom> pager = new Pager<>();
             pager.setPage((pageIndex-1)*size);
             pager.setSize(size);
@@ -166,6 +175,9 @@ public class CustBroController {
                 pageIndex = 1;
             }else if(Integer.parseInt(currentIndex) >= rowCustBroByCon){
                 pageIndex=rowCustBroByCon;
+            }
+            if (pageIndex==0){
+                pageIndex=1;
             }
             Pager<Custom> pager = new Pager<>();
             pager.setPage((pageIndex-1)*size);
