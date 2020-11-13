@@ -53,7 +53,11 @@
   <update id="examineOrder">
     update orders set dStatus=1 where order_id=#{orderId}
   </update>
-  <delete id="deleteOrder">
+  <update id="orderExamine">
+    update orders set dStatus=#{dstatus},Checkid=#{checkid},Chectime=#{chectime},
+    opinion=#{opinion} where order_id=#{orderId}
+  </update>
+    <delete id="deleteOrder">
     delete from orders where order_id=#{orderId}
   </delete>
   <select id="getAllOrders" resultMap="getAll">
@@ -211,5 +215,60 @@
             </if>
         </where>
     </select>
+    <!-- 查询所有待审核的订单 -->
+    <select id="getAllExamineOrder" resultMap="getAll">
+        SELECT * FROM orders  LEFT JOIN custom ON orders.CustomId = custom.CUSTOMID
+        LEFT JOIN users ON orders.operatorId = users.u_id
+        LEFT JOIN warehouse ON orders.warehouseId = warehouse.ID
+        where dStatus=1 limit #{page},#{size}
+    </select>
+    <!-- 查询所有待审核的订单的数量 -->
+    <select id="countExaminerOrder" resultType="java.lang.Integer">
+        select count(*) from orders where dStatus=1
+    </select>
+    <select id="getExamineOrderByCon" resultMap="getAll">
+        SELECT * FROM orders  LEFT JOIN custom ON orders.CustomId = custom.CUSTOMID
+        LEFT JOIN users ON orders.operatorId = users.u_id
+        LEFT JOIN warehouse ON orders.warehouseId = warehouse.ID
+        where dStatus=1
+        <if test="orderId!=null and orderId!='' ">
+            and order_id=#{orderId}
+        </if>
+        <if test="startDate!=null and startDate!='' ">
+            and OrderTime >= #{startDate}
+        </if>
+        <if test="endDate !=null and endDate!='' ">
+            and OrderTime &lt;= #{endDate}
+        </if>
+        <if test="sPrice!=null and sPrice!='' ">
+            and ordermoney >= #{sPrice}
+        </if>
+        <if test="bPrice !=null and bPrice!='' ">
+            and ordermoney &lt;= #{bPrice}
+        </if>
+        limit #{page},#{size}
+    </select>
+    <select id="countExamineOrderByCon" resultType="java.lang.Integer">
+        SELECT count(*) FROM orders  LEFT JOIN custom ON orders.CustomId = custom.CUSTOMID
+        LEFT JOIN users ON orders.operatorId = users.u_id
+        LEFT JOIN warehouse ON orders.warehouseId = warehouse.ID
+        where dStatus=1
+        <if test="orderId!=null and orderId!='' ">
+            and order_id=#{orderId}
+        </if>
+        <if test="startDate!=null and startDate!='' ">
+            and OrderTime >= #{startDate}
+        </if>
+        <if test="endDate !=null and endDate!='' ">
+            and OrderTime &lt;= #{endDate}
+        </if>
+        <if test="sPrice!=null and sPrice!='' ">
+            and ordermoney >= #{sPrice}
+        </if>
+        <if test="bPrice !=null and bPrice!='' ">
+            and ordermoney &lt;= #{bPrice}
+        </if>
+    </select>
+
 
 </mapper>

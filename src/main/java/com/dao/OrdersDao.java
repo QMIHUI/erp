@@ -2,6 +2,7 @@ package com.dao;
 
 import com.bean.Orders;
 import com.util.Pager;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -33,4 +34,14 @@ public interface OrdersDao {
     //查找个人所拥有的订购单(含订购单详情)
     public List<Orders> getAllOrdersById1(Pager<Orders> pager);
     public int countOrdersById1(int customId);
+    //查询所有待审核的订单
+    public List<Orders> getAllExamineOrder(Pager<Orders> pager);
+    public int countExaminerOrder();
+    //待审核订单模糊查询
+    public List<Orders> getExamineOrderByCon(Pager<Orders> pager);
+    public int countExamineOrderByCon(Map<String,Object> map);
+
+    //审核订购单
+    public int orderExamine(@Param("dstatus") int dstatus,@Param("checkid") int checkid,@Param("chectime") String chectime,@Param("opinion") String opinion,@Param("orderId") String orderId);
+
 }

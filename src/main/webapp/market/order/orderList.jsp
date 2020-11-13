@@ -7,6 +7,7 @@ pageEncoding="UTF-8"%>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>客户管理</title>
 <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="${pageContext.request.contextPath}/laydate/laydate.js"></script>
   <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.js"></script>
 <script type="text/javascript">
     function deltipOpen(orderId) {
@@ -68,7 +69,7 @@ pageEncoding="UTF-8"%>
       <li style="width: 100px;height: 35px;margin-top: -10px">
         <input value="查 询" type="submit" id="searchbutton" class="subBut">
       </li>
-      <li class="subBut" onclick="window.location.href='orderAdd.jsp'"><img src="${pageContext.request.contextPath}/images/t01.png" />添加</li>
+      <li class="subBut" onclick="window.location.href='market/order/orderAdd.jsp'"><img src="${pageContext.request.contextPath}/images/t01.png" />添加</li>
     </ul>
   </form>
     <table class="tablelist">
@@ -125,13 +126,13 @@ pageEncoding="UTF-8"%>
               </c:if>
               <c:if test="${lorder.dstatus==2}">
                 <a href="${pageContext.request.contextPath}/getOneOrder.do?orderId=${lorder.orderId}&op=查看" class="tablelink">查看详情</a>
-                <a href="${pageContext.request.contextPath}/storage/delivery/deliveryView.jsp" class="tablelink">出库详情</a>
+                <a href="${pageContext.request.contextPath}/chuKuXiangQing.do?orderId=${lorder.orderId}" class="tablelink">出库详情</a>
               </c:if>
               <c:if test="${lorder.dstatus==3}">
                 <a href="${pageContext.request.contextPath}/getOneOrder.do?orderId=${lorder.orderId}&op=查看" class="tablelink">查看详情</a>
                 <a href="orderUpdate.jsp" class="tablelink">修改</a>
                   <a href="javascript:void(0);" class="tablelink" onclick="deltipOpen('${lorder.orderId}')">删除</a>
-                <a href="javascript:void(0);" class="tablelink" onclick="examinetipOpen()">提交审核</a>
+                <a href="javascript:void(0);" class="tablelink" onclick="examinetipOpen('${lorder.orderId}')">提交审核</a>
               </c:if>
             </c:if>
           </td>
@@ -212,6 +213,35 @@ pageEncoding="UTF-8"%>
     </div>
   </div>
 </div>--%>
+  <script type="text/javascript">
+    $('.tablelist tbody tr:odd').addClass('odd');
+
+    var start = {
+      elem: '#logStartTime',
+      format: 'YYYY-MM-DD hh:mm:ss',
+      max: '2099-06-16', //最大日期
+      istime: true,
+      istoday: false,
+      choose: function(datas){
+        end.min = datas; //开始日选好后，重置结束日的最小日期
+        end.start = datas; //将结束日的初始值设定为开始日
+      }
+    };
+
+    var end = {
+      elem: '#logEndTime',
+      format: 'YYYY-MM-DD hh:mm:ss',
+      max: '2099-06-16',
+      istime: true,
+      istoday: false,
+      choose: function(datas){
+        start.max = datas; //结束日选好后，充值开始日的最大日期
+      }
+    };
+    laydate.skin('molv');//切换皮肤，请查看skins下面皮肤库
+    laydate(start);
+    laydate(end);
+  </script>
 <script type="text/javascript">
 	$('.tablelist tbody tr:odd').addClass('odd');
 </script>
