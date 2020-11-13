@@ -1,10 +1,7 @@
 package com.controller;
 
 import com.bean.*;
-import com.dao.CustomDao;
-import com.dao.OrderdetailsDao;
-import com.dao.OrdersDao;
-import com.dao.ProductDao;
+import com.dao.*;
 import com.util.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +30,8 @@ public class OrderController {
     private CustomDao customDao;
     @Autowired
     private ProductDao productDao;
+    @Autowired
+    private UsersDao usersDao;
 
     @RequestMapping(value = "queryAllOrder.do",method = RequestMethod.GET)
     public String queryAllOrder(HttpServletRequest request, HttpSession session){
@@ -110,10 +111,24 @@ public class OrderController {
         request.getSession().setAttribute("listProduct",listProduct);
         if(op.equals("查看")){
             return "market/order/orderView";
-        }else {
+        }else if(op.equals("审核")){
+            return "market/orderExamine/orderExamine";
+        }else{
             return "market/order/orderUpdate";
         }
     }
+
+    @RequestMapping(value = "chuKuXiangQing.do",method = RequestMethod.GET)
+    public String chuKuXiangQing(HttpServletRequest request){
+        System.out.println("出库详情！！！");
+        String orderId = request.getParameter("orderId");
+        Orders order = ordersDao.getOneOrder(orderId);
+        request.getSession().setAttribute("order",order);
+        List<Orderdetails> orderDetailsList = orderdetailsDao.getDetailsByOrderId(orderId);
+        request.getSession().setAttribute("orderDetailsList",orderDetailsList);
+        return "storage/delivery/deliveryView";
+    }
+
 
     @RequestMapping(value = "deleteOrder.do",method = RequestMethod.GET)
     public String deleteOrder(HttpServletRequest request){
@@ -160,7 +175,6 @@ public class OrderController {
             bPrice = Double.parseDouble(bPrice01);
         }
         int dstatus = Integer.parseInt(request.getParameter("dstatus"));
-
         if (user.getJobId()==1||user.getJobId()==2){
             System.out.println("执行所有订单模糊查询！！！");
             System.out.println(orderId+".11-"+startDate+".11-"+enddate+".11-"+sPrice+".11-"+bPrice+".11-"+dstatus);
@@ -260,6 +274,56 @@ public class OrderController {
         }
         return "market/order/orderListByCon";
     }
+
+    @RequestMapping(value = "getAllExamineOrder.do",method = RequestMethod.GET)
+    public String getAllExamineOrder(HttpServletRequest request){
+        System.out.println("执行查询所有待审核的订单！！！");
+        int size = 5;
+        int countExamOrder = ordersDao.countExaminerOrder();
+        System.out.println("待审核的订单数量为:"+countExamOrder);
+        int rowExamOrder = countExamOrder % size == 0 ? (countExamOrder / size) : (countExamOrder / size + 1);
+        System.out.println("页数为:"+rowExamOrder);
+        String currentIndex= request.getParameter("pageIndex");
+        //第一次访问(当前页码=1)
+        int pageIndex = 1;
+        if(currentIndex!=null) {
+            pageIndex=Integer.parseInt(currentIndex);
+        }
+        if(currentIndex==null || Integer.parseInt(currentIndex) <= 0){
+            pageIndex = 1;
+        }else if(Integer.parseInt(currentIndex) >= rowExamOrder){
+            pageIndex=rowExamOrder;
+        }
+        Pager<Orders> pager = new Pager<>();
+        pager.setPage((pageIndex-1)*size);
+        pager.setSize(size);
+        pager.setTotal(countExamOrder);
+        List<Orders> listExamOrder = ordersDao.getAllExamineOrder(pager);
+        request.getSession().setAttribute("listExamOrder",listExamOrder);
+        request.getSession().setAttribute("rowExamOrder",rowExamOrder);
+        request.getSession().setAttribute("pageIndex",pageIndex);
+        request.getSession().setAttribute("countExamOrder",countExamOrder);
+        return "market/orderExamine/orderExamineList";
+    }
+
+    @RequestMapping(value = "orderEamine.do",method = RequestMethod.GET)
+    public String orderEamine(HttpServletRequest request,HttpSession session){
+        System.out.println("审核订单！！！");
+        String orderId = request.getParameter("orderId");
+        int checkId=((Users)session.getAttribute("user")).getuId();
+        String opinion = request.getParameter("opinion");
+        int dstatus = Integer.parseInt(request.getParameter("dstatus"));
+        Date date = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        String checkTime = format.format(date);
+        int num = ordersDao.orderExamine(dstatus,checkId,checkTime,opinion,orderId);
+        if(num>0){
+            return "forward:getAllExamineOrder.do";
+        }else{
+            return "redirect:market/order/orderExamine";
+        }
+    }
+
 
 
 

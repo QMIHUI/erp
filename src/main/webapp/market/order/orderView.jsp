@@ -99,16 +99,6 @@ pageEncoding="UTF-8"%>
           <td>${orderDeList.prototal}</td>
         </tr>
       </c:forEach>
-        <%--<tr>
-          <td>1</td>
-          <td>联想</td>
-          <td>笔记本电脑</td>
-          <td>T470</td>
-          <td>10</td>
-          <td>台</td>
-          <td>9998</td>
-          <td>99980</td>
-        </tr>--%>
       </tbody>
   </table>
   <div style="margin-top:20px; margin-left:20px;">

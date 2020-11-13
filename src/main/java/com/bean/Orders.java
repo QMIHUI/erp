@@ -19,7 +19,7 @@ public class Orders implements Serializable {
     private Users operatorid;
     private Integer operatorId;
 
-    private String dstatus;
+    private int dstatus;
 
     private Users checkid;
 
@@ -40,7 +40,8 @@ public class Orders implements Serializable {
     public Orders() {
     }
 
-    public Orders(String orderId, Integer customid, String ordertime, Double ordermoney, Users operatorid, String dstatus, Users checkid, String chectime, String opinion, Integer warehouseid, Integer ddState, Custom custom, Warehouse warehouse, List<Orderdetails> orderdetailsList) {
+
+    public Orders(String orderId, Integer customid, String ordertime, Double ordermoney, Users operatorid, int dstatus, Users checkid, String chectime, String opinion, Integer warehouseid, Integer ddState, Custom custom, Warehouse warehouse, List<Orderdetails> orderdetailsList) {
         this.orderId = orderId;
         this.customid = customid;
         this.ordertime = ordertime;
@@ -129,11 +130,11 @@ public class Orders implements Serializable {
         this.checkid = checkid;
     }
 
-    public String getDstatus() {
+    public int getDstatus() {
         return dstatus;
     }
 
-    public void setDstatus(String dstatus) {
+    public void setDstatus(int dstatus) {
         this.dstatus = dstatus;
     }
 

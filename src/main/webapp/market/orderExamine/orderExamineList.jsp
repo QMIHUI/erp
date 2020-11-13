@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>客户管理</title>
-<link href="../../css/style.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="../../js/jquery.js"></script>
+<link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.js"></script>
 
 <body>
 <div class="place"> <span>位置：</span>
@@ -36,7 +37,6 @@ pageEncoding="UTF-8"%>
     <table class="tablelist">
       <thead>
         <tr>
-          <th>序号</th>
           <th>订单编号</th>
           <th>客户姓名</th>
           <th>联系电话</th>
@@ -48,46 +48,27 @@ pageEncoding="UTF-8"%>
         </tr>
       </thead>
       <tbody>
+      <c:forEach items="${listExamOrder}" var="leo">
         <tr>
-          <td>1</td>
-          <td>DJ201701270001</td>
-          <td>王金平</td>
-          <td>17370899727</td>
-          <td>2017-01-25 15:05:05</td>
-          <td>￥9,876,582</td>
-          <td>关羽</td>
+          <td>${leo.orderId}</td>
+          <td>${leo.custom.customname}</td>
+          <td>${leo.custom.telephone}</td>
+          <td>${leo.ordertime}</td>
+          <td>${leo.ordermoney}</td>
+          <td>${leo.operatorid.uname}</td>
           <td>审核中</td>
-          <td>
-            <a href="orderExamine.jsp" class="tablelink">审核</a>
-          </td>
+          <td><a href="${pageContext.request.contextPath}/getOneOrder.do?orderId=${leo.orderId}&op=审核" class="tablelink">审核</a></td>
         </tr>
-        <tr>
-          <td>2</td>
-          <td>DJ201701270002</td>
-          <td>张永祥</td>
-          <td>17370899727</td>
-          <td>2017-01-25 15:05:05</td>
-          <td>￥9,876,582</td>
-          <td>关羽</td>
-          <td>审核中</td>
-          <td>
-            <a href="orderExamine.jsp" class="tablelink">审核</a>
-          </td>
-        </tr>
+      </c:forEach>
       </tbody>
     </table>
     <div class="pagin">
-      <div class="message">共<i class="blue">1256</i>条记录，当前显示第&nbsp;<i class="blue">2&nbsp;</i>页</div>
+      <div class="message">共<i class="blue">${countExamOrder}</i>条记录，当前显示第&nbsp;<i class="blue">${pageIndex}&nbsp;</i>页</div>
       <ul class="paginList">
-        <li class="paginItem"><a href="javascript:;"><span class="pagepre"></span></a></li>
-        <li class="paginItem"><a href="javascript:;">1</a></li>
-        <li class="paginItem current"><a href="javascript:;">2</a></li>
-        <li class="paginItem"><a href="javascript:;">3</a></li>
-        <li class="paginItem"><a href="javascript:;">4</a></li>
-        <li class="paginItem"><a href="javascript:;">5</a></li>
-        <li class="paginItem more"><a href="javascript:;">...</a></li>
-        <li class="paginItem"><a href="javascript:;">10</a></li>
-        <li class="paginItem"><a href="javascript:;"><span class="pagenxt"></span></a></li>
+        <li class="paginItem"><a href="${pageContext.request.contextPath }/getAllExamineOrder.do?pageIndex=1">首页</a></li>
+        <li class="paginItem"><a href="${pageContext.request.contextPath }/getAllExamineOrder.do?pageIndex=${pageIndex-1}">上页</a></li>
+        <li class="paginItem"><a href="${pageContext.request.contextPath }/getAllExamineOrder.do?pageIndex=${pageIndex+1}">下页</a></li>
+        <li class="paginItem"><a href="${pageContext.request.contextPath }/getAllExamineOrder.do?pageIndex=${rowExamOrder}">末页</a></li>
       </ul>
     </div>
   </form>
