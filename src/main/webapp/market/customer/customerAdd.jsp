@@ -28,9 +28,8 @@ pageEncoding="UTF-8"%>
       <li>
         <label>性别</label>
         <cite>
-            <input name="custSex" type="radio" value="1" checked="checked" />男
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <input name="sex" type="radio" value="2" />女
+            <input name="custSex" type="radio" value="男" checked="checked" />男
+            <input name="custSex" type="radio" value="女" />女
         </cite>
       </li>
       <li>
