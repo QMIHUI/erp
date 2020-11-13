@@ -34,12 +34,14 @@
 <div class="rightinfo">
     <form action="" method="post">
         <ul class="tools">
-            <select>
-                <option value="0">请选择</option>
-                <c:forEach items="${brandListSelect}" var="brand">
-                    <option value="${brand.brandId}">${brand.brandName}</option>
-                </c:forEach>
-            </select>
+            <li> 品牌:
+                <select>
+                    <option value="0">请选择</option>
+                    <c:forEach items="${brandListSelect}" var="brand">
+                        <option value="${brand.brandId}">${brand.brandName}</option>
+                    </c:forEach>
+                </select>
+            </li>
             <li> 商品类型:
                 <select>
                     <option>请选择</option>

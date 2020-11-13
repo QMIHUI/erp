@@ -40,16 +40,16 @@
         </li>
         <li>
             <label>审核状态</label>
-            <c:if test="${purchase.cgState==1}">
+            <c:if test="${purchase.checkStatus==1}">
                 <cite>未审核</cite>
             </c:if>
-            <c:if test="${purchase.cgState==2}">
+            <c:if test="${purchase.checkStatus==2}">
                 <cite>审核中</cite>
             </c:if>
-            <c:if test="${purchase.cgState==3}">
+            <c:if test="${purchase.checkStatus==3}">
                 <cite>已审核通过</cite>
             </c:if>
-            <c:if test="${purchase.cgState==4}">
+            <c:if test="${purchase.checkStatus==4}">
                 <cite>审核未通过</cite>
             </c:if>
 
