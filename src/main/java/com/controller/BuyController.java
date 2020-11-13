@@ -55,6 +55,9 @@ public class BuyController {
         }else if(Integer.parseInt(currentIndex) >= row){
             pageIndex=row;
         }
+        if (pageIndex==0){
+            pageIndex=1;
+        }
         Pager<Firm> pager = new Pager<>();
         pager.setPage((pageIndex-1)*size);
         pager.setSize(size);
@@ -153,6 +156,9 @@ public class BuyController {
             }else if(Integer.parseInt(currentIndex) >= row){
                 pageIndex=row;
             }
+            if (pageIndex==0){
+                pageIndex=1;
+            }
             Pager<Firm> pager = new Pager<>();
             pager.setPage((pageIndex-1)*size);
             pager.setSize(size);
@@ -225,6 +231,9 @@ public class BuyController {
             }else if(Integer.parseInt(currentIndex) >= row){
                 pageIndex=row;
             }
+            if (pageIndex==0){
+                pageIndex=1;
+            }
             Pager<Firm> pager = new Pager<>();
             pager.setPage((pageIndex-1)*size);
             pager.setSize(size);
@@ -266,6 +275,9 @@ public class BuyController {
             pageIndex = 1;
         }else if(Integer.parseInt(currentIndex) >= row){
             pageIndex=row;
+        }
+        if (pageIndex==0){
+            pageIndex=1;
         }
         Pager<Brand> pager = new Pager<>();
         pager.setPage((pageIndex-1)*size);
@@ -311,6 +323,9 @@ public class BuyController {
                 pageIndex = 1;
             }else if(Integer.parseInt(currentIndex) >= row){
                 pageIndex=row;
+            }
+            if (pageIndex==0){
+                pageIndex=1;
             }
             Pager<Brand> pager = new Pager<>();
             pager.setPage((pageIndex-1)*size);
@@ -369,6 +384,9 @@ public class BuyController {
                 pageIndex = 1;
             }else if(Integer.parseInt(currentIndex) >= row){
                 pageIndex=row;
+            }
+            if (pageIndex==0){
+                pageIndex=1;
             }
             Pager<Brand> pager = new Pager<>();
             pager.setPage((pageIndex-1)*size);
@@ -437,6 +455,9 @@ public class BuyController {
         }else if(Integer.parseInt(currentIndex) >= row){
             pageIndex=row;
         }
+        if (pageIndex==0){
+            pageIndex=1;
+        }
         Pager<Type> pager = new Pager<>();
         pager.setPage((pageIndex-1)*size);
         pager.setSize(size);
@@ -491,6 +512,9 @@ public class BuyController {
                 pageIndex = 1;
             }else if(Integer.parseInt(currentIndex) >= row){
                 pageIndex=row;
+            }
+            if (pageIndex==0){
+                pageIndex=1;
             }
             Pager<Type> pager = new Pager<>();
             pager.setPage((pageIndex-1)*size);
@@ -558,6 +582,9 @@ public class BuyController {
                 pageIndex = 1;
             }else if(Integer.parseInt(currentIndex) >= row){
                 pageIndex=row;
+            }
+            if (pageIndex==0){
+                pageIndex=1;
             }
             Pager<Type> pager = new Pager<>();
             pager.setPage((pageIndex-1)*size);
