@@ -43,6 +43,7 @@ public class Pager<T> {
     private int customId;
     private int firmId;
     private int warehouseId;
+    private int createId;
 
     private int page;//分页起始页
     private int size;//每页记录数
@@ -286,5 +287,13 @@ public class Pager<T> {
 
     public void setWarehouseId(int warehouseId) {
         this.warehouseId = warehouseId;
+    }
+
+    public int getCreateId() {
+        return createId;
+    }
+
+    public void setCreateId(int createId) {
+        this.createId = createId;
     }
 }

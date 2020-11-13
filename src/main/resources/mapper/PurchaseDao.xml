@@ -50,13 +50,30 @@
     <select id="getAllPurchases" resultMap="purchase">
         select purchase_id, creat_id, check_id, purchase_time, check_time, check_opinion, warehuoseId, cg_state, total_money, check_status from c_purchase
     </select>
+
+    <select id="getAllPurchasesPage" resultMap="purchase">
+        select purchase_id, creat_id, check_id, purchase_time, check_time, check_opinion, warehuoseId, cg_state, total_money, check_status from c_purchase limit #{page},#{size}
+    </select>
+    <select id="countPurchaseAll" resultType="integer">
+        select count(*) from c_purchase
+    </select>
+
     <!--根据createId查找所有个人的采购单-->
     <select id="getPurchasesByCreateId" resultMap="purchase">
         select purchase_id, creat_id, check_id, purchase_time, check_time, check_opinion, warehuoseId, cg_state, total_money, check_status from c_purchase where creat_id=#{createId}
     </select>
+    <select id="getPurchasesByCreateIdPage" resultMap="purchase">
+        select purchase_id, creat_id, check_id, purchase_time, check_time, check_opinion, warehuoseId, cg_state, total_money, check_status from c_purchase where creat_id=#{createId} limit #{page},#{size}
+    </select>
+    <select id="countPurchasesByCreateId" resultType="integer">
+        select count(*) from c_purchase where creat_id=#{createId}
+    </select>
     <!--获取所有审核中采购单-->
     <select id="getAllPurchaseStatus2" resultMap="purchase">
-        select purchase_id, creat_id, check_id, purchase_time, check_time, check_opinion, warehuoseId, cg_state, total_money, check_status from c_purchase where check_status=2
+        select purchase_id, creat_id, check_id, purchase_time, check_time, check_opinion, warehuoseId, cg_state, total_money, check_status from c_purchase where check_status=2 limit #{page},#{size}
+    </select>
+    <select id="countPurchaseStatus2" resultType="integer">
+        select count(*) from c_purchase where check_status=2
     </select>
 
 </mapper>

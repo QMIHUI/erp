@@ -16,15 +16,22 @@ public interface PurchaseDao {
     public Purchase getPurchaseById(String id);
     //查找所有采购单
     public List<Purchase> getAllPurchases();
+
+    public List<Purchase> getAllPurchasesPage(Pager<Purchase> pager);
+    public int countPurchaseAll();
+
     //根据createId查找所有个人的采购单
     public List<Purchase> getPurchasesByCreateId(int createId);
+    public List<Purchase> getPurchasesByCreateIdPage(Pager<Purchase> pager);
+    public int countPurchasesByCreateId(int createId);
     //删除采购单
     public int deletePurchase(String id);
     public int deletePurchaseDetails(String id);
     //采购单提交审核
     public int submitPurchase(String id);
     //获取所有审核中采购单
-    public List<Purchase> getAllPurchaseStatus2();
+    public List<Purchase> getAllPurchaseStatus2(Pager<Purchase> pager);
+    public int countPurchaseStatus2();
     //审核采购单
     public int purchaseExamine(int checkId, Date checkTime,String checkOpinion,int checkStatus,String Id);
 }
