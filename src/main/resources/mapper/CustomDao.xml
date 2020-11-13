@@ -170,7 +170,7 @@
     </resultMap>
     <!--数据统计页面查找所有客户-->
     <select id="getAllCustomsStatis" resultMap="CustomsStatis">
-        select CUSTOMID,CUSTOMNAME,TELEPHONE,CSTATUS,ADDRESS from custom
+        select CUSTOMID,CUSTOMNAME,TELEPHONE,CSTATUS,ADDRESS from custom limit #{page},#{size}
     </select>
     <select id="getAllCustomById" resultMap="getAll">
         select * from custom where custom.LEADING=#{leading} limit #{page},#{size}
@@ -184,4 +184,40 @@
         this.cstatus = cstatus;
         this.province = province;
         this.ordersList = ordersList;-->
+
+
+
+    <select id="getCustomByConStatis" resultMap="CustomsStatis">
+        SELECT * FROM custom LEFT JOIN province ON custom.address = province.ID
+        LEFT JOIN users ON custom.CREATEID = users.u_id WHERE 1=1
+        <if test="customname!=null and customname!='' ">
+            and CUSTOMNAME like '%${customname}%'
+        </if>
+        <if test="address!=null and address!='' ">
+            and ADDRESS=#{address}
+        </if>
+        <if test="startDate !=null and startDate!='' ">
+            and CREATETIME >= #{startDate}
+        </if>
+        <if test="endDate !=null and endDate!='' ">
+            and CREATETIME &lt;= #{endDate}
+        </if>
+        limit #{page},#{size}
+    </select>
+    <select id="countCustByConStatic" resultType="java.lang.Integer">
+        SELECT count(*) FROM custom LEFT JOIN province ON custom.address = province.ID
+        LEFT JOIN users ON custom.CREATEID = users.u_id WHERE 1=1
+        <if test="customname!=null and customname!='' ">
+            and CUSTOMNAME like '%${customname}%'
+        </if>
+        <if test="address!=null and address!='' ">
+            and ADDRESS=#{address}
+        </if>
+        <if test="startDate !=null and startDate!='' ">
+            and CREATETIME >= #{startDate}
+        </if>
+        <if test="endDate !=null and endDate!='' ">
+            and CREATETIME &lt;= #{endDate}
+        </if>
+    </select>
 </mapper>

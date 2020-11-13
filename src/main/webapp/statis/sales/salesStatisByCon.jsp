@@ -22,6 +22,11 @@
 </div>
 <div class="rightinfo">
     <form action="${pageContext.request.contextPath}/getCustomersByConStatis.do" method="get">
+        <script type="text/javascript">
+            $(function () {
+                $("select[name='province']").val(${province});
+            })
+        </script>
         <ul class="tools">
             <li> 所属区域：
                 <select name="province">
@@ -38,12 +43,12 @@
                 </select>--%>
             </li>
             <li> 客户姓名:
-                <input type="text" name="custName"/>
+                <input type="text" name="custName" value="${custName}"/>
             </li>
             <li> <label>时间:</label>
-                <input name="startDate" type="text" class="laydate-icon" id="logStartTime"/>
+                <input name="startDate" type="text" class="laydate-icon" id="logStartTime" value="${startDate}"/>
                 <label>-</label>
-                <input name="enddate" type="text" class="laydate-icon" id="logEndTime"/>
+                <input name="enddate" type="text" class="laydate-icon" id="logEndTime" value="${enddate}"/>
             </li>
             <li style="width: 100px;height: 35px;margin-top: -10px">
                 <input value="查 询" type="submit" id="searchbutton" class="subBut">
@@ -63,7 +68,7 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${customList}" var="custom" varStatus="index">
+            <c:forEach items="${listCustomByCon}" var="custom" varStatus="index">
                 <tr>
                     <td>${index.index+1+(pageIndex-1)*5}</td>
                     <td>${custom.customname}</td>
@@ -83,12 +88,12 @@
             </tbody>
         </table>
         <div class="pagin">
-            <div class="message">共<i class="blue">${countCustom}</i>条记录，当前显示第&nbsp;<i class="blue">${pageIndex}&nbsp;</i>页</div>
+            <div class="message">共<i class="blue">${countCustByCon}</i>条记录，当前显示第&nbsp;<i class="blue">${pageIndex}&nbsp;</i>页</div>
             <ul class="paginList">
-                <li class="paginItem"><a href="${pageContext.request.contextPath }/getAllcustomsStatis.do?pageIndex=1">首页</a></li>
-                <li class="paginItem"><a href="${pageContext.request.contextPath }/getAllcustomsStatis.do?pageIndex=${pageIndex-1}">上页</a></li>
-                <li class="paginItem"><a href="${pageContext.request.contextPath }/getAllcustomsStatis.do?pageIndex=${pageIndex+1}">下页</a></li>
-                <li class="paginItem"><a href="${pageContext.request.contextPath }/getAllcustomsStatis.do?pageIndex=${row}">末页</a></li>
+                <li class="paginItem"><a href="${pageContext.request.contextPath }/getCustomersByConStatis.do?pageIndex=1&custName=${custName}&province=${province}&startDate=${startDate}&enddate=${enddate}">首页</a></li>
+                <li class="paginItem"><a href="${pageContext.request.contextPath }/getCustomersByConStatis.do?pageIndex=${pageIndex-1}&custName=${custName}&province=${province}&startDate=${startDate}&enddate=${enddate}">上页</a></li>
+                <li class="paginItem"><a href="${pageContext.request.contextPath }/getCustomersByConStatis.do?pageIndex=${pageIndex+1}&custName=${custName}&province=${province}&startDate=${startDate}&enddate=${enddate}">下页</a></li>
+                <li class="paginItem"><a href="${pageContext.request.contextPath }/getCustomersByConStatis.do?pageIndex=${rowCustByCon}&custName=${custName}&province=${province}&startDate=${startDate}&enddate=${enddate}">末页</a></li>
             </ul>
         </div>
 
