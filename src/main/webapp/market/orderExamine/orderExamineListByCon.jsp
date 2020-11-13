@@ -18,7 +18,7 @@ pageEncoding="UTF-8"%>
   </ul>
 </div>
 <div class="rightinfo">
-  <form action="${pageContext.request.contextPath}/getExamineOrderByCon.do" method="get">
+  <form action="" method="get">
     <ul class="tools">
       <li> 订单编号:
         <input type="text" name="orderId" />
@@ -53,27 +53,27 @@ pageEncoding="UTF-8"%>
         </tr>
       </thead>
       <tbody>
-      <c:forEach items="${listExamOrder}" var="leo">
+      <c:forEach items="${listExamOrderByCon}" var="leobc">
         <tr>
-          <td>${leo.orderId}</td>
-          <td>${leo.custom.customname}</td>
-          <td>${leo.custom.telephone}</td>
-          <td>${leo.ordertime}</td>
-          <td>${leo.ordermoney}</td>
-          <td>${leo.operatorid.uname}</td>
+          <td>${leobc.orderId}</td>
+          <td>${leobc.custom.customname}</td>
+          <td>${leobc.custom.telephone}</td>
+          <td>${leobc.ordertime}</td>
+          <td>${leobc.ordermoney}</td>
+          <td>${leobc.operatorid.uname}</td>
           <td>审核中</td>
-          <td><a href="${pageContext.request.contextPath}/getOneOrder.do?orderId=${leo.orderId}&op=审核" class="tablelink">审核</a></td>
+          <td><a href="${pageContext.request.contextPath}/getOneOrder.do?orderId=${leobc.orderId}&op=审核" class="tablelink">审核</a></td>
         </tr>
       </c:forEach>
       </tbody>
     </table>
     <div class="pagin">
-      <div class="message">共<i class="blue">${countExamOrder}</i>条记录，当前显示第&nbsp;<i class="blue">${pageIndex}&nbsp;</i>页</div>
+      <div class="message">共<i class="blue">${countExamineOrderByCon}</i>条记录，当前显示第&nbsp;<i class="blue">${pageIndex}&nbsp;</i>页</div>
       <ul class="paginList">
-        <li class="paginItem"><a href="${pageContext.request.contextPath }/getAllExamineOrder.do?pageIndex=1">首页</a></li>
-        <li class="paginItem"><a href="${pageContext.request.contextPath }/getAllExamineOrder.do?pageIndex=${pageIndex-1}">上页</a></li>
-        <li class="paginItem"><a href="${pageContext.request.contextPath }/getAllExamineOrder.do?pageIndex=${pageIndex+1}">下页</a></li>
-        <li class="paginItem"><a href="${pageContext.request.contextPath }/getAllExamineOrder.do?pageIndex=${rowExamOrder}">末页</a></li>
+        <li class="paginItem"><a href="${pageContext.request.contextPath }/getExamineOrderByCon.do?pageIndex=1&orderId=${orderId}&startDate=${startDate}&enddate=${enddate}&bPrice=${bPrice}&sPrice=${sPrice}">首页</a></li>
+        <li class="paginItem"><a href="${pageContext.request.contextPath }/getExamineOrderByCon.do?pageIndex=${pageIndex-1}&orderId=${orderId}&startDate=${startDate}&enddate=${enddate}&bPrice=${bPrice}&sPrice=${sPrice}">上页</a></li>
+        <li class="paginItem"><a href="${pageContext.request.contextPath }/getExamineOrderByCon.do?pageIndex=${pageIndex+1}&orderId=${orderId}&startDate=${startDate}&enddate=${enddate}&bPrice=${bPrice}&sPrice=${sPrice}">下页</a></li>
+        <li class="paginItem"><a href="${pageContext.request.contextPath }/getExamineOrderByCon.do?pageIndex=${rowExamineOrderByCon}&orderId=${orderId}&startDate=${startDate}&enddate=${enddate}&bPrice=${bPrice}&sPrice=${sPrice}">末页</a></li>
       </ul>
     </div>
   </form>

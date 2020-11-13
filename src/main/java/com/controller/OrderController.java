@@ -324,6 +324,68 @@ public class OrderController {
         }
     }
 
+    @RequestMapping(value = "getExamineOrderByCon.do",method = RequestMethod.GET)
+    public String getExamineOrderByCon(HttpServletRequest request){
+        System.out.println("执行待审核订单模糊查询！！！");
+        String orderId = request.getParameter("orderId");
+        String startDate = request.getParameter("startDate");
+        String enddate = request.getParameter("enddate");
+        Double sPrice = 0.0;
+        Double bPrice = 0.0;
+        String sPrice01 =request.getParameter("sPrice");
+        if(!(sPrice01.equals(""))){
+            sPrice = Double.parseDouble(sPrice01);
+        }
+        String bPrice01 =request.getParameter("bPrice");
+        if(!(bPrice01.equals(""))){
+            bPrice = Double.parseDouble(bPrice01);
+        }
+        Map<String,Object> map = new HashMap<>();
+        map.put("orderId",orderId);
+        map.put("startDate",startDate);
+        map.put("enddate",enddate);
+        map.put("sPrice",sPrice);
+        map.put("bPrice",bPrice);
+        int countExamineOrderByCon = ordersDao.countExamineOrderByCon(map);
+        System.out.println(countExamineOrderByCon);
+        int size = 5;
+        int rowExamineOrderByCon = countExamineOrderByCon % size == 0 ? (countExamineOrderByCon / size) : (countExamineOrderByCon / size + 1);
+        System.out.println(rowExamineOrderByCon);
+        String currentIndex= request.getParameter("pageIndex");
+        //第一次访问(当前页码=1)
+        int pageIndex = 1;
+        if(currentIndex!=null) {
+            pageIndex=Integer.parseInt(currentIndex);
+        }
+        if(currentIndex==null || Integer.parseInt(currentIndex) <= 0){
+            pageIndex = 1;
+        }else if(Integer.parseInt(currentIndex) >= rowExamineOrderByCon){
+            pageIndex=rowExamineOrderByCon;
+        }
+        Pager<Orders> pager = new Pager<>();
+        pager.setPage((pageIndex-1)*size);
+        pager.setSize(size);
+        pager.setTotal(countExamineOrderByCon);
+        pager.setOrderId(orderId);
+        pager.setStartDate(startDate);
+        pager.setEndDate(enddate);
+        pager.setbPrice(bPrice);
+        pager.setsPrice(sPrice);
+        List<Orders> listExamOrderByCon = ordersDao.getExamineOrderByCon(pager);
+        request.getSession().setAttribute("listExamOrderByCon",listExamOrderByCon);
+        request.getSession().setAttribute("rowExamineOrderByCon",rowExamineOrderByCon);
+        request.getSession().setAttribute("pageIndex",pageIndex);
+        request.getSession().setAttribute("countExamineOrderByCon",countExamineOrderByCon);
+        request.getSession().setAttribute("orderId",orderId);
+        request.getSession().setAttribute("startDate",startDate);
+        request.getSession().setAttribute("enddate",enddate);
+        request.getSession().setAttribute("bPrice",bPrice);
+        request.getSession().setAttribute("sPrice",sPrice);
+        return "market/orderExamine/orderExamineListByCon";
+    }
+
+
+
 
 
 
