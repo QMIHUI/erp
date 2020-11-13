@@ -1,6 +1,7 @@
 package com.dao;
 
 import com.bean.Brand;
+import com.util.Pager;
 
 import java.util.Date;
 import java.util.List;
@@ -19,4 +20,8 @@ public interface BrandDao {
     public int recoverBrand(int id);
     //获取所有可用brand
     public List<Brand> getAllBrandsUseful();
+
+
+    public List<Brand> getAllBrandsPage(Pager<Brand> pager);
+    public int countBrand();
 }

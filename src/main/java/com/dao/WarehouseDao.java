@@ -1,6 +1,7 @@
 package com.dao;
 
 import com.bean.Warehouse;
+import com.util.Pager;
 
 import java.util.List;
 
@@ -20,5 +21,8 @@ public interface WarehouseDao {
 
     public Warehouse getWarehouseById(int id);
     public List<Warehouse> getAllWarehouseStatis();
+
+    public int countWarehouse();
+    public List<Warehouse> getAllWarehouseStatisPage(Pager<Warehouse> pager);
 
 }

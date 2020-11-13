@@ -54,4 +54,11 @@
         select product_id, product_model, product_price, product_status, product_unit, create_time, create_id, type_id, firm_id from c_product
     </select>
 
+
+    <select id="getAllProductPage" resultMap="product">
+        select product_id, product_model, product_price, product_status, product_unit, create_time, create_id, type_id, firm_id from c_product limit #{page},#{size}
+    </select>
+    <select id="countProduct" resultType="java.lang.Integer">
+        select count(*) from c_product
+    </select>
 </mapper>

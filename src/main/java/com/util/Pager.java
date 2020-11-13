@@ -40,6 +40,9 @@ public class Pager<T> {
     private double bPrice;
     private int dstatus;
 
+    private int customId;
+    private int firmId;
+    private int warehouseId;
 
     private int page;//分页起始页
     private int size;//每页记录数
@@ -259,5 +262,29 @@ public class Pager<T> {
     }
     public void setTotal(long total) {
         this.total = total;
+    }
+
+    public int getCustomId() {
+        return customId;
+    }
+
+    public void setCustomId(int customId) {
+        this.customId = customId;
+    }
+
+    public int getFirmId() {
+        return firmId;
+    }
+
+    public void setFirmId(int firmId) {
+        this.firmId = firmId;
+    }
+
+    public int getWarehouseId() {
+        return warehouseId;
+    }
+
+    public void setWarehouseId(int warehouseId) {
+        this.warehouseId = warehouseId;
     }
 }

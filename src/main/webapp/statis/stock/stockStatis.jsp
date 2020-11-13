@@ -24,16 +24,16 @@
         <ul class="tools">
             <li> 所属区域：
                 <select>
-                    <option>请选择省份</option>
-                    <option>北京</option>
-                    <option>江苏</option>
-                    <option>天津</option>
+                    <option value="0">请选择</option>
+                    <c:forEach items="${provinceList}" var="province" >
+                        <option value="${province.id}">${province.pName}</option>
+                    </c:forEach>
                 </select>
                 <select>
-                    <option>请选择城市</option>
-                    <option>北京</option>
-                    <option>南京</option>
-                    <option>天津</option>
+                    <option value="0">请选择城市</option>
+                    <c:forEach items="${cityList}" var="city" >
+                        <option value="${city.cId}">${city.cName}</option>
+                    </c:forEach>
                 </select>
             </li>
             <li> 仓库名称:
@@ -60,7 +60,7 @@
             <tbody>
             <c:forEach items="${warehouseList}" var="warehouse" varStatus="index">
                 <tr>
-                    <td>${index.index+1}</td>
+                    <td>${index.index+1+(pageIndex-1)*5}</td>
                     <td>${warehouse.name}</td>
                     <td>${warehouse.principal.uname}</td>
                     <td>${warehouse.province.pName}${warehouse.city.cName}</td>
@@ -79,17 +79,12 @@
             </tbody>
         </table>
         <div class="pagin">
-            <div class="message">共<i class="blue">1256</i>条记录，当前显示第&nbsp;<i class="blue">2&nbsp;</i>页</div>
+            <div class="message">共<i class="blue">${countWarehouse}</i>条记录，当前显示第&nbsp;<i class="blue">${pageIndex}&nbsp;</i>页</div>
             <ul class="paginList">
-                <li class="paginItem"><a href="javascript:;"><span class="pagepre"></span></a></li>
-                <li class="paginItem"><a href="javascript:;">1</a></li>
-                <li class="paginItem current"><a href="javascript:;">2</a></li>
-                <li class="paginItem"><a href="javascript:;">3</a></li>
-                <li class="paginItem"><a href="javascript:;">4</a></li>
-                <li class="paginItem"><a href="javascript:;">5</a></li>
-                <li class="paginItem more"><a href="javascript:;">...</a></li>
-                <li class="paginItem"><a href="javascript:;">10</a></li>
-                <li class="paginItem"><a href="javascript:;"><span class="pagenxt"></span></a></li>
+                <li class="paginItem"><a href="${pageContext.request.contextPath }/intoWarehouseStatis.do?pageIndex=1">首页</a></li>
+                <li class="paginItem"><a href="${pageContext.request.contextPath }/intoWarehouseStatis.do?pageIndex=${pageIndex-1}">上页</a></li>
+                <li class="paginItem"><a href="${pageContext.request.contextPath }/intoWarehouseStatis.do?pageIndex=${pageIndex+1}">下页</a></li>
+                <li class="paginItem"><a href="${pageContext.request.contextPath }/intoWarehouseStatis.do?pageIndex=${row}">末页</a></li>
             </ul>
         </div>
     </form>

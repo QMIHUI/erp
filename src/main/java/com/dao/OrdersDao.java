@@ -14,6 +14,7 @@ public interface OrdersDao {
     //查找个人所拥有的订购单
     public List<Orders> getAllOrdersById(Pager<Orders> pager);
     public int countOrdersById(int operatorid);
+
     //通过订单编号获取订单
     public Orders getOneOrder(String orderId);
     //根据客户得到所有订单
@@ -30,6 +31,9 @@ public interface OrdersDao {
     public Orders getOneOrder1(String orderId);
     //根据客户得到所有订单(含订单详情)
     public List<Orders> getOrdersByCustomId1(int customId);
+    //查找个人所拥有的订购单(含订购单详情)
+    public List<Orders> getAllOrdersById1(Pager<Orders> pager);
+    public int countOrdersById1(int customId);
     //查询所有待审核的订单
     public List<Orders> getAllExamineOrder(Pager<Orders> pager);
     public int countExaminerOrder();

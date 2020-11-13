@@ -1,6 +1,7 @@
 package com.dao;
 
 import com.bean.Product;
+import com.util.Pager;
 
 import java.util.Date;
 import java.util.List;
@@ -26,4 +27,7 @@ public interface ProductDao {
     public int updateProduct(String productModel, double productPrice,String productUnit,int typeId,int firmId,int id);
     //修改商品(状态不可用)
     public int updateProduct2(String productModel, double productPrice,String productUnit,int typeId,int firmId,int id);
+
+    public List<Product> getAllProductPage(Pager<Product> pager);
+    public int countProduct();
 }

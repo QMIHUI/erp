@@ -33,6 +33,15 @@
     <select id="getPurchaseByCheckId" resultMap="purchase">
       select purchase_id, creat_id, check_id, purchase_time, check_time, check_opinion, warehuoseId, cg_state, total_money, check_status from c_purchase where check_id=#{id}
     </select>
+
+    <select id="getPurchaseByCheckIdPage" resultMap="purchase">
+        select purchase_id, creat_id, check_id, purchase_time, check_time, check_opinion, warehuoseId, cg_state, total_money, check_status from c_purchase where check_id=#{firmId} limit #{page},#{size}
+    </select>
+
+    <select id="countPurchaseByCheckId" resultType="integer">
+        select count(*) from c_purchase where check_id=#{id}
+    </select>
+
     <!--根据订单号查找采购单-->
     <select id="getPurchaseById" resultMap="purchase">
         select purchase_id, creat_id, check_id, purchase_time, check_time, check_opinion, warehuoseId, cg_state, total_money, check_status from c_purchase where purchase_id=#{id}

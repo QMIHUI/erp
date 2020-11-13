@@ -12,7 +12,13 @@
     </resultMap>
     <!--获取所有出库信息-->
     <select id="getAllCkWarehouse" resultMap="ckWarehouse">
-        select id, indent, warehouse_id, c_date, user_id, state from erp.ck_warehouse where WAREHOUSE_ID=#{warehouseId} and STATE=2
+        select id, indent, warehouse_id, c_date, user_id, state from erp.ck_warehouse where WAREHOUSE_ID=#{warehouseId} and STATE in(2,3,5)
+    </select>
+    <select id="countCkWarehouse" resultType="integer">
+        select COUNT(*) from ck_warehouse where WAREHOUSE_ID=#{warehouseId} and STATE in(2,3,5)
+    </select>
+    <select id="getAllCkWarehousePage" resultMap="ckWarehouse">
+        select id, indent, warehouse_id, c_date, user_id, state from erp.ck_warehouse where WAREHOUSE_ID=#{warehouseId} and STATE in(2,3,5) limit #{page},#{size}
     </select>
 
 </mapper>
