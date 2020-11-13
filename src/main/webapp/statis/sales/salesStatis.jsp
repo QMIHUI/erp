@@ -8,10 +8,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>无标题文档</title>
     <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.8.3.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/laydate/laydate.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/echarts-all.js"></script>
 </head>
-
 <body>
 <div class="place"> <span>位置：</span>
     <ul class="placeul">
@@ -93,6 +93,33 @@
         </div>
 
 </div>
+<div id="main" style="width: 1200px;height:400px;"></div>
+<script type="text/javascript">
+    $(function () {
+        var myChart = echarts.init($("#main")[0]);
+        // 指定图表的配置项和数据
+        var option = {
+            title: {
+                text: 'ECharts 入门示例'
+            },
+            tooltip: {},
+            legend: {
+                data:['销量']
+            },
+            xAxis: {
+                data: ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18"]
+            },
+            yAxis: {},
+            series: [{
+                name: '销量',
+                type: 'bar',
+                data: [5, 20, 36, 10, 10, 20,15,35,18,21,1,21,23,15,23,54,12,35]
+            }]
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    })
+</script>
 <script type="text/javascript">
     $('.tablelist tbody tr:odd').addClass('odd');
 
@@ -121,6 +148,10 @@
     laydate.skin('molv');//切换皮肤，请查看skins下面皮肤库
     laydate(start);
     laydate(end);
+
+
+
 </script>
+
 </body>
 </html>
