@@ -1,6 +1,7 @@
 package com.dao;
 
 import com.bean.Purchase;
+import com.util.Pager;
 
 import java.util.Date;
 import java.util.List;
@@ -8,6 +9,9 @@ import java.util.List;
 public interface PurchaseDao {
     //根据厂商id查找采购单集合
     public List<Purchase> getPurchaseByCheckId(int id);
+    //根据厂商id查找采购单集合分页
+    public List<Purchase> getPurchaseByCheckIdPage(Pager<Purchase> pager);
+    public int countPurchaseByCheckId(int id);
     //根据订单号查找采购单
     public Purchase getPurchaseById(String id);
     //查找所有采购单

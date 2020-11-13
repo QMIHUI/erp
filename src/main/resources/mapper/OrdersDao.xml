@@ -130,6 +130,16 @@
     LEFT JOIN warehouse ON orders.warehouseId = warehouse.ID
     where custom.CUSTOMID=#{customId}
   </select>
+    <!--根据客户得到所有订单(含订单详情)-->
+    <select id="getAllOrdersById1" resultMap="psqing">
+      SELECT * FROM orders  LEFT JOIN custom ON orders.CustomId = custom.CUSTOMID
+    LEFT JOIN users ON orders.operatorId = users.u_id
+    LEFT JOIN warehouse ON orders.warehouseId = warehouse.ID
+    where custom.CUSTOMID=#{customId} limit #{page},#{size}
+  </select>
+    <select id="countOrdersById1" resultType="java.lang.Integer">
+      select count(*) FROM orders where CustomId=#{customId}
+  </select>
   <!--根据客户得到所有订单-->
   <select id="getOrdersByCustomId" resultMap="getAll">
     SELECT * FROM orders  LEFT JOIN custom ON orders.CustomId = custom.CUSTOMID

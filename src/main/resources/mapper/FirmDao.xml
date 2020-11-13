@@ -33,6 +33,9 @@
     <select id="getAllFrims" resultMap="firm">
         select firm_id, firm_name, firm_tel, firm_address, firm_content, firm_city, create_time, create_id, status, firm_founder from c_firm
     </select>
+    <select id="getAllFrimsPage" resultMap="firm">
+        select firm_id, firm_name, firm_tel, firm_address, firm_content, firm_city, create_time, create_id, status, firm_founder from c_firm limit #{page},#{size}
+    </select>
 
     <!--获取单个厂商，不含采购单-->
     <resultMap id="frimWithoutPurchase" type="com.bean.Firm">
@@ -50,5 +53,9 @@
 
     <select id="getFirmById" resultMap="frimWithoutPurchase">
         select firm_id, firm_name, firm_tel, firm_address, firm_content, firm_city, create_time, create_id, status, firm_founder from c_firm where FIRM_ID=#{id}
+    </select>
+    <!--获取供应商个数-->
+    <select id="coutFirm" resultType="java.lang.Integer">
+        select count(*) from erp.c_firm
     </select>
 </mapper>

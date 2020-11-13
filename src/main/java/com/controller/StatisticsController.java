@@ -4,6 +4,7 @@ import com.bean.*;
 import com.dao.*;
 import com.util.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,20 +37,79 @@ public class StatisticsController {
     public WarehouseDao warehouseDao;
     @Autowired
     public ProvinceDao provinceDao;
-
+    @Autowired
+    public CityDao cityDao;
+    //获取所有厂商并分页
     @RequestMapping(value = "getAllFirms.do",method = RequestMethod.GET)
-    public String getAllFirms(HttpSession session){
-        List<Firm> firmList=firmDao.getAllFrims();
-        session.setAttribute("firmList",firmList);
+    public String getAllFirms(HttpSession session,HttpServletRequest request ){
+
+        int countFirm = firmDao.coutFirm();
+        System.out.println(countFirm);
+        int size = 5;
+        int row = countFirm % size == 0 ? (countFirm / size) : (countFirm / size + 1);
+        System.out.println(row);
+        String currentIndex= request.getParameter("pageIndex");
+        //第一次访问(当前页码=1)
+        int pageIndex = 1;
+        if(currentIndex!=null) {
+            pageIndex=Integer.parseInt(currentIndex);
+        }
+        if(currentIndex==null || Integer.parseInt(currentIndex) <= 0){
+            pageIndex = 1;
+        }else if(Integer.parseInt(currentIndex) >= row){
+            pageIndex=row;
+        }
+        Pager<Firm> pager = new Pager<>();
+        pager.setPage((pageIndex-1)*size);
+        pager.setSize(size);
+        pager.setTotal(countFirm);
+        List<Firm> firmList=firmDao.getAllFrimsPage(pager);
+        request.getSession().setAttribute("row",row);
+        request.getSession().setAttribute("pageIndex",pageIndex);
+        request.getSession().setAttribute("countFirm",countFirm);
+        request.getSession().setAttribute("firmList",firmList);
+
+        List<Province> provinceList=provinceDao.getAllProvinces();
+        session.setAttribute("provinceList",provinceList);
+        List<City> cityList=cityDao.getAllCity();
+        session.setAttribute("cityList",cityList);
+
         return "redirect:statis/purchase/purchaseStatis.jsp";
     }
     @RequestMapping(value = "getFirmById.do",method = RequestMethod.GET)
     public String getFirmById(HttpServletRequest request,HttpSession session){
         int FirmId=Integer.parseInt(request.getParameter("id"));
-        List<Purchase> purchaseList=purchaseDao.getPurchaseByCheckId(FirmId);
-        session.setAttribute("purchaseList",purchaseList);
+        System.out.println(FirmId);
+        int countPurchaseById = purchaseDao.countPurchaseByCheckId(FirmId);
+        System.out.println("数量："+countPurchaseById);
+        int size = 5;
+        int row = countPurchaseById % size == 0 ? (countPurchaseById / size) : (countPurchaseById / size + 1);
+        System.out.println("页数"+row);
+        String currentIndex= request.getParameter("pageIndex");
+        //第一次访问(当前页码=1)
+        int pageIndex = 1;
+        if(currentIndex!=null) {
+            pageIndex=Integer.parseInt(currentIndex);
+        }
+        if(currentIndex==null || Integer.parseInt(currentIndex) <= 0){
+            pageIndex = 1;
+        }else if(Integer.parseInt(currentIndex) >= row){
+            pageIndex=row;
+        }
+        Pager<Purchase> pager = new Pager<>();
+        pager.setPage((pageIndex-1)*size);
+        pager.setSize(size);
+        pager.setTotal(countPurchaseById);
+        pager.setFirmId(FirmId);
+        List<Purchase> purchaseList=purchaseDao.getPurchaseByCheckIdPage(pager);
+        request.getSession().setAttribute("row",row);
+        request.getSession().setAttribute("pageIndex",pageIndex);
+        request.getSession().setAttribute("countPurchaseById",countPurchaseById);
+        request.getSession().setAttribute("purchaseList",purchaseList);
+
         String firmName=firmDao.getFirmById(FirmId).getFirmName();
         session.setAttribute("firmName",firmName);
+        session.setAttribute("firmId",FirmId);
         return "redirect:statis/purchase/purchaseView.jsp";
     }
     @RequestMapping(value = "getDetails.do",method = RequestMethod.GET)
@@ -68,7 +128,6 @@ public class StatisticsController {
         int size = 5;
         int row = countCustom % size == 0 ? (countCustom / size) : (countCustom / size + 1);
         System.out.println(row);
-        System.out.println("执行查询所有用户");
         String currentIndex= request.getParameter("pageIndex");
         //第一次访问(当前页码=1)
         int pageIndex = 1;
@@ -163,44 +222,182 @@ public class StatisticsController {
     @RequestMapping(value = "getOrdersByCustomId.do",method = RequestMethod.GET)
     public String getOrdersByCustomId(HttpServletRequest request ,HttpSession session){
         int customId=Integer.parseInt(request.getParameter("id"));
-        List<Orders> ordersList=ordersDao.getOrdersByCustomId1(customId);
-        session.setAttribute("ordersList",ordersList);
+        session.setAttribute("customid",customId);
+
+        int countOrdersById = ordersDao.countOrdersById1(customId);
+        System.out.println(countOrdersById);
+        int size = 5;
+        int row = countOrdersById % size == 0 ? (countOrdersById / size) : (countOrdersById / size + 1);
+        System.out.println(row);
+        String currentIndex= request.getParameter("pageIndex");
+        //第一次访问(当前页码=1)
+        int pageIndex = 1;
+        if(currentIndex!=null) {
+            pageIndex=Integer.parseInt(currentIndex);
+        }
+        if(currentIndex==null || Integer.parseInt(currentIndex) <= 0){
+            pageIndex = 1;
+        }else if(Integer.parseInt(currentIndex) >= row){
+            pageIndex=row;
+        }
+        Pager<Orders> pager = new Pager<>();
+        pager.setPage((pageIndex-1)*size);
+        pager.setSize(size);
+        pager.setTotal(countOrdersById);
+        pager.setCustomId(customId);
+        List<Orders> orderList=ordersDao.getAllOrdersById1(pager);
+        request.getSession().setAttribute("row",row);
+        request.getSession().setAttribute("pageIndex",pageIndex);
+        request.getSession().setAttribute("countOrdersById",countOrdersById);
+        request.getSession().setAttribute("orderList",orderList);
+
         return "redirect:statis/sales/salesView.jsp";
     }
 
 
     //入库统计
     @RequestMapping(value = "intoWarehouseStatis.do",method = RequestMethod.GET)
-    public String intoWarehouse(HttpSession session){
-        //获取所有仓库
-        List<Warehouse> warehouseList=warehouseDao.getAllWarehouseStatis();
-        session.setAttribute("warehouseList",warehouseList);
+    public String intoWarehouse(HttpSession session,HttpServletRequest request){
+
+        int countWarehouse = warehouseDao.countWarehouse();
+        System.out.println(countWarehouse);
+        int size = 5;
+        int row = countWarehouse % size == 0 ? (countWarehouse / size) : (countWarehouse / size + 1);
+        System.out.println(row);
+        String currentIndex= request.getParameter("pageIndex");
+        //第一次访问(当前页码=1)
+        int pageIndex = 1;
+        if(currentIndex!=null) {
+            pageIndex=Integer.parseInt(currentIndex);
+        }
+        if(currentIndex==null || Integer.parseInt(currentIndex) <= 0){
+            pageIndex = 1;
+        }else if(Integer.parseInt(currentIndex) >= row){
+            pageIndex=row;
+        }
+        Pager<Warehouse> pager = new Pager<>();
+        pager.setPage((pageIndex-1)*size);
+        pager.setSize(size);
+        pager.setTotal(countWarehouse);
+        List<Warehouse> warehouseList=warehouseDao.getAllWarehouseStatisPage(pager);
+        request.getSession().setAttribute("row",row);
+        request.getSession().setAttribute("pageIndex",pageIndex);
+        request.getSession().setAttribute("countWarehouse",countWarehouse);
+        request.getSession().setAttribute("warehouseList",warehouseList);
+
+        List<Province> provinceList=provinceDao.getAllProvinces();
+        session.setAttribute("provinceList",provinceList);
+        List<City> cityList=cityDao.getAllCity();
+        session.setAttribute("cityList",cityList);
+
         return "redirect:statis/stock/stockStatis.jsp";
     }
     //根据仓库获取入库详情集合
     @RequestMapping(value = "getRkWarehouseByWarehouseId.do",method = RequestMethod.GET)
     public String getRkWarehouseByWarehouseId(HttpServletRequest request,HttpSession session){
         int id=Integer.parseInt(request.getParameter("id"));
-        List<RkWarehouse> rkWarehouseList=rkWarehouseDao.getAllRkWarehouse(id);
-        session.setAttribute("rkWarehouseList",rkWarehouseList);
+        session.setAttribute("warehouseId",id);
+
+        int countRkWarehouse = rkWarehouseDao.countRkWarehouse(id);
+        System.out.println(countRkWarehouse);
+        int size = 5;
+        int row = countRkWarehouse % size == 0 ? (countRkWarehouse / size) : (countRkWarehouse / size + 1);
+        System.out.println(row);
+        String currentIndex= request.getParameter("pageIndex");
+        //第一次访问(当前页码=1)
+        int pageIndex = 1;
+        if(currentIndex!=null) {
+            pageIndex=Integer.parseInt(currentIndex);
+        }
+        if(currentIndex==null || Integer.parseInt(currentIndex) <= 0){
+            pageIndex = 1;
+        }else if(Integer.parseInt(currentIndex) >= row){
+            pageIndex=row;
+        }
+        Pager<RkWarehouse> pager = new Pager<>();
+        pager.setPage((pageIndex-1)*size);
+        pager.setSize(size);
+        pager.setTotal(countRkWarehouse);
+        pager.setWarehouseId(id);
+        List<RkWarehouse> rkWarehouseList=rkWarehouseDao.getAllRkWarehousePage(pager);
+        request.getSession().setAttribute("row",row);
+        request.getSession().setAttribute("pageIndex",pageIndex);
+        request.getSession().setAttribute("countRkWarehouse",countRkWarehouse);
+        request.getSession().setAttribute("rkWarehouseList",rkWarehouseList);
+
         return "redirect:statis/stock/stockView.jsp";
     }
 
 
     //出库统计
     @RequestMapping(value = "outWarehouseStatis.do",method = RequestMethod.GET)
-    public String outWarehouse(HttpSession session){
-        //获取所有仓库
-        List<Warehouse> warehouseList=warehouseDao.getAllWarehouseStatis();
-        session.setAttribute("warehouseList",warehouseList);
+    public String outWarehouse(HttpSession session,HttpServletRequest request){
+        int countWarehouse = warehouseDao.countWarehouse();
+        System.out.println(countWarehouse);
+        int size = 5;
+        int row = countWarehouse % size == 0 ? (countWarehouse / size) : (countWarehouse / size + 1);
+        System.out.println(row);
+        String currentIndex= request.getParameter("pageIndex");
+        //第一次访问(当前页码=1)
+        int pageIndex = 1;
+        if(currentIndex!=null) {
+            pageIndex=Integer.parseInt(currentIndex);
+        }
+        if(currentIndex==null || Integer.parseInt(currentIndex) <= 0){
+            pageIndex = 1;
+        }else if(Integer.parseInt(currentIndex) >= row){
+            pageIndex=row;
+        }
+        Pager<Warehouse> pager = new Pager<>();
+        pager.setPage((pageIndex-1)*size);
+        pager.setSize(size);
+        pager.setTotal(countWarehouse);
+        List<Warehouse> warehouseList=warehouseDao.getAllWarehouseStatisPage(pager);
+        request.getSession().setAttribute("row",row);
+        request.getSession().setAttribute("pageIndex",pageIndex);
+        request.getSession().setAttribute("countWarehouse",countWarehouse);
+        request.getSession().setAttribute("warehouseList",warehouseList);
+
+        List<Province> provinceList=provinceDao.getAllProvinces();
+        session.setAttribute("provinceList",provinceList);
+        List<City> cityList=cityDao.getAllCity();
+        session.setAttribute("cityList",cityList);
+
         return "redirect:statis/delivery/deliveryStatis.jsp";
     }
     //根据仓库获取出库详情集合
     @RequestMapping(value = "getCkWarehouseByWarehouseId.do",method = RequestMethod.GET)
     public String getCkWarehouseByWarehouseId(HttpServletRequest request,HttpSession session){
         int id=Integer.parseInt(request.getParameter("id"));
-        List<CkWarehouse> ckWarehouseList=ckWarehouseDao.getAllCkWarehouse(id);
-        session.setAttribute("ckWarehouseList",ckWarehouseList);
+        session.setAttribute("warehouseId",id);
+
+        int countCkWarehouse = ckWarehouseDao.countCkWarehouse(id);
+        System.out.println(countCkWarehouse);
+        int size = 5;
+        int row = countCkWarehouse % size == 0 ? (countCkWarehouse / size) : (countCkWarehouse / size + 1);
+        System.out.println(row);
+        String currentIndex= request.getParameter("pageIndex");
+        //第一次访问(当前页码=1)
+        int pageIndex = 1;
+        if(currentIndex!=null) {
+            pageIndex=Integer.parseInt(currentIndex);
+        }
+        if(currentIndex==null || Integer.parseInt(currentIndex) <= 0){
+            pageIndex = 1;
+        }else if(Integer.parseInt(currentIndex) >= row){
+            pageIndex=row;
+        }
+        Pager<CkWarehouse> pager = new Pager<>();
+        pager.setPage((pageIndex-1)*size);
+        pager.setSize(size);
+        pager.setTotal(countCkWarehouse);
+        pager.setWarehouseId(id);
+        List<CkWarehouse> ckWarehouseList=ckWarehouseDao.getAllCkWarehousePage(pager);
+        request.getSession().setAttribute("row",row);
+        request.getSession().setAttribute("pageIndex",pageIndex);
+        request.getSession().setAttribute("countCkWarehouse",countCkWarehouse);
+        request.getSession().setAttribute("ckWarehouseList",ckWarehouseList);
+
         return "redirect:statis/delivery/deliveryView.jsp";
     }
 }

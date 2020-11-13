@@ -101,4 +101,11 @@ INNER JOIN city c ON c.c_ID=w.CITY_ID WHERE w.USRE_ID=#{uId}
  <select id="getAllWarehouseStatis" resultMap="Warehouse">
      select id, name, c_address, province_id, usre_id, phone, details, state, users_id, creation_time, city_id  from warehouse
  </select>
+
+ <select id="countWarehouse" resultType="java.lang.Integer">
+     select count(*) from erp.warehouse
+ </select>
+    <select id="getAllWarehouseStatisPage" resultMap="Warehouse">
+        select id, name, c_address, province_id, usre_id, phone, details, state, users_id, creation_time, city_id  from warehouse limit #{page},#{size}
+    </select>
 </mapper>

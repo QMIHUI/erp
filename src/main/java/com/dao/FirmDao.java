@@ -1,14 +1,18 @@
 package com.dao;
 
 import com.bean.Firm;
+import com.util.Pager;
 
 import java.util.Date;
 import java.util.List;
 
 public interface FirmDao {
+    //获取所有供应商分页
+    public List<Firm> getAllFrimsPage(Pager<Firm> pager);
     //获取所有供应商
     public List<Firm> getAllFrims();
-
+    //获取供应商个数
+    public int coutFirm();
     //获取单个供应商(不含采购单)
     public Firm getFirmById(int id);
 

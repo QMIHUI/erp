@@ -37,7 +37,7 @@
             <tbody>
             <c:forEach items="${rkWarehouseList}" var="rkWarehouse" varStatus="index">
                 <tr>
-                    <td>${index.index+1}</td>
+                    <td>${index.index+1+(pageIndex-1)*5}</td>
                     <td>${rkWarehouse.warehouse.name}</td>
                     <td>${rkWarehouse.purchase.purchaseId}</td>
                     <td>${rkWarehouse.purchase.detailsList.size()}</td>
@@ -52,17 +52,12 @@
             </tbody>
         </table>
         <div class="pagin">
-            <div class="message">共<i class="blue">1256</i>条记录，当前显示第&nbsp;<i class="blue">2&nbsp;</i>页</div>
+            <div class="message">共<i class="blue">${countRkWarehouse}</i>条记录，当前显示第&nbsp;<i class="blue">${pageIndex}&nbsp;</i>页</div>
             <ul class="paginList">
-                <li class="paginItem"><a href="javascript:;"><span class="pagepre"></span></a></li>
-                <li class="paginItem"><a href="javascript:;">1</a></li>
-                <li class="paginItem current"><a href="javascript:;">2</a></li>
-                <li class="paginItem"><a href="javascript:;">3</a></li>
-                <li class="paginItem"><a href="javascript:;">4</a></li>
-                <li class="paginItem"><a href="javascript:;">5</a></li>
-                <li class="paginItem more"><a href="javascript:;">...</a></li>
-                <li class="paginItem"><a href="javascript:;">10</a></li>
-                <li class="paginItem"><a href="javascript:;"><span class="pagenxt"></span></a></li>
+                <li class="paginItem"><a href="${pageContext.request.contextPath }/getRkWarehouseByWarehouseId.do?pageIndex=1&id=${warehouseId}">首页</a></li>
+                <li class="paginItem"><a href="${pageContext.request.contextPath }/getRkWarehouseByWarehouseId.do?pageIndex=${pageIndex-1}&id=${warehouseId}">上页</a></li>
+                <li class="paginItem"><a href="${pageContext.request.contextPath }/getRkWarehouseByWarehouseId.do?pageIndex=${pageIndex+1}&id=${warehouseId}">下页</a></li>
+                <li class="paginItem"><a href="${pageContext.request.contextPath }/getRkWarehouseByWarehouseId.do?pageIndex=${row}&id=${warehouseId}">末页</a></li>
             </ul>
         </div>
     </form>
