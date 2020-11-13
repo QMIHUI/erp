@@ -46,6 +46,9 @@ public class DeptController {
         }else if(Integer.parseInt(currentIndex) >= rowDept){
             pageIndex=rowDept;
         }
+        if (pageIndex==0){
+            pageIndex=1;
+        }
         Pager<Dept> pager = new Pager<>();
         pager.setPage((pageIndex-1)*size);
         pager.setSize(size);
@@ -155,6 +158,9 @@ public class DeptController {
             pageIndex = 1;
         }else if(Integer.parseInt(currentIndex) >= rowDeptByName){
             pageIndex=rowDeptByName;
+        }
+        if (pageIndex==0){
+            pageIndex=1;
         }
         Pager<Dept> pager = new Pager<>();
         pager.setPage((pageIndex-1)*size);

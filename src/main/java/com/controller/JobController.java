@@ -51,6 +51,9 @@ public class JobController {
         }else if(Integer.parseInt(currentIndex) >= rowJob){
             pageIndex=rowJob;
         }
+        if (pageIndex==0){
+            pageIndex=1;
+        }
         Pager<Job> pager = new Pager<>();
         pager.setPage((pageIndex-1)*size);
         pager.setSize(size);
@@ -170,6 +173,9 @@ public class JobController {
             pageIndex = 1;
         }else if(Integer.parseInt(currentIndex) >= rowJobByCon){
             pageIndex=rowJobByCon;
+        }
+        if (pageIndex==0){
+            pageIndex=1;
         }
         Pager<Job> pager = new Pager<>();
         pager.setPage((pageIndex-1)*size);

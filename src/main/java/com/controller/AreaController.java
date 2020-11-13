@@ -47,6 +47,9 @@ public class AreaController {
         }else if(Integer.parseInt(currentIndex) >= rowCity){
             pageIndex=rowCity;
         }
+        if (pageIndex==0){
+            pageIndex=1;
+        }
         Pager<City> pager = new Pager<>();
         pager.setPage((pageIndex-1)*size);
         pager.setSize(size);
@@ -84,6 +87,9 @@ public class AreaController {
             pageIndex = 1;
         }else if(Integer.parseInt(currentIndex) >= rowByCon){
             pageIndex=rowByCon;
+        }
+        if (pageIndex==0){
+            pageIndex=1;
         }
         Pager<City> pager = new Pager<>();
         pager.setPage((pageIndex-1)*size);

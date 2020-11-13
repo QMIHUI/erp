@@ -57,6 +57,9 @@ public class OrderController {
             }else if(Integer.parseInt(currentIndex) >= rowOrder){
                 pageIndex=rowOrder;
             }
+            if (pageIndex==0){
+                pageIndex=1;
+            }
             Pager<Orders> pager = new Pager<>();
             pager.setPage((pageIndex-1)*size);
             pager.setSize(size);
@@ -83,6 +86,9 @@ public class OrderController {
                 pageIndex = 1;
             }else if(Integer.parseInt(currentIndex) >= rowOrder){
                 pageIndex=rowOrder;
+            }
+            if (pageIndex==0){
+                pageIndex=1;
             }
             Pager<Orders> pager = new Pager<>();
             pager.setPage((pageIndex-1)*size);
@@ -203,6 +209,9 @@ public class OrderController {
             }else if(Integer.parseInt(currentIndex) >= rowOrderByCon){
                 pageIndex=rowOrderByCon;
             }
+            if (pageIndex==0){
+                pageIndex=1;
+            }
             Pager<Orders> pager = new Pager<>();
             pager.setPage((pageIndex-1)*size);
             pager.setSize(size);
@@ -251,6 +260,9 @@ public class OrderController {
             }else if(Integer.parseInt(currentIndex) >= rowOrderByCon){
                 pageIndex=rowOrderByCon;
             }
+            if (pageIndex==0){
+                pageIndex=1;
+            }
             Pager<Orders> pager = new Pager<>();
             pager.setPage((pageIndex-1)*size);
             pager.setSize(size);
@@ -296,6 +308,9 @@ public class OrderController {
             pageIndex = 1;
         }else if(Integer.parseInt(currentIndex) >= rowExamOrder){
             pageIndex=rowExamOrder;
+        }
+        if (pageIndex==0){
+            pageIndex=1;
         }
         Pager<Orders> pager = new Pager<>();
         pager.setPage((pageIndex-1)*size);
@@ -371,6 +386,9 @@ public class OrderController {
             pageIndex = 1;
         }else if(Integer.parseInt(currentIndex) >= rowExamineOrderByCon){
             pageIndex=rowExamineOrderByCon;
+        }
+        if (pageIndex==0){
+            pageIndex=1;
         }
         Pager<Orders> pager = new Pager<>();
         pager.setPage((pageIndex-1)*size);
