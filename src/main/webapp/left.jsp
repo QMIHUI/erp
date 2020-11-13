@@ -204,19 +204,6 @@ $(function(){
                     <li><cite></cite><a href="storage/delivery/deliveryList.jsp" target="rightFrame">出库管理</a><i></i></li>
                     <li><cite></cite><a href="storage/stock/stockList.jsp" target="rightFrame">入库管理</a><i></i></li>
                     <li><cite></cite><a href="storage/inventory/inventoryList.jsp" target="rightFrame">库存管理</a><i></i></li>
-
-
-
-
-                </ul>
-            </dd>
-            <dd>
-                <div class="title">数据统计</div>
-                <ul class="menuson">
-                    <li><cite></cite><a href="statis/sales/salesStatis.jsp" target="rightFrame">客户销量统计</a><i></i></li>
-                    <li><cite></cite><a href="getAllFirms.do" target="rightFrame">厂商采购统计</a><i></i></li>
-                    <li><cite></cite><a href="statis/delivery/deliveryStatis.jsp" target="rightFrame">出库统计</a><i></i></li>
-                    <li><cite></cite><a href="statis/stock/stockStatis.jsp" target="rightFrame">入库统计</a><i></i></li>
                 </ul>
             </dd>
         </dl>
