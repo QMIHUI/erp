@@ -69,7 +69,9 @@ pageEncoding="UTF-8"%>
       <li style="width: 100px;height: 35px;margin-top: -10px">
         <input value="查 询" type="submit" id="searchbutton" class="subBut">
       </li>
-      <li class="subBut" onclick="window.location.href='market/order/orderAdd.jsp'"><img src="${pageContext.request.contextPath}/images/t01.png" />添加</li>
+      <c:if test="${user.jobId!=2}">
+       <li class="subBut" onclick="window.location.href='market/order/orderAdd.jsp'"><img src="${pageContext.request.contextPath}/images/t01.png" />添加</li>
+      </c:if>
     </ul>
   </form>
     <table class="tablelist">

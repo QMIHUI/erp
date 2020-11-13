@@ -32,9 +32,9 @@ pageEncoding="UTF-8"%>
         <select name="deptId">
           <option value="0">请选择部门</option>
           <c:forEach items="${listDept}" var="ld">
-            <c:if test="ld.deptState=='正常'">
+            <%--<c:if test="ld.deptState=='正常'">--%>
               <option value="${ld.deptId}">${ld.deptName}</option>
-            </c:if>
+            <%--</c:if>--%>
           </c:forEach>
         </select>
       </li>
