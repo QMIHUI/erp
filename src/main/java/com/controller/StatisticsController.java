@@ -59,6 +59,9 @@ public class StatisticsController {
         }else if(Integer.parseInt(currentIndex) >= row){
             pageIndex=row;
         }
+        if (pageIndex==0){
+            pageIndex=1;
+        }
         Pager<Firm> pager = new Pager<>();
         pager.setPage((pageIndex-1)*size);
         pager.setSize(size);
@@ -95,6 +98,9 @@ public class StatisticsController {
             pageIndex = 1;
         }else if(Integer.parseInt(currentIndex) >= row){
             pageIndex=row;
+        }
+        if (pageIndex==0){
+            pageIndex=1;
         }
         Pager<Purchase> pager = new Pager<>();
         pager.setPage((pageIndex-1)*size);
@@ -138,6 +144,9 @@ public class StatisticsController {
             pageIndex = 1;
         }else if(Integer.parseInt(currentIndex) >= row){
             pageIndex=row;
+        }
+        if (pageIndex==0){
+            pageIndex=1;
         }
         Pager<Custom> pager = new Pager<>();
         pager.setPage((pageIndex-1)*size);
@@ -186,7 +195,9 @@ public class StatisticsController {
         }else if(Integer.parseInt(currentIndex) >= rowCustByCon){
             pageIndex=rowCustByCon;
         }
-
+        if (pageIndex==0){
+            pageIndex=1;
+        }
         Pager<Custom> pager = new Pager<>();
         pager.setPage((pageIndex-1)*size);
         pager.setSize(size);
@@ -240,6 +251,9 @@ public class StatisticsController {
         }else if(Integer.parseInt(currentIndex) >= row){
             pageIndex=row;
         }
+        if (pageIndex==0){
+            pageIndex=1;
+        }
         Pager<Orders> pager = new Pager<>();
         pager.setPage((pageIndex-1)*size);
         pager.setSize(size);
@@ -274,6 +288,9 @@ public class StatisticsController {
             pageIndex = 1;
         }else if(Integer.parseInt(currentIndex) >= row){
             pageIndex=row;
+        }
+        if (pageIndex==0){
+            pageIndex=1;
         }
         Pager<Warehouse> pager = new Pager<>();
         pager.setPage((pageIndex-1)*size);
@@ -314,6 +331,9 @@ public class StatisticsController {
         }else if(Integer.parseInt(currentIndex) >= row){
             pageIndex=row;
         }
+        if (pageIndex==0){
+            pageIndex=1;
+        }
         Pager<RkWarehouse> pager = new Pager<>();
         pager.setPage((pageIndex-1)*size);
         pager.setSize(size);
@@ -347,6 +367,9 @@ public class StatisticsController {
             pageIndex = 1;
         }else if(Integer.parseInt(currentIndex) >= row){
             pageIndex=row;
+        }
+        if (pageIndex==0){
+            pageIndex=1;
         }
         Pager<Warehouse> pager = new Pager<>();
         pager.setPage((pageIndex-1)*size);
@@ -386,6 +409,9 @@ public class StatisticsController {
             pageIndex = 1;
         }else if(Integer.parseInt(currentIndex) >= row){
             pageIndex=row;
+        }
+        if (pageIndex==0){
+            pageIndex=1;
         }
         Pager<CkWarehouse> pager = new Pager<>();
         pager.setPage((pageIndex-1)*size);
