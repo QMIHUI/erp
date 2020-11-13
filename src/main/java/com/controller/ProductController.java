@@ -5,6 +5,7 @@ import com.dao.BrandDao;
 import com.dao.FirmDao;
 import com.dao.ProductDao;
 import com.dao.TypeDao;
+import com.util.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,9 +36,40 @@ public class ProductController {
     public FirmDao firmDao;
     //获取所有Product
     @RequestMapping(value = "getAllProduct.do",method = RequestMethod.GET)
-    public String getAllProduct(HttpSession session){
-        List<Product> productList=productDao.getAllProduct();
-        session.setAttribute("productList",productList);
+    public String getAllProduct(HttpSession session,HttpServletRequest request){
+
+        int countProduct = productDao.countProduct();
+        System.out.println(countProduct);
+        int size = 5;
+        int row = countProduct % size == 0 ? (countProduct / size) : (countProduct / size + 1);
+        System.out.println(row);
+        String currentIndex= request.getParameter("pageIndex");
+        //第一次访问(当前页码=1)
+        int pageIndex = 1;
+        if(currentIndex!=null) {
+            pageIndex=Integer.parseInt(currentIndex);
+        }
+        if(currentIndex==null || Integer.parseInt(currentIndex) <= 0){
+            pageIndex = 1;
+        }else if(Integer.parseInt(currentIndex) >= row){
+            pageIndex=row;
+        }
+        Pager<Product> pager = new Pager<>();
+        pager.setPage((pageIndex-1)*size);
+        pager.setSize(size);
+        pager.setTotal(countProduct);
+        List<Product> productList=productDao.getAllProductPage(pager);
+        request.getSession().setAttribute("row",row);
+        request.getSession().setAttribute("pageIndex",pageIndex);
+        request.getSession().setAttribute("countProduct",countProduct);
+        request.getSession().setAttribute("productList",productList);
+
+        List<Brand> brandListSelect=brandDao.getAllBrands();
+        session.setAttribute("brandListSelect",brandListSelect);
+        List<Type> typeListSelect=typeDao.getAllType();
+        session.setAttribute("typeListSelect",typeListSelect);
+
+
         return "redirect:purchase/product/productList.jsp";
     }
     //注销Product
@@ -105,8 +137,38 @@ public class ProductController {
             e.printStackTrace();
         }
         if (num>0){
-            List<Product> productList=productDao.getAllProduct();
-            session.setAttribute("productList",productList);
+
+            int countProduct = productDao.countProduct();
+            System.out.println(countProduct);
+            int size = 5;
+            int row = countProduct % size == 0 ? (countProduct / size) : (countProduct / size + 1);
+            System.out.println(row);
+            String currentIndex= request.getParameter("pageIndex");
+            //第一次访问(当前页码=1)
+            int pageIndex = 1;
+            if(currentIndex!=null) {
+                pageIndex=Integer.parseInt(currentIndex);
+            }
+            if(currentIndex==null || Integer.parseInt(currentIndex) <= 0){
+                pageIndex = 1;
+            }else if(Integer.parseInt(currentIndex) >= row){
+                pageIndex=row;
+            }
+            Pager<Product> pager = new Pager<>();
+            pager.setPage((pageIndex-1)*size);
+            pager.setSize(size);
+            pager.setTotal(countProduct);
+            List<Product> productList=productDao.getAllProductPage(pager);
+            request.getSession().setAttribute("row",row);
+            request.getSession().setAttribute("pageIndex",pageIndex);
+            request.getSession().setAttribute("countProduct",countProduct);
+            request.getSession().setAttribute("productList",productList);
+
+            List<Brand> brandListSelect=brandDao.getAllBrands();
+            session.setAttribute("brandListSelect",brandListSelect);
+            List<Type> typeListSelect=typeDao.getAllType();
+            session.setAttribute("typeListSelect",typeListSelect);
+
             out.print("<script type='text/javaScript'>alert('添加成功！');window.location.href='purchase/product/productList.jsp'</script>");
             out.flush();
         }else {
@@ -152,8 +214,38 @@ public class ProductController {
             e.printStackTrace();
         }
         if (num>0){
-            List<Product> productList=productDao.getAllProduct();
-            session.setAttribute("productList",productList);
+
+            int countProduct = productDao.countProduct();
+            System.out.println(countProduct);
+            int size = 5;
+            int row = countProduct % size == 0 ? (countProduct / size) : (countProduct / size + 1);
+            System.out.println(row);
+            String currentIndex= request.getParameter("pageIndex");
+            //第一次访问(当前页码=1)
+            int pageIndex = 1;
+            if(currentIndex!=null) {
+                pageIndex=Integer.parseInt(currentIndex);
+            }
+            if(currentIndex==null || Integer.parseInt(currentIndex) <= 0){
+                pageIndex = 1;
+            }else if(Integer.parseInt(currentIndex) >= row){
+                pageIndex=row;
+            }
+            Pager<Product> pager = new Pager<>();
+            pager.setPage((pageIndex-1)*size);
+            pager.setSize(size);
+            pager.setTotal(countProduct);
+            List<Product> productList=productDao.getAllProductPage(pager);
+            request.getSession().setAttribute("row",row);
+            request.getSession().setAttribute("pageIndex",pageIndex);
+            request.getSession().setAttribute("countProduct",countProduct);
+            request.getSession().setAttribute("productList",productList);
+
+            List<Brand> brandListSelect=brandDao.getAllBrands();
+            session.setAttribute("brandListSelect",brandListSelect);
+            List<Type> typeListSelect=typeDao.getTypeListByBrandId(brandListSelect.get(0).getBrandId());
+            session.setAttribute("typeListSelect",typeListSelect);
+
             out.print("<script type='text/javaScript'>alert('修改成功！');window.location.href='purchase/product/productList.jsp'</script>");
             out.flush();
         }else {

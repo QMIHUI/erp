@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.bean.*;
 import com.dao.*;
+import com.util.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -36,9 +37,39 @@ public class BuyController {
     public ProductDao productDao;
 
     @RequestMapping(value = "getAllFirm.do",method = RequestMethod.GET)
-    public String getAllFirms(HttpSession session){
-        List<Firm> firmList=firmDao.getAllFrims();
-        session.setAttribute("firmList",firmList);
+    public String getAllFirms(HttpSession session,HttpServletRequest request){
+
+        int countFirm = firmDao.coutFirm();
+        System.out.println(countFirm);
+        int size = 5;
+        int row = countFirm % size == 0 ? (countFirm / size) : (countFirm / size + 1);
+        System.out.println(row);
+        String currentIndex= request.getParameter("pageIndex");
+        //第一次访问(当前页码=1)
+        int pageIndex = 1;
+        if(currentIndex!=null) {
+            pageIndex=Integer.parseInt(currentIndex);
+        }
+        if(currentIndex==null || Integer.parseInt(currentIndex) <= 0){
+            pageIndex = 1;
+        }else if(Integer.parseInt(currentIndex) >= row){
+            pageIndex=row;
+        }
+        Pager<Firm> pager = new Pager<>();
+        pager.setPage((pageIndex-1)*size);
+        pager.setSize(size);
+        pager.setTotal(countFirm);
+        List<Firm> firmList=firmDao.getAllFrimsPage(pager);
+        request.getSession().setAttribute("row",row);
+        request.getSession().setAttribute("pageIndex",pageIndex);
+        request.getSession().setAttribute("countFirm",countFirm);
+        request.getSession().setAttribute("firmList",firmList);
+
+        List<Province> provinceList=provinceDao.getAllProvinces();
+        session.setAttribute("provinceList",provinceList);
+        List<City> cityList=cityDao.getAllCity();
+        session.setAttribute("cityList",cityList);
+
         return "redirect:purchase/manufacturer/manufacturerList.jsp";
     }
     @RequestMapping(value = "getFirmDetails.do",method = RequestMethod.GET)
@@ -105,8 +136,38 @@ public class BuyController {
             e.printStackTrace();
         }
         if (num>0){
-            List<Firm> firmList=firmDao.getAllFrims();
-            session.setAttribute("firmList",firmList);
+
+            int countFirm = firmDao.coutFirm();
+            System.out.println(countFirm);
+            int size = 5;
+            int row = countFirm % size == 0 ? (countFirm / size) : (countFirm / size + 1);
+            System.out.println(row);
+            String currentIndex= request.getParameter("pageIndex");
+            //第一次访问(当前页码=1)
+            int pageIndex = 1;
+            if(currentIndex!=null) {
+                pageIndex=Integer.parseInt(currentIndex);
+            }
+            if(currentIndex==null || Integer.parseInt(currentIndex) <= 0){
+                pageIndex = 1;
+            }else if(Integer.parseInt(currentIndex) >= row){
+                pageIndex=row;
+            }
+            Pager<Firm> pager = new Pager<>();
+            pager.setPage((pageIndex-1)*size);
+            pager.setSize(size);
+            pager.setTotal(countFirm);
+            List<Firm> firmList=firmDao.getAllFrimsPage(pager);
+            request.getSession().setAttribute("row",row);
+            request.getSession().setAttribute("pageIndex",pageIndex);
+            request.getSession().setAttribute("countFirm",countFirm);
+            request.getSession().setAttribute("firmList",firmList);
+
+            List<Province> provinceList=provinceDao.getAllProvinces();
+            session.setAttribute("provinceList",provinceList);
+            List<City> cityList=cityDao.getAllCity();
+            session.setAttribute("cityList",cityList);
+
             out.print("<script type='text/javaScript'>alert('添加成功！');window.location.href='purchase/manufacturer/manufacturerList.jsp'</script>");
             out.flush();
         }else {
@@ -147,8 +208,38 @@ public class BuyController {
             e.printStackTrace();
         }
         if (num>0){
-            List<Firm> firmList=firmDao.getAllFrims();
-            session.setAttribute("firmList",firmList);
+
+            int countFirm = firmDao.coutFirm();
+            System.out.println(countFirm);
+            int size = 5;
+            int row = countFirm % size == 0 ? (countFirm / size) : (countFirm / size + 1);
+            System.out.println(row);
+            String currentIndex= request.getParameter("pageIndex");
+            //第一次访问(当前页码=1)
+            int pageIndex = 1;
+            if(currentIndex!=null) {
+                pageIndex=Integer.parseInt(currentIndex);
+            }
+            if(currentIndex==null || Integer.parseInt(currentIndex) <= 0){
+                pageIndex = 1;
+            }else if(Integer.parseInt(currentIndex) >= row){
+                pageIndex=row;
+            }
+            Pager<Firm> pager = new Pager<>();
+            pager.setPage((pageIndex-1)*size);
+            pager.setSize(size);
+            pager.setTotal(countFirm);
+            List<Firm> firmList=firmDao.getAllFrimsPage(pager);
+            request.getSession().setAttribute("row",row);
+            request.getSession().setAttribute("pageIndex",pageIndex);
+            request.getSession().setAttribute("countFirm",countFirm);
+            request.getSession().setAttribute("firmList",firmList);
+
+            List<Province> provinceList=provinceDao.getAllProvinces();
+            session.setAttribute("provinceList",provinceList);
+            List<City> cityList=cityDao.getAllCity();
+            session.setAttribute("cityList",cityList);
+
             out.print("<script type='text/javaScript'>alert('修改成功！');window.location.href='purchase/manufacturer/manufacturerList.jsp'</script>");
             out.flush();
         }else {
@@ -158,9 +249,34 @@ public class BuyController {
     }
     //获取所有品牌
     @RequestMapping(value ="getAllBrands.do",method = RequestMethod.GET)
-    public String getAllBrands(HttpSession session){
-        List<Brand> brandList=brandDao.getAllBrands();
-        session.setAttribute("brandList",brandList);
+    public String getAllBrands(HttpSession session,HttpServletRequest request){
+
+        int countBrand = brandDao.countBrand();
+        System.out.println(countBrand);
+        int size = 5;
+        int row = countBrand % size == 0 ? (countBrand / size) : (countBrand / size + 1);
+        System.out.println(row);
+        String currentIndex= request.getParameter("pageIndex");
+        //第一次访问(当前页码=1)
+        int pageIndex = 1;
+        if(currentIndex!=null) {
+            pageIndex=Integer.parseInt(currentIndex);
+        }
+        if(currentIndex==null || Integer.parseInt(currentIndex) <= 0){
+            pageIndex = 1;
+        }else if(Integer.parseInt(currentIndex) >= row){
+            pageIndex=row;
+        }
+        Pager<Brand> pager = new Pager<>();
+        pager.setPage((pageIndex-1)*size);
+        pager.setSize(size);
+        pager.setTotal(countBrand);
+        List<Brand> brandList=brandDao.getAllBrandsPage(pager);
+        request.getSession().setAttribute("row",row);
+        request.getSession().setAttribute("pageIndex",pageIndex);
+        request.getSession().setAttribute("countBrand",countBrand);
+        request.getSession().setAttribute("brandList",brandList);
+
         return "redirect:purchase/brand/brandList.jsp";
     }
     //添加品牌
@@ -179,8 +295,33 @@ public class BuyController {
             e.printStackTrace();
         }
         if (num>0){
-            List<Brand> brandList=brandDao.getAllBrands();
-            session.setAttribute("brandList",brandList);
+
+            int countBrand = brandDao.countBrand();
+            System.out.println(countBrand);
+            int size = 5;
+            int row = countBrand % size == 0 ? (countBrand / size) : (countBrand / size + 1);
+            System.out.println(row);
+            String currentIndex= request.getParameter("pageIndex");
+            //第一次访问(当前页码=1)
+            int pageIndex = 1;
+            if(currentIndex!=null) {
+                pageIndex=Integer.parseInt(currentIndex);
+            }
+            if(currentIndex==null || Integer.parseInt(currentIndex) <= 0){
+                pageIndex = 1;
+            }else if(Integer.parseInt(currentIndex) >= row){
+                pageIndex=row;
+            }
+            Pager<Brand> pager = new Pager<>();
+            pager.setPage((pageIndex-1)*size);
+            pager.setSize(size);
+            pager.setTotal(countBrand);
+            List<Brand> brandList=brandDao.getAllBrandsPage(pager);
+            request.getSession().setAttribute("row",row);
+            request.getSession().setAttribute("pageIndex",pageIndex);
+            request.getSession().setAttribute("countBrand",countBrand);
+            request.getSession().setAttribute("brandList",brandList);
+
             out.print("<script type='text/javaScript'>alert('添加成功！');window.location.href='purchase/brand/brandList.jsp'</script>");
             out.flush();
         }else {
@@ -212,8 +353,33 @@ public class BuyController {
             e.printStackTrace();
         }
         if (num>0){
-            List<Brand> brandList=brandDao.getAllBrands();
-            session.setAttribute("brandList",brandList);
+
+            int countBrand = brandDao.countBrand();
+            System.out.println(countBrand);
+            int size = 5;
+            int row = countBrand % size == 0 ? (countBrand / size) : (countBrand / size + 1);
+            System.out.println(row);
+            String currentIndex= request.getParameter("pageIndex");
+            //第一次访问(当前页码=1)
+            int pageIndex = 1;
+            if(currentIndex!=null) {
+                pageIndex=Integer.parseInt(currentIndex);
+            }
+            if(currentIndex==null || Integer.parseInt(currentIndex) <= 0){
+                pageIndex = 1;
+            }else if(Integer.parseInt(currentIndex) >= row){
+                pageIndex=row;
+            }
+            Pager<Brand> pager = new Pager<>();
+            pager.setPage((pageIndex-1)*size);
+            pager.setSize(size);
+            pager.setTotal(countBrand);
+            List<Brand> brandList=brandDao.getAllBrandsPage(pager);
+            request.getSession().setAttribute("row",row);
+            request.getSession().setAttribute("pageIndex",pageIndex);
+            request.getSession().setAttribute("countBrand",countBrand);
+            request.getSession().setAttribute("brandList",brandList);
+
             out.print("<script type='text/javaScript'>alert('修改成功！');window.location.href='purchase/brand/brandList.jsp'</script>");
             out.flush();
         }else {
@@ -253,9 +419,37 @@ public class BuyController {
     }
     //获取所有商品类型
     @RequestMapping(value = "getAllTypes.do",method = RequestMethod.GET)
-    public String getAllTypes(HttpSession session){
-        List<Type> typeList=typeDao.getAllType();
-        session.setAttribute("typeList",typeList);
+    public String getAllTypes(HttpSession session,HttpServletRequest request){
+
+        int countType = typeDao.countType();
+        System.out.println(countType);
+        int size = 5;
+        int row = countType % size == 0 ? (countType / size) : (countType / size + 1);
+        System.out.println(row);
+        String currentIndex= request.getParameter("pageIndex");
+        //第一次访问(当前页码=1)
+        int pageIndex = 1;
+        if(currentIndex!=null) {
+            pageIndex=Integer.parseInt(currentIndex);
+        }
+        if(currentIndex==null || Integer.parseInt(currentIndex) <= 0){
+            pageIndex = 1;
+        }else if(Integer.parseInt(currentIndex) >= row){
+            pageIndex=row;
+        }
+        Pager<Type> pager = new Pager<>();
+        pager.setPage((pageIndex-1)*size);
+        pager.setSize(size);
+        pager.setTotal(countType);
+        List<Type> typeList=typeDao.getAllTypePage(pager);
+        request.getSession().setAttribute("row",row);
+        request.getSession().setAttribute("pageIndex",pageIndex);
+        request.getSession().setAttribute("countType",countType);
+        request.getSession().setAttribute("typeList",typeList);
+
+        List<Brand> brandListSelect=brandDao.getAllBrands();
+        session.setAttribute("brandListSelect",brandListSelect);
+
         return "redirect:purchase/productType/productTypeList.jsp";
     }
     //添加商品类型
@@ -281,8 +475,36 @@ public class BuyController {
             e.printStackTrace();
         }
         if (num>0){
-            List<Type> typeList=typeDao.getAllType();
-            session.setAttribute("typeList",typeList);
+
+            int countType = typeDao.countType();
+            System.out.println(countType);
+            int size = 5;
+            int row = countType % size == 0 ? (countType / size) : (countType / size + 1);
+            System.out.println(row);
+            String currentIndex= request.getParameter("pageIndex");
+            //第一次访问(当前页码=1)
+            int pageIndex = 1;
+            if(currentIndex!=null) {
+                pageIndex=Integer.parseInt(currentIndex);
+            }
+            if(currentIndex==null || Integer.parseInt(currentIndex) <= 0){
+                pageIndex = 1;
+            }else if(Integer.parseInt(currentIndex) >= row){
+                pageIndex=row;
+            }
+            Pager<Type> pager = new Pager<>();
+            pager.setPage((pageIndex-1)*size);
+            pager.setSize(size);
+            pager.setTotal(countType);
+            List<Type> typeList=typeDao.getAllTypePage(pager);
+            request.getSession().setAttribute("row",row);
+            request.getSession().setAttribute("pageIndex",pageIndex);
+            request.getSession().setAttribute("countType",countType);
+            request.getSession().setAttribute("typeList",typeList);
+
+            List<Brand> brandListSelect=brandDao.getAllBrands();
+            session.setAttribute("brandListSelect",brandListSelect);
+
             out.print("<script type='text/javaScript'>alert('添加成功！');window.location.href='purchase/productType/productTypeList.jsp'</script>");
             out.flush();
         }else {
@@ -320,8 +542,36 @@ public class BuyController {
             e.printStackTrace();
         }
         if (num>0){
-            List<Type> typeList=typeDao.getAllType();
-            session.setAttribute("typeList",typeList);
+
+            int countType = typeDao.countType();
+            System.out.println(countType);
+            int size = 5;
+            int row = countType % size == 0 ? (countType / size) : (countType / size + 1);
+            System.out.println(row);
+            String currentIndex= request.getParameter("pageIndex");
+            //第一次访问(当前页码=1)
+            int pageIndex = 1;
+            if(currentIndex!=null) {
+                pageIndex=Integer.parseInt(currentIndex);
+            }
+            if(currentIndex==null || Integer.parseInt(currentIndex) <= 0){
+                pageIndex = 1;
+            }else if(Integer.parseInt(currentIndex) >= row){
+                pageIndex=row;
+            }
+            Pager<Type> pager = new Pager<>();
+            pager.setPage((pageIndex-1)*size);
+            pager.setSize(size);
+            pager.setTotal(countType);
+            List<Type> typeList=typeDao.getAllTypePage(pager);
+            request.getSession().setAttribute("row",row);
+            request.getSession().setAttribute("pageIndex",pageIndex);
+            request.getSession().setAttribute("countType",countType);
+            request.getSession().setAttribute("typeList",typeList);
+
+            List<Brand> brandListSelect=brandDao.getAllBrands();
+            session.setAttribute("brandListSelect",brandListSelect);
+
             out.print("<script type='text/javaScript'>alert('修改成功！');window.location.href='purchase/productType/productTypeList.jsp'</script>");
             out.flush();
         }else {

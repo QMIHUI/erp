@@ -36,4 +36,11 @@
         select brand_id, brand_name, brand_status, create_time, create_id from c_brand where BRAND_STATUS=1
     </select>
 
+    <select id="getAllBrandsPage" resultMap="brand">
+        select brand_id, brand_name, brand_status, create_time, create_id from c_brand limit #{page},#{size}
+    </select>
+    <select id="countBrand" resultType="java.lang.Integer">
+        select count(*) from c_brand
+    </select>
+
 </mapper>

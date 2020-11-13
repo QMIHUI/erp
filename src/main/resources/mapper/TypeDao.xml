@@ -50,4 +50,11 @@
         select type_id, type_name, type_status, create_time, create_id, brand_id from c_type order by BRAND_ID
     </select>
 
+    <select id="getAllTypePage" resultMap="type">
+        select type_id, type_name, type_status, create_time, create_id, brand_id from c_type order by BRAND_ID limit #{page},#{size}
+    </select>
+    <select id="countType" resultType="integer">
+        select count(*) from c_type
+    </select>
+
 </mapper>

@@ -1,6 +1,7 @@
 package com.dao;
 
 import com.bean.Type;
+import com.util.Pager;
 
 import java.util.Date;
 import java.util.List;
@@ -29,4 +30,6 @@ public interface TypeDao {
     //根据brandId恢复type
     public int recoverTypeByBrandId(int brandId);
 
+    public List<Type> getAllTypePage(Pager<Type> pager);
+    public int countType();
 }

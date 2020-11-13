@@ -61,7 +61,7 @@
             <tbody>
             <c:forEach items="${brandList}" var="brand" varStatus="index">
                 <tr>
-                    <td>${index.index+1}</td>
+                    <td>${index.index+1+(pageIndex-1)*5}</td>
                     <td>${brand.brandName}</td>
                     <c:if test="${brand.brandStatus==1}">
                         <td>可用</td>
@@ -85,17 +85,12 @@
             </tbody>
         </table>
         <div class="pagin">
-            <div class="message">共<i class="blue">1256</i>条记录，当前显示第&nbsp;<i class="blue">2&nbsp;</i>页</div>
+            <div class="message">共<i class="blue">${countBrand}</i>条记录，当前显示第&nbsp;<i class="blue">${pageIndex}&nbsp;</i>页</div>
             <ul class="paginList">
-                <li class="paginItem"><a href="javascript:;"><span class="pagepre"></span></a></li>
-                <li class="paginItem"><a href="javascript:;">1</a></li>
-                <li class="paginItem current"><a href="javascript:;">2</a></li>
-                <li class="paginItem"><a href="javascript:;">3</a></li>
-                <li class="paginItem"><a href="javascript:;">4</a></li>
-                <li class="paginItem"><a href="javascript:;">5</a></li>
-                <li class="paginItem more"><a href="javascript:;">...</a></li>
-                <li class="paginItem"><a href="javascript:;">10</a></li>
-                <li class="paginItem"><a href="javascript:;"><span class="pagenxt"></span></a></li>
+                <li class="paginItem"><a href="${pageContext.request.contextPath }/getAllBrands.do?pageIndex=1">首页</a></li>
+                <li class="paginItem"><a href="${pageContext.request.contextPath }/getAllBrands.do?pageIndex=${pageIndex-1}">上页</a></li>
+                <li class="paginItem"><a href="${pageContext.request.contextPath }/getAllBrands.do?pageIndex=${pageIndex+1}">下页</a></li>
+                <li class="paginItem"><a href="${pageContext.request.contextPath }/getAllBrands.do?pageIndex=${row}">末页</a></li>
             </ul>
         </div>
     </form>
