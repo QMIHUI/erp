@@ -82,7 +82,7 @@
                 <tr>
                     <td>${index.index+1+(pageIndex-1)*5}</td>
                     <td>${purchase.purchaseId}</td>
-                    <td><fmt:formatDate value="${purchase.purchaseTime}" pattern="yyyy-MM-dd HH:MM:ss"/></td>
+                    <td><fmt:formatDate value="${purchase.purchaseTime}" pattern="yyyy-MM-dd"/></td>
                     <td>￥${purchase.totalMoney}</td>
                     <td>${purchase.buyer.uname}</td>
                     <c:if test="${purchase.checkStatus==1}">
@@ -98,14 +98,14 @@
                         <td>审核不通过</td>
                     </c:if>
                     <td>${purchase.checker.uname}</td>
-                    <td><fmt:formatDate value="${purchase.checkTime}" pattern="yyyy-MM-dd HH:MM:ss"/></td>
+                    <td><fmt:formatDate value="${purchase.checkTime}" pattern="yyyy-MM-dd"/></td>
                     <td>
                         <c:if test="${user.jobId==7||user.jobId==1}">
                             <a href="${pageContext.request.contextPath}/purchaseView.do?id=${purchase.purchaseId}" class="tablelink">查看详情</a>
                         </c:if>
                         <c:if test="${user.jobId!=7&&user.jobId!=1}">
                             <c:if test="${purchase.checkStatus==1||purchase.checkStatus==4}">
-                                <a href="purchaseUpdate.jsp" class="tablelink">修改</a>
+                                <a href="${pageContext.request.contextPath}/updatePurchase.do?id=${purchase.purchaseId}" class="tablelink">修改</a>
                             </c:if>
                             <c:if test="${purchase.checkStatus==1}">
                                 <a href="javascript:void(0);" class="tablelink" onclick="deltipOpen('${purchase.purchaseId}')">删除</a>

@@ -14,6 +14,11 @@
       <association property="detailsList" select="com.dao.DetailsDao.getDetailsByPurchaseId" column="purchase_id"/>
       <association property="buyer" select="com.dao.UsersDao.getOneUser" column="creat_id" />
     </resultMap>
+    <!--增加采购单-->
+    <insert id="addPurchase">
+        insert into erp.c_purchase(erp.c_purchase.purchase_id, erp.c_purchase.creat_id, erp.c_purchase.purchase_time, erp.c_purchase.warehuoseId, erp.c_purchase.cg_state, erp.c_purchase.total_money, erp.c_purchase.check_status) values (#{param1},#{param2},#{param3},#{param4},0,#{param5},1)
+
+    </insert>
     <!--采购单提交审核-->
     <update id="submitPurchase">
         update c_purchase set check_status=2 where purchase_id=#{id}
@@ -21,6 +26,9 @@
     <!--审核采购单-->
     <update id="purchaseExamine">
         update c_purchase set check_id=#{param1},check_time=#{param2},check_opinion=#{param3},check_status=#{param4} where purchase_id=#{param5}
+    </update>
+    <update id="updatePurchase">
+        update erp.c_purchase set TOTAL_MONEY=#{param2} where purchase_id=#{param1}
     </update>
     <!--删除采购单-->
     <delete id="deletePurchase">

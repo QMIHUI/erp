@@ -34,4 +34,8 @@ public interface PurchaseDao {
     public int countPurchaseStatus2();
     //审核采购单
     public int purchaseExamine(int checkId, Date checkTime,String checkOpinion,int checkStatus,String Id);
+    //增加采购单
+    public int addPurchase(String purchaseId,int createId,Date purchaseTime,int warehouseId,Double purchaseTotalMoney);
+    //修改采购单
+    public int updatePurchase(String purchaseId,Double purchaseTotalMoney);
 }

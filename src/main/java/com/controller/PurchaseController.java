@@ -1,23 +1,22 @@
 package com.controller;
 
-import com.bean.Brand;
-import com.bean.Purchase;
-import com.bean.Type;
-import com.bean.Users;
-import com.dao.PurchaseDao;
+import com.bean.*;
+import com.dao.*;
 import com.util.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
-import java.util.List;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * @author psqing
@@ -27,7 +26,18 @@ import java.util.List;
 public class PurchaseController {
     @Autowired
     public PurchaseDao purchaseDao;
-
+    @Autowired
+    public BrandDao brandDao;
+    @Autowired
+    public TypeDao typeDao;
+    @Autowired
+    public ProductDao productDao;
+    @Autowired
+    public FirmDao firmDao;
+    @Autowired
+    public WarehouseDao warehouseDao;
+    @Autowired
+    public DetailsDao detailsDao;
     //根据职务查找采购单
     @RequestMapping(value = "getAllPurchases.do",method = RequestMethod.GET)
     public String getAllPurchases(HttpSession session,HttpServletRequest request){
@@ -104,12 +114,131 @@ public class PurchaseController {
     }
     //添加采购单
     @RequestMapping(value = "toAddPurchase.do",method = RequestMethod.GET)
-    public String toAddPurchase(){
-
-
-
+    public String toAddPurchase(HttpSession session){
+        List<Brand> brandList=brandDao.getAllBrands();
+        session.setAttribute("brandList",brandList);
+        List<Type> typeList=typeDao.getTypeListByBrandId(brandList.get(0).getBrandId());
+        session.setAttribute("typeList",typeList);
+        List<Product> productList=productDao.getProductsByTypeId(typeList.get(0).getTypeId());
+        session.setAttribute("productList",productList);
+        List<Warehouse> warehouseList=warehouseDao.getAllWarehouse();
+        session.setAttribute("warehouseList",warehouseList);
+        //生成采购单编号
+        String purchaseId="";
+        Calendar purchaseTime=Calendar.getInstance();
+        String year=""+purchaseTime.get(Calendar.YEAR);
+        String month=""+(purchaseTime.get(Calendar.MONTH) + 1);
+        String day=""+purchaseTime.get(Calendar.DAY_OF_MONTH);
+        String date=year+month+day;
+        List<Purchase> purchaseList=purchaseDao.getAllPurchases();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
+        int count=0;
+        int max=0;
+        for (int i=0;i<purchaseList.size();i++){
+            String purchaseDate=formatter.format(purchaseList.get(i).getPurchaseTime());
+            if (purchaseDate.equals(date)){
+                int index=Integer.parseInt(purchaseList.get(i).getPurchaseId().substring(10));
+                if (index>max){
+                    max=index;
+                }
+                count++;
+            }
+        }
+        if (count==0){
+            purchaseId="CG"+date+"0001";
+        }else {
+            String index=String.format("%04d", max+1);
+            purchaseId="CG"+date+index;
+        }
+            session.setAttribute("purchaseIdAdd",purchaseId);
         return "redirect:purchase/purchase/purchaseAdd.jsp";
     }
+    @RequestMapping(value = "addPurchase.do",method = RequestMethod.POST)
+    public String addPurchase(HttpServletRequest request,HttpSession session,String purchaseId,String warehouse,String purchaseTotalMoney,String[] product,String[] count,String[] productPrice,String[] productTotalMoney){
+        System.out.println("执行添加");
+        Date purchaseTime=new Date();
+        int createId=((Users)session.getAttribute("user")).getuId();
+        int warehouseId=Integer.parseInt(warehouse);
+        double totalMoney=Double.parseDouble(purchaseTotalMoney);
+        purchaseDao.addPurchase(purchaseId,createId,purchaseTime,warehouseId,totalMoney);
+        //生成订购单详情
+        for (int i=0;i<product.length;i++){
+            detailsDao.addPurchaseDetails(purchaseId,Integer.parseInt(count[i]),Integer.parseInt(product[i]),Double.parseDouble(productPrice[i]),Double.parseDouble(productTotalMoney[i]));
+        }
+        System.out.println("采购单生成成功");
+
+        return "redirect:getAllPurchases.do";
+    }
+    @RequestMapping(value = "updatePurchase.do",method = RequestMethod.GET)
+    public String updatePurchase(HttpServletRequest request,HttpSession session){
+        List<Brand> brandList=brandDao.getAllBrands();
+        session.setAttribute("brandList",brandList);
+        List<Type> typeList=typeDao.getTypeListByBrandId(brandList.get(0).getBrandId());
+        session.setAttribute("typeList",typeList);
+        List<Product> productList=productDao.getProductsByTypeId(typeList.get(0).getTypeId());
+        session.setAttribute("productList",productList);
+
+        String id=request.getParameter("id");
+        Purchase purchase=purchaseDao.getPurchaseById(id);
+        session.setAttribute("purchase",purchase);
+        List<Details> detailsList=purchase.getDetailsList();
+        List<Type>[] typeLists=new List[detailsList.size()];
+        List<Product>[] productLists=new List[detailsList.size()];
+        for (int i=0;i<detailsList.size();i++){
+            int brandId=detailsList.get(i).getProduct().getType().getBrand().getBrandId();
+            typeLists[i]=typeDao.getTypeListByBrandId(brandId);
+            int tyId=detailsList.get(i).getProduct().getType().getTypeId();
+            productLists[i]=productDao.getProductsByTypeId(tyId);
+        }
+        session.setAttribute("typeLists",typeLists);
+        session.setAttribute("productLists",productLists);
+
+
+        return "redirect:purchase/purchase/purchaseUpdate.jsp";
+    }
+    @RequestMapping(value = "doUpdatePurchase.do",method = RequestMethod.POST)
+    public String doUpdatePurchase(HttpServletRequest request,HttpSession session,String purchaseId,String purchaseTotalMoney,String[] product,String[] count,String[] productPrice,String[] productTotalMoney,String[] detailsId){
+        System.out.println("执行修改");
+        double totalMoney=Double.parseDouble(purchaseTotalMoney);
+        purchaseDao.updatePurchase(purchaseId,totalMoney);
+        //生成订购单详情
+        for (int i=0;i<product.length;i++){
+            detailsDao.updatePurchaseDetails(Integer.parseInt(count[i]),Integer.parseInt(product[i]),Double.parseDouble(productPrice[i]),Double.parseDouble(productTotalMoney[i]),Integer.parseInt(detailsId[i]));
+        }
+        System.out.println("采购单修改成功");
+
+        return "redirect:getAllPurchases.do";
+    }
+    //ajaxL品牌类型商品三级联动
+    @RequestMapping(value = "getAllTypesByBrandIdPurchase.do",method =RequestMethod.GET)
+    public @ResponseBody
+    Map getAllTypesByBrandId(HttpServletRequest request, String id){
+        int id1=Integer.parseInt(id);
+        List<Type> typeList=typeDao.getTypeListByBrandId(id1);
+        List<Product> productList=productDao.getProductsByTypeId(typeList.get(0).getTypeId());
+        Map map = new HashMap();
+        map.put("typeList",typeList);
+        map.put("productList",productList);
+        return map;
+    }
+    @RequestMapping(value = "getAllProductsByTypeIdPurchase.do",method =RequestMethod.GET)
+    public @ResponseBody
+    Map getAllProductsByTypeIdPurchase(HttpServletRequest request, String id){
+        int id1=Integer.parseInt(id);
+        List<Product> productList=productDao.getProductsByTypeId(id1);
+        Map map = new HashMap();
+        map.put("productList",productList);
+        return map;
+    }
+    @RequestMapping(value = "getProductByIdPurchase.do",method =RequestMethod.GET)
+    public @ResponseBody
+    Product getProductByIdPurchase(HttpServletRequest request, String id){
+        int id1=Integer.parseInt(id);
+        Product product=productDao.getProductById(id1);
+        return product;
+    }
+
+
     //删除采购单
     @RequestMapping(value = "delPurchase.do",method = RequestMethod.GET)
     public String delPurchase(HttpServletRequest request){

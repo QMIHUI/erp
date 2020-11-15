@@ -61,4 +61,8 @@
     <select id="countProduct" resultType="java.lang.Integer">
         select count(*) from c_product
     </select>
+    <!--根据型号获取商品列表-->
+    <select id="getProductsByTypeId" resultMap="product">
+        select product_id, product_model, product_price, product_status, product_unit, create_time, create_id, type_id, firm_id from c_product where TYPE_ID=#{typeId}
+    </select>
 </mapper>

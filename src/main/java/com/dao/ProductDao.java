@@ -27,6 +27,9 @@ public interface ProductDao {
     public int updateProduct(String productModel, double productPrice,String productUnit,int typeId,int firmId,int id);
     //修改商品(状态不可用)
     public int updateProduct2(String productModel, double productPrice,String productUnit,int typeId,int firmId,int id);
+    //根据型号获取商品列表
+    public List<Product> getProductsByTypeId(int typeId);
+
 
     public List<Product> getAllProductPage(Pager<Product> pager);
     public int countProduct();
