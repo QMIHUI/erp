@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -77,6 +79,24 @@ public class StatisticsController {
         List<City> cityList=cityDao.getAllCity();
         session.setAttribute("cityList",cityList);
 
+        List<Firm> firmList1=firmDao.getAllFrims();
+        ArrayList<String> FirmNames=new ArrayList<>();
+        ArrayList<Integer> FirmPurchaseCount=new ArrayList<>();
+        ArrayList<Double> FirmPurchaseTotalMoney=new ArrayList<>();
+        for (int i=0;i<firmList1.size();i++){
+            FirmNames.add("'"+firmList1.get(i).getFirmName()+"'");
+            List<Purchase> purchaseList=firmList1.get(i).getPurchaseList();
+            double money=0;
+            for (int j=0;j<purchaseList.size();j++){
+                money+=purchaseList.get(j).getTotalMoney();
+            }
+            FirmPurchaseCount.add(purchaseList.size());
+            FirmPurchaseTotalMoney.add(money);
+        }
+        session.setAttribute("FirmNames",FirmNames);
+        session.setAttribute("FirmPurchaseCount",FirmPurchaseCount);
+        session.setAttribute("FirmPurchaseTotalMoney",FirmPurchaseTotalMoney);
+
         return "redirect:statis/purchase/purchaseStatis.jsp";
     }
     @RequestMapping(value = "getFirmById.do",method = RequestMethod.GET)
@@ -129,7 +149,7 @@ public class StatisticsController {
     @RequestMapping(value = "getAllcustomsStatis.do",method = RequestMethod.GET)
     public String getAllcustomsStatis(HttpSession session,HttpServletRequest request){
 
-        int countCustom = customDao.countCustom();
+        int countCustom = customDao.countCustomStatus1();
         System.out.println(countCustom);
         int size = 5;
         int row = countCustom % size == 0 ? (countCustom / size) : (countCustom / size + 1);
@@ -160,6 +180,25 @@ public class StatisticsController {
 
         List<Province> provinceList=provinceDao.getAllProvinces();
         session.setAttribute("provinceList",provinceList);
+
+        List<Custom> customArrayList=customDao.getCustStatis();
+        ArrayList<String> customNames=new ArrayList<>();
+        ArrayList<Integer> customOrderCount=new ArrayList<>();
+        ArrayList<Double> customOrderTotalMoney=new ArrayList<>();
+        for (int i=0;i<customArrayList.size();i++){
+            customNames.add("'"+customArrayList.get(i).getCustomname()+"'");
+            List<Orders> ordersList=customArrayList.get(i).getOrdersList();
+            double money=0;
+            for (int j=0;j<ordersList.size();j++){
+                money+=ordersList.get(j).getOrdermoney();
+            }
+            customOrderCount.add(ordersList.size());
+            customOrderTotalMoney.add(money);
+        }
+        session.setAttribute("customNames",customNames);
+        session.setAttribute("customOrderCount",customOrderCount);
+        session.setAttribute("customOrderTotalMoney",customOrderTotalMoney);
+
 
         return "redirect:statis/sales/salesStatis.jsp";
     }
@@ -307,6 +346,24 @@ public class StatisticsController {
         List<City> cityList=cityDao.getAllCity();
         session.setAttribute("cityList",cityList);
 
+        List<Warehouse> warehouseList1=warehouseDao.getAllWarehouse();
+        ArrayList<String> warehouseNames=new ArrayList<>();
+        ArrayList<Integer> rkwarehouseOrderCount=new ArrayList<>();
+        ArrayList<Double> rkwarehouseOrderTotalMoney=new ArrayList<>();
+        for (int i=0;i<warehouseList1.size();i++){
+            warehouseNames.add("'"+warehouseList1.get(i).getName()+"'");
+            List<RkWarehouse> rkWarehouseList=rkWarehouseDao.getAllRkWarehouse( warehouseList1.get(i).getId());
+            double money=0;
+            for (int j=0;j<rkWarehouseList.size();j++){
+                money+=rkWarehouseList.get(j).getPurchase().getTotalMoney();
+            }
+            rkwarehouseOrderCount.add(rkWarehouseList.size());
+            rkwarehouseOrderTotalMoney.add(money);
+        }
+        session.setAttribute("warehouseNames",warehouseNames);
+        session.setAttribute("rkwarehouseOrderCount",rkwarehouseOrderCount);
+        session.setAttribute("rkwarehouseOrderTotalMoney",rkwarehouseOrderTotalMoney);
+
         return "redirect:statis/stock/stockStatis.jsp";
     }
     //根据仓库获取入库详情集合
@@ -385,6 +442,24 @@ public class StatisticsController {
         session.setAttribute("provinceList",provinceList);
         List<City> cityList=cityDao.getAllCity();
         session.setAttribute("cityList",cityList);
+
+        List<Warehouse> warehouseList1=warehouseDao.getAllWarehouse();
+        ArrayList<String> warehouseNames=new ArrayList<>();
+        ArrayList<Integer> ckwarehouseOrderCount=new ArrayList<>();
+        ArrayList<Double> ckwarehouseOrderTotalMoney=new ArrayList<>();
+        for (int i=0;i<warehouseList1.size();i++){
+            warehouseNames.add("'"+warehouseList1.get(i).getName()+"'");
+            List<CkWarehouse> ckWarehouseList=ckWarehouseDao.getAllCkWarehouse( warehouseList1.get(i).getId());
+            double money=0;
+            for (int j=0;j<ckWarehouseList.size();j++){
+                money+=ckWarehouseList.get(j).getOrder().getOrdermoney();
+            }
+            ckwarehouseOrderCount.add(ckWarehouseList.size());
+            ckwarehouseOrderTotalMoney.add(money);
+        }
+        session.setAttribute("warehouseNames",warehouseNames);
+        session.setAttribute("ckwarehouseOrderCount",ckwarehouseOrderCount);
+        session.setAttribute("ckwarehouseOrderTotalMoney",ckwarehouseOrderTotalMoney);
 
         return "redirect:statis/delivery/deliveryStatis.jsp";
     }

@@ -41,6 +41,9 @@ public interface CustomDao {
 
     //数据统计页面查找所有客户(并分页)
     public List<Custom> getAllCustomsStatis(Pager<Custom> pager);
+    public int countCustomStatus1();
+    //不分页
+    public List<Custom> getCustStatis();
     //数据统计模糊查询
     public List<Custom> getCustomByConStatis(Pager<Custom> pager);
     public int countCustByConStatic(Map<String,Object> map);

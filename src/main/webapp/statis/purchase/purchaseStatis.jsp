@@ -8,7 +8,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>无标题文档</title>
     <link href="../../css/style.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" src="../../js/jquery.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/laydate/laydate.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/echarts-all.js"></script>
 </head>
 
 <body>
@@ -92,6 +94,82 @@
         </div>
     </form>
 </div>
+<div id="main" style="width: 600px;height:400px;"></div>
+<script type="text/javascript">
+    $(function () {
+        var myChart = echarts.init($("#main")[0]);
+        // 指定图表的配置项和数据
+        var option = {
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross',
+                    crossStyle: {
+                        color: '#999'
+                    }
+                }
+            },
+            toolbox: {
+                feature: {
+                    dataView: {show: true, readOnly: false},
+                    magicType: {show: true, type: ['line', 'bar']},
+                    restore: {show: true},
+                    saveAsImage: {show: true}
+                }
+            },
+            legend: {
+                data: ['采购单总额',  '采购单数量']
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    data: ${sessionScope.FirmNames},
+                    axisPointer: {
+                        type: 'shadow'
+                    }
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value',
+                    name: '采购单总额',
+                    min: 0,
+                    /* max: 250,
+                     interval: 50,*/
+                    axisLabel: {
+                        formatter: '￥{value} '
+                    }
+                },
+                {
+                    type: 'value',
+                    name: '采购单数量',
+                    min: 0,
+                    /*max: 25,*/
+                    interval: 2,
+                    axisLabel: {
+                        formatter: '{value}'
+                    }
+                }
+            ],
+            series: [
+                {
+                    name: '采购单总额',
+                    type: 'bar',
+                    data: ${sessionScope.FirmPurchaseTotalMoney}
+                },
+
+                {
+                    name: '采购单数量',
+                    type: 'line',
+                    yAxisIndex: 1,
+                    data:${sessionScope.FirmPurchaseCount}
+                }
+            ]
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    })
+</script>
 <script type="text/javascript">
     $('.tablelist tbody tr:odd').addClass('odd');
 </script>

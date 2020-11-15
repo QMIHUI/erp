@@ -160,6 +160,7 @@
     <select id="getCust" resultMap="BaseResultMap">
       SELECT * FROM custom
     </select>
+
     <resultMap id="CustomsStatis" type="com.bean.Custom">
         <id property="customid" column="CUSTOMID"/>
         <result property="customname" column="CUSTOMNAME"/>
@@ -170,11 +171,14 @@
     </resultMap>
     <!--数据统计页面查找所有客户-->
     <select id="getAllCustomsStatis" resultMap="CustomsStatis">
-        select CUSTOMID,CUSTOMNAME,TELEPHONE,CSTATUS,ADDRESS from custom limit #{page},#{size}
+        select CUSTOMID,CUSTOMNAME,TELEPHONE,CSTATUS,ADDRESS from custom where CSTATUS=1 limit #{page},#{size}
     </select>
     <select id="getAllCustomById" resultMap="getAll">
-        select * from custom where custom.LEADING=#{leading} limit #{page},#{size}
+        select * from custom where custom.LEADING=#{leading} and CSTATUS=1 limit #{page},#{size}
     </select>
+    <select id="countCustomStatus1" resultType="java.lang.Integer">
+    SELECT count(*) FROM custom where CSTATUS=1
+  </select>
     <select id="countCustomById" resultType="java.lang.Integer">
         select count(*) from custom where custom.LEADING=#{leading}
     </select>
@@ -219,5 +223,8 @@
         <if test="endDate !=null and endDate!='' ">
             and CREATETIME &lt;= #{endDate}
         </if>
+    </select>
+    <select id="getCustStatis" resultMap="CustomsStatis">
+      SELECT * FROM custom where CSTATUS=1
     </select>
 </mapper>

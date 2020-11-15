@@ -99,22 +99,71 @@
         var myChart = echarts.init($("#main")[0]);
         // 指定图表的配置项和数据
         var option = {
-            title: {
-                text: 'ECharts 入门示例'
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross',
+                    crossStyle: {
+                        color: '#999'
+                    }
+                }
             },
-            tooltip: {},
+            toolbox: {
+                feature: {
+                    dataView: {show: true, readOnly: false},
+                    magicType: {show: true, type: ['line', 'bar']},
+                    restore: {show: true},
+                    saveAsImage: {show: true}
+                }
+            },
             legend: {
-                data:['销量']
+                data: ['订购单总额',  '订购单数量']
             },
-            xAxis: {
-                data: ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18"]
-            },
-            yAxis: {},
-            series: [{
-                name: '销量',
-                type: 'bar',
-                data: [5, 20, 36, 10, 10, 20,15,35,18,21,1,21,23,15,23,54,12,35]
-            }]
+            xAxis: [
+                {
+                    type: 'category',
+                    data: ${sessionScope.customNames},
+                    axisPointer: {
+                        type: 'shadow'
+                    }
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value',
+                    name: '订购单总额',
+                    min: 0,
+                   /* max: 250,
+                    interval: 50,*/
+                    axisLabel: {
+                        formatter: '￥{value} '
+                    }
+                },
+                {
+                    type: 'value',
+                    name: '订购单数量',
+                    min: 0,
+                    /*max: 25,*/
+                    interval: 2,
+                    axisLabel: {
+                        formatter: '{value}'
+                    }
+                }
+            ],
+            series: [
+                {
+                    name: '订购单总额',
+                    type: 'bar',
+                    data: ${sessionScope.customOrderTotalMoney}
+                },
+
+                {
+                    name: '订购单数量',
+                    type: 'line',
+                    yAxisIndex: 1,
+                    data:${sessionScope.customOrderCount}
+                }
+            ]
         };
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option);
