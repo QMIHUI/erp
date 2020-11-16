@@ -42,5 +42,9 @@
     <select id="countBrand" resultType="java.lang.Integer">
         select count(*) from c_brand
     </select>
+    <!--据品牌名查找品牌-->
+    <select id="countBrandByName" resultType="java.lang.Integer">
+        select count(*) from erp.c_brand where BRAND_NAME=#{name}
+    </select>
 
 </mapper>

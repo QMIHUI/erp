@@ -65,4 +65,8 @@
     <select id="getProductsByTypeId" resultMap="product">
         select product_id, product_model, product_price, product_status, product_unit, create_time, create_id, type_id, firm_id from c_product where TYPE_ID=#{typeId}
     </select>
+    <!--根据商品名称和类型ID查找商品-->
+    <select id="countProductByTypeAndName" resultType="java.lang.Integer">
+        select count(*) from erp.c_product where TYPE_ID=#{param1} and PRODUCT_MODEL=#{param2}
+    </select>
 </mapper>

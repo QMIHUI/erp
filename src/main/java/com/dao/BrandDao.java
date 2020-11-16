@@ -21,6 +21,8 @@ public interface BrandDao {
     //获取所有可用brand
     public List<Brand> getAllBrandsUseful();
 
+    //根据品牌名查找品牌
+    public int countBrandByName(String name);
 
     public List<Brand> getAllBrandsPage(Pager<Brand> pager);
     public int countBrand();

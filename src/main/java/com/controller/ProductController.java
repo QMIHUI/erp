@@ -131,7 +131,8 @@ public class ProductController {
         int createId=((Users)session.getAttribute("user")).getuId();
         int typeId=Integer.parseInt(request.getParameter("type"));
         int firmId=Integer.parseInt(request.getParameter("firm"));
-        int num=productDao.addProcduct(productModel,productPrice,productStatus,productUnit,createTime,createId,typeId,firmId);
+        int num=productDao.countProductByTypeAndName(typeId,productModel);
+
         PrintWriter out=null;
         try {
             out=response.getWriter();
@@ -139,8 +140,8 @@ public class ProductController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if (num>0){
-
+        if (num==0){
+            productDao.addProcduct(productModel,productPrice,productStatus,productUnit,createTime,createId,typeId,firmId);
             int countProduct = productDao.countProduct();
             System.out.println(countProduct);
             int size = 5;
@@ -178,7 +179,7 @@ public class ProductController {
             out.print("<script type='text/javaScript'>alert('添加成功！');window.location.href='purchase/product/productList.jsp'</script>");
             out.flush();
         }else {
-            out.print("<script type='text/javaScript'>alert('添加失败！');window.location.href='purchase/product/productList.jsp'</script>");
+            out.print("<script type='text/javaScript'>alert('该商品存在，添加失败！');window.location.href='purchase/product/productList.jsp'</script>");
             out.flush();
         }
     }
@@ -206,12 +207,8 @@ public class ProductController {
         String productUnit=request.getParameter("productUnit");
         int typeId=Integer.parseInt(request.getParameter("type"));
         int firmId=Integer.parseInt(request.getParameter("firm"));
-        int num=0;
-        if(typeDao.getTypeById(typeId).getTypeStatus()==2||firmDao.getFirmById(firmId).getStatus()==2){
-            num=productDao.updateProduct2(productModel,productPrice,productUnit,typeId,firmId,id);
-        }else {
-            num=productDao.updateProduct(productModel,productPrice,productUnit,typeId,firmId,id);
-        }
+        int num=productDao.countProductByTypeAndName(typeId,productModel);
+
         PrintWriter out=null;
         try {
             out=response.getWriter();
@@ -219,8 +216,12 @@ public class ProductController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if (num>0){
-
+        if (num==0){
+            if(typeDao.getTypeById(typeId).getTypeStatus()==2||firmDao.getFirmById(firmId).getStatus()==2){
+                productDao.updateProduct2(productModel,productPrice,productUnit,typeId,firmId,id);
+            }else {
+                productDao.updateProduct(productModel,productPrice,productUnit,typeId,firmId,id);
+            }
             int countProduct = productDao.countProduct();
             System.out.println(countProduct);
             int size = 5;
@@ -258,7 +259,7 @@ public class ProductController {
             out.print("<script type='text/javaScript'>alert('修改成功！');window.location.href='purchase/product/productList.jsp'</script>");
             out.flush();
         }else {
-            out.print("<script type='text/javaScript'>alert('修改失败！');window.location.href='purchase/product/productList.jsp'</script>");
+            out.print("<script type='text/javaScript'>alert('该商品存在，修改失败！');window.location.href='purchase/product/productList.jsp'</script>");
             out.flush();
         }
     }

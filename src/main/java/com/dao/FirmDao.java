@@ -27,4 +27,6 @@ public interface FirmDao {
     //修改供应商
     public int updateFirm(String firmName, String firmTel, String firmAddress, String firmContent, int c_id,int createId,int status,String firmFounder,int firmId);
 
+    //根据供应商名称查找供应商
+    public int countFirmByName(String name);
 }

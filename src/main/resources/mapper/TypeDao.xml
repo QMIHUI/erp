@@ -56,5 +56,9 @@
     <select id="countType" resultType="integer">
         select count(*) from c_type
     </select>
+    <!--根据类型名查找类型-->
+    <select id="countTypeByNameAndBrand" resultType="java.lang.Integer">
+        select count(*) from erp.c_type where BRAND_ID=#{param1} and TYPE_NAME=#{param2}
+    </select>
 
 </mapper>
