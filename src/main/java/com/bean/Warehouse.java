@@ -112,6 +112,11 @@ public class Warehouse implements Serializable {
         this.ckWarehouseList = ckWarehouseList;
         this.rkWarehouseList = rkWarehouseList;
     }
+    public Warehouse(String name, Integer provinceId, Integer cityId) {
+        this.name = name;
+        this.provinceId = provinceId;
+        this.cityId = cityId;
+    }
 
     public Integer getId() {
         return id;

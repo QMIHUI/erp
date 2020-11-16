@@ -21,4 +21,113 @@
         select id, indent, warehouse_id, c_date, user_id, state from erp.ck_warehouse where WAREHOUSE_ID=#{warehouseId} and STATE in(2,3,5) limit #{page},#{size}
     </select>
 
+
+
+    <resultMap id="BaseResultMap" type="com.bean.CkWarehouse">
+        <id column="ID"  property="id" />
+        <result column="INDENT"  property="indent" />
+        <result column="WAREHOUSE_ID"  property="warehouseId" />
+        <result column="C_DATE"  property="cDate" />
+        <result column="USER_ID"  property="userId" />
+        <result column="STATE"  property="state" />
+    </resultMap>
+    <sql id="Base_Column_List">
+    ID, INDENT, WAREHOUSE_ID, C_DATE, USER_ID, `STATE`
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from ck_warehouse
+        where ID = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ck_warehouse
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" keyColumn="ID" keyProperty="id" parameterType="com.bean.CkWarehouse" useGeneratedKeys="true">
+    insert into ck_warehouse (INDENT, WAREHOUSE_ID, C_DATE,
+      USER_ID, `STATE`)
+    values (#{indent,jdbcType=VARCHAR}, #{warehouseId,jdbcType=INTEGER}, #{cDate,jdbcType=DATE},
+      #{userId,jdbcType=INTEGER}, #{state,jdbcType=INTEGER})
+  </insert>
+
+
+    <update id="updateByPrimaryKey" parameterType="com.bean.CkWarehouse">
+    update ck_warehouse
+    set INDENT = #{indent,jdbcType=VARCHAR},
+      WAREHOUSE_ID = #{warehouseId,jdbcType=INTEGER},
+      C_DATE = #{cDate,jdbcType=DATE},
+      USER_ID = #{userId,jdbcType=INTEGER},
+      `STATE` = #{state,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+    <resultMap id="getAllCkWarehouse" type="com.bean.CkWarehouse">
+        <id column="ID"  property="id" />
+        <result column="INDENT"  property="indent" />
+        <result column="WAREHOUSE_ID"  property="warehouseId" />
+        <result column="C_DATE"  property="cDate" />
+        <result column="USER_ID"  property="userId" />
+        <result column="STATE"  property="state" />
+        <result property="orders.orderId" column="orderId"></result>
+        <result property="orders.ordermoney" column="ordermoney"></result>
+        <result property="warehouse.id" column="id"></result>
+        <result property="warehouse.name" column="name"></result>
+        <result property="users.uId" column="uId"></result>
+        <result property="users.uname" column="uname"></result>
+    </resultMap>
+
+    <select id="getAllCkWarehouse" resultMap="getAllCkWarehouse">/*查询所有*/
+  SELECT * FROM ck_warehouse AS ck
+  INNER JOIN orders o ON ck.INDENT=o.order_id
+  INNER JOIN warehouse w ON ck.WAREHOUSE_ID=w.ID
+  INNER JOIN users u ON ck.USER_ID=u.u_id
+  </select>
+
+    <select id="getCkWarehouseByuid" resultMap="getAllCkWarehouse">/*查询自己管理的仓库*/
+  SELECT * FROM ck_warehouse AS ck
+  INNER JOIN orders o ON ck.INDENT=o.order_id
+  INNER JOIN warehouse w ON ck.WAREHOUSE_ID=w.ID
+  INNER JOIN users u ON ck.USER_ID=u.u_id WHERE ck.USER_ID=#{uId}
+  </select>
+
+
+    <resultMap id="getAllCkWarehouseByindent" type="com.bean.CkWarehouse">
+        <id column="ID"  property="id" />
+        <result column="INDENT"  property="indent" />
+        <result column="WAREHOUSE_ID"  property="warehouseId" />
+        <result column="C_DATE"  property="cDate" />
+        <result column="USER_ID"  property="userId" />
+        <result column="STATE"  property="state" />
+        <result property="orders.orderId" column="order_id"></result>
+        <result property="orders.ordermoney" column="OrderMoney"></result>
+        <result property="orders.ordertime" column="OrderTime"></result>
+        <result property="orders.dstatus" column="dStatus"></result>
+        <result property="orders.opinion" column="opinion"></result>
+        <result property="orders.chectime" column="Chectime"></result>
+        <result property="warehouse.id" column="ID"></result>
+        <result property="warehouse.name" column="NAME"></result>
+        <result property="users.uId" column="u_id"></result>
+        <result property="users.uname" column="uname"></result>
+        <result property="users.names" column="names"></result>
+        <result property="custom.customid" column="CUSTOMID"></result>
+        <result property="custom.customname" column="CUSTOMNAME"></result>
+        <result property="custom.telephone" column="TELEPHONE"></result>
+    </resultMap>
+    <select id="getAllCkwarehouseByindent" resultMap="getAllCkWarehouseByindent">
+        SELECT u.*,us.uname AS NAMES,w.ID,w.NAME,w.STATE AS wstate,c.*,os.*,ck.*
+ FROM (SELECT * FROM users) AS us
+RIGHT JOIN orders os ON us.u_id=os.operatorId
+LEFT JOIN users u ON u.u_id=os.Checkid
+INNER JOIN custom c ON c.CUSTOMID=os.CustomId
+INNER JOIN warehouse w ON w.ID=os.warehouseId
+INNER JOIN ck_warehouse ck ON ck.INDENT=os.order_id WHERE os.order_id=#{indent};
+    </select>
+    <update id="updateCKWarehouseState" parameterType="com.bean.CkWarehouse">
+    UPDATE ck_warehouse SET STATE=#{state} where ID=#{id};
+  </update>
+
+    <insert id="addCkwarehouse" parameterType="com.bean.CkWarehouse">
+    INSERT INTO ck_warehouse(INDENT,WAREHOUSE_ID,C_DATE,USER_ID,STATE)
+ VALUES(#{indent},#{warehouseId},#{cDate},#{userId},#{state})
+  </insert>
 </mapper>

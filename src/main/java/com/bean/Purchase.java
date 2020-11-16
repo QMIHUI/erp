@@ -11,6 +11,10 @@ import java.util.List;
 public class Purchase implements Serializable {
     private String purchaseId;
 
+    private Integer creatid;
+    private Integer checkid;
+    private Integer warehouseid;
+
     private Users buyer;
 
     private Users checker;
@@ -156,5 +160,29 @@ public class Purchase implements Serializable {
 
     public void setDetailsList(List<Details> detailsList) {
         this.detailsList = detailsList;
+    }
+
+    public Integer getCreatid() {
+        return creatid;
+    }
+
+    public void setCreatid(Integer creatid) {
+        this.creatid = creatid;
+    }
+
+    public Integer getCheckid() {
+        return checkid;
+    }
+
+    public void setCheckid(Integer checkid) {
+        this.checkid = checkid;
+    }
+
+    public Integer getWarehouseid() {
+        return warehouseid;
+    }
+
+    public void setWarehouseid(Integer warehouseid) {
+        this.warehouseid = warehouseid;
     }
 }

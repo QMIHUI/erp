@@ -32,6 +32,7 @@ public class Brand implements Serializable {
      * 创建人
      */
     private Users creater;
+    private Integer createid;
 
     private static final long serialVersionUID = 1L;
 
@@ -84,5 +85,13 @@ public class Brand implements Serializable {
 
     public void setCreater(Users creater) {
         this.creater = creater;
+    }
+
+    public Integer getCreateid() {
+        return createid;
+    }
+
+    public void setCreateid(Integer createid) {
+        this.createid = createid;
     }
 }

@@ -181,9 +181,16 @@
               <option name="primaryKey" value="ID" />
               <option name="projectFolder" value="$PROJECT_DIR$" />
               <option name="tableName" value="ck_warehouse" />
+<<<<<<< Updated upstream
               <option name="useSchemaPrefix" value="true" />
               <option name="xmlMvnPath" value="src/main/resources" />
               <option name="xmlPackage" value="mapper" />
+=======
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="generator" />
+>>>>>>> Stashed changes
             </Config>
           </value>
         </entry>
@@ -302,6 +309,30 @@
             </Config>
           </value>
         </entry>
+        <entry key="kc_warehouse">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="KcWarehouseDao" />
+              <option name="daoPackage" value="com.dao" />
+              <option name="daoPostfix" value="Dao" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="KcWarehouse" />
+              <option name="modelPackage" value="com.bean" />
+              <option name="name" value="kc_warehouse" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="ID" />
+              <option name="projectFolder" value="$PROJECT_DIR$" />
+              <option name="tableName" value="kc_warehouse" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="mapper" />
+            </Config>
+          </value>
+        </entry>
         <entry key="order">
           <value>
             <Config>
@@ -411,6 +442,10 @@
               <option name="primaryKey" value="ID" />
               <option name="projectFolder" value="$PROJECT_DIR$" />
               <option name="tableName" value="rk_warehouse" />
+<<<<<<< Updated upstream
+=======
+              <option name="useLombokPlugin" value="true" />
+>>>>>>> Stashed changes
               <option name="useSchemaPrefix" value="true" />
               <option name="xmlMvnPath" value="src/main/resources" />
               <option name="xmlPackage" value="mapper" />

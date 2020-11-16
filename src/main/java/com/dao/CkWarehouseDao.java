@@ -11,4 +11,18 @@ public interface CkWarehouseDao {
 
     public int countCkWarehouse(int warehouseId);
     public List<CkWarehouse> getAllCkWarehousePage(Pager<CkWarehouse> pager);
+    int deleteByPrimaryKey(Integer id);
+
+    int insert(CkWarehouse record);
+
+    CkWarehouse selectByPrimaryKey(Integer id);
+
+
+    int updateByPrimaryKey(CkWarehouse record);
+
+    List<CkWarehouse> getAllCkWarehouse();//查询所有订单信息
+    List<CkWarehouse> getCkWarehouseByuid(int uId);//根据用户id查询自己管理的仓库订单信息
+    CkWarehouse getAllCkwarehouseByindent(String indent);//根据订单号查询相关信息
+    int updateCKWarehouseState(CkWarehouse ckWarehouse);//修改状态
+    int addCkwarehouse(CkWarehouse ckWarehouse);//添加出库
 }

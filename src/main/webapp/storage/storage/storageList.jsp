@@ -31,23 +31,24 @@
     <form action="" method="post">
         <ul class="tools">
             <li>仓库名称:
-                <input type="text" />
+                <input type="text" name="name" value="" />
             </li>
             <li> 所属区域：
-                <select>
-                    <option>请选择省份</option>
-                    <option>北京</option>
-                    <option>江苏</option>
-                    <option>天津</option>
-                </select>
-                <select>
-                    <option>请选择城市</option>
-                    <option>北京</option>
-                    <option>南京</option>
-                    <option>天津</option>
+                    <select  name="provinceId">
+                        <option selected="selected">请选择</option>
+                        <c:forEach items="${listprovince}" var="lp">
+                            <option value="${lp.id}">${lp.pName}</option>
+                        </c:forEach>
+                    </select>
+
+                <select name="cityId">
+                    <option selected="selected">请选择城市</option>
+                    <c:forEach items="${listcity}" var="lc">
+                        <option value="${lc.cId}">${lc.cName}</option>
+                    </c:forEach>
                 </select>
             </li>
-            <li class="subBut" onclick="window.location.href='storageList.html'"><img src="../../images/t06.png" />查询</li>
+            <li class="subBut" onclick="window.location.href='${pageContext.request.contextPath}/storageListlike.do'"><img src="../../images/t06.png" />查询</li>
             <li class="subBut" onclick="window.location.href='${pageContext.request.contextPath}/addSelectWarehouse.do'"><img src="../../images/t01.png" />添加</li>
         </ul>
         <table class="tablelist">

@@ -43,6 +43,9 @@ public class Product implements Serializable {
      * 创建人，外键
      */
     private Users creater;
+    private Integer creareid;
+    private Integer typeid;
+    private Integer firmid;
 
     /**
      * 商品类型id，外键
@@ -143,19 +146,29 @@ public class Product implements Serializable {
         this.firm = firm;
     }
 
-    @Override
-    public String toString() {
-        return "Product{" +
-                "productId=" + productId +
-                ", productModel='" + productModel + '\'' +
-                ", productPrice=" + productPrice +
-                ", productStatus=" + productStatus +
-                ", productUnit='" + productUnit + '\'' +
-                ", createTime=" + createTime +
-                ", creater=" + creater.getUname() +
-                ", type=" + type.getTypeName() +
-                ", brand=" + type.getBrand().getBrandName() +
-                ", firm=" + firm.getFirmName() +
-                '}';
+    public Integer getCreareid() {
+        return creareid;
     }
+
+    public void setCreareid(Integer creareid) {
+        this.creareid = creareid;
+    }
+
+    public Integer getTypeid() {
+        return typeid;
+    }
+
+    public void setTypeid(Integer typeid) {
+        this.typeid = typeid;
+    }
+
+    public Integer getFirmid() {
+        return firmid;
+    }
+
+    public void setFirmid(Integer firmid) {
+        this.firmid = firmid;
+    }
+
+
 }

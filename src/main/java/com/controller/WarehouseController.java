@@ -31,8 +31,24 @@ public class WarehouseController {
 
     @RequestMapping(value = "storageList.do",method = RequestMethod.GET)
     public String getAllWatehouse(HttpSession session){//查询所有
+        List<Province> listprovince=provinceDao.getAllProvinces();//查询所有省
+        session.setAttribute("listprovince",listprovince);
+        List<City> listcity=cityDao.getAllCityorWarehouse();//查询所有市
+        session.setAttribute("listcity",listcity);
+
         List<Warehouse> warehouseList=warehouseDao.getAllWarehouse();
         session.setAttribute("warehouseList",warehouseList);
+        return "redirect:storage/storage/storageList.jsp";
+    }
+    @RequestMapping(value = "storageListlike.do",method = RequestMethod.GET)
+    public String getlikeWatehouse(String name,Integer provinceId,Integer cityId,HttpSession session){//模糊查询
+        Warehouse warehouse=new Warehouse(name,provinceId,cityId);
+        List<Warehouse> warehouseList=warehouseDao.selectWarehouseLike(warehouse);
+        System.out.println(warehouseList);
+        if(warehouseList.isEmpty()){
+             warehouseList=warehouseDao.getAllWarehouse();
+            session.setAttribute("warehouseList",warehouseList);
+        }
         return "redirect:storage/storage/storageList.jsp";
     }
 
@@ -95,7 +111,7 @@ public class WarehouseController {
     @RequestMapping(value = "addWarehouse.do",method = RequestMethod.POST)
     public String addwarehouse(HttpSession session,Warehouse warehouse){//添加仓库
         int num=warehouseDao.addWarehouse(warehouse);
-        List<Warehouse> warehouseList=warehouseDao.getAllWarehouse();//修改状态后的查询所有
+        List<Warehouse> warehouseList=warehouseDao.getAllWarehouse();//添加后的查询所有
         session.setAttribute("warehouseList",warehouseList);
         return "redirect:storage/storage/storageList.jsp";
     }
@@ -103,7 +119,6 @@ public class WarehouseController {
     @RequestMapping(value = "/{uId}/storageBrowse.do",method = RequestMethod.GET)
     public String selectWarehouseByname(@PathVariable("uId") int uId,HttpSession session){//根据用户ID查询自己管理的仓库
         List<Warehouse> listWarehouse=warehouseDao.selectWarehouseByuid(uId);
-        System.out.println(listWarehouse);
        if(listWarehouse.isEmpty()){
            listWarehouse=warehouseDao.getAllWarehouse();
        }

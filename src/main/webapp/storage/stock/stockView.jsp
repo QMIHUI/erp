@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+<%@ taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -22,51 +23,71 @@ pageEncoding="UTF-8"%>
   <ul class="forminfo">
     <li>
       <label>采单编号</label>
-      <cite>CG201711180001</cite>
+      <cite>${rkWarehouse.rkIndent}</cite>
     </li>
     <li>
       <label>采购时间</label>
-      <cite>2017-11-18 15:36:10</cite>
+      <cite>${rkWarehouse.purchase.checkTime}</cite>
     </li>
     <li>
       <label>总金额</label>
-       <cite>￥9,876,582</cite>
+       <cite>￥${rkWarehouse.purchase.totalMoney}</cite>
     </li>
     <li>
       <label>操作人</label>
-      <cite>关羽</cite>
+      <cite>${rkWarehouse.users.uname}</cite>
     </li>
     <li>
       <label>审核状态</label>
-      <cite>已审核通过</cite>
+      <cite>
+        <c:if test="${rkWarehouse.purchase.checkStatus==1}">
+          未审核
+        </c:if>
+        <c:if test="${rkWarehouse.purchase.checkStatus==2}">
+          审核中
+        </c:if>
+        <c:if test="${rkWarehouse.purchase.checkStatus==3}">
+          审核通过
+        </c:if>
+        <c:if test="${rkWarehouse.purchase.checkStatus==4}">
+          审核未通过
+        </c:if>
+      </cite>
     </li>
     <li>
       <label>审核意见</label>
-      <cite>做的很详细，同意通过</cite>
+      <cite>${rkWarehouse.purchase.checkOpinion}</cite>
     </li>
     <li>
       <label>审核人</label>
-      <cite>曹操</cite>
+      <cite>${rkWarehouse.users.names}</cite>
     </li>
     <li>
       <label>审核时间</label>
-      <cite>2017-01-30 12:05:05</cite>
+      <cite>${rkWarehouse.purchase.checkTime}</cite>
     </li>
     <li>
       <label>入货仓库</label>
-      <cite><a href="../storage/storageView.jsp" title="点击查看客户详细信息" class="tablelink">南京21号仓库</a></cite>
+      <cite>${rkWarehouse.warehouse.name}</cite>
     </li>
     <li>
       <label>入库时间</label>
-      <cite>2013-09-09 15:05:05</cite>
+      <cite>${rkWarehouse.rkDate}</cite>
     </li>
     <li>
       <label>入库人</label>
-      <cite>朱元璋</cite>
+      <cite>${user.uname}</cite>
     </li>
     <li>
       <label>入库状态</label>
-      <cite>已入库</cite>
+      <cite>
+        <c:if test="${rkWarehouse.state==1}">
+          未入库
+        </c:if>
+        <c:if test="${rkWarehouse.state==2}">
+          已入库
+        </c:if>
+      </cite>
     </li>
   </ul>
   <table class="tablelist">
@@ -84,28 +105,19 @@ pageEncoding="UTF-8"%>
         </tr>
       </thead>
       <tbody>
+      <c:forEach items="${listDetails}" var="ld">
         <tr>
-          <td>1</td>
-          <td>联想</td>
-          <td>笔记本电脑</td>
-          <td>T470</td>
-          <td>北京联想科技股份有限公司</td>	
-          <td>10</td>
+          <td>${ld.detailsId}</td>
+          <td>${ld.brand.brandName}</td>
+          <td>${ld.type.typeName}</td>
+          <td>${ld.product.productModel}</td>
+          <td>${ld.firm.firmName}</td>
+          <td>${ld.count}</td>
           <td>台</td>
-          <td>9998</td>
-          <td>99980</td>
+          <td>${ld.purchasePrice}</td>
+          <td>${ld.totalMoney}</td>
         </tr>
-        <tr>
-          <td>2</td>
-          <td>联想</td>
-          <td>笔记本电脑</td>
-          <td>X260</td>
-          <td>北京联想科技股份有限公司</td>	
-          <td>5</td>
-          <td>台</td>
-          <td>5500</td>
-          <td>27500</td>
-        </tr>
+      </c:forEach>
       </tbody>
   </table>
   <div style="margin-top:20px; margin-left:20px;">

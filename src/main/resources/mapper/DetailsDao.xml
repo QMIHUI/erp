@@ -22,4 +22,27 @@
         select details_id, purchase_id, count, product_id, purchase_price, total_money from c_details where PURCHASE_ID=#{purchaseId}
     </select>
 
+    <resultMap id="getAllDetailsANDtype" type="com.bean.Details">
+        <id column="DETAILS_ID"  property="detailsId" />
+        <result column="PURCHASE_ID"  property="purchaseId" />
+        <result column="COUNT"  property="count" />
+        <result column="PURCHASE_PRICE"  property="purchasePrice" />
+        <result column="TOTAL_MONEY"  property="totalMoney" />
+        <result column="PRODUCT_ID" property="priductid"></result>
+        <result property="product.productId" column="PRODUCT_ID"></result>
+        <result property="product.productModel" column="PRODUCT_MODEL"></result>
+        <result property="type.typeId" column="TYPE_ID"></result>
+        <result property="type.typeName" column="TYPE_NAME"></result>
+        <result property="brand.brandId" column="BRAND_ID"></result>
+        <result property="brand.brandName" column="BRAND_NAME"></result>
+        <result property="firm.firmId" column="FIRM_ID"></result>
+        <result property="firm.firmName" column="FIRM_NAME"></result>
+    </resultMap>
+    <select id="getAllDetailsBypurchaseId" resultMap="getAllDetailsANDtype">
+    SELECT * FROM c_details AS cd
+INNER JOIN c_product cp ON cd.PRODUCT_ID=cp.PRODUCT_ID
+INNER JOIN c_type ct ON cp.TYPE_ID=ct.TYPE_ID
+INNER JOIN c_brand cb ON ct.BRAND_ID=cb.BRAND_ID
+INNER JOIN c_firm cf ON cp.FIRM_ID=cf.FIRM_ID WHERE cd.PURCHASE_ID=#{purchaseId}
+  </select>
 </mapper>

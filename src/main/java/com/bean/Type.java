@@ -32,6 +32,8 @@ public class Type implements Serializable {
      * 创建人
      */
     private Users creater;
+    private Integer createid;
+    private Integer brandid;
 
     /**
      * 品牌id、外键
@@ -98,6 +100,22 @@ public class Type implements Serializable {
 
     public void setBrand(Brand brand) {
         this.brand = brand;
+    }
+
+    public Integer getCreateid() {
+        return createid;
+    }
+
+    public void setCreateid(Integer createid) {
+        this.createid = createid;
+    }
+
+    public Integer getBrandid() {
+        return brandid;
+    }
+
+    public void setBrandid(Integer brandid) {
+        this.brandid = brandid;
     }
 
     @Override

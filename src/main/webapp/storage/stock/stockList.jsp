@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+<%@ taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -43,7 +44,7 @@ function tipClose() {
         </select>
       </li>
       <li class="subBut" onclick="window.location.href='stockList.html'"><img src="../../images/t06.png" />查询</li>
-      <li class="subBut" onclick="window.location.href='stockAdd.html'"><img src="../../images/t01.png" />添加入库</li>
+      <li class="subBut" onclick="window.location.href='${pageContext.request.contextPath}/${user.uId}/addRkwarehouse.do'"><img src="../../images/t01.png" />添加入库</li>
     </ul>
     <table class="tablelist">
       <thead>
@@ -59,32 +60,40 @@ function tipClose() {
         </tr>
       </thead>
       <tbody>
+      <c:forEach items="${listRkWarehouse}" var="lr">
         <tr>
-          <td>1</td>
-          <td>DJ201701270001</td>
-          <td>￥9,876,582</td>
-          <td>南京21号仓库</td>
-          <td>2013-09-09 15:05:05</td>
-          <td>朱元璋</td>
-          <td>未入库</td>
+          <td>${lr.id}</td>
+          <td>${lr.rkIndent}</td>
+          <td>￥${lr.purchase.totalMoney}</td>
+          <td>${lr.warehouse.name}</td>
+          <td>${lr.rkDate}</td>
+          <td>${lr.users.uname}</td>
           <td>
-          	<a href="stockView.jsp" class="tablelink">查看详情</a>
-            <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('确定此采购单入库吗？')">入库</a>
+            <c:if test="${lr.state==1}">
+            未入库
+            </c:if>
+            <c:if test="${lr.state==2}">
+              已入库
+            </c:if>
+            <c:if test="${lr.state==3}">
+              已取消订单
+            </c:if>
+          </td>
+          <td>
+          	<a href="${pageContext.request.contextPath}/${lr.rkIndent}/stockView.do" class="tablelink">查看详情</a>
+            <c:if test="${lr.state==1}">
+              <a href="${pageContext.request.contextPath}/${lr.id}/${lr.state}/${user.uId}/${lr.rkIndent}/${lr.warehouseId}/updateRkstate.do" class="tablelink" >入库</a>
+              <a href="${pageContext.request.contextPath}/${lr.id}/${lr.state}/${user.uId}/${lr.rkIndent}/updateRkWarehousestate.do" class="tablelink" >取消入库</a>
+            </c:if>
+            <c:if test="${lr.state==2}">
+              <a href="javascript:void(0)" class="tablelink" >已入库</a>
+            </c:if>
+            <c:if test="${lr.state==3}">
+              <a href="javascript:void(0)" class="tablelink" >本次采购已取消</a>
+            </c:if>
           </td>
         </tr>
-        <tr>
-          <td>2</td>
-          <td>DJ201701270002</td>
-          <td>￥9,876,582</td>
-          <td>武汉71号仓库</td>
-          <td>2013-09-09 15:05:05</td>
-          <td>周瑜</td>
-          <td>已入库</td>
-          <td>
-          	<a href="stockView.jsp" class="tablelink">查看详情</a>
-            <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('确定取消此采购单入库吗？')">取消入库</a>
-          </td>
-        </tr>
+      </c:forEach>
       </tbody>
     </table>
     <div class="pagin">

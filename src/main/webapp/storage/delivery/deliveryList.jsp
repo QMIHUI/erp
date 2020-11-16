@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+<%@ taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -46,7 +47,7 @@ function tipClose() {
         </select>
       </li>
       <li class="subBut" onclick="window.location.href='deliveryList.html'"><img src="../../images/t06.png" />查询</li>
-      <li class="subBut" onclick="window.location.href='deliveryAdd.html'"><img src="../../images/t01.png" />添加出库</li>
+      <li class="subBut" onclick="window.location.href='${pageContext.request.contextPath}/${user.uId}/addCkwarehouse.do'"><img src="../../images/t01.png" />添加出库</li>
     </ul>
     <table class="tablelist">
       <thead>
@@ -62,73 +63,56 @@ function tipClose() {
         </tr>
       </thead>
       <tbody>
+      <c:forEach items="${listCkWarehouse}" var="lc">
         <tr>
-          <td>1</td>
-          <td>DJ201701270001</td>
-          <td>￥9,876,582</td>
-          <td>南京21号仓库</td>
-          <td>2013-09-09 15:05:05</td>
-          <td>朱元璋</td>
-          <td>未发货</td>
+          <td>${lc.id}</td>
+          <td>${lc.indent}</td>
+          <td>￥${lc.orders.ordermoney}</td>
+          <td>${lc.warehouse.name}</td>
+          <td>${lc.cDate}</td>
+          <td>${lc.users.uname}</td>
           <td>
-          	<a href="deliveryView.jsp" class="tablelink">查看详情</a>
-            <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('确定此订单发货吗？')">发货</a>
-            <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('确定取消此订单吗？')">取消订单</a>
+            <c:if test="${lc.state==1}">
+              未发货
+            </c:if>
+            <c:if test="${lc.state==2}">
+              已发货
+            </c:if>
+            <c:if test="${lc.state==3}">
+              已回款
+            </c:if>
+            <c:if test="${lc.state==4}">
+              取消订单
+            </c:if>
+            <c:if test="${lc.state==5}">
+              已退货
+            </c:if>
+          </td>
+          <td>
+          	<a href="${pageContext.request.contextPath}/${lc.indent}/deliveryView.do" class="tablelink">查看详情</a>
+            <c:if test="${lc.state==1}">
+              <a href="${pageContext.request.contextPath}/${lc.id}/${lc.state}/${user.uId}/${lc.indent}/updateCKstate.do" class="tablelink" >发货</a>
+              <a href="${pageContext.request.contextPath}/${lc.id}/${lc.state}/${user.uId}/${lc.indent}/updateCKwarehouseState.do" class="tablelink">取消订单</a>
+            </c:if>
+            <c:if test="${lc.state==2}">
+              <a href="" class="tablelink" onclick="tipOpen('确定此订单发货吗？')">已发货</a>
+              <a href="${pageContext.request.contextPath}/${lc.id}/${lc.state}/${user.uId}/${lc.indent}/updateCKwarehouseState.do" class="tablelink">取消订单</a>
+              <a href="${pageContext.request.contextPath}/${lc.id}/${lc.state}/${user.uId}/${lc.indent}/updateCKstate.do" class="tablelink" >确认回款</a>
+            </c:if>
+            <c:if test="${lc.state==3}">
+              <a href="" class="tablelink" onclick="tipOpen('确定此订单发货吗？')">已回款</a>
+            </c:if>
+            <c:if test="${lc.state==4}">
+              <a href="${pageContext.request.contextPath}/${lc.id}/${lc.state}/${user.uId}/${lc.indent}/updateCKwarehouseState.do" class="tablelink">确认已退货</a>
+            </c:if>
+            <c:if test="${lc.state==5}">
+              <a href="" class="tablelink" onclick="tipOpen('确定此订单发货吗？')">已退货</a>
+            </c:if>
           </td>
         </tr>
-        <tr>
-          <td>2</td>
-          <td>DJ201701270002</td>
-          <td>￥9,876,582</td>
-          <td>武汉71号仓库</td>
-          <td>2013-09-09 15:05:05</td>
-          <td>周瑜</td>
-          <td>已发货</td>
-          <td>
-          	<a href="deliveryView.jsp" class="tablelink">查看详情</a>
-            <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('确定取消此订单吗？')">取消订单</a>
-            <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('确定收到此订单回款吗？')">确认回款</a>
-          </td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>DJ201701270003</td>
-          <td>￥9,876,582</td>
-          <td>南京21号仓库</td>
-          <td>2013-09-09 15:05:05</td>
-          <td>朱元璋</td>
-          <td>已回款</td>
-          <td>
-          	<a href="deliveryView.jsp" class="tablelink">查看详情</a>
-            <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('确定取消此订单吗？')">取消订单</a>
-          </td>
-        </tr>
-        <tr>
-          <td>4</td>
-          <td>DJ201701270004</td>
-          <td>￥9,876,582</td>
-          <td>武汉71号仓库</td>
-          <td>2013-09-09 15:05:05</td>
-          <td>周瑜</td>
-          <td>取消订单</td>
-          <td>
-          	<a href="deliveryView.jsp" class="tablelink">查看详情</a>
-            <a href="javascript:void(0)" class="tablelink" onclick="tipOpen('确定收到此订单的退货吗？')">确认已退货</a>
-          </td>
-        </tr>
-        <tr>
-          <td>5</td>
-          <td>DJ201701270005</td>
-          <td>￥9,876,582</td>
-          <td>南京21号仓库</td>
-          <td>2013-09-09 15:05:05</td>
-          <td>朱元璋</td>
-          <td>已退货</td>
-          <td>
-          	<a href="deliveryView.jsp" class="tablelink">查看详情</a>
-          </td>
-        </tr>
+      </c:forEach>
       </tbody>
+
     </table>
     <div class="pagin">
       <div class="message">共<i class="blue">1256</i>条记录，当前显示第&nbsp;<i class="blue">2&nbsp;</i>页</div>

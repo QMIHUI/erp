@@ -78,11 +78,32 @@
     LEFT JOIN users ON orders.operatorId = users.u_id
     LEFT JOIN warehouse ON orders.warehouseId = warehouse.ID
   </select>
+
     <select id="getOneOrder" resultMap="getAll">
     SELECT * FROM orders  LEFT JOIN custom ON orders.CustomId = custom.CUSTOMID
     LEFT JOIN users ON orders.operatorId = users.u_id
     LEFT JOIN warehouse ON orders.warehouseId = warehouse.ID where order_id=#{orderId}
   </select>
+
+    <resultMap id="BaseResultMap" type="com.bean.Orders">
+        <id column="order_id" jdbcType="VARCHAR" property="orderId" />
+        <result column="CustomId" jdbcType="INTEGER" property="customid" />
+        <result column="OrderTime" jdbcType="VARCHAR" property="ordertime" />
+        <result column="OrderMoney" jdbcType="DOUBLE" property="ordermoney" />
+        <result column="operatorId" jdbcType="INTEGER" property="operatorid" />
+        <result column="dStatus" jdbcType="VARCHAR" property="dstatus" />
+        <result column="Checkid" jdbcType="INTEGER" property="checkid" />
+        <result column="Chectime" jdbcType="VARCHAR" property="chectime" />
+        <result column="opinion" jdbcType="VARCHAR" property="opinion" />
+        <result column="warehouseId" jdbcType="INTEGER" property="warehouseid" />
+        <result column="Dd_state" jdbcType="INTEGER" property="ddState" />
+    </resultMap>
+  <select id="getAllByCkwarehouse" resultMap="BaseResultMap">
+    SELECT * FROM orders WHERE dStatus=2 AND Dd_state=1
+  </select>
+  <update id="updateOrdersStateByCkwarehouse" parameterType="com.bean.Orders">
+    UPDATE orders SET Dd_state=0 WHERE order_id=#{orderId}
+  </update>
 
 
     <resultMap id="psqing" type="com.bean.Orders">
