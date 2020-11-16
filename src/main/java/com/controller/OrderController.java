@@ -485,7 +485,7 @@ public class OrderController {
         String orderTime = format.format(date);
         double totalMoney=Double.parseDouble(request.getParameter("orderTotalMoney"));
         int num = ordersDao.addOrder(orderId,custName,orderTime,totalMoney,operator);
-        //生成采购单详情
+        //生成订购单详情
         for (int i=0;i<product.length;i++){
             orderdetailsDao.addOrderDetail(Integer.parseInt(count[i]),Integer.parseInt(product[i]),Double.parseDouble(productPrice[i]),Double.parseDouble(productTotalMoney[i]),orderId);
         }
@@ -495,16 +495,21 @@ public class OrderController {
     }
 
     @RequestMapping(value = "updateOrder.do",method = RequestMethod.GET)
-    public String updateOrder(HttpServletRequest request){
+    public String updateOrder(HttpServletRequest request,String[] product,String[] count,String[] productPrice,String[] productTotalMoney){
         System.out.println("执行修改订单！！！");
         Double orderTotalMoney = Double.parseDouble(request.getParameter("orderTotalMoney"));
         System.out.println(orderTotalMoney);
         String orderId = request.getParameter("orderId");
         System.out.println(orderId);
-        return "";
+        Orders order = new Orders(orderId,orderTotalMoney);
+        ordersDao.updateOrder(order);
+        orderdetailsDao.deleteOrderDetail(orderId);
+        for (int i=0;i<product.length;i++){
+            orderdetailsDao.addOrderDetail(Integer.parseInt(count[i]),Integer.parseInt(product[i]),Double.parseDouble(productPrice[i]),Double.parseDouble(productTotalMoney[i]),orderId);
+        }
+        System.out.println("订购单生成成功");
+        return "redirect:queryAllOrder.do";
     }
-
-
 
 
 
