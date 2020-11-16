@@ -32,4 +32,7 @@ public interface TypeDao {
 
     public List<Type> getAllTypePage(Pager<Type> pager);
     public int countType();
+
+    //根据类型名查找类型
+    public int countTypeByNameAndBrand(int brandId, String name);
 }

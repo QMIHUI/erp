@@ -58,4 +58,8 @@
     <select id="coutFirm" resultType="java.lang.Integer">
         select count(*) from erp.c_firm
     </select>
+    <!--根据供应商名称查找供应商-->
+    <select id="countFirmByName" resultType="java.lang.Integer">
+        select count(*) from erp.c_firm where FIRM_NAME=#{name}
+    </select>
 </mapper>

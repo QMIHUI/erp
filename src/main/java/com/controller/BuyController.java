@@ -130,7 +130,8 @@ public class BuyController {
         int createId=((Users)session.getAttribute("user")).getuId();
         int status=Integer.parseInt(request.getParameter("status"));
         String firmFounder=request.getParameter("firmFounder");
-        int num=firmDao.addFirm(firmName,firmTel,firmAddress,firmContent,c_id,createTime,createId,status,firmFounder);
+        int num=firmDao.countFirmByName(firmName);
+
         PrintWriter out=null;
         try {
             out=response.getWriter();
@@ -138,8 +139,8 @@ public class BuyController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if (num>0){
-
+        if (num==0){
+            firmDao.addFirm(firmName,firmTel,firmAddress,firmContent,c_id,createTime,createId,status,firmFounder);
             int countFirm = firmDao.coutFirm();
             System.out.println(countFirm);
             int size = 5;
@@ -177,7 +178,7 @@ public class BuyController {
             out.print("<script type='text/javaScript'>alert('添加成功！');window.location.href='purchase/manufacturer/manufacturerList.jsp'</script>");
             out.flush();
         }else {
-            out.print("<script type='text/javaScript'>alert('添加失败！');window.location.href='purchase/manufacturer/manufacturerList.jsp'</script>");
+            out.print("<script type='text/javaScript'>alert('该厂商存在，添加失败！');window.location.href='purchase/manufacturer/manufacturerList.jsp'</script>");
             out.flush();
         }
     }
@@ -205,7 +206,8 @@ public class BuyController {
         int createId=((Users)session.getAttribute("user")).getuId();
         int status=Integer.parseInt(request.getParameter("status"));
         String firmFounder=request.getParameter("firmFounder");
-        int num=firmDao.updateFirm(firmName,firmTel,firmAddress,firmContent,c_id,createId,status,firmFounder,firmId);
+        int num=firmDao.countFirmByName(firmName);
+
         PrintWriter out=null;
         try {
             out=response.getWriter();
@@ -213,8 +215,8 @@ public class BuyController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if (num>0){
-
+        if (num==0){
+            firmDao.updateFirm(firmName,firmTel,firmAddress,firmContent,c_id,createId,status,firmFounder,firmId);
             int countFirm = firmDao.coutFirm();
             System.out.println(countFirm);
             int size = 5;
@@ -252,7 +254,7 @@ public class BuyController {
             out.print("<script type='text/javaScript'>alert('修改成功！');window.location.href='purchase/manufacturer/manufacturerList.jsp'</script>");
             out.flush();
         }else {
-            out.print("<script type='text/javaScript'>alert('修改失败！');window.location.href='purchase/manufacturer/manufacturerList.jsp'</script>");
+            out.print("<script type='text/javaScript'>alert('该厂商存在，修改失败！');window.location.href='purchase/manufacturer/manufacturerList.jsp'</script>");
             out.flush();
         }
     }
@@ -298,7 +300,7 @@ public class BuyController {
         int brandStatus=Integer.parseInt(request.getParameter("brandStatus"));
         Date createTime=new Date();
         int createId=((Users)session.getAttribute("user")).getuId();
-        int num=brandDao.addBrand(brandName,brandStatus,createTime,createId);
+        int num=brandDao.countBrandByName(brandName);
         PrintWriter out=null;
         try {
             out=response.getWriter();
@@ -306,8 +308,8 @@ public class BuyController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if (num>0){
-
+        if (num==0){
+            brandDao.addBrand(brandName,brandStatus,createTime,createId);
             int countBrand = brandDao.countBrand();
             System.out.println(countBrand);
             int size = 5;
@@ -340,7 +342,7 @@ public class BuyController {
             out.print("<script type='text/javaScript'>alert('添加成功！');window.location.href='purchase/brand/brandList.jsp'</script>");
             out.flush();
         }else {
-            out.print("<script type='text/javaScript'>alert('添加失败！');window.location.href='purchase/brand/brandList.jsp'</script>");
+            out.print("<script type='text/javaScript'>alert('该品牌已存在，添加失败！');window.location.href='purchase/brand/brandList.jsp'</script>");
             out.flush();
         }
     }
@@ -359,7 +361,8 @@ public class BuyController {
         int id=Integer.parseInt(request.getParameter("id"));
         String brandName=request.getParameter("brandName");
         int brandStatus=Integer.parseInt(request.getParameter("brandStatus"));
-        int num=brandDao.updateBrand(brandName,brandStatus,id);
+        int num=brandDao.countBrandByName(brandName);
+
         PrintWriter out=null;
         try {
             out=response.getWriter();
@@ -367,8 +370,8 @@ public class BuyController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if (num>0){
-
+        if (num==0){
+            brandDao.updateBrand(brandName,brandStatus,id);
             int countBrand = brandDao.countBrand();
             System.out.println(countBrand);
             int size = 5;
@@ -401,7 +404,7 @@ public class BuyController {
             out.print("<script type='text/javaScript'>alert('修改成功！');window.location.href='purchase/brand/brandList.jsp'</script>");
             out.flush();
         }else {
-            out.print("<script type='text/javaScript'>alert('修改失败！');window.location.href='purchase/brand/brandList.jsp'</script>");
+            out.print("<script type='text/javaScript'>alert('该品牌存在，修改失败！');window.location.href='purchase/brand/brandList.jsp'</script>");
             out.flush();
         }
 
@@ -487,7 +490,8 @@ public class BuyController {
         Date createTime=new Date();
         int createId=((Users)session.getAttribute("user")).getuId();
         int brandId=Integer.parseInt(request.getParameter("brand"));
-        int num=typeDao.addType(typeName,typeStatu,createTime,createId,brandId);
+        int num=typeDao.countTypeByNameAndBrand(brandId,typeName);
+
         PrintWriter out=null;
         try {
             out=response.getWriter();
@@ -495,8 +499,8 @@ public class BuyController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if (num>0){
-
+        if (num==0){
+            typeDao.addType(typeName,typeStatu,createTime,createId,brandId);
             int countType = typeDao.countType();
             System.out.println(countType);
             int size = 5;
@@ -532,7 +536,7 @@ public class BuyController {
             out.print("<script type='text/javaScript'>alert('添加成功！');window.location.href='purchase/productType/productTypeList.jsp'</script>");
             out.flush();
         }else {
-            out.print("<script type='text/javaScript'>alert('添加失败！');window.location.href='purchase/productType/productTypeList.jsp'</script>");
+            out.print("<script type='text/javaScript'>alert('该类型存在，添加失败！');window.location.href='purchase/productType/productTypeList.jsp'</script>");
             out.flush();
         }
     }
@@ -552,12 +556,8 @@ public class BuyController {
         String typeName=request.getParameter("typeName");
         //int typeStatu=Integer.parseInt(request.getParameter("typeStatus"));
         int brandId=Integer.parseInt(request.getParameter("brand"));
-        int num=0;
-        if (brandDao.getBrandById(brandId).getBrandStatus()==2){
-            num=typeDao.updateType2(typeName,brandId,id);
-        }else {
-            num=typeDao.updateType(typeName,brandId,id);
-        }
+        int num=typeDao.countTypeByNameAndBrand(brandId,typeName);
+
         PrintWriter out=null;
         try {
             out=response.getWriter();
@@ -565,8 +565,12 @@ public class BuyController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if (num>0){
-
+        if (num==0){
+            if (brandDao.getBrandById(brandId).getBrandStatus()==2){
+                typeDao.updateType2(typeName,brandId,id);
+            }else {
+                typeDao.updateType(typeName,brandId,id);
+            }
             int countType = typeDao.countType();
             System.out.println(countType);
             int size = 5;
@@ -602,7 +606,7 @@ public class BuyController {
             out.print("<script type='text/javaScript'>alert('修改成功！');window.location.href='purchase/productType/productTypeList.jsp'</script>");
             out.flush();
         }else {
-            out.print("<script type='text/javaScript'>alert('修改失败！');window.location.href='purchase/productType/productTypeList.jsp'</script>");
+            out.print("<script type='text/javaScript'>alert('该类型存在，修改失败！');window.location.href='purchase/productType/productTypeList.jsp'</script>");
             out.flush();
         }
 

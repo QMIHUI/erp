@@ -30,6 +30,8 @@ public interface ProductDao {
     //根据型号获取商品列表
     public List<Product> getProductsByTypeId(int typeId);
 
+    //根据商品名称和类型ID查找商品
+    public int countProductByTypeAndName(int typeId,String name);
 
     public List<Product> getAllProductPage(Pager<Product> pager);
     public int countProduct();
