@@ -11,7 +11,7 @@
 
     </resultMap>
     <!--获取所有出库信息-->
-    <select id="getAllCkWarehouse" resultMap="ckWarehouse">
+    <select id="getAllCkWarehouse1" resultMap="ckWarehouse">
         select id, indent, warehouse_id, c_date, user_id, state from erp.ck_warehouse where WAREHOUSE_ID=#{warehouseId} and STATE in(2,3,5)
     </select>
     <select id="countCkWarehouse" resultType="integer">
@@ -21,8 +21,6 @@
         select id, indent, warehouse_id, c_date, user_id, state from erp.ck_warehouse where WAREHOUSE_ID=#{warehouseId} and STATE in(2,3,5) limit #{page},#{size}
     </select>
 
-
-
     <resultMap id="BaseResultMap" type="com.bean.CkWarehouse">
         <id column="ID"  property="id" />
         <result column="INDENT"  property="indent" />
@@ -31,15 +29,7 @@
         <result column="USER_ID"  property="userId" />
         <result column="STATE"  property="state" />
     </resultMap>
-    <sql id="Base_Column_List">
-    ID, INDENT, WAREHOUSE_ID, C_DATE, USER_ID, `STATE`
-  </sql>
-    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List" />
-        from ck_warehouse
-        where ID = #{id,jdbcType=INTEGER}
-    </select>
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from ck_warehouse
     where ID = #{id,jdbcType=INTEGER}

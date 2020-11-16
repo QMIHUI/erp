@@ -7,15 +7,13 @@ import java.util.List;
 
 public interface CkWarehouseDao {
     //根据仓库Id获取所有出库信息(已出库的)
-    public List<CkWarehouse> getAllCkWarehouse(int warehouseId);
+    public List<CkWarehouse> getAllCkWarehouse1(int warehouseId);
 
     public int countCkWarehouse(int warehouseId);
     public List<CkWarehouse> getAllCkWarehousePage(Pager<CkWarehouse> pager);
     int deleteByPrimaryKey(Integer id);
 
     int insert(CkWarehouse record);
-
-    CkWarehouse selectByPrimaryKey(Integer id);
 
 
     int updateByPrimaryKey(CkWarehouse record);
