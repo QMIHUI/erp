@@ -58,7 +58,7 @@
                 </select>
             </li>
             <li class="subBut" onclick="window.location.href='purchaseList.html'"><img src="../../images/t06.png" />查询</li>
-            <c:if test="${user.jobId!=7&&user.jobId!=1}">
+            <c:if test="${user.jobId!=7}">
                 <li class="subBut" onclick="window.location.href='${pageContext.request.contextPath}/toAddPurchase.do'"><img src="../../images/t01.png" />添加</li>
             </c:if>
 
@@ -100,10 +100,10 @@
                     <td>${purchase.checker.uname}</td>
                     <td><fmt:formatDate value="${purchase.checkTime}" pattern="yyyy-MM-dd"/></td>
                     <td>
-                        <c:if test="${user.jobId==7||user.jobId==1}">
+                        <c:if test="${user.jobId==7}">
                             <a href="${pageContext.request.contextPath}/purchaseView.do?id=${purchase.purchaseId}" class="tablelink">查看详情</a>
                         </c:if>
-                        <c:if test="${user.jobId!=7&&user.jobId!=1}">
+                        <c:if test="${user.jobId!=7}">
                             <c:if test="${purchase.checkStatus==1||purchase.checkStatus==4}">
                                 <a href="${pageContext.request.contextPath}/updatePurchase.do?id=${purchase.purchaseId}" class="tablelink">修改</a>
                             </c:if>
