@@ -61,6 +61,9 @@
     update orders set dStatus=#{dstatus},Checkid=#{checkid},Chectime=#{chectime},
     opinion=#{opinion} where order_id=#{orderId}
   </update>
+    <update id="updateOrder">
+        update orders set OrderMoney=#{ordermoney}  where order_id=#{orderId}
+    </update>
     <delete id="deleteOrder">
     delete from orders where order_id=#{orderId}
   </delete>

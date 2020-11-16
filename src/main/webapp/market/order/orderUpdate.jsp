@@ -40,15 +40,14 @@
             }
         })
     })
-
 </script>
-<form action="${pageContext.request.contextPath}/doUpdatePurchase.do" method="post">
+<form action="${pageContext.request.contextPath}/updateOrder.do" method="get">
     <div class="formbody">
         <div class="formtitle"><span>采购单信息</span></div>
         <ul class="forminfo">
             <li>
                 <label>订单编号</label>
-                <input name="" type="text" value="${order.orderId}" readonly="readonly" class="roinput" />
+                <input name="orderId" type="text" value="${order.orderId}" readonly="readonly" class="roinput" />
                 <i>自动生成不能编辑</i>
             </li>
             <li>

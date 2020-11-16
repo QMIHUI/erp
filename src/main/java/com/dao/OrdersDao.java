@@ -18,6 +18,9 @@ public interface OrdersDao {
     public int countOrdersById(int operatorid);
     //添加订单
     public int addOrder(@Param("orderId") String orderId,@Param("customid") int customid,@Param("ordertime") String ordertime,@Param("ordermoney") double ordermoney,@Param("operatorId") int operatorId);
+    //修改订单
+    public int updateOrder(Orders order);
+
 
     //通过订单编号获取订单
     public Orders getOneOrder(String orderId);

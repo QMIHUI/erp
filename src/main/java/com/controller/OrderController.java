@@ -494,6 +494,16 @@ public class OrderController {
         return "redirect:queryAllOrder.do";
     }
 
+    @RequestMapping(value = "updateOrder.do",method = RequestMethod.GET)
+    public String updateOrder(HttpServletRequest request){
+        System.out.println("执行修改订单！！！");
+        Double orderTotalMoney = Double.parseDouble(request.getParameter("orderTotalMoney"));
+        System.out.println(orderTotalMoney);
+        String orderId = request.getParameter("orderId");
+        System.out.println(orderId);
+        return "";
+    }
+
 
 
 
