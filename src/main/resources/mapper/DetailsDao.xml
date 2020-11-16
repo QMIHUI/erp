@@ -13,10 +13,10 @@
     <insert id="addPurchaseDetails">
         insert into erp.c_details(erp.c_details.purchase_id, erp.c_details.count, erp.c_details.product_id, erp.c_details.purchase_price, erp.c_details.total_money) values (#{param1},#{param2},#{param3},#{param4},#{param5})
     </insert>
-
-    <update id="updatePurchaseDetails">
-        update erp.c_details set erp.c_details.count=#{param1}, erp.c_details.product_id=#{param2}, erp.c_details.purchase_price=#{param3}, erp.c_details.total_money=#{param4} where DETAILS_ID=#{param5}
-    </update>
+    <!--根据采购单号删除采购单详情-->
+    <delete id="delDetails">
+        delete from erp.c_details where erp.c_details.PURCHASE_ID=#{purchaseId}
+    </delete>
 
     <select id="getDetailsByPurchaseId" resultMap="details">
         select details_id, purchase_id, count, product_id, purchase_price, total_money from c_details where PURCHASE_ID=#{purchaseId}

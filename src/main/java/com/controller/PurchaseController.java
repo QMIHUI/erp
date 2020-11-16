@@ -115,7 +115,7 @@ public class PurchaseController {
     //添加采购单
     @RequestMapping(value = "toAddPurchase.do",method = RequestMethod.GET)
     public String toAddPurchase(HttpSession session){
-        List<Brand> brandList=brandDao.getAllBrands();
+        List<Brand> brandList=brandDao.getAllBrandsUseful();
         session.setAttribute("brandList",brandList);
         List<Type> typeList=typeDao.getTypeListByBrandId(brandList.get(0).getBrandId());
         session.setAttribute("typeList",typeList);
@@ -171,7 +171,7 @@ public class PurchaseController {
     }
     @RequestMapping(value = "updatePurchase.do",method = RequestMethod.GET)
     public String updatePurchase(HttpServletRequest request,HttpSession session){
-        List<Brand> brandList=brandDao.getAllBrands();
+        List<Brand> brandList=brandDao.getAllBrandsUseful();
         session.setAttribute("brandList",brandList);
         List<Type> typeList=typeDao.getTypeListByBrandId(brandList.get(0).getBrandId());
         session.setAttribute("typeList",typeList);
@@ -201,9 +201,11 @@ public class PurchaseController {
         System.out.println("执行修改");
         double totalMoney=Double.parseDouble(purchaseTotalMoney);
         purchaseDao.updatePurchase(purchaseId,totalMoney);
-        //生成订购单详情
+        System.out.println("长度"+product.length);
+        detailsDao.delDetails(purchaseId);
+        //生成采购单详情
         for (int i=0;i<product.length;i++){
-            detailsDao.updatePurchaseDetails(Integer.parseInt(count[i]),Integer.parseInt(product[i]),Double.parseDouble(productPrice[i]),Double.parseDouble(productTotalMoney[i]),Integer.parseInt(detailsId[i]));
+            detailsDao.addPurchaseDetails(purchaseId,Integer.parseInt(count[i]),Integer.parseInt(product[i]),Double.parseDouble(productPrice[i]),Double.parseDouble(productTotalMoney[i]));
         }
         System.out.println("采购单修改成功");
 
