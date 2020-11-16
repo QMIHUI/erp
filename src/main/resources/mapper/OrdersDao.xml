@@ -50,7 +50,11 @@
     order_id, CustomId, OrderTime, OrderMoney, operatorId, dStatus, Checkid, Chectime, 
     opinion, warehouseId, Dd_state
   </sql>
-  <update id="examineOrder">
+    <insert id="addOrder">
+        insert into orders (order_id,CustomId,OrderTime,OrderMoney,operatorId)
+        value (#{orderId},#{customid},#{ordertime},#{ordermoney},#{operatorId})
+    </insert>
+    <update id="examineOrder">
     update orders set dStatus=1 where order_id=#{orderId}
   </update>
   <update id="orderExamine">
@@ -152,7 +156,10 @@
     where custom.CUSTOMID=#{customId}
   </select>
   <select id="getAllOrdersById" resultMap="getAll">
-      select * FROM orders where operatorId=#{operatorid} limit #{page},#{size}
+      SELECT * FROM orders  LEFT JOIN custom ON orders.CustomId = custom.CUSTOMID
+        LEFT JOIN users ON orders.operatorId = users.u_id
+     LEFT JOIN warehouse ON orders.warehouseId = warehouse.ID
+      where operatorId=#{operatorid} limit #{page},#{size}
   </select>
   <select id="countOrdersById" resultType="java.lang.Integer">
       select count(*) FROM orders where operatorId=#{operatorid}
@@ -268,6 +275,11 @@
         <if test="bPrice !=null and bPrice!='' ">
             and ordermoney &lt;= #{bPrice}
         </if>
+    </select>
+    <select id="getAllOrder" resultMap="getAll">
+        SELECT * FROM orders  LEFT JOIN custom ON orders.CustomId = custom.CUSTOMID
+        LEFT JOIN users ON orders.operatorId = users.u_id
+        LEFT JOIN warehouse ON orders.warehouseId = warehouse.ID
     </select>
 
 

@@ -227,4 +227,7 @@
     <select id="getCustStatis" resultMap="CustomsStatis">
       SELECT * FROM custom where CSTATUS=1
     </select>
+    <select id="getCustomById" resultType="com.bean.Custom">
+        SELECT * FROM custom WHERE custom.LEADING=#{leading};
+    </select>
 </mapper>

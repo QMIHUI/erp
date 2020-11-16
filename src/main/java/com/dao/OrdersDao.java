@@ -8,12 +8,16 @@ import java.util.List;
 import java.util.Map;
 
 public interface OrdersDao {
+    //
+    public List<Orders> getAllOrder();
     //得到所有并分页
     public List<Orders> getAllOrders(Pager<Orders> pager);
     public int countOrders();
     //查找个人所拥有的订购单
     public List<Orders> getAllOrdersById(Pager<Orders> pager);
     public int countOrdersById(int operatorid);
+    //添加订单
+    public int addOrder(@Param("orderId") String orderId,@Param("customid") int customid,@Param("ordertime") String ordertime,@Param("ordermoney") double ordermoney,@Param("operatorId") int operatorId);
 
     //通过订单编号获取订单
     public Orders getOneOrder(String orderId);

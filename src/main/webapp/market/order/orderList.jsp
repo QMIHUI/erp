@@ -70,7 +70,8 @@ pageEncoding="UTF-8"%>
         <input value="查 询" type="submit" id="searchbutton" class="subBut">
       </li>
       <c:if test="${user.jobId!=2}">
-       <li class="subBut" onclick="window.location.href='market/order/orderAdd.jsp'"><img src="${pageContext.request.contextPath}/images/t01.png" />添加</li>
+       <li class="subBut" onclick="window.location.href='addOrder.do'">
+         <img src="${pageContext.request.contextPath}/images/t01.png" />添加</li>
       </c:if>
     </ul>
   </form>
@@ -161,7 +162,6 @@ pageEncoding="UTF-8"%>
     </div>
     <div class="tipbtn">
       <input name="delete" type="button"  class="sure" value="确定" />
-      &nbsp;
       <input name="" type="button"  class="cancel" value="取消" onclick="deltipClose()" />
     </div>
   </div>

@@ -68,7 +68,7 @@ pageEncoding="UTF-8"%>
       <li style="width: 100px;height: 35px;margin-top: -10px">
         <input value="查 询" type="submit" id="searchbutton" class="subBut">
       </li>
-      <li class="subBut" onclick="window.location.href='orderAdd.jsp'"><img src="${pageContext.request.contextPath}/images/t01.png" />添加</li>
+      <li class="subBut" onclick="window.location.href='market/order/orderAdd.jsp'"><img src="${pageContext.request.contextPath}/images/t01.png" />添加</li>
     </ul>
   </form>
     <table class="tablelist">

@@ -5,8 +5,8 @@
     <id column="DETAILS_ID" jdbcType="INTEGER" property="detailsId" />
     <result column="PURCHASE_NUM" jdbcType="INTEGER" property="purchaseNum" />
     <result column="PRODUCT_ID" jdbcType="INTEGER" property="productId" />
-    <result column="PROPRICE" jdbcType="INTEGER" property="proprice" />
-    <result column="PROTOTAL" jdbcType="INTEGER" property="prototal" />
+    <result column="PROPRICE"  property="proprice" />
+    <result column="PROTOTAL"  property="prototal" />
     <result column="ORDER_ID" jdbcType="VARCHAR" property="orderId" />
   </resultMap>
   <resultMap id="getAll" type="com.bean.Orderdetails">
@@ -27,7 +27,11 @@
   <sql id="Base_Column_List">
     DETAILS_ID, PURCHASE_NUM, PRODUCT_ID, PROPRICE, PROTOTAL, ORDER_ID
   </sql>
-  <delete id="deleteOrderDetail">
+    <insert id="addOrderDetail">
+      insert into orderdetails (PURCHASE_NUM,PRODUCT_ID,PROPRICE,PROTOTAL,ORDER_ID)
+      value (#{purchaseNum},#{productId},#{proprice},#{prototal},#{orderId})
+    </insert>
+    <delete id="deleteOrderDetail">
     delete from orderdetails where ORDER_ID=#{orderId}
   </delete>
   <select id="getDetailsByOrderId" resultMap="getAll">

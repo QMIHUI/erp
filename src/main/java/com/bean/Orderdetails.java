@@ -25,12 +25,12 @@ public class Orderdetails implements Serializable {
     /**
      * 商品单价
      */
-    private Integer proprice;
+    private double proprice;
 
     /**
      * 商品总金额
      */
-    private Integer prototal;
+    private double prototal;
 
     /**
      * 订单编号，外键
@@ -73,19 +73,19 @@ public class Orderdetails implements Serializable {
         this.productId = productId;
     }
 
-    public Integer getProprice() {
+    public double getProprice() {
         return proprice;
     }
 
-    public void setProprice(Integer proprice) {
+    public void setProprice(double proprice) {
         this.proprice = proprice;
     }
 
-    public Integer getPrototal() {
+    public double getPrototal() {
         return prototal;
     }
 
-    public void setPrototal(Integer prototal) {
+    public void setPrototal(double prototal) {
         this.prototal = prototal;
     }
 

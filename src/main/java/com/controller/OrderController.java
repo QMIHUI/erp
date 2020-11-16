@@ -14,10 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author HUI
@@ -35,6 +32,12 @@ public class OrderController {
     private ProductDao productDao;
     @Autowired
     private UsersDao usersDao;
+    @Autowired
+    public BrandDao brandDao;
+    @Autowired
+    public TypeDao typeDao;
+    @Autowired
+    public WarehouseDao warehouseDao;
 
     @RequestMapping(value = "queryAllOrder.do",method = RequestMethod.GET)
     public String queryAllOrder(HttpServletRequest request, HttpSession session){
@@ -413,11 +416,69 @@ public class OrderController {
     }
 
     @RequestMapping(value = "addOrder.do",method = RequestMethod.GET)
-    public String addOrder(){
-        System.out.println("执行增加订单！！！");
-        return "";
+    public String addOrder(HttpSession session){
+        System.out.println("执行增加订单前的操作！！！");
+        Users user=(Users)session.getAttribute("user");
+        List<Custom> listCu = customDao.getCustomById(user.getuId());
+        session.setAttribute("listCu",listCu);
+        List<Brand> brandList=brandDao.getAllBrands();
+        session.setAttribute("brandList",brandList);
+        List<Type> typeList=typeDao.getTypeListByBrandId(brandList.get(0).getBrandId());
+        session.setAttribute("typeList",typeList);
+        List<Product> productList=productDao.getProductsByTypeId(typeList.get(0).getTypeId());
+        session.setAttribute("productList",productList);
+        List<Warehouse> warehouseList=warehouseDao.getAllWarehouse();
+        session.setAttribute("warehouseList",warehouseList);
+        //生成采购单编号
+        String orderId="";
+        Calendar orderTime=Calendar.getInstance();
+        String year=""+orderTime.get(Calendar.YEAR);
+        String month=""+(orderTime.get(Calendar.MONTH) + 1);
+        String day=""+orderTime.get(Calendar.DAY_OF_MONTH);
+        String date=year+month+day;
+        List<Orders> orderList=ordersDao.getAllOrder();
+        int count=0;
+        int max=0;
+        for (int i=0;i<orderList.size();i++){
+            String orderDate=date.format(orderList.get(i).getOrdertime());
+            if (orderDate.equals(date)){
+                int index=Integer.parseInt(orderList.get(i).getOrderId().substring(10));
+                if (index>max){
+                    max=index;
+                }
+                count++;
+            }
+        }
+        if (count==0){
+            orderId="DJ"+date+"0001";
+        }else {
+            String index=String.format("%04d", max+1);
+            orderId="DJ"+date+index;
+        }
+        session.setAttribute("orderIdAdd",orderId);
+        System.out.println(orderId);
+        return "market/order/orderAdd";
     }
 
+    @RequestMapping(value = "addOrderSucc.do",method = RequestMethod.GET)
+    public String addOrderSucc(HttpServletRequest request,HttpSession session,String[] product,String[] count,String[] productPrice,String[] productTotalMoney){
+        System.out.println("执行增加订单！！");
+        String orderId = request.getParameter("orderId");
+        int custName = Integer.parseInt(request.getParameter("custName"));
+        int operator=((Users)session.getAttribute("user")).getuId();
+        Date date = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        String orderTime = format.format(date);
+        double totalMoney=Double.parseDouble(request.getParameter("orderTotalMoney"));
+        int num = ordersDao.addOrder(orderId,custName,orderTime,totalMoney,operator);
+        //生成采购单详情
+        for (int i=0;i<product.length;i++){
+            orderdetailsDao.addOrderDetail(Integer.parseInt(count[i]),Integer.parseInt(product[i]),Double.parseDouble(productPrice[i]),Double.parseDouble(productTotalMoney[i]),orderId);
+        }
+        System.out.println("订购单生成成功");
+
+        return "redirect:queryAllOrder.do";
+    }
 
 
 
