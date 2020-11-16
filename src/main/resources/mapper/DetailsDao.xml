@@ -13,6 +13,9 @@
     <insert id="addPurchaseDetails">
         insert into erp.c_details(erp.c_details.purchase_id, erp.c_details.count, erp.c_details.product_id, erp.c_details.purchase_price, erp.c_details.total_money) values (#{param1},#{param2},#{param3},#{param4},#{param5})
     </insert>
+    <update id="updateDetails">
+        update erp.c_details set COUNT=#{param2},TOTAL_MONEY=#{param3} where DETAILS_ID=#{param1}
+    </update>
     <!--根据采购单号删除采购单详情-->
     <delete id="delDetails">
         delete from erp.c_details where erp.c_details.PURCHASE_ID=#{purchaseId}
@@ -21,5 +24,16 @@
     <select id="getDetailsByPurchaseId" resultMap="details">
         select details_id, purchase_id, count, product_id, purchase_price, total_money from c_details where PURCHASE_ID=#{purchaseId}
     </select>
-
+    <select id="getDetailsIdByConditions" resultType="java.lang.Integer">
+        select DETAILS_ID from erp.c_details where PURCHASE_ID=#{param2} and PRODUCT_ID=#{param1}
+    </select>
+    <select id="getCountByConditions" resultType="java.lang.Integer">
+        select COUNT from erp.c_details where PURCHASE_ID=#{param2} and PRODUCT_ID=#{param1}
+    </select>
+    <select id="getMoneyByConditions" resultType="java.lang.Double">
+        select TOTAL_MONEY from erp.c_details where PURCHASE_ID=#{param2} and PRODUCT_ID=#{param1}
+    </select>
+    <select id="getCountDetailsIdByConditions" resultType="java.lang.Integer">
+        select count(*) from erp.c_details where PURCHASE_ID=#{param2} and PRODUCT_ID=#{param1}
+    </select>
 </mapper>

@@ -163,7 +163,17 @@ public class PurchaseController {
         purchaseDao.addPurchase(purchaseId,createId,purchaseTime,warehouseId,totalMoney);
         //生成订购单详情
         for (int i=0;i<product.length;i++){
-            detailsDao.addPurchaseDetails(purchaseId,Integer.parseInt(count[i]),Integer.parseInt(product[i]),Double.parseDouble(productPrice[i]),Double.parseDouble(productTotalMoney[i]));
+            int countNum=detailsDao.getCountDetailsIdByConditions(Integer.parseInt(product[i]),purchaseId);
+            if (countNum==0){
+                detailsDao.addPurchaseDetails(purchaseId,Integer.parseInt(count[i]),Integer.parseInt(product[i]),Double.parseDouble(productPrice[i]),Double.parseDouble(productTotalMoney[i]));
+            }else {
+                int detailsId=detailsDao.getDetailsIdByConditions(Integer.parseInt(product[i]),purchaseId);
+                int countBefore=detailsDao.getCountByConditions(Integer.parseInt(product[i]),purchaseId);
+                double moneyBefore=detailsDao.getMoneyByConditions(Integer.parseInt(product[i]),purchaseId);
+                int countAfter=countBefore+Integer.parseInt(count[i]);
+                double moneyAfter=moneyBefore+Double.parseDouble(productTotalMoney[i]);
+                detailsDao.updateDetails(detailsId,countAfter,moneyAfter);
+            }
         }
         System.out.println("采购单生成成功");
 
@@ -205,7 +215,17 @@ public class PurchaseController {
         detailsDao.delDetails(purchaseId);
         //生成采购单详情
         for (int i=0;i<product.length;i++){
-            detailsDao.addPurchaseDetails(purchaseId,Integer.parseInt(count[i]),Integer.parseInt(product[i]),Double.parseDouble(productPrice[i]),Double.parseDouble(productTotalMoney[i]));
+            int countNum=detailsDao.getCountDetailsIdByConditions(Integer.parseInt(product[i]),purchaseId);
+            if (countNum==0){
+                detailsDao.addPurchaseDetails(purchaseId,Integer.parseInt(count[i]),Integer.parseInt(product[i]),Double.parseDouble(productPrice[i]),Double.parseDouble(productTotalMoney[i]));
+            }else {
+                int detailsId1=detailsDao.getDetailsIdByConditions(Integer.parseInt(product[i]),purchaseId);
+                int countBefore=detailsDao.getCountByConditions(Integer.parseInt(product[i]),purchaseId);
+                double moneyBefore=detailsDao.getMoneyByConditions(Integer.parseInt(product[i]),purchaseId);
+                int countAfter=countBefore+Integer.parseInt(count[i]);
+                double moneyAfter=moneyBefore+Double.parseDouble(productTotalMoney[i]);
+                detailsDao.updateDetails(detailsId1,countAfter,moneyAfter);
+            }
         }
         System.out.println("采购单修改成功");
 
