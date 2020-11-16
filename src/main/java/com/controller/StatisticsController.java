@@ -4,14 +4,12 @@ import com.bean.*;
 import com.dao.*;
 import com.util.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -352,7 +350,7 @@ public class StatisticsController {
         ArrayList<Double> rkwarehouseOrderTotalMoney=new ArrayList<>();
         for (int i=0;i<warehouseList1.size();i++){
             warehouseNames.add("'"+warehouseList1.get(i).getName()+"'");
-            List<RkWarehouse> rkWarehouseList=rkWarehouseDao.getAllRkWarehouse( warehouseList1.get(i).getId());
+            List<RkWarehouse> rkWarehouseList=rkWarehouseDao.getAllRkWarehouse1( warehouseList1.get(i).getId());
             double money=0;
             for (int j=0;j<rkWarehouseList.size();j++){
                 money+=rkWarehouseList.get(j).getPurchase().getTotalMoney();
