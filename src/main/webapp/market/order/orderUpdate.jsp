@@ -187,6 +187,18 @@
                 })
                 $("input[name='orderTotalMoney']").val(result);
             }
+            function changePrice(thisobj) {
+                var price = $(thisobj).val();
+                var count = $(thisobj).parent("td").prev("td").prev("td").find("input").val();
+                $(thisobj).parent("td").next("td").find("input").val(count*price);
+                var result=parseFloat(0);
+                $("input[name='productTotalMoney']").each(function () {
+                    if ($(this).val()!=""){
+                        result+=parseFloat($(this).val());
+                    }
+                })
+                $("input[name='orderTotalMoney']").val(result);
+            }
         </script>
         <table class="tablelist">
             <thead>
@@ -240,12 +252,14 @@
                             </c:forEach>
                         </select>
                     </td>
-                    <%--<td><input type="number" name="count" value="${orderDetail.count}" onblur="changeCount(this) " oninput="value=value.replace(/[^\d]/g,'')"/></td>
+                    <td>
+                        <input type="number" name="count" value="${orderDetail.purchaseNum}" onblur="changeCount(this) " oninput="value=value.replace(/[^\d]/g,'')"/>
+                    </td>
                     <td>${orderDetail.product.productUnit}</td>
-                    <td>￥<input type="text" name="productPrice" value="${orderDetail.product.productPrice}" readonly/></td>
-                    <td>￥<input type="text" name="productTotalMoney" value="${orderDetail.totalMoney}" readonly/></td>
+                    <td>￥<input type="text" name="productPrice" value="${orderDetail.proprice}" onblur="changePrice(this)" /></td>
+                    <td>￥<input type="text" name="productTotalMoney" value="${orderDetail.prototal}" prototal/></td>
                     <td><input type="button" value="删除" onclick="delLine(this)"/></td>
-                    <td><input type="hidden" name="detailsId" value="${orderDetail.detailsId}"/></td>--%>
+                    <td><input type="hidden" name="detailsId" value="${orderDetail.detailsId}"/></td>
                 </tr>
             </c:forEach>
             </tbody>
