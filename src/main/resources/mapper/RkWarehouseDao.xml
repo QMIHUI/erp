@@ -11,7 +11,6 @@
     </resultMap>
     <!--获取所有入库信息-->
     <select id="getAllRkWarehouse1" resultMap="BaseResultMap2">
-    <select id="getAllRkWarehouse1" resultMap="BaseResultMap">
         select id, rk_indent, warehouse_id, rk_date, user_id, state from erp.rk_warehouse where WAREHOUSE_ID=#{warehouseId} and STATE=2
     </select>
 
@@ -31,15 +30,6 @@
     <result column="USER_ID"  property="userId" />
     <result column="STATE"  property="state" />
 </resultMap>
-<sql id="Base_Column_List">
-    ID, RK_INDENT, WAREHOUSE_ID, RK_DATE, USER_ID, `STATE`
-  </sql>
-<select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-select
-<include refid="Base_Column_List" />
-from rk_warehouse
-where ID = #{id,jdbcType=INTEGER}
-</select>
 <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from rk_warehouse
     where ID = #{id,jdbcType=INTEGER}

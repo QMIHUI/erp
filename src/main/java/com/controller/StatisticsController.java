@@ -334,6 +334,7 @@ public class StatisticsController {
         pager.setSize(size);
         pager.setTotal(countWarehouse);
         List<Warehouse> warehouseList=warehouseDao.getAllWarehouseStatisPage(pager);
+
         request.getSession().setAttribute("row",row);
         request.getSession().setAttribute("pageIndex",pageIndex);
         request.getSession().setAttribute("countWarehouse",countWarehouse);

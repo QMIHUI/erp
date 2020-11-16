@@ -16,10 +16,6 @@ public interface RkWarehouseDao {
     int insert(RkWarehouse record);
 
 
-    RkWarehouse selectByPrimaryKey(Integer id);
-
-
-
     List<RkWarehouse> getAllRkWarehouse();//查询所有采购单单信息
     List<RkWarehouse> getRkWarehouseByuid(int uId);//根据用户id查询自己管理的仓库采购单信息
     RkWarehouse getAllRkwWrehouseByrkIndent(String rkIndent);//根据采购单号查询相关信息

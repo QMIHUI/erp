@@ -110,8 +110,8 @@ INNER JOIN city c ON c.c_ID=w.CITY_ID WHERE w.USRE_ID=#{uId}
     <association property="city" select="com.dao.CityDao.getCityById" column="CITY_ID"/>
     <association property="principal" select="com.dao.UsersDao.getOneUser" column="USRE_ID"/>
     <association property="creater" select="com.dao.UsersDao.getOneUser" column="USERS_ID"/>
-    <association property="ckWarehouseList" select="com.dao.CkWarehouseDao.getAllCkWarehouse" column="id"/>
-    <association property="rkWarehouseList" select="com.dao.RkWarehouseDao.getAllRkWarehouse" column="id"/>
+    <association property="ckWarehouseList" select="com.dao.CkWarehouseDao.getAllCkWarehouse1" column="id"/>
+    <association property="rkWarehouseList" select="com.dao.RkWarehouseDao.getAllRkWarehouse1" column="id"/>
 </resultMap>
 <select id="getWarehouseById" resultMap="Warehouse">
     select id, name, c_address, province_id, usre_id, phone, details, state, users_id, creation_time, city_id  from warehouse where ID=#{id}

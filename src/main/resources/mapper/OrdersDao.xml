@@ -90,9 +90,9 @@
         <result column="CustomId" jdbcType="INTEGER" property="customid" />
         <result column="OrderTime" jdbcType="VARCHAR" property="ordertime" />
         <result column="OrderMoney" jdbcType="DOUBLE" property="ordermoney" />
-        <result column="operatorId" jdbcType="INTEGER" property="operatorid" />
+        <result column="operatorId" jdbcType="INTEGER" property="operatorId" />
         <result column="dStatus" jdbcType="VARCHAR" property="dstatus" />
-        <result column="Checkid" jdbcType="INTEGER" property="checkid" />
+        <result column="Checkid" jdbcType="INTEGER" property="checkId" />
         <result column="Chectime" jdbcType="VARCHAR" property="chectime" />
         <result column="opinion" jdbcType="VARCHAR" property="opinion" />
         <result column="warehouseId" jdbcType="INTEGER" property="warehouseid" />
