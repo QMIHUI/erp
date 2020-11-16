@@ -108,7 +108,7 @@ public class OrderController {
     }
 
     @RequestMapping(value = "getOneOrder.do",method = RequestMethod.GET)
-    public String getOneOrder(HttpServletRequest request){
+    public String getOneOrder(HttpServletRequest request,HttpSession session){
         System.out.println("根据订单id查看订单");
         String orderId = request.getParameter("orderId");
         System.out.println(orderId);
@@ -121,6 +121,12 @@ public class OrderController {
         request.getSession().setAttribute("listCust",listCust);
         List<Product> listProduct = productDao.getAllProduct();
         request.getSession().setAttribute("listProduct",listProduct);
+        List<Brand> brandList=brandDao.getAllBrands();
+        session.setAttribute("brandList",brandList);
+        List<Type> typeList=typeDao.getTypeListByBrandId(brandList.get(0).getBrandId());
+        session.setAttribute("typeList",typeList);
+        List<Product> productList=productDao.getProductsByTypeId(typeList.get(0).getTypeId());
+        session.setAttribute("productList",productList);
         if(op.equals("查看")){
             return "market/order/orderView";
         }else if(op.equals("审核")){
@@ -436,12 +442,20 @@ public class OrderController {
         String month=""+(orderTime.get(Calendar.MONTH) + 1);
         String day=""+orderTime.get(Calendar.DAY_OF_MONTH);
         String date=year+month+day;
+        System.out.println("date"+date);
+        System.out.println(date);
         List<Orders> orderList=ordersDao.getAllOrder();
         int count=0;
         int max=0;
         for (int i=0;i<orderList.size();i++){
-            String orderDate=date.format(orderList.get(i).getOrdertime());
-            if (orderDate.equals(date)){
+            String orderDate=orderList.get(i).getOrdertime().substring(0,10);
+            System.out.println(orderDate);
+            String s = orderDate.substring(0,4);
+            String ss = orderDate.substring(5,7);
+            String sss = orderDate.substring(8,10);
+            String oo = s+ss+sss;
+            System.out.println(oo);
+            if (oo.equals(date)){
                 int index=Integer.parseInt(orderList.get(i).getOrderId().substring(10));
                 if (index>max){
                     max=index;

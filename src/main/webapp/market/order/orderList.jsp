@@ -133,7 +133,7 @@ pageEncoding="UTF-8"%>
               </c:if>
               <c:if test="${lorder.dstatus==3}">
                 <a href="${pageContext.request.contextPath}/getOneOrder.do?orderId=${lorder.orderId}&op=查看" class="tablelink">查看详情</a>
-                <a href="orderUpdate.jsp" class="tablelink">修改</a>
+                <a href="${pageContext.request.contextPath}/getOneOrder.do?orderId=${lorder.orderId}&op=更新" class="tablelink">修改</a>
                   <a href="javascript:void(0);" class="tablelink" onclick="deltipOpen('${lorder.orderId}')">删除</a>
                 <a href="javascript:void(0);" class="tablelink" onclick="examinetipOpen('${lorder.orderId}')">提交审核</a>
               </c:if>
