@@ -49,7 +49,7 @@ public class CKWarehouseController {
 
 
      @RequestMapping(value = "/{id}/{state}/{uId}/{indent}/updateCKstate.do",method = RequestMethod.GET)//未发货，需要发货走的方法
-    public String updateCKState(@PathVariable("id")int id, @PathVariable("state")int state, @PathVariable("uId") int uId, @PathVariable("indent") String indent, HttpSession session){//根据ID修改状态
+    public String updateCKState(@PathVariable("id")int id, @PathVariable("state")int state, @PathVariable("uId") int uId, @PathVariable("indent") String indent, HttpSession session,HttpServletResponse response){//根据ID修改状态
         if(state==1){
             state=2;
             List<Orderdetails> listOrderdetails=orderdetailsDao.getAllOrderdatailsByOrderid(indent);
@@ -81,13 +81,15 @@ public class CKWarehouseController {
                     KcWarehouse kcWarehouse=new KcWarehouse(repertory,productId);
                     kcWarehouseDao.updateKcWarehouseNumber(kcWarehouse);//调用方法，减少数量
                 }else if(repertory>numkc){
-                    /*PrintWriter out=null;
-                    try {
+                    PrintWriter out=null;
+                    /*try {
                         out = response.getWriter();
+                        response.setContentType("text/html;charset=utf-8");
                     }catch (IOException e) {
                         e.printStackTrace();
                     }*/
-                    //out.print("<script type='text/javaScript'>alert('库存数量不足，请及时补货！');window.location.href='storage/delivery/deliveryList.jsp'</script>");
+                    //out.write("<script>alert('库存数量不足，请及时补货'); window.location='../../../../storage/delivery/deliveryList.jsp' ;window.close();</script>");
+                    //out.flush();
                     return "redirect:../../../../storage/delivery/deliveryList.jsp";//库存的数量<出库的数量
                 }
             }
@@ -103,11 +105,8 @@ public class CKWarehouseController {
              listCkWarehouse=ckWarehouseDao.getAllCkWarehouse();
          }
          session.setAttribute("listCkWarehouse",listCkWarehouse);
-         //return "redirect:../../../../../storage/delivery/deliveryList.jsp";
          return "redirect:../../../../storage/delivery/deliveryList.jsp";
     }
-
-
 
     @RequestMapping(value = "/{id}/{state}/{uId}/{indent}/updateCKwarehouseState.do",method = RequestMethod.GET)//未发货取消订单走的方法
     public String updateCKwarehouseState(@PathVariable("id")int id, @PathVariable("state")int state, @PathVariable("uId") int uId, @PathVariable("indent") String indent, HttpSession session){//根据ID修改状态

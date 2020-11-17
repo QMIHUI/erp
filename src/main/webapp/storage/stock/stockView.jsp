@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
 <%@ taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -27,7 +28,7 @@ pageEncoding="UTF-8"%>
     </li>
     <li>
       <label>采购时间</label>
-      <cite>${rkWarehouse.purchase.checkTime}</cite>
+      <cite><fmt:formatDate value="${rkWarehouse.purchase.checkTime}" pattern="yyyy-MM-dd HH:MM:ss"/></cite>
     </li>
     <li>
       <label>总金额</label>
@@ -64,7 +65,7 @@ pageEncoding="UTF-8"%>
     </li>
     <li>
       <label>审核时间</label>
-      <cite>${rkWarehouse.purchase.checkTime}</cite>
+      <cite><fmt:formatDate value="${rkWarehouse.purchase.checkTime}" pattern="yyyy-MM-dd HH:MM:ss"/></cite>
     </li>
     <li>
       <label>入货仓库</label>
