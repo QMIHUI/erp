@@ -48,9 +48,14 @@ public class RkWarehouseController {
     public String updateRkState(@PathVariable("id")int id, @PathVariable("state")int state, @PathVariable("uId") int uId, @PathVariable("rkIndent") String rkIndent,@PathVariable("warehouseId") int warehouseId, HttpSession session){//根据ID修改状态
         if(state==1){
             state=2;
+            System.out.println("rkIndent:"+rkIndent);
             List<Details> listDetails=detailsDao.getAllDetailsBypurchaseId(rkIndent);//根据采购单号查询相关的商品信息
+            System.out.println("details条数:"+listDetails.size());
             List<KcWarehouse> listKcWarehouse=kcWarehouseDao.getKcWarehouseByuid(uId);
+            System.out.println("listKcWarehouse条数:"+listKcWarehouse.size());
             for(int i=0;i<listDetails.size();i++){
+
+                int num1=listDetails.get(i).getProduct().getProductId();
                 int brandid=0;
                 int typeid=0;
                 int productid=0;
@@ -62,31 +67,40 @@ public class RkWarehouseController {
                 int typeId=0;//类型ID
                 int productId=0;//型号ID
                 int factoryId=0;//厂商ID
+                int count=0;
                 for (int j=0;j<listKcWarehouse.size();j++){
+                    int num=listKcWarehouse.get(j).getProductId();
+                    System.out.println("num1:"+num1);
+                    System.out.println("num:"+num);
+                    if (num1==num){
+                        System.out.println("存在该商品");
+                        count++;
 
-
-                    if (listDetails.get(i).getProduct().getProductId().equals(listKcWarehouse.get(j).getProductId())){
-
-                            KcWarehouse kw=listKcWarehouse.get(i);
-                            brandId=kw.getBrandId();
-                            typeId=kw.getTypeId();
-                            productId=kw.getProductId();
-                            factoryId=kw.getFactoryId();
-                            numkc=kw.getRepertory();
-
-                        KcWarehouse kcWarehouse=new KcWarehouse(repertory,brandId,typeId,factoryId,productId);
-                        kcWarehouseDao.updareKcWarehouseByRk(kcWarehouse);//调用方法，添加库存数量
-                    }else {
-                            Details details=listDetails.get(i);
-                            brandid=details.getBrand().getBrandId();
-                            typeid=details.getType().getTypeId();
-                            productid=details.getProduct().getProductId();
-                            firmid=details.getFirm().getFirmId();
-                            repertory=details.getCount();
-                        KcWarehouse kcWarehouse=new KcWarehouse(warehouseId,brandid,typeid,firmid,productid,repertory);
-                        kcWarehouseDao.addKcWarehouse(kcWarehouse);//调用方法，添加库存数量
-                        //在库存中进行添加
                     }
+                }
+                if (count>0){
+                    KcWarehouse kw=listKcWarehouse.get(i);
+                    Details details=listDetails.get(i);
+                    repertory=details.getCount();
+                    brandId=kw.getBrandId();
+                    typeId=kw.getTypeId();
+                    productId=kw.getProductId();
+                    factoryId=kw.getFactoryId();
+                    numkc=kw.getRepertory();
+
+                    //KcWarehouse kcWarehouse=new KcWarehouse(repertory,brandId,typeId,factoryId,productId);
+                    KcWarehouse kcWarehouse=new KcWarehouse(repertory,productId);
+                    kcWarehouseDao.updareKcWarehouseByRk(kcWarehouse);//调用方法，添加库存数量
+                }else{
+                    Details details=listDetails.get(i);
+                    brandid=details.getBrand().getBrandId();
+                    typeid=details.getType().getTypeId();
+                    productid=details.getProduct().getProductId();
+                    firmid=details.getFirm().getFirmId();
+                    repertory=details.getCount();
+                    KcWarehouse kcWarehouse=new KcWarehouse(warehouseId,brandid,typeid,firmid,productid,repertory);
+                    kcWarehouseDao.addKcWarehouse(kcWarehouse);//调用方法，添加库存数量
+                    //在库存中进行添加
                 }
             }
 

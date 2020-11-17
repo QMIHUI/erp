@@ -57,6 +57,12 @@ public class KcWarehouse implements Serializable {
     private String indent;
 
     public KcWarehouse(){}
+
+    public KcWarehouse(Integer repertory,Integer productId) {
+        this.repertory = repertory;
+        this.productId = productId;
+    }
+
     public KcWarehouse(int numck, String indent) {
         this.numck = numck;
         this.indent = indent;
