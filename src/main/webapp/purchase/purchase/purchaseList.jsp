@@ -116,9 +116,9 @@
                             <c:if test="${purchase.checkStatus==2||purchase.checkStatus==3}">
                                 <a href="${pageContext.request.contextPath}/purchaseView.do?id=${purchase.purchaseId}" class="tablelink">查看详情</a>
                             </c:if>
-                            <c:if test="${purchase.checkStatus==3}">
+                            <%--<c:if test="${purchase.checkStatus==3&&purchase.cgState==2}">
                                 <a href="${pageContext.request.contextPath}/${purchase.purchaseId}/stockView.do" class="tablelink">入库详情</a>
-                            </c:if>
+                            </c:if>--%>
 
                         </c:if>
                     </td>
