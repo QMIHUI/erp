@@ -117,7 +117,7 @@
                                 <a href="${pageContext.request.contextPath}/purchaseView.do?id=${purchase.purchaseId}" class="tablelink">查看详情</a>
                             </c:if>
                             <c:if test="${purchase.checkStatus==3}">
-                                <a href="../../storage/stock/stockView.jsp" class="tablelink">入库详情</a>
+                                <a href="${pageContext.request.contextPath}/${purchase.purchaseId}/stockView.do" class="tablelink">入库详情</a>
                             </c:if>
 
                         </c:if>

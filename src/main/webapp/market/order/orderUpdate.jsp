@@ -53,7 +53,7 @@
             <li>
                 <label>客户姓名</label>
                 <select name="custName">
-                    <c:forEach items="${listCust}" var="cust">
+                    <c:forEach items="${listCu}" var="cust">
                         <c:if test="${cust.customid==order.customid}">
                             <option value="${cust.customid}" selected="selected">${cust.customname}</option>
                         </c:if>

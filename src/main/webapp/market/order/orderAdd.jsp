@@ -43,7 +43,7 @@ pageEncoding="UTF-8"%>
 </script>
 <form action="${pageContext.request.contextPath}/addOrderSucc.do" method="get">
     <div class="formbody">
-        <div class="formtitle"><span>采购单信息</span></div>
+        <div class="formtitle"><span>订购单信息</span></div>
         <ul class="forminfo">
             <li>
                 <label>订单编号</label>
@@ -54,8 +54,8 @@ pageEncoding="UTF-8"%>
                 <label>顾客姓名</label>
                 <select name="custName">
                     <option value="0">请选择</option>
-                    <c:forEach items="${listCu}" var="lc">
-                        <option value="${lc.customid}">${lc.customname}</option>
+                    <c:forEach items="${custListCu}" var="lcl">
+                        <option value="${lcl.customid}">${lcl.customname}</option>
                     </c:forEach>
                 </select>
             </li>

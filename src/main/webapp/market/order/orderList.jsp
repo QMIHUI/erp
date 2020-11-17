@@ -179,42 +179,6 @@ pageEncoding="UTF-8"%>
       <input name="" type="button"  class="cancel" value="取消" onclick="deltipClose()" />
     </div>
   </div>
-  <%--<div id="examinetip" class="tip">
-    <div class="tiptop">
-    	<span>提示信息</span><a onclick="examinetipclose()"></a>
-    </div>
-    <div class="tipinfo1">
-        &lt;%&ndash;部门：
-            <select class="dfselect">
-            	<option>请选择</option>
-                <option>市场部</option>
-                <option>采购部</option>
-                <option>财务部</option>
-            </select>
-			<p/>
-            职位：
-            <select class="dfselect">
-            	<option>请选择</option>
-                <option>部门经理</option>
-                <option>部门副经理</option>
-                <option>部门主管</option>
-            </select>
-   			<p/>
-            姓名：
-            <select class="dfselect">
-            	<option>请选择</option>
-                <option>刘备</option>
-                <option>曹操</option>
-            </select>
-			<p/>&ndash;%&gt;
-    </div>
-    <div class="tipbtn">
-      <input name="" type="button"  class="sure" value="确定" onclick="examinetipclose()" />
-      &nbsp;
-      <input name="" type="button"  class="cancel" value="取消" onclick="examinetipclose()" />
-    </div>
-  </div>
-</div>--%>
   <script type="text/javascript">
     $('.tablelist tbody tr:odd').addClass('odd');
 
@@ -247,5 +211,6 @@ pageEncoding="UTF-8"%>
 <script type="text/javascript">
 	$('.tablelist tbody tr:odd').addClass('odd');
 </script>
+</div>
 </body>
 </html>

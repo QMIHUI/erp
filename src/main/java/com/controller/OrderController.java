@@ -144,7 +144,7 @@ public class OrderController {
         request.getSession().setAttribute("order",order);
         List<Orderdetails> orderDetailsList = orderdetailsDao.getDetailsByOrderId(orderId);
         request.getSession().setAttribute("orderDetailsList",orderDetailsList);
-        return "storage/delivery/deliveryView";
+        return "market/order/orderXiangQing";
     }
 
 
@@ -425,8 +425,9 @@ public class OrderController {
     public String addOrder(HttpSession session){
         System.out.println("执行增加订单前的操作！！！");
         Users user=(Users)session.getAttribute("user");
-        List<Custom> listCu = customDao.getCustomById(user.getuId());
-        session.setAttribute("listCu",listCu);
+        List<Custom> custListCu = customDao.getCustomById(user.getuId());
+        session.setAttribute("custListCu",custListCu);
+        custListCu.forEach((e)-> System.out.println(e));
         List<Brand> brandList=brandDao.getAllBrands();
         session.setAttribute("brandList",brandList);
         List<Type> typeList=typeDao.getTypeListByBrandId(brandList.get(0).getBrandId());
