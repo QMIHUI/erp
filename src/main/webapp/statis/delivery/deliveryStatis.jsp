@@ -71,8 +71,8 @@
                     <c:forEach items="${warehouse.ckWarehouseList}" var="ckWarehouse">
                         <c:set var="sum" value="${sum+ckWarehouse.order.ordermoney}"/>
                     </c:forEach>
-                    <fmt:parseNumber var="i"  type="number" value="${sum}" />
-                    <td>￥<c:out value="${i}"/> </td>
+                    <fmt:parseNumber var="i"  type="number" value="${sum}"  pattern="#.##"/>
+                    <td>￥<fmt:formatNumber type="number" value="${i}" pattern="#.##"/></td>
                     <td>
                         <a href="${pageContext.request.contextPath}/getCkWarehouseByWarehouseId.do?id=${warehouse.id}" class="tablelink">查看详情</a>
                     </td>
@@ -93,7 +93,7 @@
         </div>
     </form>
 </div>
-<div id="main" style="width: 1200px;height:400px;"></div>
+<div id="main" style="width: ${sessionScope.warehouseNames.size()*200}px;height:400px;"></div>
 <script type="text/javascript">
     $(function () {
         var myChart = echarts.init($("#main")[0]);
@@ -154,6 +154,7 @@
                 {
                     name: '订购单总额',
                     type: 'bar',
+                    barWidth:60,
                     data: ${sessionScope.ckwarehouseOrderTotalMoney}
                 },
 

@@ -42,7 +42,7 @@
                     <td>${rkWarehouse.purchase.purchaseId}</td>
                     <td>${rkWarehouse.purchase.detailsList.size()}</td>
                     <td>￥${rkWarehouse.purchase.totalMoney}</td>
-                    <td><fmt:formatDate value="${rkWarehouse.rkDate}" pattern="yyyy-MM-dd HH:MM:ss"/></td>
+                    <td>${rkWarehouse.rkDate}</td>
                     <td>${rkWarehouse.intoUser.uname}</td>
                     <td>
                         <a href="${pageContext.request.contextPath}/purchaseView.do?id=${rkWarehouse.purchase.purchaseId}" class="tablelink">查看详情</a>
