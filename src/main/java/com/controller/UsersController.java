@@ -184,8 +184,8 @@ public class UsersController {
         System.out.println("恢复被注销的用户！！！");
         int uid = Integer.parseInt(request.getParameter("uid"));
         String uname = request.getParameter("uname");
-        int uId = Integer.parseInt(request.getParameter("uId"));
-        System.out.println(uname+"...."+uId);
+        /*int uId = Integer.parseInt(request.getParameter("uId"));*/
+        System.out.println(uname+"....");
         Date date = new Date();
         SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         String createDate = format.format(date);
