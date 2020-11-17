@@ -81,9 +81,9 @@
            <cite>2013-09-09 15:05:05</cite>
          </li>--%>
         <li>
-            <label>出库人</label>
+            <label>出库人ID</label>
             <%--<cite>${order.warehouse.principal.uname}</cite>--%>
-            <cite>${order.warehouse.principal.uname}</cite>
+            <cite>${order.warehouse.usreId}</cite>
         </li>
         <li>
             <label>出库状态</label>
