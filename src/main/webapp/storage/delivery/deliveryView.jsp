@@ -79,10 +79,10 @@ pageEncoding="UTF-8"%>
     </li>
     <li>
       <label>出库状态</label>
-      <c:if test="${order.ddState==1}">
-        <cite>已出库</cite>
-      </c:if>
       <c:if test="${order.ddState==0}">
+        <cite>出库</cite>
+      </c:if>
+      <c:if test="${order.ddState==1}">
         <cite>未出库</cite>
       </c:if>
     </li>

@@ -54,8 +54,8 @@ pageEncoding="UTF-8"%>
                 <label>顾客姓名</label>
                 <select name="custName">
                     <option value="0">请选择</option>
-                    <c:forEach items="${listCu}" var="lc">
-                        <option value="${lc.customid}">${lc.customname}</option>
+                    <c:forEach items="${custListCu}" var="lcl">
+                        <option value="${lcl.customid}">${lcl.customname}</option>
                     </c:forEach>
                 </select>
             </li>
