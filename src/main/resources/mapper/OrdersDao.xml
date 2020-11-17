@@ -102,7 +102,7 @@
     SELECT * FROM orders WHERE dStatus=2 AND Dd_state=1
   </select>
   <update id="updateOrdersStateByCkwarehouse" parameterType="com.bean.Orders">
-    UPDATE orders SET warehouseId=#{warehouseid} Dd_state=0 WHERE order_id=#{orderId}
+    UPDATE orders SET warehouseId=#{warehouseid},Dd_state=0 WHERE order_id=#{orderId}
   </update>
 
 

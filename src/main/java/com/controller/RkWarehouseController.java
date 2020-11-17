@@ -51,19 +51,19 @@ public class RkWarehouseController {
             List<Details> listDetails=detailsDao.getAllDetailsBypurchaseId(rkIndent);//根据采购单号查询相关的商品信息
             List<KcWarehouse> listKcWarehouse=kcWarehouseDao.getKcWarehouseByuid(uId);
             for(int i=0;i<listDetails.size();i++){
+                int brandid=0;
+                int typeid=0;
+                int productid=0;
+                int firmid=0;
+                int repertory=0;//出库的数量
 
+                int numkc=0;//库存
+                int brandId=0;//品牌ID
+                int typeId=0;//类型ID
+                int productId=0;//型号ID
+                int factoryId=0;//厂商ID
                 for (int j=0;j<listKcWarehouse.size();j++){
-                    int brandid=0;
-                    int typeid=0;
-                    int productid=0;
-                    int firmid=0;
-                    int repertory=0;//出库的数量
 
-                    int numkc=0;//库存
-                    int brandId=0;//品牌ID
-                    int typeId=0;//类型ID
-                    int productId=0;//型号ID
-                    int factoryId=0;//厂商ID
 
                     if (listDetails.get(i).getProduct().getProductId().equals(listKcWarehouse.get(j).getProductId())){
 
