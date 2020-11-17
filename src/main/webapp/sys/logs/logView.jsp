@@ -25,7 +25,7 @@ pageEncoding="UTF-8"%>
     </li>
     <li>
       <label>被修改者员工姓名</label>
-      <cite>${journal.jId}</cite>
+      <cite>${journal.bname}</cite>
     </li>
     <li>
       <label>修改者员工ID</label>
