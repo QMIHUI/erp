@@ -82,7 +82,8 @@
          </li>--%>
         <li>
             <label>出库人</label>
-            <cite>${order.warehouse.users.uname}</cite>
+            <%--<cite>${order.warehouse.principal.uname}</cite>--%>
+            <cite>${order.warehouse.principal.uname}</cite>
         </li>
         <li>
             <label>出库状态</label>

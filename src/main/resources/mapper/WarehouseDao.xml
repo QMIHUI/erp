@@ -13,6 +13,7 @@
         <result column="USERS_ID"  property="usersId" />
         <result column="CREATION_TIME" property="creationTime" />
         <result column="CITY_ID"  property="cityId" />
+        <association property="principal" select="com.dao.UsersDao.getOneUser" column="USRE_ID"/>
     </resultMap>
     <sql id="Base_Column_List">
     ID, `NAME`, C_ADDRESS, PROVINCE_ID, USRE_ID, PHONE, DETAILS, `STATE`, USERS_ID, CREATION_TIME,
