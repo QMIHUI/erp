@@ -144,7 +144,7 @@ public class OrderController {
         request.getSession().setAttribute("order",order);
         List<Orderdetails> orderDetailsList = orderdetailsDao.getDetailsByOrderId(orderId);
         request.getSession().setAttribute("orderDetailsList",orderDetailsList);
-        return "storage/delivery/deliveryView";
+        return "market/order/orderXiangQing";
     }
 
 

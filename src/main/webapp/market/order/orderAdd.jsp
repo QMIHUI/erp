@@ -43,7 +43,7 @@ pageEncoding="UTF-8"%>
 </script>
 <form action="${pageContext.request.contextPath}/addOrderSucc.do" method="get">
     <div class="formbody">
-        <div class="formtitle"><span>采购单信息</span></div>
+        <div class="formtitle"><span>订购单信息</span></div>
         <ul class="forminfo">
             <li>
                 <label>订单编号</label>

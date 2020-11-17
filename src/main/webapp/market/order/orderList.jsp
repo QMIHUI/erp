@@ -211,5 +211,6 @@ pageEncoding="UTF-8"%>
 <script type="text/javascript">
 	$('.tablelist tbody tr:odd').addClass('odd');
 </script>
+</div>
 </body>
 </html>
