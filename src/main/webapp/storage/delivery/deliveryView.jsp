@@ -43,7 +43,8 @@
         </li>
         <li>
             <label>操作人</label>
-            <cite>${ckWarehouse.users.uname}</cite>
+            <cite>
+                ${ckWarehouse.users.names}</cite>
         </li>
         <li>
             <label>审核状态</label>
@@ -68,7 +69,7 @@
         </li>
         <li>
             <label>审核人</label>
-            <cite>${ckWarehouse.users.names}</cite>
+            <cite>${ckWarehouse.users.uname}</cite>
         </li>
         <li>
             <label>审核时间</label>

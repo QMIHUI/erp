@@ -17,7 +17,7 @@ public class Orders implements Serializable {
     private Double ordermoney;
 
     private Users operatorid;
-    /*private Integer operatorId;*/
+    private Integer operatorId;
 
     private int dstatus;
 
@@ -51,6 +51,7 @@ public class Orders implements Serializable {
         this.ordermoney = ordermoney;
     }
 
+
     public Orders(String orderId, Integer customid, String ordertime, Double ordermoney, Users operatorid, int dstatus, Users checkid, String chectime, String opinion, Integer warehouseid, Integer ddState, Custom custom, Warehouse warehouse, List<Orderdetails> orderdetailsList) {
         this.orderId = orderId;
         this.customid = customid;
@@ -68,13 +69,13 @@ public class Orders implements Serializable {
         this.orderdetailsList = orderdetailsList;
     }
 
-    /*public Integer getOperatorId() {
+    public Integer getOperatorId() {
         return operatorId;
     }
 
     public void setOperatorId(Integer operatorId) {
         this.operatorId = operatorId;
-    }*/
+    }
 
     public Custom getCustom() {
         return custom;

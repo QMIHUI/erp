@@ -82,7 +82,7 @@ pageEncoding="UTF-8"%>
     <li>
       <label>创建人</label>
       <select class="dfselect" name="usersId" onbeforeactivate="return false;" onfocus="this.blur();" onmouseover="this.setCapture();" onmouseover="this.releaseCapture();">
-        <option value="12">hh</option>
+        <option value="${user.uId}">${user.uname}</option>
 
       </select>
       <%--<input name="usersId" type="text" value="hh" readonly="readonly" class="roinput" />--%>
