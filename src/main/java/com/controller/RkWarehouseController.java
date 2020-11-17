@@ -82,13 +82,9 @@ public class RkWarehouseController {
                     KcWarehouse kw=listKcWarehouse.get(i);
                     Details details=listDetails.get(i);
                     repertory=details.getCount();
-                    brandId=kw.getBrandId();
-                    typeId=kw.getTypeId();
-                    productId=kw.getProductId();
-                    factoryId=kw.getFactoryId();
-                    numkc=kw.getRepertory();
 
-                    //KcWarehouse kcWarehouse=new KcWarehouse(repertory,brandId,typeId,factoryId,productId);
+
+                    productId=kw.getProductId();
                     KcWarehouse kcWarehouse=new KcWarehouse(repertory,productId);
                     kcWarehouseDao.updareKcWarehouseByRk(kcWarehouse);//调用方法，添加库存数量
                 }else{

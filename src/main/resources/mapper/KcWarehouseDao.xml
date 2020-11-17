@@ -73,12 +73,12 @@ INNER JOIN c_product cp ON kc.PRODUCT_ID=cp.PRODUCT_ID
   </select>
   <update id="updateKcWarehouseNumber" parameterType="com.bean.KcWarehouse">
     UPDATE kc_warehouse AS kc SET kc.REPERTORY=kc.REPERTORY-#{repertory}
-   where kc.BRAND_ID=#{brandId} and kc.TYPE_ID=#{typeId} and PRODUCT_ID=#{productId}
+   where  PRODUCT_ID=#{productId}
   </update>
 
   <update id="updateKcWarehouseNumberadd" parameterType="com.bean.KcWarehouse">
     UPDATE kc_warehouse AS kc SET kc.REPERTORY=kc.REPERTORY+#{repertory}
-   where kc.BRAND_ID=#{brandId} and kc.TYPE_ID=#{typeId} and PRODUCT_ID=#{productId}
+   where  PRODUCT_ID=#{productId}
   </update>
 
   <update id="updareKcWarehouseByRk" parameterType="com.bean.KcWarehouse">
