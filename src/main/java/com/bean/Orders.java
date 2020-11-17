@@ -17,12 +17,12 @@ public class Orders implements Serializable {
     private Double ordermoney;
 
     private Users operatorid;
-    private Integer operatorId;
+    /*private Integer operatorId;*/
 
     private int dstatus;
 
     private Users checkid;
-    private int checkId;
+    /*private int checkId;*/
 
     private String chectime;
 
@@ -68,13 +68,13 @@ public class Orders implements Serializable {
         this.orderdetailsList = orderdetailsList;
     }
 
-    public Integer getOperatorId() {
+    /*public Integer getOperatorId() {
         return operatorId;
     }
 
     public void setOperatorId(Integer operatorId) {
         this.operatorId = operatorId;
-    }
+    }*/
 
     public Custom getCustom() {
         return custom;
@@ -180,13 +180,13 @@ public class Orders implements Serializable {
         this.ddState = ddState;
     }
 
-    public int getCheckId() {
+   /* public int getCheckId() {
         return checkId;
     }
 
     public void setCheckId(int checkId) {
         this.checkId = checkId;
-    }
+    }*/
 
     public List<Orderdetails> getOrderdetailsList() {
         return orderdetailsList;
