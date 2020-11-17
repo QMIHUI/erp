@@ -88,7 +88,7 @@ INNER JOIN city c ON c.c_ID=w.CITY_ID WHERE w.USRE_ID=#{uId}
         LEFT JOIN users u ON u.U_ID=w.USRE_ID
         INNER JOIN province p ON p.ID=w.PROVINCE_ID
         INNER JOIN city c ON c.c_ID=w.CITY_ID
-        where 1=1
+        <where>
         <if test="name!=null">
             and NAME like '%${name}%'
         </if>
@@ -98,6 +98,7 @@ INNER JOIN city c ON c.c_ID=w.CITY_ID WHERE w.USRE_ID=#{uId}
         <if test="cityId!=0">
             and CITY_ID=#{cityId}
         </if>
+        </where>
     </select>
 <resultMap id="Warehouse" type="com.bean.Warehouse">
     <id column="ID" jdbcType="INTEGER" property="id" />
