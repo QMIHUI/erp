@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -150,9 +151,11 @@ public class RkWarehouseController {
     }
 
     @RequestMapping(value = "/{uId}/stockAdd.do",method = RequestMethod.POST)
-    public String deliveryAdd(@PathVariable("uId") int uId,RkWarehouse rkWarehouse,String rkIndent,HttpSession session){//添加入库
-        int num=rkWarehouseDao.addRkwarehouse(rkWarehouse);//添加出库的方法
-        int number=purchaseDao.updatePurchaseStateByRkwarehouse(rkIndent);//入库后修改状态
+    public String deliveryAdd(@PathVariable("uId") int uId, RkWarehouse rkWarehouse, String rkIndent, HttpSession session, HttpServletRequest request){//添加入库
+        int num=rkWarehouseDao.addRkwarehouse(rkWarehouse);//添加入库的方法
+        int warehouseId=Integer.parseInt(request.getParameter("warehouseId"));
+        Purchase purchase=new Purchase(rkIndent,warehouseId);
+        int number=purchaseDao.updatePurchaseStateByRkwarehouse(purchase);//入库后修改状态
         List<RkWarehouse> listRkWarehouse=rkWarehouseDao.getRkWarehouseByuid(uId);//入库后查询所有
         if(listRkWarehouse.isEmpty()){
             listRkWarehouse=rkWarehouseDao.getAllRkWarehouse();

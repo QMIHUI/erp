@@ -13,7 +13,7 @@ public class Purchase implements Serializable {
 
     private Integer creatid;
     private Integer checkid;
-    private Integer warehouseid;
+    private Integer warehuoseid;
 
     private Users buyer;
 
@@ -38,6 +38,11 @@ public class Purchase implements Serializable {
     private static final long serialVersionUID = 1L;
 
     public Purchase() {
+    }
+
+    public Purchase(String purchaseId, Integer warehuoseid) {
+        this.purchaseId = purchaseId;
+        this.warehuoseid = warehuoseid;
     }
 
     public Purchase(String purchaseId, Users buyer, Date purchaseTime, Integer checkStatus) {
@@ -178,11 +183,11 @@ public class Purchase implements Serializable {
         this.checkid = checkid;
     }
 
-    public Integer getWarehouseid() {
-        return warehouseid;
+    public Integer getWarehuoseid() {
+        return warehuoseid;
     }
 
-    public void setWarehouseid(Integer warehouseid) {
-        this.warehouseid = warehouseid;
+    public void setWarehuoseid(Integer warehuoseid) {
+        this.warehuoseid = warehuoseid;
     }
 }

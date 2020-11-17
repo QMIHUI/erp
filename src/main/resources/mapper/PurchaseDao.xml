@@ -5,7 +5,7 @@
         <id property="purchaseId" column="purchase_id"/>
         <result property="creatid" column="creat_id"/>
         <result property="checkid" column="check_id"/>
-        <result property="warehouseid" column="warehuoseId"/>
+        <result property="warehuoseid" column="warehuoseId"/>
         <result property="purchaseTime" column="purchase_time"/>
         <result property="checkTime" column="check_time"/>
         <result property="checkOpinion" column="check_opinion"/>
@@ -101,7 +101,7 @@
     SELECT * FROM c_purchase WHERE check_status=3 AND cg_state=0
   </select>
     <update id="updatePurchaseStateByRkwarehouse" parameterType="com.bean.Purchase">
-      UPDATE c_purchase SET cg_state=1 WHERE purchase_id=#{purchaseId}
+      UPDATE c_purchase SET warehuoseId=#{warehuoseid},cg_state=1 WHERE purchase_id=#{purchaseId}
   </update>
 
 </mapper>
