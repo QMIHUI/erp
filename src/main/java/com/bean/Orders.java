@@ -41,6 +41,11 @@ public class Orders implements Serializable {
     public Orders() {
     }
 
+    public Orders(String orderId, Integer warehouseid) {
+        this.orderId = orderId;
+        this.warehouseid = warehouseid;
+    }
+
     public Orders(String orderId, Double ordermoney) {
         this.orderId = orderId;
         this.ordermoney = ordermoney;

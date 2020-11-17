@@ -52,6 +52,6 @@ public interface OrdersDao {
     public int orderExamine(@Param("dstatus") int dstatus,@Param("checkid") int checkid,@Param("chectime") String chectime,@Param("opinion") String opinion,@Param("orderId") String orderId);
 
     List<Orders> getAllByCkwarehouse();//查询所有通过审核未出库的订单
-    int updateOrdersStateByCkwarehouse(String orderId);
+    int updateOrdersStateByCkwarehouse(Orders orders);
 
 }

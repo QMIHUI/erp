@@ -50,68 +50,54 @@ public class RkWarehouseController {
             state=2;
             List<Details> listDetails=detailsDao.getAllDetailsBypurchaseId(rkIndent);//根据采购单号查询相关的商品信息
             List<KcWarehouse> listKcWarehouse=kcWarehouseDao.getKcWarehouseByuid(uId);
-            int brandid=0;
-            int typeid=0;
-            int productid=0;
-            int firmid=0;
-            int repertory=0;//出库的数量
-
-            int []brandids=new int[5];
-            int []typeids=new int[5];
-            int []productids=new int[5];
-            int []firmids=new int[5];
-            int []repertorys=new int[5];
             for(int i=0;i<listDetails.size();i++){
-                for (int j=0;j<listDetails.size();j++){
-                    Details details=listDetails.get(j);
-                    brandids[j]=details.getBrand().getBrandId();
-                    typeids[j]=details.getType().getTypeId();
-                    productids[j]=details.getProduct().getProductId();
-                    firmids[j]=details.getFirm().getFirmId();
-                    repertorys[j]=details.getCount();
-                }
 
-                for(int a=0;a<brandids.length;a++){
-                    brandid=brandids[a];
-                }
-                for(int b=0;b<typeids.length;b++){
-                    typeid=typeids[b];
-                }
-                for(int c=0;c<productids.length;c++){
-                    productid=productids[c];
-                }
-                for(int d=0;d<firmids.length;d++){
-                    firmid=firmids[d];
-                }
-                for(int e=0;e<repertorys.length;e++){
-                    repertory=repertorys[e];
-                }
+                for (int j=0;j<listKcWarehouse.size();j++){
+                    int brandid=0;
+                    int typeid=0;
+                    int productid=0;
+                    int firmid=0;
+                    int repertory=0;//出库的数量
 
-                int numkc=0;
-                int brandId=0;//品牌ID
-                int typeId=0;//类型ID
-                int productId=0;//型号ID
-                int factoryId=0;//厂商ID
-                for (int z=0;z<listKcWarehouse.size();z++){
-                    KcWarehouse kw=listKcWarehouse.get(z);
-                    brandId=kw.getBrandId();
-                    typeId=kw.getTypeId();
-                    productId=kw.getProductId();
-                    factoryId=kw.getFactoryId();
-                    numkc=kw.getRepertory();
-                }
-                System.out.println(brandid+"\t"+typeid+"\t"+productid+"\t"+firmid+"\t"+repertory);//采购单信息
-                System.out.println(brandId+"\t"+typeId+"\t"+productId+"\t"+factoryId+"\t"+numkc);//库存信息
-                if(brandid==brandId && typeid==typeId && productid==productId && firmid==factoryId){
-                    KcWarehouse kcWarehouse=new KcWarehouse(repertory,brandId,typeId,factoryId,productId);
-                    kcWarehouseDao.updareKcWarehouseByRk(kcWarehouse);//调用方法，添加库存数量
-                }else{
-                    KcWarehouse kcWarehouse=new KcWarehouse(warehouseId,brandid,typeid,firmid,productid,repertory);
-                    kcWarehouseDao.addKcWarehouse(kcWarehouse);//调用方法，添加库存数量
-                    //在库存中进行添加
+                    int numkc=0;//库存
+                    int brandId=0;//品牌ID
+                    int typeId=0;//类型ID
+                    int productId=0;//型号ID
+                    int factoryId=0;//厂商ID
+
+                    if (listDetails.get(i).getProduct().getProductId().equals(listKcWarehouse.get(j).getProductId())){
+
+                            KcWarehouse kw=listKcWarehouse.get(i);
+                            brandId=kw.getBrandId();
+                            typeId=kw.getTypeId();
+                            productId=kw.getProductId();
+                            factoryId=kw.getFactoryId();
+                            numkc=kw.getRepertory();
+
+                        KcWarehouse kcWarehouse=new KcWarehouse(repertory,brandId,typeId,factoryId,productId);
+                        kcWarehouseDao.updareKcWarehouseByRk(kcWarehouse);//调用方法，添加库存数量
+                    }else {
+                            Details details=listDetails.get(i);
+                            brandid=details.getBrand().getBrandId();
+                            typeid=details.getType().getTypeId();
+                            productid=details.getProduct().getProductId();
+                            firmid=details.getFirm().getFirmId();
+                            repertory=details.getCount();
+                        KcWarehouse kcWarehouse=new KcWarehouse(warehouseId,brandid,typeid,firmid,productid,repertory);
+                        kcWarehouseDao.addKcWarehouse(kcWarehouse);//调用方法，添加库存数量
+                        //在库存中进行添加
+                    }
                 }
             }
 
+
+            /*for(int i=0;i<listDetails.size();i++){
+                System.out.println(brandid+"\t"+typeid+"\t"+productid+"\t"+firmid+"\t"+repertory);//采购单信息
+                System.out.println(brandId+"\t"+typeId+"\t"+productId+"\t"+factoryId+"\t"+numkc);//库存信息
+                if(brandid==brandId && typeid==typeId && productid==productId && firmid==factoryId){
+                }else{
+                }
+            }*/
         }
         RkWarehouse rkWarehouse=new RkWarehouse(id,state);
         int num=rkWarehouseDao.updateRkWarehouseState(rkWarehouse);

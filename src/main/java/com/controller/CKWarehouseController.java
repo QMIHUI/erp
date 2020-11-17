@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -177,9 +178,11 @@ public class CKWarehouseController {
     }
 
     @RequestMapping(value = "/{uId}/deliveryAdd.do",method = RequestMethod.POST)
-    public String deliveryAdd(@PathVariable("uId") int uId,CkWarehouse ckWarehouse,String indent,HttpSession session){//添加出库
+    public String deliveryAdd(@PathVariable("uId") int uId, CkWarehouse ckWarehouse, String indent, HttpSession session, HttpServletRequest request){//添加出库
         int num=ckWarehouseDao.addCkwarehouse(ckWarehouse);//添加出库的方法
-        int number=ordersDao.updateOrdersStateByCkwarehouse(indent);//出库后修改该订单号的状态
+        int warehouseId=Integer.parseInt(request.getParameter("warehouseId"));
+        Orders orders=new Orders(indent,warehouseId);
+        int number=ordersDao.updateOrdersStateByCkwarehouse(orders);//出库后修改该订单号的状态
         List<CkWarehouse> listCkWarehouse=ckWarehouseDao.getCkWarehouseByuid(uId);
         if(listCkWarehouse.isEmpty()){
             listCkWarehouse=ckWarehouseDao.getAllCkWarehouse();
