@@ -50,21 +50,43 @@ public class RkWarehouseController {
             state=2;
             List<Details> listDetails=detailsDao.getAllDetailsBypurchaseId(rkIndent);//根据采购单号查询相关的商品信息
             List<KcWarehouse> listKcWarehouse=kcWarehouseDao.getKcWarehouseByuid(uId);
+            int brandid=0;
+            int typeid=0;
+            int productid=0;
+            int firmid=0;
+            int repertory=0;//出库的数量
 
+            int []brandids=new int[5];
+            int []typeids=new int[5];
+            int []productids=new int[5];
+            int []firmids=new int[5];
+            int []repertorys=new int[5];
             for(int i=0;i<listDetails.size();i++){
-                int brandid=0;
-                int typeid=0;
-                int productid=0;
-                int firmid=0;
-                int repertory=0;
                 for (int j=0;j<listDetails.size();j++){
                     Details details=listDetails.get(j);
-                    brandid=details.getBrand().getBrandId();
-                    typeid=details.getType().getTypeId();
-                    productid=details.getProduct().getProductId();
-                    firmid=details.getFirm().getFirmId();
-                    repertory=details.getCount();
+                    brandids[j]=details.getBrand().getBrandId();
+                    typeids[j]=details.getType().getTypeId();
+                    productids[j]=details.getProduct().getProductId();
+                    firmids[j]=details.getFirm().getFirmId();
+                    repertorys[j]=details.getCount();
                 }
+
+                for(int a=0;a<brandids.length;a++){
+                    brandid=brandids[a];
+                }
+                for(int b=0;b<typeids.length;b++){
+                    typeid=typeids[b];
+                }
+                for(int c=0;c<productids.length;c++){
+                    productid=productids[c];
+                }
+                for(int d=0;d<firmids.length;d++){
+                    firmid=firmids[d];
+                }
+                for(int e=0;e<repertorys.length;e++){
+                    repertory=repertorys[e];
+                }
+
                 int numkc=0;
                 int brandId=0;//品牌ID
                 int typeId=0;//类型ID

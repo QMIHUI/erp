@@ -55,11 +55,11 @@ public class RkWarehouse implements Serializable {
         this.state = state;
     }
 
-    public RkWarehouse(Integer id, Purchase purchase, Warehouse warehouse, Date rkDate, Users intoUser, Integer state) {
+    public RkWarehouse(Integer id, Purchase purchase, Warehouse warehouse, Date rkdate, Users intoUser, Integer state) {
         this.id = id;
         this.purchase = purchase;
         this.warehouse = warehouse;
-        this.rkdate = rkDate;
+        this.rkdate = rkdate;
         this.intoUser = intoUser;
         this.state = state;
     }
@@ -96,13 +96,9 @@ public class RkWarehouse implements Serializable {
         this.warehouse = warehouse;
     }
 
-    public Date getRkDate() {
-        return rkdate;
-    }
 
-    public void setRkDate(Date rkDate) {
-        this.rkdate = rkDate;
-    }
+
+
 
     public Users getintoUser() {
         return intoUser;
@@ -118,5 +114,54 @@ public class RkWarehouse implements Serializable {
 
     public void setState(Integer state) {
         this.state = state;
+    }
+
+    public String getRkIndent() {
+        return rkIndent;
+    }
+
+    public void setRkIndent(String rkIndent) {
+        this.rkIndent = rkIndent;
+    }
+
+    public Integer getWarehouseId() {
+        return warehouseId;
+    }
+
+    public void setWarehouseId(Integer warehouseId) {
+        this.warehouseId = warehouseId;
+    }
+
+
+    public Date getRkdate() {
+        return rkdate;
+    }
+
+    public void setRkdate(Date rkdate) {
+        this.rkdate = rkdate;
+    }
+
+    public String getRkDate() {
+        return rkDate;
+    }
+
+    public void setRkDate(String rkDate) {
+        this.rkDate = rkDate;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public Users getUsers() {
+        return users;
+    }
+
+    public void setUsers(Users users) {
+        this.users = users;
     }
 }
