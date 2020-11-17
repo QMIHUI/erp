@@ -334,6 +334,7 @@ public class StatisticsController {
         pager.setSize(size);
         pager.setTotal(countWarehouse);
         List<Warehouse> warehouseList=warehouseDao.getAllWarehouseStatisPage(pager);
+
         request.getSession().setAttribute("row",row);
         request.getSession().setAttribute("pageIndex",pageIndex);
         request.getSession().setAttribute("countWarehouse",countWarehouse);
@@ -447,7 +448,7 @@ public class StatisticsController {
         ArrayList<Double> ckwarehouseOrderTotalMoney=new ArrayList<>();
         for (int i=0;i<warehouseList1.size();i++){
             warehouseNames.add("'"+warehouseList1.get(i).getName()+"'");
-            List<CkWarehouse> ckWarehouseList=ckWarehouseDao.getAllCkWarehouse( warehouseList1.get(i).getId());
+            List<CkWarehouse> ckWarehouseList=ckWarehouseDao.getAllCkWarehouse1( warehouseList1.get(i).getId());
             double money=0;
             for (int j=0;j<ckWarehouseList.size();j++){
                 money+=ckWarehouseList.get(j).getOrder().getOrdermoney();

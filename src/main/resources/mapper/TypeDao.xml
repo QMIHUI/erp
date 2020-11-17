@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dao.TypeDao">
+    <resultMap id="BaseResultMap" type="com.bean.Type">
+        <id column="TYPE_ID" jdbcType="INTEGER" property="typeId" />
+        <result column="TYPE_NAME" jdbcType="VARCHAR" property="typeName" />
+        <result column="TYPE_STATUS" jdbcType="INTEGER" property="typeStatus" />
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+       <result column="CREATE_ID" property="createid"/>
+        <result column="BRAND_ID" property="brandid"/>
+    </resultMap>
     <resultMap id="type" type="com.bean.Type">
         <id column="TYPE_ID" jdbcType="INTEGER" property="typeId" />
         <result column="TYPE_NAME" jdbcType="VARCHAR" property="typeName" />

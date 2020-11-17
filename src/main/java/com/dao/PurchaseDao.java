@@ -38,4 +38,6 @@ public interface PurchaseDao {
     public int addPurchase(String purchaseId,int createId,Date purchaseTime,int warehouseId,Double purchaseTotalMoney);
     //修改采购单
     public int updatePurchase(String purchaseId,Double purchaseTotalMoney);
+    List<Purchase> getAllByRkwarehouse();//查询所有通过审核未入库的订单
+    int updatePurchaseStateByRkwarehouse(String purchaseId);//入库后根据采购单号修改状态
 }

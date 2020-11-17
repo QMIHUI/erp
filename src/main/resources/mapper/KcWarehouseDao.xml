@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.KcWarehouseDao">
+  <resultMap id="BaseResultMap" type="com.bean.KcWarehouse">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="WAREHOUSE_ID" jdbcType="INTEGER" property="warehouseId" />
+    <result column="BRAND_ID" jdbcType="INTEGER" property="brandId" />
+    <result column="TYPE_ID" jdbcType="INTEGER" property="typeId" />
+    <result column="FACTORY_ID" jdbcType="INTEGER" property="factoryId" />
+    <result column="PRODUCT_ID" jdbcType="INTEGER" property="productId" />
+    <result column="REPERTORY" jdbcType="INTEGER" property="repertory" />
+    <result column="ORDERDETATLS_ID" jdbcType="INTEGER" property="orderdetatlsId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, WAREHOUSE_ID, BRAND_ID, TYPE_ID, FACTORY_ID, PRODUCT_ID, REPERTORY, ORDERDETATLS_ID
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from kc_warehouse
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from kc_warehouse
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="ID" keyProperty="id" parameterType="com.bean.KcWarehouse" useGeneratedKeys="true">
+    insert into kc_warehouse (WAREHOUSE_ID, BRAND_ID, TYPE_ID, 
+      FACTORY_ID, PRODUCT_ID, REPERTORY, 
+      ORDERDETATLS_ID)
+    values (#{warehouseId,jdbcType=INTEGER}, #{brandId,jdbcType=INTEGER}, #{typeId,jdbcType=INTEGER}, 
+      #{factoryId,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER}, #{repertory,jdbcType=INTEGER}, 
+      #{orderdetatlsId,jdbcType=INTEGER})
+  </insert>
+  <resultMap id="getAllKcwarehouseByuid" type="com.bean.KcWarehouse">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="WAREHOUSE_ID" jdbcType="INTEGER" property="warehouseId" />
+    <result column="BRAND_ID" jdbcType="INTEGER" property="brandId" />
+    <result column="TYPE_ID" jdbcType="INTEGER" property="typeId" />
+    <result column="FACTORY_ID" jdbcType="INTEGER" property="factoryId" />
+    <result column="PRODUCT_ID" jdbcType="INTEGER" property="productId" />
+    <result column="REPERTORY" jdbcType="INTEGER" property="repertory" />
+    <result column="ORDERDETATLS_ID" jdbcType="INTEGER" property="orderdetatlsId" />
+    <result property="warehouse.id" column="ID"></result>
+    <result property="warehouse.name" column="NAME"></result>
+    <result property="brand.brandId" column="BRAND_ID"></result>
+    <result property="brand.brandName" column="BRAND_NAME"></result>
+    <result property="type.typeId" column="TYPE_ID"></result>
+    <result property="type.typeName" column="TYPE_NAME"></result>
+    <result property="firm.firmId" column="FIRM_ID"></result>
+    <result property="firm.firmName" column="FIRM_NAME"></result>
+    <result property="product.productId" column="PRODUCT_ID"></result>
+    <result property="product.productModel" column="PRODUCT_MODEL"></result>
+  </resultMap>
+  <select id="getKcWarehouseByuid" resultMap="getAllKcwarehouseByuid">
+SELECT * FROM kc_warehouse AS kc
+INNER JOIN warehouse w ON w.ID=kc.WAREHOUSE_ID
+INNER JOIN users u ON w.USRE_ID=u.u_id
+INNER JOIN c_brand cb ON kc.BRAND_ID=cb.BRAND_ID
+INNER JOIN c_type ct ON kc.TYPE_ID=ct.TYPE_ID
+INNER JOIN c_firm cf ON kc.FACTORY_ID=cf.FIRM_ID
+INNER JOIN c_product cp ON kc.PRODUCT_ID=cp.PRODUCT_ID
+WHERE u.u_id=#{uId}
+  </select>
+  <select id="getKcWarehouse" resultMap="getAllKcwarehouseByuid">
+SELECT * FROM kc_warehouse AS kc
+INNER JOIN warehouse w ON w.ID=kc.WAREHOUSE_ID
+INNER JOIN users u ON w.USRE_ID=u.u_id
+INNER JOIN c_brand cb ON kc.BRAND_ID=cb.BRAND_ID
+INNER JOIN c_type ct ON kc.TYPE_ID=ct.TYPE_ID
+INNER JOIN c_firm cf ON kc.FACTORY_ID=cf.FIRM_ID
+INNER JOIN c_product cp ON kc.PRODUCT_ID=cp.PRODUCT_ID
+  </select>
+  <update id="updateKcWarehouseNumber" parameterType="com.bean.KcWarehouse">
+    UPDATE kc_warehouse AS kc SET kc.REPERTORY=kc.REPERTORY-#{repertory}
+   where kc.BRAND_ID=#{brandId} and kc.TYPE_ID=#{typeId} and PRODUCT_ID=#{productId}
+  </update>
+
+  <update id="updateKcWarehouseNumberadd" parameterType="com.bean.KcWarehouse">
+    UPDATE kc_warehouse AS kc SET kc.REPERTORY=kc.REPERTORY+#{repertory}
+   where kc.BRAND_ID=#{brandId} and kc.TYPE_ID=#{typeId} and PRODUCT_ID=#{productId}
+  </update>
+
+  <update id="updareKcWarehouseByRk" parameterType="com.bean.KcWarehouse">
+   UPDATE kc_warehouse AS kc SET kc.REPERTORY=kc.REPERTORY+#{repertory}
+   where kc.BRAND_ID=#{brandId} and kc.TYPE_ID=#{typeId} and kc.FACTORY_ID=#{factoryId} and PRODUCT_ID=#{productId}
+  </update>
+  <insert id="addKcWarehouse" parameterType="com.bean.KcWarehouse">
+  INSERT INTO kc_warehouse(WAREHOUSE_ID,BRAND_ID,TYPE_ID,FACTORY_ID,PRODUCT_ID,REPERTORY)
+  VALUES(#{warehouseId},#{brandid},#{typeid},#{firmid},#{productid},#{repertory})
+  </insert>
+  <!--<insert id="insertSelective" keyColumn="ID" keyProperty="id" parameterType="com.bean.KcWarehouse" useGeneratedKeys="true">
+    insert into kc_warehouse
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="warehouseId != null">
+        WAREHOUSE_ID,
+      </if>
+      <if test="brandId != null">
+        BRAND_ID,
+      </if>
+      <if test="typeId != null">
+        TYPE_ID,
+      </if>
+      <if test="factoryId != null">
+        FACTORY_ID,
+      </if>
+      <if test="productId != null">
+        PRODUCT_ID,
+      </if>
+      <if test="repertory != null">
+        REPERTORY,
+      </if>
+      <if test="orderdetatlsId != null">
+        ORDERDETATLS_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="warehouseId != null">
+        #{warehouseId,jdbcType=INTEGER},
+      </if>
+      <if test="brandId != null">
+        #{brandId,jdbcType=INTEGER},
+      </if>
+      <if test="typeId != null">
+        #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="factoryId != null">
+        #{factoryId,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="repertory != null">
+        #{repertory,jdbcType=INTEGER},
+      </if>
+      <if test="orderdetatlsId != null">
+        #{orderdetatlsId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bean.KcWarehouse">
+    update kc_warehouse
+    <set>
+      <if test="warehouseId != null">
+        WAREHOUSE_ID = #{warehouseId,jdbcType=INTEGER},
+      </if>
+      <if test="brandId != null">
+        BRAND_ID = #{brandId,jdbcType=INTEGER},
+      </if>
+      <if test="typeId != null">
+        TYPE_ID = #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="factoryId != null">
+        FACTORY_ID = #{factoryId,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null">
+        PRODUCT_ID = #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="repertory != null">
+        REPERTORY = #{repertory,jdbcType=INTEGER},
+      </if>
+      <if test="orderdetatlsId != null">
+        ORDERDETATLS_ID = #{orderdetatlsId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bean.KcWarehouse">
+    update kc_warehouse
+    set WAREHOUSE_ID = #{warehouseId,jdbcType=INTEGER},
+      BRAND_ID = #{brandId,jdbcType=INTEGER},
+      TYPE_ID = #{typeId,jdbcType=INTEGER},
+      FACTORY_ID = #{factoryId,jdbcType=INTEGER},
+      PRODUCT_ID = #{productId,jdbcType=INTEGER},
+      REPERTORY = #{repertory,jdbcType=INTEGER},
+      ORDERDETATLS_ID = #{orderdetatlsId,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>-->
+</mapper>

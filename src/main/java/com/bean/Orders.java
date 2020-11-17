@@ -22,6 +22,7 @@ public class Orders implements Serializable {
     private int dstatus;
 
     private Users checkid;
+    private int checkId;
 
     private String chectime;
 
@@ -172,6 +173,14 @@ public class Orders implements Serializable {
 
     public void setDdState(Integer ddState) {
         this.ddState = ddState;
+    }
+
+    public int getCheckId() {
+        return checkId;
+    }
+
+    public void setCheckId(int checkId) {
+        this.checkId = checkId;
     }
 
     public List<Orderdetails> getOrderdetailsList() {

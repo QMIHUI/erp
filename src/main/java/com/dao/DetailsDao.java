@@ -11,6 +11,7 @@ public interface DetailsDao {
 
     //根据采购单号删除采购单详情
     public int delDetails(String purchaseId);
+    List<Details> getAllDetailsBypurchaseId(String purchaseId);//根据采购单号查询相关的商品信息
 
     //根据条件返回detailsId
     public int getCountDetailsIdByConditions(int productId,String purchaseId);

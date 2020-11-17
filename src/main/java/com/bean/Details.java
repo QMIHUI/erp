@@ -27,7 +27,11 @@ public class Details implements Serializable {
     /**
      * 商品id，外键
      */
-    private Product product;
+    private Product product;//商品型号
+    private Type type;//商品类型
+    private Brand brand;//商品品牌
+    private Firm firm;//商品厂商
+    private Integer priductid;
 
     /**
      * 进价
@@ -99,5 +103,37 @@ public class Details implements Serializable {
 
     public void setTotalMoney(double totalMoney) {
         this.totalMoney = totalMoney;
+    }
+
+    public Integer getPriductid() {
+        return priductid;
+    }
+
+    public void setPriductid(Integer priductid) {
+        this.priductid = priductid;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public Brand getBrand() {
+        return brand;
+    }
+
+    public void setBrand(Brand brand) {
+        this.brand = brand;
+    }
+
+    public Firm getFirm() {
+        return firm;
+    }
+
+    public void setFirm(Firm firm) {
+        this.firm = firm;
     }
 }

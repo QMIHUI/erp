@@ -18,7 +18,7 @@ public interface WarehouseDao {
     int UpdateWarehouse(Warehouse warehouse);//修改仓库
     int addWarehouse(Warehouse warehouse);//添加仓库
     List<Warehouse> selectWarehouseByuid(int uId);//根据用户ID查询自己管理的仓库
-
+    List<Warehouse> selectWarehouseLike(Warehouse warehouse);
     public Warehouse getWarehouseById(int id);
     public List<Warehouse> getAllWarehouseStatis();
 

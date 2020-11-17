@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dao.PurchaseDao">
+    <resultMap id="BaseResultMap" type="com.bean.Purchase">
+        <id property="purchaseId" column="purchase_id"/>
+        <result property="creatid" column="creat_id"/>
+        <result property="checkid" column="check_id"/>
+        <result property="warehouseid" column="warehuoseId"/>
+        <result property="purchaseTime" column="purchase_time"/>
+        <result property="checkTime" column="check_time"/>
+        <result property="checkOpinion" column="check_opinion"/>
+        <result property="cgState" column="cg_state"/>
+        <result property="totalMoney" column="total_money"/>
+        <result property="checkStatus" column="check_status"/>
+    </resultMap>
+
     <resultMap id="purchase" type="com.bean.Purchase">
       <id property="purchaseId" column="purchase_id"/>
       <result property="purchaseTime" column="purchase_time"/>
@@ -83,5 +96,12 @@
     <select id="countPurchaseStatus2" resultType="integer">
         select count(*) from c_purchase where check_status=2
     </select>
+
+    <select id="getAllByRkwarehouse" resultMap="BaseResultMap">
+    SELECT * FROM c_purchase WHERE check_status=3 AND cg_state=0
+  </select>
+    <update id="updatePurchaseStateByRkwarehouse" parameterType="com.bean.Purchase">
+      UPDATE c_purchase SET cg_state=1 WHERE purchase_id=#{purchaseId}
+  </update>
 
 </mapper>

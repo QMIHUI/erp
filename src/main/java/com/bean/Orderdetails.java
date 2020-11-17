@@ -36,18 +36,13 @@ public class Orderdetails implements Serializable {
      * 订单编号，外键
      */
     private String orderId;
+    private Product product;//商品型号
+    private Type type;//商品类型
+    private Brand brand;//商品品牌
 
-    private Product product;
 
     private static final long serialVersionUID = 1L;
 
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
 
     public Integer getDetailsId() {
         return detailsId;
@@ -95,5 +90,44 @@ public class Orderdetails implements Serializable {
 
     public void setOrderId(String orderId) {
         this.orderId = orderId;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public Brand getBrand() {
+        return brand;
+    }
+
+    public void setBrand(Brand brand) {
+        this.brand = brand;
+    }
+
+    @Override
+    public String toString() {
+        return "Orderdetails{" +
+                "detailsId=" + detailsId +
+                ", purchaseNum=" + purchaseNum +
+                ", productId=" + productId +
+                ", proprice=" + proprice +
+                ", prototal=" + prototal +
+                ", orderId='" + orderId + '\'' +
+                ", product=" + product +
+                ", type=" + type +
+                ", brand=" + brand +
+                '}';
     }
 }

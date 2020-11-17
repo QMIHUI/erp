@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dao.ProductDao">
+    <resultMap id="BaseResultMap" type="com.bean.Product">
+        <id column="PRODUCT_ID" jdbcType="INTEGER" property="productId" />
+        <result column="PRODUCT_MODEL" jdbcType="VARCHAR" property="productModel" />
+        <result column="PRODUCT_PRICE" jdbcType="DECIMAL" property="productPrice" />
+        <result column="PRODUCT_STATUS" jdbcType="INTEGER" property="productStatus" />
+        <result column="PRODUCT_UNIT" jdbcType="VARCHAR" property="productUnit" />
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="CREATE_ID" property="creareid"/>
+        <result column="TYPE_ID" property="typeid"/>
+        <result column="FIRM_ID" property="firmid"/>
+    </resultMap>
     <resultMap id="product" type="com.bean.Product">
         <id column="PRODUCT_ID" jdbcType="INTEGER" property="productId" />
         <result column="PRODUCT_MODEL" jdbcType="VARCHAR" property="productModel" />
@@ -65,6 +76,7 @@
     <select id="getProductsByTypeId" resultMap="product">
         select product_id, product_model, product_price, product_status, product_unit, create_time, create_id, type_id, firm_id from c_product where TYPE_ID=#{typeId}
     </select>
+
     <!--根据商品名称和类型ID查找商品-->
     <select id="countProductByTypeAndName" resultType="java.lang.Integer">
         select count(*) from erp.c_product where TYPE_ID=#{param1} and PRODUCT_MODEL=#{param2}

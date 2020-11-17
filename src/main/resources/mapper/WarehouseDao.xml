@@ -80,6 +80,24 @@ LEFT JOIN users u ON u.U_ID=w.USRE_ID
 INNER JOIN province p ON p.ID=w.PROVINCE_ID
 INNER JOIN city c ON c.c_ID=w.CITY_ID WHERE w.USRE_ID=#{uId}
   </select>
+    <select id="selectWarehouseLike" resultMap="BaseResultMap">
+        SELECT u.*,us.UNAME AS NAMES,w.*,c.*,p.*
+        FROM (SELECT * FROM users ) AS us
+        RIGHT JOIN warehouse w ON us.U_ID=w.USERS_ID
+        LEFT JOIN users u ON u.U_ID=w.USRE_ID
+        INNER JOIN province p ON p.ID=w.PROVINCE_ID
+        INNER JOIN city c ON c.c_ID=w.CITY_ID
+        where 1=1
+        <if test="name!=null">
+            and NAME like '%${name}%'
+        </if>
+        <if test="provinceId!=0">
+            and PROVINCE_ID=#{provinceId}
+        </if>
+        <if test="cityId!=0">
+            and CITY_ID=#{cityId}
+        </if>
+    </select>
 <resultMap id="Warehouse" type="com.bean.Warehouse">
     <id column="ID" jdbcType="INTEGER" property="id" />
     <result column="NAME" jdbcType="VARCHAR" property="name" />
@@ -92,8 +110,8 @@ INNER JOIN city c ON c.c_ID=w.CITY_ID WHERE w.USRE_ID=#{uId}
     <association property="city" select="com.dao.CityDao.getCityById" column="CITY_ID"/>
     <association property="principal" select="com.dao.UsersDao.getOneUser" column="USRE_ID"/>
     <association property="creater" select="com.dao.UsersDao.getOneUser" column="USERS_ID"/>
-    <association property="ckWarehouseList" select="com.dao.CkWarehouseDao.getAllCkWarehouse" column="id"/>
-    <association property="rkWarehouseList" select="com.dao.RkWarehouseDao.getAllRkWarehouse" column="id"/>
+    <association property="ckWarehouseList" select="com.dao.CkWarehouseDao.getAllCkWarehouse1" column="id"/>
+    <association property="rkWarehouseList" select="com.dao.RkWarehouseDao.getAllRkWarehouse1" column="id"/>
 </resultMap>
 <select id="getWarehouseById" resultMap="Warehouse">
     select id, name, c_address, province_id, usre_id, phone, details, state, users_id, creation_time, city_id  from warehouse where ID=#{id}

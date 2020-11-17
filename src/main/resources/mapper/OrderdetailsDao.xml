@@ -2,12 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dao.OrderdetailsDao">
   <resultMap id="BaseResultMap" type="com.bean.Orderdetails">
-    <id column="DETAILS_ID" jdbcType="INTEGER" property="detailsId" />
-    <result column="PURCHASE_NUM" jdbcType="INTEGER" property="purchaseNum" />
-    <result column="PRODUCT_ID" jdbcType="INTEGER" property="productId" />
-    <result column="PROPRICE"  property="proprice" />
-    <result column="PROTOTAL"  property="prototal" />
-    <result column="ORDER_ID" jdbcType="VARCHAR" property="orderId" />
+      <id column="DETAILS_ID"  property="detailsId" />
+      <result column="PURCHASE_NUM"  property="purchaseNum" />
+      <result column="PRODUCT_ID"  property="productId" />
+      <result column="PROPRICE"  property="proprice" />
+      <result column="PROTOTAL"  property="prototal" />
+      <result column="ORDER_ID"  property="orderId" />
   </resultMap>
   <resultMap id="getAll" type="com.bean.Orderdetails">
     <id column="DETAILS_ID" jdbcType="INTEGER" property="detailsId" />
@@ -24,20 +24,42 @@
       <result column="PRODUCT_UNIT" jdbcType="VARCHAR" property="productUnit" />
     </association>
   </resultMap>
+
   <sql id="Base_Column_List">
     DETAILS_ID, PURCHASE_NUM, PRODUCT_ID, PROPRICE, PROTOTAL, ORDER_ID
   </sql>
+
     <insert id="addOrderDetail">
       insert into orderdetails (PURCHASE_NUM,PRODUCT_ID,PROPRICE,PROTOTAL,ORDER_ID)
       value (#{purchaseNum},#{productId},#{proprice},#{prototal},#{orderId})
     </insert>
     <delete id="deleteOrderDetail">
     delete from orderdetails where ORDER_ID=#{orderId}
-  </delete>
-  <select id="getDetailsByOrderId" resultMap="getAll">
+    </delete>
+    <select id="getDetailsByOrderId" resultMap="getAll">
     SELECT * FROM orderdetails
     LEFT JOIN c_product ON orderdetails.PRODUCT_ID = c_product.PRODUCT_ID
     WHERE ORDER_ID=#{orderId}
   </select>
 
+  <resultMap id="getAllOrderdatailsAndType" type="com.bean.Orderdetails">
+  <id column="DETAILS_ID"  property="detailsId" />
+  <result column="PURCHASE_NUM"  property="purchaseNum" />
+  <result column="PRODUCT_ID"  property="productId" />
+  <result column="PROPRICE"  property="proprice" />
+  <result column="PROTOTAL"  property="prototal" />
+  <result column="ORDER_ID"  property="orderId" />
+  <result property="product.productId" column="PRODUCT_ID"></result>
+  <result property="product.productModel" column="PRODUCT_MODEL"></result>
+  <result property="type.typeId" column="TYPE_ID"></result>
+  <result property="type.typeName" column="TYPE_NAME"></result>
+  <result property="brand.brandId" column="BRAND_ID"></result>
+  <result property="brand.brandName" column="BRAND_NAME"></result>
+  </resultMap>
+  <select id="getAllOrderdatailsByOrderid" resultMap="getAllOrderdatailsAndType">
+    SELECT os.*,cp.*,ct.*,cb.* FROM orderdetails AS os
+INNER JOIN c_product cp ON os.PRODUCT_ID=cp.PRODUCT_ID
+INNER JOIN c_type ct ON cp.TYPE_ID=ct.TYPE_ID
+INNER JOIN c_brand cb ON ct.BRAND_ID=cb.BRAND_ID WHERE os.ORDER_ID=#{indent}
+  </select>
 </mapper>

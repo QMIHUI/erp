@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+<%@ taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -48,46 +49,20 @@ pageEncoding="UTF-8"%>
         </tr>
       </thead>
       <tbody>
+      <c:forEach items="${listKcWarehouse}" var="lkw">
         <tr>
-          <td>1</td>
-          <td>南京21号仓库</td>
-          <td>联想</td>
-          <td>笔记本</td>
-          <td>X260i</td>
-          <td>北京联想科技股份有限公司</td>
-          <td>100</td>
+          <td>${lkw.id}</td>
+          <td>${lkw.warehouse.name}</td>
+          <td>${lkw.brand.brandName}</td>
+          <td>${lkw.type.typeName}</td>
+          <td>${lkw.product.productModel}</td>
+          <td>${lkw.firm.firmName}</td>
+          <td>${lkw.repertory}</td>
           <td>台</td>
         </tr>
-        <tr>
-          <td>2</td>
-          <td>南京21号仓库</td>
-          <td>联想</td>
-          <td>笔记本</td>
-          <td>X260i</td>
-          <td>北京联想科技股份有限公司</td>
-          <td>100</td>
-          <td>台</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>南京21号仓库</td>
-          <td>联想</td>
-          <td>笔记本</td>
-          <td>X260i</td>
-          <td>北京联想科技股份有限公司</td>
-          <td>100</td>
-          <td>台</td>
-        </tr>
-        <tr>
-          <td>4</td>
-          <td>南京21号仓库</td>
-          <td>联想</td>
-          <td>笔记本</td>
-          <td>X260i</td>
-          <td>北京联想科技股份有限公司</td>
-          <td>100</td>
-          <td>台</td>
-        </tr>
+      </c:forEach>
+
+
       </tbody>
     </table>
     <div class="pagin">

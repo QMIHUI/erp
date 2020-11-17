@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dao.RkWarehouseDao">
-    <resultMap id="BaseResultMap" type="com.bean.RkWarehouse">
+    <resultMap id="BaseResultMap2" type="com.bean.RkWarehouse">
         <id column="ID" jdbcType="INTEGER" property="id" />
         <result column="RK_DATE" jdbcType="TIMESTAMP" property="rkDate" />
         <result column="STATE" jdbcType="INTEGER" property="state" />
@@ -10,15 +10,97 @@
         <association property="intoUser" select="com.dao.UsersDao.getOneUser" column="USER_ID"/>
     </resultMap>
     <!--获取所有入库信息-->
-    <select id="getAllRkWarehouse1" resultMap="BaseResultMap">
+    <select id="getAllRkWarehouse1" resultMap="BaseResultMap2">
         select id, rk_indent, warehouse_id, rk_date, user_id, state from erp.rk_warehouse where WAREHOUSE_ID=#{warehouseId} and STATE=2
     </select>
 
     <select id="countRkWarehouse" resultType="java.lang.Integer">
         select count(*) from rk_warehouse where WAREHOUSE_ID=#{warehouseId} and STATE=2
     </select>
-    <select id="getAllRkWarehousePage" resultMap="BaseResultMap">
+    <select id="getAllRkWarehousePage" resultMap="BaseResultMap2">
         select id, rk_indent, warehouse_id, rk_date, user_id, state from erp.rk_warehouse where WAREHOUSE_ID=#{warehouseId} and STATE=2 limit #{page},#{size}
     </select>
 
+
+    <resultMap id="BaseResultMap" type="com.bean.RkWarehouse">
+    <id column="ID"  property="id" />
+    <result column="RK_INDENT"  property="rkIndent" />
+    <result column="WAREHOUSE_ID"  property="warehouseId" />
+    <result column="RK_DATE"  property="rkDate" />
+    <result column="USER_ID"  property="userId" />
+    <result column="STATE"  property="state" />
+</resultMap>
+<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from rk_warehouse
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+<insert id="insert" keyColumn="ID" keyProperty="id" parameterType="com.bean.RkWarehouse" useGeneratedKeys="true">
+    insert into rk_warehouse (RK_INDENT, WAREHOUSE_ID, RK_DATE,
+      USER_ID, `STATE`)
+    values (#{rkIndent,jdbcType=VARCHAR}, #{warehouseId,jdbcType=INTEGER}, #{rkDate,jdbcType=TIMESTAMP},
+      #{userId,jdbcType=INTEGER}, #{state,jdbcType=INTEGER})
+  </insert>
+<resultMap id="getAllRkWarehouse" type="com.bean.RkWarehouse">
+<id column="ID"  property="id" />
+<result column="RK_INDENT"  property="rkIndent" />
+<result column="WAREHOUSE_ID"  property="warehouseId" />
+<result column="RK_DATE"  property="rkDate" />
+<result column="USER_ID"  property="userId" />
+<result column="STATE"  property="state" />
+<result property="warehouse.id" column="id"></result>
+<result property="warehouse.name" column="name"></result>
+<result property="users.uId" column="uId"></result>
+<result property="users.uname" column="uname"></result>
+<result property="purchase.purchaseId" column="purchase_id"></result>
+<result property="purchase.totalMoney" column="total_money"></result>
+</resultMap>
+
+<select id="getAllRkWarehouse" resultMap="getAllRkWarehouse">/*查询所有*/
+ SELECT * FROM rk_warehouse AS rk
+ INNER JOIN c_purchase cp ON rk.RK_INDENT=cp.purchase_id
+ INNER JOIN warehouse w ON rk.WAREHOUSE_ID=w.ID
+ INNER JOIN users u ON rk.USER_ID=u.u_id
+  </select>
+
+<select id="getRkWarehouseByuid" resultMap="getAllRkWarehouse">/*查询自己管理的仓库*/
+    SELECT * FROM rk_warehouse AS rk
+ INNER JOIN c_purchase cp ON rk.RK_INDENT=cp.purchase_id
+ INNER JOIN warehouse w ON rk.WAREHOUSE_ID=w.ID
+ INNER JOIN users u ON rk.USER_ID=u.u_id WHERE rk.USER_ID=#{uId}
+  </select>
+
+
+<resultMap id="getAllRkWarehouseByrkIndent" type="com.bean.RkWarehouse">
+<id column="ID"  property="id" />
+<result column="RK_INDENT"  property="rkIndent" />
+<result column="WAREHOUSE_ID"  property="warehouseId" />
+<result column="RK_DATE"  property="rkDate" />
+<result column="USER_ID"  property="userId" />
+<result column="STATE"  property="state" />
+<result property="purchase.purchaseId" column="purchase_id"></result>
+<result property="purchase.checkTime" column="purchase_time"></result>
+<result property="purchase.totalMoney" column="total_money"></result>
+<result property="purchase.checkStatus" column="check_status"></result>
+<result property="purchase.checkOpinion" column="check_opinion"></result>
+<result property="users.uId" column="u_id"></result>
+<result property="users.uname" column="uname"></result>
+<result property="users.names" column="names"></result>
+<result property="warehouse.id" column="ID"></result>
+<result property="warehouse.name" column="NAME"></result>
+</resultMap>
+<select id="getAllRkwWrehouseByrkIndent" resultMap="getAllRkWarehouseByrkIndent">
+       SELECT u.*,us.uname AS NAMES,w.ID,w.NAME,w.STATE AS wstate,cp.*,rk.*
+FROM (SELECT * FROM users) AS us
+RIGHT JOIN c_purchase cp ON us.u_id=cp.creat_id
+LEFT JOIN users u ON u.u_id=cp.check_id
+INNER JOIN warehouse w ON w.ID=cp.warehuoseId
+INNER JOIN rk_warehouse rk ON rk.RK_INDENT=cp.purchase_id WHERE rk.RK_INDENT=#{rkIndent}
+    </select>
+<update id="updateRkWarehouseState" parameterType="com.bean.RkWarehouse">
+    UPDATE rk_warehouse SET STATE=#{state} where ID=#{id};
+  </update>
+<insert id="addRkwarehouse" parameterType="com.bean.RkWarehouse">
+     INSERT INTO rk_warehouse(RK_INDENT,WAREHOUSE_ID,RK_DATE,USER_ID,STATE)
+  VALUES(#{rkIndent},#{warehouseId},#{rkDate},#{userId},#{state})
+  </insert>
 </mapper>
