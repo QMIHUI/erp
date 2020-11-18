@@ -430,7 +430,7 @@ public class BuyController {
         int id=Integer.parseInt(request.getParameter("id"));
         brandDao.recoverBrand(id);
         //恢复brand下的所有商品类型
-        typeDao.recoverTypeByBrandId(id);
+        //typeDao.recoverTypeByBrandId(id);
         //恢复brand下的所有商品
         /*List<Type> typeList=typeDao.getTypeListByBrandId(id);
         for (int i=0;i<typeList.size();i++){
